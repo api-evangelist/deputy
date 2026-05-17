@@ -43,7 +43,7 @@ apis:
     properties:
       - type: Documentation
         url: https://developer.deputy.com/deputy-docs
-      - type: Getting Started
+      - type: GettingStarted
         url: https://developer.deputy.com/docs/getting-started-with-the-deputy-api
       - type: Authentication
         url: https://developer.deputy.com/docs/using-oauth-20
@@ -57,13 +57,13 @@ common:
     url: https://developer.deputy.com/deputy-docs
   - type: Developer Portal
     url: https://developer.deputy.com
-  - type: Getting Started
+  - type: GettingStarted
     url: https://developer.deputy.com/docs/getting-started-with-the-deputy-api
   - type: Authentication
     url: https://developer.deputy.com/docs/using-oauth-20
   - type: Pricing
     url: https://www.deputy.com/pricing
-  - type: Sign Up
+  - type: SignUp
     url: https://once.deputy.com/signup/
   - type: Login
     url: https://once.deputy.com/login/
@@ -71,13 +71,13 @@ common:
     url: https://help.deputy.com/
   - type: Blog
     url: https://www.deputy.com/blog
-  - type: Status
+  - type: StatusPage
     url: https://status.deputy.com/
-  - type: Privacy Policy
+  - type: PrivacyPolicy
     url: https://www.deputy.com/privacy-policy
-  - type: Terms of Service
+  - type: TermsOfService
     url: https://www.deputy.com/terms-of-service
-  - type: GitHub Organization
+  - type: GitHubOrganization
     url: https://github.com/deputydev
   - type: LinkedIn
     url: https://www.linkedin.com/company/deputy-com
