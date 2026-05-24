@@ -83,6 +83,8 @@ common:
     url: https://www.linkedin.com/company/deputy-com
   - type: X (Twitter)
     url: https://x.com/deputyapp
+  - type: LLMsTxt
+    url: https://developer.deputy.com/llms.txt
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
