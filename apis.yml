@@ -9,7 +9,7 @@ description: >-
   OAuth 2.0 or permanent token authentication and provides JSON endpoints for
   employees, schedules, timesheets, locations, sales metrics, and more.
 type: Index
-image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
 tags:
   - Workforce Management
   - Employee Scheduling
