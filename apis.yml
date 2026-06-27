@@ -55,7 +55,7 @@ common:
     url: https://www.deputy.com
   - type: Documentation
     url: https://developer.deputy.com/deputy-docs
-  - type: Developer Portal
+  - type: DeveloperPortal
     url: https://developer.deputy.com
   - type: GettingStarted
     url: https://developer.deputy.com/docs/getting-started-with-the-deputy-api
@@ -63,7 +63,7 @@ common:
     url: https://developer.deputy.com/docs/using-oauth-20
   - type: Pricing
     url: https://www.deputy.com/pricing
-  - type: SignUp
+  - type: Signup
     url: https://once.deputy.com/signup/
   - type: Login
     url: https://once.deputy.com/login/
@@ -83,7 +83,7 @@ common:
     url: https://www.linkedin.com/company/deputy-com
   - type: X (Twitter)
     url: https://x.com/deputyapp
-  - type: LLMsTxt
+  - type: LlmsText
     url: https://developer.deputy.com/llms.txt
 maintainers:
   - FN: Kin Lane
