@@ -51,6 +51,12 @@ apis:
         url: openapi/deputy-openapi.yml
 
 common:
+  - type: TrustCenter
+    url: security/deputy-trust-center.yml
+  - type: VulnerabilityDisclosure
+    url: security/deputy-vulnerability-disclosure.yml
+  - type: DomainSecurity
+    url: security/deputy-domain-security.yml
   - type: Website
     url: https://www.deputy.com
   - type: Documentation
