@@ -2,13 +2,14 @@
   "repo": "deputy",
   "feeds": [
     {
-      "source": "https://www.deputy.com/blog",
-      "feed_url": "",
-      "saved": 2,
-      "method": "agent-scrape"
+      "source": "https://help.deputy.com/",
+      "feed_url": "https://help.deputy.com/",
+      "title": "",
+      "saved": 0,
+      "method": "none"
     }
   ],
-  "post_count": 25,
-  "fetched": "2026-06-27T12:36:49Z",
-  "agent_pulled": "2026-06-27"
+  "post_count": 26,
+  "fetched": "2026-07-11T11:50:51Z",
+  "agent_pulled": "2026-07-04"
 }
