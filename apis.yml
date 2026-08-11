@@ -58,9 +58,6 @@ apis:
         url: https://developer.deputy.com/docs/getting-started-with-the-deputy-api
       - type: Authentication
         url: https://developer.deputy.com/docs/using-oauth-20
-      - type: OpenAPI
-        url: openapi/deputy-openapi.yml
-
 common:
   - type: TrustCenter
     url: security/deputy-trust-center.yml
