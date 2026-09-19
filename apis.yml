@@ -61,6 +61,13 @@ apis:
       - Timesheets
       - Employees
       - Leave
+      - Location
+    tags_raw:
+      - Workforce Management
+      - Scheduling
+      - Timesheets
+      - Employees
+      - Leave
       - Locations
     properties:
       - type: Documentation
