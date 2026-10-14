@@ -3,10 +3,13 @@ method: searched
 source:
 - https://zapier.com/apps/deputy/integrations
 checked:
+- adp/integrations/adp-integration-edges.yml
+- bamboohr/integrations/bamboohr-integration-edges.yml
 - https://composio.dev/toolkits/deputy
 - https://monid.ai/tools/deputy
 - https://n8n.io/integrations/deputy/
 - https://zapier.com/apps/deputy/integrations
+- xero/integrations/xero-integration-edges.yml
 summary: null
 marketplace_apps:
 - marketplace: zapier
@@ -424,7 +427,8 @@ edges:
   category: Microsoft
   partner_url: https://www.microsoft.com/en-ca/microsoft-365/sharepoint/collaboration
 - partner_name: Dropbox Sign
-  partner: dropbox-sign
+  partner: hellosign
+  partner_note: dropbox-sign consolidated into hellosign 2026-10-14 (duplicate profile; approved by Kin Lane)
   partner_match: name-exact
   partner_candidate: null
   type: marketplace
@@ -435,6 +439,58 @@ edges:
   direction: third-party
   category: Signatures
   partner_url: https://www.hellosign.com/api
+- partner_name: ADP (own)
+  partner: adp
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://apps.adp.com/apps/139792/deputy-connector-for-run-powered-by-adp
+  mirror_of: adp/integrations/adp-integration-edges.yml
+  apps:
+  - Deputy Connector for RUN Powered by ADP®
+  - Deputy Connector for ADP Workforce Now® and ADP Workforce Now® Essential Time
+  listing_count: 2
+  detected: '2026-10-14'
+  detected_by: mirror-platform-listings.py
+  category: RUN.CompleteHR
+- partner_name: BambooHR (own)
+  partner: bamboohr
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://www.bamboohr.com/integrations/listings/deputy
+  mirror_of: bamboohr/integrations/bamboohr-integration-edges.yml
+  apps:
+  - Deputy
+  listing_count: 1
+  detected: '2026-10-14'
+  detected_by: mirror-platform-listings.py
+  category: Time Tracking & Scheduling
+- partner_name: Xero (own)
+  partner: xero
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://apps.xero.com/us/app/deputy
+  mirror_of: xero/integrations/xero-integration-edges.yml
+  apps:
+  - Deputy
+  listing_count: 1
+  detected: '2026-10-14'
+  detected_by: mirror-platform-listings.py
+  category: Payroll HR
 templates:
 - title: Start new Deputy unavailabilities when Google Calendar events begin
   url: https://zapier.com/apps/deputy/integrations/google-calendar/1753838/start-new-deputy-unavailabilities-when-google-calendar-events-begin

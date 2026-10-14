@@ -444,7 +444,7 @@
   arazzo: null
 - slug: deputy-dropbox-sign
   label: Dropbox Sign
-  partner: dropbox-sign
+  partner: hellosign
   partner_name: Dropbox Sign
   category: Signatures
   type: marketplace
@@ -454,4 +454,43 @@
   source: edge
   relationship: ipaas-bridge
   status: pending-generation
+  arazzo: null
+- slug: deputy-adp-own
+  label: ADP (own)
+  partner: adp
+  partner_name: ADP (own)
+  category: RUN.CompleteHR
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://apps.adp.com/apps/139792/deputy-connector-for-run-powered-by-adp
+  source: edge
+  relationship: platform-app
+  status: not-a-workflow
+  arazzo: null
+- slug: deputy-bamboohr-own
+  label: BambooHR (own)
+  partner: bamboohr
+  partner_name: BambooHR (own)
+  category: Time Tracking & Scheduling
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://www.bamboohr.com/integrations/listings/deputy
+  source: edge
+  relationship: platform-app
+  status: not-a-workflow
+  arazzo: null
+- slug: deputy-xero-own
+  label: Xero (own)
+  partner: xero
+  partner_name: Xero (own)
+  category: Payroll HR
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://apps.xero.com/us/app/deputy
+  source: edge
+  relationship: platform-app
+  status: not-a-workflow
   arazzo: null
