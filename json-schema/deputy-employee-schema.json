@@ -1,0 +1,186 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/deputy/main/json-schema/deputy-employee-schema.json",
+  "title": "Employee",
+  "x-generated": "2026-10-14",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/deputy-v1-resource-api-openapi.yml#/components/schemas/Employee",
+  "type": "object",
+  "properties": {
+    "Id": {
+      "type": "integer"
+    },
+    "Company": {
+      "type": "integer"
+    },
+    "FirstName": {
+      "type": "string",
+      "maxLength": 64
+    },
+    "LastName": {
+      "type": "string",
+      "maxLength": 64
+    },
+    "DisplayName": {
+      "type": "string",
+      "maxLength": 255
+    },
+    "OtherName": {
+      "type": "string",
+      "maxLength": 64
+    },
+    "Salutation": {
+      "type": "string",
+      "maxLength": 32
+    },
+    "MainAddress": {
+      "type": "integer"
+    },
+    "PostalAddress": {
+      "type": "integer"
+    },
+    "Contact": {
+      "type": "integer"
+    },
+    "EmergencyAddress": {
+      "type": "integer"
+    },
+    "DateOfBirth": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "Gender": {
+      "type": "integer"
+    },
+    "Pronouns": {
+      "type": "integer"
+    },
+    "CustomPronouns": {
+      "type": "string",
+      "maxLength": 64
+    },
+    "Photo": {
+      "type": "integer"
+    },
+    "UserId": {
+      "type": "integer"
+    },
+    "JobAppId": {
+      "type": "integer"
+    },
+    "Active": {
+      "type": "boolean"
+    },
+    "StartDate": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "TerminationDate": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "EmploymentEndDate": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "EmploymentEndReason": {
+      "type": "string"
+    },
+    "EmploymentEndSentiment": {
+      "type": "string"
+    },
+    "EmploymentEndComment": {
+      "type": "string",
+      "maxLength": 255
+    },
+    "StressProfile": {
+      "type": "integer"
+    },
+    "Position": {
+      "type": "string",
+      "maxLength": 255
+    },
+    "HigherDuty": {
+      "type": "boolean"
+    },
+    "Role": {
+      "type": "integer"
+    },
+    "AllowAppraisal": {
+      "type": "boolean"
+    },
+    "HistoryId": {
+      "type": "integer"
+    },
+    "CustomFieldData": {
+      "type": "integer"
+    },
+    "OnboardingId": {
+      "type": "string",
+      "maxLength": 64
+    },
+    "ExternalLinkId": {
+      "type": "string",
+      "maxLength": 64
+    },
+    "Creator": {
+      "type": "integer"
+    },
+    "Created": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "Modified": {
+      "type": "string"
+    },
+    "CompanyObject": {
+      "type": "object"
+    },
+    "MainAddressObject": {
+      "type": "object"
+    },
+    "PostalAddressObject": {
+      "type": "object"
+    },
+    "ContactObject": {
+      "type": "object"
+    },
+    "EmergencyAddressObject": {
+      "type": "object"
+    },
+    "PhotoObject": {
+      "type": "object"
+    },
+    "User": {
+      "type": "object"
+    },
+    "JobApp": {
+      "type": "object"
+    },
+    "StressProfileObject": {
+      "type": "object"
+    },
+    "RoleObject": {
+      "type": "object"
+    },
+    "CustomFieldDataObject": {
+      "type": "object"
+    },
+    "DirtyDeputecUserAsEmployeeProfile": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "Id",
+    "Company",
+    "FirstName",
+    "LastName",
+    "DisplayName",
+    "Contact",
+    "Active",
+    "Role",
+    "AllowAppraisal",
+    "Modified"
+  ]
+}

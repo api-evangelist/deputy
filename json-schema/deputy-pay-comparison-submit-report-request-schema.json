@@ -1,0 +1,175 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/deputy/main/json-schema/deputy-pay-comparison-submit-report-request-schema.json",
+  "title": "PayComparisonSubmitReportRequest",
+  "x-generated": "2026-10-14",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/deputy-v2-api-openapi.yml#/components/schemas/PayComparisonSubmitReportRequest",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "A user-defined name for the report."
+    },
+    "creatorEmail": {
+      "type": "string",
+      "description": "The email address of the report creator. This email address will receive an email notification when the report has completed."
+    },
+    "start": {
+      "type": "string",
+      "description": "`yyyy-mm-dd` start date of the report time period."
+    },
+    "end": {
+      "type": "string",
+      "description": "`yyyy-mm-dd` end date of the report time period."
+    },
+    "comparisonContractId": {
+      "type": "integer",
+      "format": "int32",
+      "description": "ID of the EmploymentContract to use for comparison. Set this to empty string if using awardOverride."
+    },
+    "awardOverride": {
+      "type": "string",
+      "description": "Name of the award to use for comparison, e.g. `au/casual-2022-01-01-teachersa-earlychildhood-1`"
+    },
+    "awardBaseRateOverride": {
+      "type": "number",
+      "format": "float",
+      "description": "The base hourly rate to use for comparison with an award."
+    },
+    "outerLimitOvertime": {
+      "type": "number",
+      "format": "float",
+      "description": "Outer limit value for overtime pay, in hours. Optional, default 0."
+    },
+    "outerLimitPenalty": {
+      "type": "number",
+      "format": "float",
+      "description": "Outer limit value for penalty pay, in hours. Optional, default 0."
+    },
+    "includeOuterLimitOvertime": {
+      "type": "boolean",
+      "description": "Whether outer limit should be used for overtime. Optional, default false."
+    },
+    "includeOuterLimitPenalty": {
+      "type": "boolean",
+      "description": "Whether outer limit should be used for penalty. Optional, default false."
+    },
+    "workPeriodCycle": {
+      "$ref": "#/$defs/PayComparisonReportWorkPeriodCycle"
+    },
+    "employeeFilter": {
+      "$ref": "#/$defs/PayComparisonEmployeeFilter",
+      "description": "Deprecated, please use `employeeQuery`."
+    },
+    "employeeQuery": {
+      "$ref": "#/$defs/PayComparisonEmployeeQuery"
+    }
+  },
+  "$defs": {
+    "PayComparisonEmployeeFilter": {
+      "type": "object",
+      "properties": {
+        "limit": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Limit the result set returned after applying filters."
+        },
+        "offset": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Offset (from the first result) the result set returned after applying filters."
+        },
+        "contractIds": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "description": "Filter the employees based on main contract."
+        }
+      }
+    },
+    "PayComparisonEmployeeQuery": {
+      "type": "object",
+      "properties": {
+        "limit": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Limit the result set returned after applying filters."
+        },
+        "offset": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Offset (from the first result) the result set returned after applying filters."
+        },
+        "filter": {
+          "$ref": "#/$defs/PayComparisonEmployeeQueryFilter"
+        }
+      }
+    },
+    "PayComparisonEmployeeQueryFilter": {
+      "type": "object",
+      "properties": {
+        "contractIds": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "description": "Used to match employees by their contract linked by the agreement on their main location."
+        },
+        "includeEmployeeIds": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "description": "Employees with IDs matching this field will be added to the set of results, if they are not matched already."
+        },
+        "includeCompanyIds": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "description": "Employees that are associated with the Company matching any of the IDs will be added to the set of results."
+        },
+        "includeTrainingModuleIds": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "description": "Employees that have any of the matching TrainingModule IDs."
+        },
+        "includeJobPositions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Employees based on the given Job Positions. (Will be set to empty if install is not Enterprise)."
+        },
+        "includeEmployeesWithNameLike": {
+          "type": "string",
+          "description": "Employees will be added to the results if they have Name matching this value. `%` can be used as a wildcard."
+        }
+      }
+    },
+    "PayComparisonReportWorkPeriodCycle": {
+      "type": "object",
+      "properties": {
+        "cycleStart": {
+          "type": "string",
+          "description": "`yyyy-mm-dd` date to specify the start of the cycle."
+        },
+        "daysInCycle": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Number of days in each cycle, e.g. Weekly = 7, Fortnightly = 14, 4-Weekly = 28."
+        }
+      }
+    }
+  }
+}

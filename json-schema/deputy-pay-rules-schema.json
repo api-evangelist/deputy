@@ -1,0 +1,148 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/deputy/main/json-schema/deputy-pay-rules-schema.json",
+  "title": "PayRules",
+  "x-generated": "2026-10-14",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/deputy-v1-resource-api-openapi.yml#/components/schemas/PayRules",
+  "type": "object",
+  "properties": {
+    "Id": {
+      "type": "integer"
+    },
+    "PayTitle": {
+      "type": "string",
+      "maxLength": 255
+    },
+    "RemunerationType": {
+      "type": "integer"
+    },
+    "RemunerationBy": {
+      "type": "integer"
+    },
+    "AnnualSalary": {
+      "type": "number",
+      "format": "double"
+    },
+    "HourlyRate": {
+      "type": "number",
+      "format": "double"
+    },
+    "IsMultiplier": {
+      "type": "boolean"
+    },
+    "MultiplierValue": {
+      "type": "number",
+      "format": "double"
+    },
+    "MultiplierBaseRate": {
+      "type": "integer"
+    },
+    "MinimumType": {
+      "type": "integer"
+    },
+    "MaximumType": {
+      "type": "integer"
+    },
+    "MinimumValue": {
+      "type": "number",
+      "format": "double"
+    },
+    "MaximumValue": {
+      "type": "number",
+      "format": "double"
+    },
+    "MinimumShiftLength": {
+      "type": "string"
+    },
+    "MaximumShiftLength": {
+      "type": "string"
+    },
+    "AdvancedCalculation": {
+      "type": "string"
+    },
+    "IsExported": {
+      "type": "boolean"
+    },
+    "UnitValue": {
+      "type": "number",
+      "format": "double"
+    },
+    "Schedule": {
+      "type": "integer"
+    },
+    "RecommendWith": {
+      "type": "integer"
+    },
+    "DexmlScript": {
+      "type": "integer"
+    },
+    "DexmlScriptParam": {
+      "type": "string"
+    },
+    "PeriodType": {
+      "type": "integer"
+    },
+    "PayPortionRule": {
+      "type": "integer"
+    },
+    "PayrollCategory": {
+      "type": "string",
+      "maxLength": 255
+    },
+    "Comment": {
+      "type": "string"
+    },
+    "RateType": {
+      "type": "integer"
+    },
+    "RateTag": {
+      "type": "string",
+      "maxLength": 255
+    },
+    "Creator": {
+      "type": "integer"
+    },
+    "Created": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "Modified": {
+      "type": "string"
+    },
+    "CtId": {
+      "type": "string",
+      "maxLength": 27
+    },
+    "CrId": {
+      "type": "string",
+      "maxLength": 27
+    },
+    "StpClass": {
+      "type": "string",
+      "maxLength": 255
+    },
+    "StpCode": {
+      "type": "string",
+      "maxLength": 10
+    },
+    "MultiplierBaseRateObject": {
+      "type": "object"
+    },
+    "ScheduleObject": {
+      "type": "object"
+    },
+    "DexmlScriptObject": {
+      "type": "object"
+    }
+  },
+  "required": [
+    "Id",
+    "PayTitle",
+    "RemunerationType",
+    "RemunerationBy",
+    "IsExported",
+    "Modified"
+  ]
+}

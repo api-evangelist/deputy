@@ -1,0 +1,144 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/deputy/main/json-schema/deputy-roster-schema.json",
+  "title": "Roster",
+  "x-generated": "2026-10-14",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/deputy-v1-resource-api-openapi.yml#/components/schemas/Roster",
+  "type": "object",
+  "properties": {
+    "Id": {
+      "type": "integer"
+    },
+    "Date": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "StartTime": {
+      "type": "integer"
+    },
+    "EndTime": {
+      "type": "integer"
+    },
+    "Mealbreak": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "Slots": {
+      "type": "string",
+      "maxLength": 255
+    },
+    "TotalTime": {
+      "type": "number",
+      "format": "double"
+    },
+    "Cost": {
+      "type": "number",
+      "format": "double"
+    },
+    "OperationalUnit": {
+      "type": "integer"
+    },
+    "Employee": {
+      "type": "integer"
+    },
+    "Comment": {
+      "type": "string"
+    },
+    "Warning": {
+      "type": "string",
+      "maxLength": 255
+    },
+    "WarningOverrideComment": {
+      "type": "string",
+      "maxLength": 255
+    },
+    "Published": {
+      "type": "boolean"
+    },
+    "MatchedByTimesheet": {
+      "type": "integer"
+    },
+    "CustomFieldData": {
+      "type": "integer"
+    },
+    "Open": {
+      "type": "boolean"
+    },
+    "ApprovalRequired": {
+      "type": "boolean"
+    },
+    "ConfirmStatus": {
+      "type": "integer"
+    },
+    "ConfirmComment": {
+      "type": "string",
+      "maxLength": 255
+    },
+    "ConfirmBy": {
+      "type": "integer"
+    },
+    "ConfirmTime": {
+      "type": "integer"
+    },
+    "SwapStatus": {
+      "type": "integer"
+    },
+    "SwapManageBy": {
+      "type": "integer"
+    },
+    "ShiftTemplate": {
+      "type": "integer"
+    },
+    "ConnectStatus": {
+      "type": "integer"
+    },
+    "ParentId": {
+      "type": "integer"
+    },
+    "Creator": {
+      "type": "integer"
+    },
+    "Created": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "Modified": {
+      "type": "string"
+    },
+    "OperationalUnitObject": {
+      "type": "object"
+    },
+    "EmployeeObject": {
+      "type": "object"
+    },
+    "MatchedByTimesheetObject": {
+      "type": "object"
+    },
+    "CustomFieldDataObject": {
+      "type": "object"
+    },
+    "ConfirmByObject": {
+      "type": "object"
+    },
+    "SwapManageByObject": {
+      "type": "object"
+    },
+    "ShiftTemplateObject": {
+      "type": "object"
+    },
+    "Parent": {
+      "type": "object"
+    },
+    "DirtyDeputecRosterLiveStateAsRoster": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "Id",
+    "StartTime",
+    "EndTime",
+    "Modified"
+  ]
+}

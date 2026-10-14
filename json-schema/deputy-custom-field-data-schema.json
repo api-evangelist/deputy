@@ -1,0 +1,418 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/deputy/main/json-schema/deputy-custom-field-data-schema.json",
+  "title": "CustomFieldData",
+  "x-generated": "2026-10-14",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/deputy-v1-resource-api-openapi.yml#/components/schemas/CustomFieldData",
+  "type": "object",
+  "properties": {
+    "Id": {
+      "type": "integer"
+    },
+    "System": {
+      "type": "string",
+      "maxLength": 32
+    },
+    "F01": {
+      "type": "string"
+    },
+    "F02": {
+      "type": "string"
+    },
+    "F03": {
+      "type": "string"
+    },
+    "F04": {
+      "type": "string"
+    },
+    "F05": {
+      "type": "string"
+    },
+    "F06": {
+      "type": "string"
+    },
+    "F07": {
+      "type": "string"
+    },
+    "F08": {
+      "type": "string"
+    },
+    "F09": {
+      "type": "string"
+    },
+    "F10": {
+      "type": "string"
+    },
+    "F11": {
+      "type": "string"
+    },
+    "F12": {
+      "type": "string"
+    },
+    "F13": {
+      "type": "string"
+    },
+    "F14": {
+      "type": "string"
+    },
+    "F15": {
+      "type": "string"
+    },
+    "F16": {
+      "type": "string"
+    },
+    "F17": {
+      "type": "string"
+    },
+    "F18": {
+      "type": "string"
+    },
+    "F19": {
+      "type": "string"
+    },
+    "F20": {
+      "type": "string"
+    },
+    "F21": {
+      "type": "string"
+    },
+    "F22": {
+      "type": "string"
+    },
+    "F23": {
+      "type": "string"
+    },
+    "F24": {
+      "type": "string"
+    },
+    "F25": {
+      "type": "string"
+    },
+    "F26": {
+      "type": "string"
+    },
+    "F27": {
+      "type": "string"
+    },
+    "F28": {
+      "type": "string"
+    },
+    "F29": {
+      "type": "string"
+    },
+    "F30": {
+      "type": "string"
+    },
+    "F31": {
+      "type": "string"
+    },
+    "F32": {
+      "type": "string"
+    },
+    "F33": {
+      "type": "string"
+    },
+    "F34": {
+      "type": "string"
+    },
+    "F35": {
+      "type": "string"
+    },
+    "F36": {
+      "type": "string"
+    },
+    "F37": {
+      "type": "string"
+    },
+    "F38": {
+      "type": "string"
+    },
+    "F39": {
+      "type": "string"
+    },
+    "F40": {
+      "type": "string"
+    },
+    "F41": {
+      "type": "string"
+    },
+    "F42": {
+      "type": "string"
+    },
+    "F43": {
+      "type": "string"
+    },
+    "F44": {
+      "type": "string"
+    },
+    "F45": {
+      "type": "string"
+    },
+    "F46": {
+      "type": "string"
+    },
+    "F47": {
+      "type": "string"
+    },
+    "F48": {
+      "type": "string"
+    },
+    "F49": {
+      "type": "string"
+    },
+    "F50": {
+      "type": "string"
+    },
+    "F51": {
+      "type": "string"
+    },
+    "F52": {
+      "type": "string"
+    },
+    "F53": {
+      "type": "string"
+    },
+    "F54": {
+      "type": "string"
+    },
+    "F55": {
+      "type": "string"
+    },
+    "F56": {
+      "type": "string"
+    },
+    "F57": {
+      "type": "string"
+    },
+    "F58": {
+      "type": "string"
+    },
+    "F59": {
+      "type": "string"
+    },
+    "F60": {
+      "type": "string"
+    },
+    "F61": {
+      "type": "string"
+    },
+    "F62": {
+      "type": "string"
+    },
+    "F63": {
+      "type": "string"
+    },
+    "F64": {
+      "type": "string"
+    },
+    "F65": {
+      "type": "string"
+    },
+    "F66": {
+      "type": "string"
+    },
+    "F67": {
+      "type": "string"
+    },
+    "F68": {
+      "type": "string"
+    },
+    "F69": {
+      "type": "string"
+    },
+    "F70": {
+      "type": "string"
+    },
+    "F71": {
+      "type": "string"
+    },
+    "F72": {
+      "type": "string"
+    },
+    "F73": {
+      "type": "string"
+    },
+    "F74": {
+      "type": "string"
+    },
+    "F75": {
+      "type": "string"
+    },
+    "F76": {
+      "type": "string"
+    },
+    "F77": {
+      "type": "string"
+    },
+    "F78": {
+      "type": "string"
+    },
+    "F79": {
+      "type": "string"
+    },
+    "F80": {
+      "type": "string"
+    },
+    "F81": {
+      "type": "string"
+    },
+    "F82": {
+      "type": "string"
+    },
+    "F83": {
+      "type": "string"
+    },
+    "F84": {
+      "type": "string"
+    },
+    "F85": {
+      "type": "string"
+    },
+    "F86": {
+      "type": "string"
+    },
+    "F87": {
+      "type": "string"
+    },
+    "F88": {
+      "type": "string"
+    },
+    "F89": {
+      "type": "string"
+    },
+    "F90": {
+      "type": "string"
+    },
+    "F91": {
+      "type": "string"
+    },
+    "F92": {
+      "type": "string"
+    },
+    "F93": {
+      "type": "string"
+    },
+    "F94": {
+      "type": "string"
+    },
+    "F95": {
+      "type": "string"
+    },
+    "F96": {
+      "type": "string"
+    },
+    "F97": {
+      "type": "string"
+    },
+    "F98": {
+      "type": "string"
+    },
+    "F99": {
+      "type": "string"
+    },
+    "F100": {
+      "type": "string"
+    },
+    "F101": {
+      "type": "string"
+    },
+    "F102": {
+      "type": "string"
+    },
+    "F103": {
+      "type": "string"
+    },
+    "F104": {
+      "type": "string"
+    },
+    "F105": {
+      "type": "string"
+    },
+    "F106": {
+      "type": "string"
+    },
+    "F107": {
+      "type": "string"
+    },
+    "F108": {
+      "type": "string"
+    },
+    "F109": {
+      "type": "string"
+    },
+    "F110": {
+      "type": "string"
+    },
+    "F111": {
+      "type": "string"
+    },
+    "F112": {
+      "type": "string"
+    },
+    "F113": {
+      "type": "string"
+    },
+    "F114": {
+      "type": "string"
+    },
+    "F115": {
+      "type": "string"
+    },
+    "F116": {
+      "type": "string"
+    },
+    "F117": {
+      "type": "string"
+    },
+    "F118": {
+      "type": "string"
+    },
+    "F119": {
+      "type": "string"
+    },
+    "F120": {
+      "type": "string"
+    },
+    "F121": {
+      "type": "string"
+    },
+    "F122": {
+      "type": "string"
+    },
+    "F123": {
+      "type": "string"
+    },
+    "F124": {
+      "type": "string"
+    },
+    "F125": {
+      "type": "string"
+    },
+    "F126": {
+      "type": "string"
+    },
+    "F127": {
+      "type": "string"
+    },
+    "F128": {
+      "type": "string"
+    },
+    "Creator": {
+      "type": "integer"
+    },
+    "Created": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "Modified": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "Id",
+    "System",
+    "Modified"
+  ]
+}

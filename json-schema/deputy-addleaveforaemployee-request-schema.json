@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/deputy/main/json-schema/deputy-addleaveforaemployee-request-schema.json",
+  "title": "AddleaveforaemployeeRequest",
+  "x-generated": "2026-10-14",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/deputy-deputy-openapi.yml#/components/schemas/AddleaveforaemployeeRequest",
+  "required": [
+    "Status",
+    "Employee",
+    "DateStart",
+    "DateEnd",
+    "ApprovalComment",
+    "ActionOverlappingRosters"
+  ],
+  "type": "object",
+  "properties": {
+    "Status": {
+      "type": "integer",
+      "format": "int32",
+      "description": "0 - Awaiting approval, 1 - approved, 2 - Declined, 3 - Cancelled"
+    },
+    "Employee": {
+      "type": "integer",
+      "format": "int32",
+      "description": "Employee id record"
+    },
+    "DateStart": {
+      "type": "string",
+      "description": "Start date of the leave"
+    },
+    "DateEnd": {
+      "type": "string",
+      "description": "End date of the leave"
+    },
+    "ApprovalComment": {
+      "type": "string",
+      "description": "Any comment left regarding approval of leave"
+    },
+    "ActionOverlappingRosters": {
+      "type": "integer",
+      "format": "int32"
+    }
+  }
+}

@@ -1,0 +1,119 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/deputy/main/json-schema/deputy-v2model-leave-request-schema.json",
+  "title": "Leave Request",
+  "x-generated": "2026-10-14",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/deputy-v2-api-openapi.yml#/components/schemas/v2modelLeaveRequest",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "integer",
+      "format": "int32",
+      "title": "Leave ID"
+    },
+    "employeeId": {
+      "type": "integer",
+      "format": "int32",
+      "title": "Employee ID"
+    },
+    "employeeHistoryId": {
+      "type": "integer",
+      "format": "int32",
+      "title": "Employee History ID"
+    },
+    "locationId": {
+      "type": "integer",
+      "format": "int32",
+      "title": "Location ID"
+    },
+    "leaveRuleId": {
+      "type": "integer",
+      "format": "int32",
+      "title": "Leave Rule ID"
+    },
+    "startAt": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Leave start date time"
+    },
+    "endAt": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Leave end date time"
+    },
+    "timeApprovedBy": {
+      "type": "integer",
+      "format": "int32",
+      "title": "Date Time Range Approver ID"
+    },
+    "payApprovedBy": {
+      "type": "integer",
+      "format": "int32",
+      "title": "Pay Approver ID"
+    },
+    "comment": {
+      "type": "string",
+      "title": "Comment"
+    },
+    "notifyManagerIds": {
+      "type": "array",
+      "items": {
+        "type": "integer",
+        "format": "int32"
+      },
+      "title": "Notify Manager ID"
+    },
+    "status": {
+      "$ref": "#/$defs/modelLeaveStatus",
+      "title": "Leave Status"
+    },
+    "approverComment": {
+      "type": "string",
+      "title": "Approver Comment"
+    },
+    "totalHours": {
+      "type": "number",
+      "format": "float",
+      "title": "Total Hours"
+    },
+    "createdById": {
+      "type": "integer",
+      "format": "int32",
+      "title": "Employee ID of who created the leave request"
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Timestamp when the leave request was created"
+    },
+    "modifiedAt": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Timestamp when the leave request was modified"
+    },
+    "externalId": {
+      "type": "string",
+      "title": "ExternalId"
+    },
+    "allDay": {
+      "type": "boolean",
+      "title": "Indicates if the leave is the full day"
+    }
+  },
+  "$defs": {
+    "modelLeaveStatus": {
+      "type": "string",
+      "enum": [
+        "STATUS_AWAITING",
+        "STATUS_APPROVED",
+        "STATUS_DECLINED",
+        "STATUS_CANCELLED",
+        "STATUS_DATE_APPROVED",
+        "STATUS_PAY_APPROVED"
+      ],
+      "default": "STATUS_AWAITING"
+    }
+  }
+}

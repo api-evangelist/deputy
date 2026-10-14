@@ -1,0 +1,155 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/deputy/main/json-schema/deputy-v2model-area-profile-schema.json",
+  "title": "Area profile",
+  "x-generated": "2026-10-14",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/deputy-v2-api-openapi.yml#/components/schemas/v2modelAreaProfile",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "integer",
+      "format": "int32",
+      "title": "Area ID"
+    },
+    "name": {
+      "type": "string",
+      "title": "Area name"
+    },
+    "locationId": {
+      "type": "integer",
+      "format": "int32",
+      "title": "Location ID"
+    },
+    "parentId": {
+      "type": "integer",
+      "format": "int32",
+      "title": "Parent ID"
+    },
+    "workType": {
+      "type": "string",
+      "title": "Area work type"
+    },
+    "isActive": {
+      "type": "boolean",
+      "title": "If Area is active"
+    },
+    "exportCode": {
+      "type": "string",
+      "title": "Area export code"
+    },
+    "addressId": {
+      "type": "integer",
+      "format": "int32",
+      "title": "Area address ID"
+    },
+    "contactId": {
+      "type": "integer",
+      "format": "int32",
+      "title": "Area contact ID"
+    },
+    "rosterSortOrder": {
+      "type": "integer",
+      "format": "int32",
+      "title": "Sort order of area in roster"
+    },
+    "isOnRoster": {
+      "type": "boolean",
+      "title": "If Area appears on roster"
+    },
+    "color": {
+      "type": "string",
+      "title": "Assigned Area color"
+    },
+    "areaType": {
+      "$ref": "#/$defs/modelAreaType",
+      "title": "Area type"
+    },
+    "createdById": {
+      "type": "integer",
+      "format": "int32",
+      "title": "Employee ID of who created the shift"
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Timestamp when the Area was created"
+    },
+    "modifiedAt": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Timestamp when the Area was modified"
+    },
+    "address": {
+      "$ref": "#/$defs/tenantlocationv2modelAddress",
+      "title": "Address object"
+    },
+    "geo": {
+      "$ref": "#/$defs/modelAreaProfileLocationGeo"
+    }
+  },
+  "$defs": {
+    "modelAreaProfileLocationGeo": {
+      "type": "object",
+      "properties": {
+        "latitude": {
+          "type": "number",
+          "format": "double"
+        },
+        "longitude": {
+          "type": "number",
+          "format": "double"
+        }
+      }
+    },
+    "modelAreaType": {
+      "type": "string",
+      "enum": [
+        "DEFAULT_AREA",
+        "AREA_WITH_GEO"
+      ],
+      "default": "DEFAULT_AREA"
+    },
+    "tenantlocationv2modelAddress": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32",
+          "title": "Address Id"
+        },
+        "street": {
+          "type": "string",
+          "title": "Street address line"
+        },
+        "state": {
+          "type": "string",
+          "title": "State code, e.g: 'CA' for California or 'NSW' for New South Wales"
+        },
+        "postcode": {
+          "type": "string",
+          "title": "Postcode"
+        },
+        "country": {
+          "type": "string",
+          "title": "Country code, e.g: 'US' for the United States of America, 'AU' for Australia"
+        },
+        "verifiedAt": {
+          "type": "string",
+          "format": "date-time",
+          "title": "Timestamp of when the address was last verified"
+        },
+        "note": {
+          "type": "string",
+          "title": "Note"
+        },
+        "print": {
+          "type": "string",
+          "title": "[read-only] Print address in a single line string"
+        }
+      },
+      "title": "Address data as response"
+    }
+  }
+}

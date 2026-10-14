@@ -1,0 +1,3404 @@
+openapi: 3.0.0
+info:
+  title: Deputy V1 Supervise API
+  version: 1.0.0
+  description: 'Generated reference for Deputy''s legacy V1 `/supervise/` (supervisor-level operations) and `/my/` (authenticated-employee operations) endpoints.
+
+
+    Enumerated statically from router classes under `deputy-webapp/app/api/v1/routers/Super*Router.php` and `My*Router.php`. V1 is in maintenance mode — new integrations should prefer V2.
+
+
+    This spec covers only the `/supervise/*` routes. The sibling family is in a separate ReadMe spec.'
+servers:
+- url: https://{subdomain}.{region}.deputy.com/api/v1
+  description: Deputy tenant
+  variables:
+    subdomain:
+      default: your-subdomain
+    region:
+      default: deputy
+      enum:
+      - au
+      - eu
+      - na
+      - deputy
+security:
+- BearerAuth: []
+paths:
+  /supervise/company:
+    put:
+      tags:
+      - Company
+      summary: Create Company
+      operationId: supervise_company__put
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+  /supervise/company/all/settings:
+    post:
+      tags:
+      - Company
+      summary: POST Company / settings
+      operationId: supervise_company__all_settings_post
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+  /supervise/company/bulk/settings:
+    post:
+      tags:
+      - Company
+      summary: POST Company / settings
+      operationId: supervise_company__bulk_settings_post
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+  /supervise/company/bulk/settings/check/{jobId}:
+    get:
+      tags:
+      - Company
+      summary: GET Company / :jobId
+      operationId: supervise_company__bulk_settings_check_jobid_get
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      parameters:
+      - name: jobId
+        in: path
+        required: true
+        schema:
+          type: string
+  /supervise/company/simple:
+    get:
+      tags:
+      - Company
+      summary: GET Company / simple
+      operationId: supervise_company__simple_get
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+  /supervise/company/timezone:
+    get:
+      tags:
+      - Company
+      summary: GET Company / timezone
+      operationId: supervise_company__timezone_get
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+  /supervise/company/{id}:
+    post:
+      tags:
+      - Company
+      summary: POST Company / :id
+      operationId: supervise_company__id_post
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          pattern: \d+
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+  /supervise/company/{id}/archive:
+    post:
+      tags:
+      - Company
+      summary: POST Company / archive
+      operationId: supervise_company__id_archive_post
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          pattern: \d+
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+  /supervise/company/{id}/cascade/settings:
+    post:
+      tags:
+      - Company
+      summary: POST Company / settings
+      operationId: supervise_company__id_cascade_settings_post
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          pattern: \d+
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+  /supervise/company/{id}/delete:
+    post:
+      tags:
+      - Company
+      summary: POST Company / delete
+      operationId: supervise_company__id_delete_post
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          pattern: \d+
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+  /supervise/company/{id}/googlePlaceId/{googlePlaceId}:
+    post:
+      tags:
+      - Company
+      summary: POST Company / :googlePlaceId
+      operationId: supervise_company__id_googleplaceid_googleplaceid_post
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: googlePlaceId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+  /supervise/company/{id}/settings:
+    get:
+      tags:
+      - Company
+      summary: GET Company / settings
+      operationId: supervise_company__id_settings_get
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          pattern: \d+
+    post:
+      tags:
+      - Company
+      summary: POST Company / settings
+      operationId: supervise_company__id_settings_post
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          pattern: \d+
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+  /supervise/config:
+    get:
+      tags:
+      - Config
+      summary: List or get Config
+      operationId: supervise_config__get
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+    post:
+      tags:
+      - Config
+      summary: Create or update Config
+      operationId: supervise_config__post
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+  /supervise/config/{companyId}:
+    get:
+      tags:
+      - Config
+      summary: GET Config / :companyId
+      operationId: supervise_config__companyid_get
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      parameters:
+      - name: companyId
+        in: path
+        required: true
+        schema:
+          type: integer
+          pattern: \d+
+    post:
+      tags:
+      - Config
+      summary: POST Config / :companyId
+      operationId: supervise_config__companyid_post
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      parameters:
+      - name: companyId
+        in: path
+        required: true
+        schema:
+          type: integer
+          pattern: \d+
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+  /supervise/cost/wages:
+    post:
+      tags:
+      - Cost
+      summary: POST Cost / wages
+      operationId: supervise_cost__wages_post
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+  /supervise/department:
+    put:
+      tags:
+      - Department
+      summary: Create Department
+      operationId: supervise_department__put
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+  /supervise/department/all/{locationId}:
+    post:
+      tags:
+      - Department
+      summary: POST Department / :locationId
+      operationId: supervise_department__all_locationid_post
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      parameters:
+      - name: locationId
+        in: path
+        required: true
+        schema:
+          type: integer
+          pattern: \d+
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+  /supervise/department/check/{id}:
+    get:
+      tags:
+      - Department
+      summary: GET Department / :id
+      operationId: supervise_department__check_id_get
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          pattern: \d+
+  /supervise/department/create:
+    put:
+      tags:
+      - Department
+      summary: PUT Department / create
+      operationId: supervise_department__create_put
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+  /supervise/department/location/{id}:
+    get:
+      tags:
+      - Department
+      summary: GET Department / :id
+      operationId: supervise_department__location_id_get
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          pattern: \d+
+  /supervise/department/{id}:
+    post:
+      tags:
+      - Department
+      summary: POST Department / :id
+      operationId: supervise_department__id_post
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          pattern: \d+
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+    delete:
+      tags:
+      - Department
+      summary: DELETE Department / :id
+      operationId: supervise_department__id_delete
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          pattern: \d+
+  /supervise/employee:
+    put:
+      tags:
+      - Employee
+      summary: Create Employee
+      operationId: supervise_employee__put
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+    post:
+      tags:
+      - Employee
+      summary: Create or update Employee
+      operationId: supervise_employee__post
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+  /supervise/employee/QUERY:
+    post:
+      tags:
+      - Employee
+      summary: POST Employee / QUERY
+      operationId: supervise_employee__query_post
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+  /supervise/employee/amendABP:
+    post:
+      tags:
+      - Employee
+      summary: POST Employee / amendABP
+      operationId: supervise_employee__amendabp_post
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+  /supervise/employee/checkLicense:
+    post:
+      tags:
+      - Employee
+      summary: POST Employee / checkLicense
+      operationId: supervise_employee__checklicense_post
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+  /supervise/employee/contractedhours/template:
+    get:
+      tags:
+      - Employee
+      summary: GET Employee / template
+      operationId: supervise_employee__contractedhours_template_get
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+    put:
+      tags:
+      - Employee
+      summary: PUT Employee / template
+      operationId: supervise_employee__contractedhours_template_put
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+    post:
+      tags:
+      - Employee
+      summary: POST Employee / template
+      operationId: supervise_employee__contractedhours_template_post
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+  /supervise/employee/contractedhours/template/{templateId}:
+    post:
+      tags:
+      - Employee
+      summary: POST Employee / :templateId
+      operationId: supervise_employee__contractedhours_template_templateid_post
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      parameters:
+      - name: templateId
+        in: path
+        required: true
+        schema:
+          type: integer
+          pattern: \d+
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+    delete:
+      tags:
+      - Employee
+      summary: DELETE Employee / :templateId
+      operationId: supervise_employee__contractedhours_template_templateid_delete
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      parameters:
+      - name: templateId
+        in: path
+        required: true
+        schema:
+          type: integer
+          pattern: \d+
+  /supervise/employee/create:
+    put:
+      tags:
+      - Employee
+      summary: PUT Employee / create
+      operationId: supervise_employee__create_put
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+    post:
+      tags:
+      - Employee
+      summary: POST Employee / create
+      operationId: supervise_employee__create_post
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+  /supervise/employee/demo:
+    get:
+      tags:
+      - Employee
+      summary: GET Employee / demo
+      operationId: supervise_employee__demo_get
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+  /supervise/employee/invitation:
+    get:
+      tags:
+      - Employee
+      summary: GET Employee / invitation
+      operationId: supervise_employee__invitation_get
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+    post:
+      tags:
+      - Employee
+      summary: POST Employee / invitation
+      operationId: supervise_employee__invitation_post
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+    delete:
+      tags:
+      - Employee
+      summary: DELETE Employee / invitation
+      operationId: supervise_employee__invitation_delete
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+  /supervise/employee/invitation/validate:
+    post:
+      tags:
+      - Employee
+      summary: POST Employee / validate
+      operationId: supervise_employee__invitation_validate_post
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+  /supervise/employee/real:
+    get:
+      tags:
+      - Employee
+      summary: GET Employee / real
+      operationId: supervise_employee__real_get
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+  /supervise/employee/real/count:
+    get:
+      tags:
+      - Employee
+      summary: GET Employee / count
+      operationId: supervise_employee__real_count_get
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+  /supervise/employee/reset/gender:
+    post:
+      tags:
+      - Employee
+      summary: POST Employee / gender
+      operationId: supervise_employee__reset_gender_post
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+  /supervise/employee/role/manage:
+    get:
+      tags:
+      - Employee
+      summary: GET Employee / manage
+      operationId: supervise_employee__role_manage_get
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+  /supervise/employee/validate:
+    put:
+      tags:
+      - Employee
+      summary: PUT Employee / validate
+      operationId: supervise_employee__validate_put
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+    post:
+      tags:
+      - Employee
+      summary: POST Employee / validate
+      operationId: supervise_employee__validate_post
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+  /supervise/employee/{employeeId}:
+    get:
+      tags:
+      - Employee
+      summary: GET Employee / (:employeeId)?
+      operationId: supervise_employee__employeeid__get
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      parameters:
+      - name: employeeId
+        in: path
+        required: true
+        schema:
+          type: integer
+          pattern: \d+
+    post:
+      tags:
+      - Employee
+      summary: POST Employee / :employeeId
+      operationId: supervise_employee__employeeid_post
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      parameters:
+      - name: employeeId
+        in: path
+        required: true
+        schema:
+          type: integer
+          pattern: \d+
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+  /supervise/employee/{employeeId}/activate:
+    post:
+      tags:
+      - Employee
+      summary: POST Employee / activate
+      operationId: supervise_employee__employeeid_activate_post
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      parameters:
+      - name: employeeId
+        in: path
+        required: true
+        schema:
+          type: integer
+          pattern: \d+
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+  /supervise/employee/{employeeId}/assoc/{wpId}:
+    post:
+      tags:
+      - Employee
+      summary: POST Employee / :wpId
+      operationId: supervise_employee__employeeid_assoc_wpid_post
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      parameters:
+      - name: employeeId
+        in: path
+        required: true
+        schema:
+          type: integer
+          pattern: \d+
+      - name: wpId
+        in: path
+        required: true
+        schema:
+          type: integer
+          pattern: \d+
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+  /supervise/employee/{employeeId}/contractedhours:
+    get:
+      tags:
+      - Employee
+      summary: GET Employee / contractedhours
+      operationId: supervise_employee__employeeid_contractedhours_get
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      parameters:
+      - name: employeeId
+        in: path
+        required: true
+        schema:
+          type: integer
+          pattern: \d+
+    put:
+      tags:
+      - Employee
+      summary: PUT Employee / contractedhours
+      operationId: supervise_employee__employeeid_contractedhours_put
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      parameters:
+      - name: employeeId
+        in: path
+        required: true
+        schema:
+          type: integer
+          pattern: \d+
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+    post:
+      tags:
+      - Employee
+      summary: POST Employee / contractedhours
+      operationId: supervise_employee__employeeid_contractedhours_post
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      parameters:
+      - name: employeeId
+        in: path
+        required: true
+        schema:
+          type: integer
+          pattern: \d+
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+  /supervise/employee/{employeeId}/delete:
+    post:
+      tags:
+      - Employee
+      summary: POST Employee / delete
+      operationId: supervise_employee__employeeid_delete_post
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      parameters:
+      - name: employeeId
+        in: path
+        required: true
+        schema:
+          type: integer
+          pattern: \d+
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+  /supervise/employee/{employeeId}/hr/onboarding:
+    get:
+      tags:
+      - Employee
+      summary: GET Employee / onboarding
+      operationId: supervise_employee__employeeid_hr_onboarding_get
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      parameters:
+      - name: employeeId
+        in: path
+        required: true
+        schema:
+          type: integer
+          pattern: \d+
+    post:
+      tags:
+      - Employee
+      summary: POST Employee / onboarding
+      operationId: supervise_employee__employeeid_hr_onboarding_post
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      parameters:
+      - name: employeeId
+        in: path
+        required: true
+        schema:
+          type: integer
+          pattern: \d+
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+  /supervise/employee/{employeeId}/hr/payroll/connected:
+    get:
+      tags:
+      - Employee
+      summary: GET Employee / connected
+      operationId: supervise_employee__employeeid_hr_payroll_connected_get
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      parameters:
+      - name: employeeId
+        in: path
+        required: true
+        schema:
+          type: integer
+          pattern: \d+
+  /supervise/employee/{employeeId}/hr/payroll/sync:
+    get:
+      tags:
+      - Employee
+      summary: GET Employee / sync
+      operationId: supervise_employee__employeeid_hr_payroll_sync_get
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      parameters:
+      - name: employeeId
+        in: path
+        required: true
+        schema:
+          type: integer
+          pattern: \d+
+    post:
+      tags:
+      - Employee
+      summary: POST Employee / sync
+      operationId: supervise_employee__employeeid_hr_payroll_sync_post
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      parameters:
+      - name: employeeId
+        in: path
+        required: true
+        schema:
+          type: integer
+          pattern: \d+
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+  /supervise/employee/{employeeId}/invite:
+    post:
+      tags:
+      - Employee
+      summary: POST Employee / invite
+      operationId: supervise_employee__employeeid_invite_post
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      parameters:
+      - name: employeeId
+        in: path
+        required: true
+        schema:
+          type: integer
+          pattern: \d+
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+  /supervise/employee/{employeeId}/manage-login:
+    get:
+      tags:
+      - Employee
+      summary: GET Employee / manage login
+      operationId: supervise_employee__employeeid_manage_login_get
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      parameters:
+      - name: employeeId
+        in: path
+        required: true
+        schema:
+          type: integer
+          pattern: \d+
+  /supervise/employee/{employeeId}/photo:
+    post:
+      tags:
+      - Employee
+      summary: POST Employee / photo
+      operationId: supervise_employee__employeeid_photo_post
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      parameters:
+      - name: employeeId
+        in: path
+        required: true
+        schema:
+          type: integer
+          pattern: \d+
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+  /supervise/employee/{employeeId}/reset-2fa:
+    post:
+      tags:
+      - Employee
+      summary: POST Employee / reset 2fa
+      operationId: supervise_employee__employeeid_reset_2fa_post
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      parameters:
+      - name: employeeId
+        in: path
+        required: true
+        schema:
+          type: integer
+          pattern: \d+
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+  /supervise/employee/{employeeId}/send-reset-account:
+    post:
+      tags:
+      - Employee
+      summary: POST Employee / send reset account
+      operationId: supervise_employee__employeeid_send_reset_account_post
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      parameters:
+      - name: employeeId
+        in: path
+        required: true
+        schema:
+          type: integer
+          pattern: \d+
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+  /supervise/employee/{employeeId}/sendlogin:
+    post:
+      tags:
+      - Employee
+      summary: POST Employee / sendlogin
+      operationId: supervise_employee__employeeid_sendlogin_post
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      parameters:
+      - name: employeeId
+        in: path
+        required: true
+        schema:
+          type: integer
+          pattern: \d+
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+  /supervise/employee/{employeeId}/setAwardFromLibrary:
+    post:
+      tags:
+      - Employee
+      summary: POST Employee / setAwardFromLibrary
+      operationId: supervise_employee__employeeid_setawardfromlibrary_post
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      parameters:
+      - name: employeeId
+        in: path
+        required: true
+        schema:
+          type: integer
+          pattern: \d+
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+  /supervise/employee/{employeeId}/setAwardFromTemplate:
+    post:
+      tags:
+      - Employee
+      summary: POST Employee / setAwardFromTemplate
+      operationId: supervise_employee__employeeid_setawardfromtemplate_post
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      parameters:
+      - name: employeeId
+        in: path
+        required: true
+        schema:
+          type: integer
+          pattern: \d+
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+  /supervise/employee/{employeeId}/terminate:
+    post:
+      tags:
+      - Employee
+      summary: POST Employee / terminate
+      operationId: supervise_employee__employeeid_terminate_post
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      parameters:
+      - name: employeeId
+        in: path
+        required: true
+        schema:
+          type: integer
+          pattern: \d+
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+  /supervise/employee/{employeeId}/unassoc/{wpId}:
+    post:
+      tags:
+      - Employee
+      summary: POST Employee / :wpId
+      operationId: supervise_employee__employeeid_unassoc_wpid_post
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      parameters:
+      - name: employeeId
+        in: path
+        required: true
+        schema:
+          type: integer
+          pattern: \d+
+      - name: wpId
+        in: path
+        required: true
+        schema:
+          type: integer
+          pattern: \d+
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+  /supervise/employee/{employeeId}/validate:
+    get:
+      tags:
+      - Employee
+      summary: GET Employee / validate
+      operationId: supervise_employee__employeeid_validate_get
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      parameters:
+      - name: employeeId
+        in: path
+        required: true
+        schema:
+          type: integer
+          pattern: \d+
+  /supervise/employee/{employeeId}/{action}:
+    post:
+      tags:
+      - Employee
+      summary: POST Employee / :action
+      operationId: supervise_employee__employeeid_action_post
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      parameters:
+      - name: employeeId
+        in: path
+        required: true
+        schema:
+          type: integer
+          pattern: \d+
+      - name: action
+        in: path
+        required: true
+        schema:
+          type: string
+          pattern: (Memo|Roster|Timesheet|Journal|Leave|EmployeeAvailability)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+    get:
+      tags:
+      - Employee
+      summary: GET Employee / :action
+      operationId: supervise_employee__employeeid_action_get
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      parameters:
+      - name: employeeId
+        in: path
+        required: true
+        schema:
+          type: integer
+          pattern: \d+
+      - name: action
+        in: path
+        required: true
+        schema:
+          type: string
+          pattern: (Memo|Roster|Timesheet|Journal|Leave|EmployeeAvailability)
+  /supervise/empshiftinfo/{intEmpId}/{blnAllCompany}:
+    get:
+      tags:
+      - Empshiftinfo
+      summary: GET Empshiftinfo / :blnAllCompany)?
+      operationId: supervise_empshiftinfo__intempid_blnallcompany__get
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      parameters:
+      - name: intEmpId
+        in: path
+        required: true
+        schema:
+          type: integer
+          pattern: \d+
+      - name: blnAllCompany
+        in: path
+        required: true
+        schema:
+          type: string
+          pattern: (true|false)
+  /supervise/get-roster-timesheet:
+    post:
+      tags:
+      - Get Roster Timesheet
+      summary: Create or update Get-Roster-Timesheet
+      operationId: supervise_get_roster_timesheet__post
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+  /supervise/getrecommendation/{intRosterId}:
+    get:
+      tags:
+      - Getrecommendation
+      summary: GET Getrecommendation / :intRosterId
+      operationId: supervise_getrecommendation__introsterid_get
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      parameters:
+      - name: intRosterId
+        in: path
+        required: true
+        schema:
+          type: integer
+          pattern: \d+
+    post:
+      tags:
+      - Getrecommendation
+      summary: POST Getrecommendation / :intRosterId
+      operationId: supervise_getrecommendation__introsterid_post
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      parameters:
+      - name: intRosterId
+        in: path
+        required: true
+        schema:
+          type: integer
+          pattern: \d+
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+  /supervise/getrecommendation/{intRosterId}/notify:
+    post:
+      tags:
+      - Getrecommendation
+      summary: POST Getrecommendation / notify
+      operationId: supervise_getrecommendation__introsterid_notify_post
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      parameters:
+      - name: intRosterId
+        in: path
+        required: true
+        schema:
+          type: integer
+          pattern: \d+
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+  /supervise/getrecommendation/{intRosterId}/notifyallrecommended:
+    post:
+      tags:
+      - Getrecommendation
+      summary: POST Getrecommendation / notifyallrecommended
+      operationId: supervise_getrecommendation__introsterid_notifyallrecommended_post
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      parameters:
+      - name: intRosterId
+        in: path
+        required: true
+        schema:
+          type: integer
+          pattern: \d+
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+  /supervise/getrecommendation/{intRosterId}/reset:
+    post:
+      tags:
+      - Getrecommendation
+      summary: POST Getrecommendation / reset
+      operationId: supervise_getrecommendation__introsterid_reset_post
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      parameters:
+      - name: intRosterId
+        in: path
+        required: true
+        schema:
+          type: integer
+          pattern: \d+
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+  /supervise/getrecommendation/{intRosterId}/status:
+    get:
+      tags:
+      - Getrecommendation
+      summary: GET Getrecommendation / status
+      operationId: supervise_getrecommendation__introsterid_status_get
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      parameters:
+      - name: intRosterId
+        in: path
+        required: true
+        schema:
+          type: integer
+          pattern: \d+
+  /supervise/journal:
+    post:
+      tags:
+      - Journal
+      summary: Create or update Journal
+      operationId: supervise_journal__post
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+  /supervise/journal/{date}:
+    get:
+      tags:
+      - Journal
+      summary: GET Journal / (:date)?
+      operationId: supervise_journal__date__get
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      parameters:
+      - name: date
+        in: path
+        required: true
+        schema:
+          type: string
+  /supervise/leave:
+    post:
+      tags:
+      - Leave
+      summary: Create or update Leave
+      operationId: supervise_leave__post
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+  /supervise/leave/leaveManagement:
+    post:
+      tags:
+      - Leave
+      summary: POST Leave / leaveManagement
+      operationId: supervise_leave__leavemanagement_post
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+  /supervise/leave/{intEmployeeId}:
+    get:
+      tags:
+      - Leave
+      summary: GET Leave / (:intEmployeeId)?
+      operationId: supervise_leave__intemployeeid__get
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      parameters:
+      - name: intEmployeeId
+        in: path
+        required: true
+        schema:
+          type: integer
+          pattern: \d+
+  /supervise/leave/{intEmployeeId}/{strSetup}:
+    get:
+      tags:
+      - Leave
+      summary: GET Leave / :strSetup
+      operationId: supervise_leave__intemployeeid_strsetup_get
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      parameters:
+      - name: intEmployeeId
+        in: path
+        required: true
+        schema:
+          type: integer
+          pattern: \d+
+      - name: strSetup
+        in: path
+        required: true
+        schema:
+          type: string
+          pattern: setup
+  /supervise/memo:
+    get:
+      tags:
+      - Memo
+      summary: List or get Memo
+      operationId: supervise_memo__get
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+    put:
+      tags:
+      - Memo
+      summary: Create Memo
+      operationId: supervise_memo__put
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+    post:
+      tags:
+      - Memo
+      summary: Create or update Memo
+      operationId: supervise_memo__post
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+  /supervise/memo/{id}:
+    get:
+      tags:
+      - Memo
+      summary: GET Memo / :id
+      operationId: supervise_memo__id_get
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          pattern: \d+
+    post:
+      tags:
+      - Memo
+      summary: POST Memo / :id
+      operationId: supervise_memo__id_post
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          pattern: \d+
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+    put:
+      tags:
+      - Memo
+      summary: PUT Memo / :id
+      operationId: supervise_memo__id_put
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          pattern: \d+
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+    delete:
+      tags:
+      - Memo
+      summary: DELETE Memo / :id
+      operationId: supervise_memo__id_delete
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          pattern: \d+
+  /supervise/memo/{id}/addRecipient:
+    post:
+      tags:
+      - Memo
+      summary: POST Memo / addRecipient
+      operationId: supervise_memo__id_addrecipient_post
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          pattern: \d+
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+  /supervise/memo/{memoId}/mark/read/{memoLogId}:
+    post:
+      tags:
+      - Memo
+      summary: POST Memo / :memoLogId
+      operationId: supervise_memo__memoid_mark_read_memologid_post
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      parameters:
+      - name: memoId
+        in: path
+        required: true
+        schema:
+          type: integer
+          pattern: \d+
+      - name: memoLogId
+        in: path
+        required: true
+        schema:
+          type: integer
+          pattern: \d+
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+  /supervise/memo/{memoId}/mark/unread/{memoLogId}:
+    post:
+      tags:
+      - Memo
+      summary: POST Memo / :memoLogId
+      operationId: supervise_memo__memoid_mark_unread_memologid_post
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      parameters:
+      - name: memoId
+        in: path
+        required: true
+        schema:
+          type: integer
+          pattern: \d+
+      - name: memoLogId
+        in: path
+        required: true
+        schema:
+          type: integer
+          pattern: \d+
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+  /supervise/metric:
+    put:
+      tags:
+      - Metric
+      summary: Create Metric
+      operationId: supervise_metric__put
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+    post:
+      tags:
+      - Metric
+      summary: Create or update Metric
+      operationId: supervise_metric__post
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+  /supervise/metric/QUERY:
+    post:
+      tags:
+      - Metric
+      summary: POST Metric / QUERY
+      operationId: supervise_metric__query_post
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+  /supervise/metric/config:
+    get:
+      tags:
+      - Metric
+      summary: GET Metric / config
+      operationId: supervise_metric__config_get
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+  /supervise/metric/config/upsert:
+    post:
+      tags:
+      - Metric
+      summary: POST Metric / upsert
+      operationId: supervise_metric__config_upsert_post
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+  /supervise/metric/data/list:
+    post:
+      tags:
+      - Metric
+      summary: POST Metric / list
+      operationId: supervise_metric__data_list_post
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+  /supervise/metric/delete:
+    post:
+      tags:
+      - Metric
+      summary: POST Metric / delete
+      operationId: supervise_metric__delete_post
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+  /supervise/metric/fetch:
+    post:
+      tags:
+      - Metric
+      summary: POST Metric / fetch
+      operationId: supervise_metric__fetch_post
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+  /supervise/metric/multiple:
+    put:
+      tags:
+      - Metric
+      summary: PUT Metric / multiple
+      operationId: supervise_metric__multiple_put
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+    post:
+      tags:
+      - Metric
+      summary: POST Metric / multiple
+      operationId: supervise_metric__multiple_post
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+  /supervise/metric/type:
+    get:
+      tags:
+      - Metric
+      summary: GET Metric / type
+      operationId: supervise_metric__type_get
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+    post:
+      tags:
+      - Metric
+      summary: POST Metric / type
+      operationId: supervise_metric__type_post
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+  /supervise/metric/type/delete:
+    post:
+      tags:
+      - Metric
+      summary: POST Metric / delete
+      operationId: supervise_metric__type_delete_post
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      description: OAuth 2.0 access token or Deputy Permanent Token.
+tags:
+- name: Company
+  description: V1 /supervise/company/* endpoints
+- name: Config
+  description: V1 /supervise/config/* endpoints
+- name: Cost
+  description: V1 /supervise/cost/* endpoints
+- name: Department
+  description: V1 /my/department/* endpoints
+- name: Employee
+  description: V1 /supervise/employee/* endpoints
+- name: Empshiftinfo
+  description: V1 /supervise/empshiftinfo/* endpoints
+- name: Get Roster Timesheet
+  description: V1 /supervise/get-roster-timesheet/* endpoints
+- name: Getrecommendation
+  description: V1 /my/getrecommendation/* endpoints
+- name: Journal
+  description: V1 /supervise/journal/* endpoints
+- name: Leave
+  description: V1 /my/leave/* endpoints
+- name: Memo
+  description: V1 /my/memo/* endpoints
+- name: Metric
+  description: V1 /supervise/metric/* endpoints
+x-provenance:
+  method: searched
+  source: https://developer.deputy.com/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://developer.deputy.com/reference/supervise_company__all_settings_post.md
+  - https://developer.deputy.com/reference/supervise_company__bulk_settings_check_jobid_get.md
+  - https://developer.deputy.com/reference/supervise_company__bulk_settings_post.md
+  - https://developer.deputy.com/reference/supervise_company__id_archive_post.md
+  - https://developer.deputy.com/reference/supervise_company__id_cascade_settings_post.md
+  - https://developer.deputy.com/reference/supervise_company__id_delete_post.md
+  - https://developer.deputy.com/reference/supervise_company__id_googleplaceid_googleplaceid_post.md
+  - https://developer.deputy.com/reference/supervise_company__id_post.md
+  - https://developer.deputy.com/reference/supervise_company__id_settings_get.md
+  - https://developer.deputy.com/reference/supervise_company__id_settings_post.md
+  - https://developer.deputy.com/reference/supervise_company__put.md
+  - https://developer.deputy.com/reference/supervise_company__simple_get.md
+  - https://developer.deputy.com/reference/supervise_company__timezone_get.md
+  - https://developer.deputy.com/reference/supervise_config__companyid_get.md
+  - https://developer.deputy.com/reference/supervise_config__companyid_post.md
+  - https://developer.deputy.com/reference/supervise_config__get.md
+  - https://developer.deputy.com/reference/supervise_config__post.md
+  - https://developer.deputy.com/reference/supervise_cost__wages_post.md
+  - https://developer.deputy.com/reference/supervise_department__all_locationid_post.md
+  - https://developer.deputy.com/reference/supervise_department__check_id_get.md
+  - https://developer.deputy.com/reference/supervise_department__create_put.md
+  - https://developer.deputy.com/reference/supervise_department__id_delete.md
+  - https://developer.deputy.com/reference/supervise_department__id_post.md
+  - https://developer.deputy.com/reference/supervise_department__location_id_get.md
+  - https://developer.deputy.com/reference/supervise_department__put.md
+  - https://developer.deputy.com/reference/supervise_employee__amendabp_post.md
+  - https://developer.deputy.com/reference/supervise_employee__checklicense_post.md
+  - https://developer.deputy.com/reference/supervise_employee__contractedhours_template_get.md
+  - https://developer.deputy.com/reference/supervise_employee__contractedhours_template_post.md
+  - https://developer.deputy.com/reference/supervise_employee__contractedhours_template_put.md
+  - https://developer.deputy.com/reference/supervise_employee__contractedhours_template_templateid_delete.md
+  - https://developer.deputy.com/reference/supervise_employee__contractedhours_template_templateid_post.md
+  - https://developer.deputy.com/reference/supervise_employee__create_post.md
+  - https://developer.deputy.com/reference/supervise_employee__create_put.md
+  - https://developer.deputy.com/reference/supervise_employee__demo_get.md
+  - https://developer.deputy.com/reference/supervise_employee__employeeid__get.md
+  - https://developer.deputy.com/reference/supervise_employee__employeeid_action_get.md
+  - https://developer.deputy.com/reference/supervise_employee__employeeid_action_post.md
+  - https://developer.deputy.com/reference/supervise_employee__employeeid_activate_post.md
+  - https://developer.deputy.com/reference/supervise_employee__employeeid_assoc_wpid_post.md
+  - https://developer.deputy.com/reference/supervise_employee__employeeid_contractedhours_get.md
+  - https://developer.deputy.com/reference/supervise_employee__employeeid_contractedhours_post.md
+  - https://developer.deputy.com/reference/supervise_employee__employeeid_contractedhours_put.md
+  - https://developer.deputy.com/reference/supervise_employee__employeeid_delete_post.md
+  - https://developer.deputy.com/reference/supervise_employee__employeeid_hr_onboarding_get.md
+  - https://developer.deputy.com/reference/supervise_employee__employeeid_hr_onboarding_post.md
+  - https://developer.deputy.com/reference/supervise_employee__employeeid_hr_payroll_connected_get.md
+  - https://developer.deputy.com/reference/supervise_employee__employeeid_hr_payroll_sync_get.md
+  - https://developer.deputy.com/reference/supervise_employee__employeeid_hr_payroll_sync_post.md
+  - https://developer.deputy.com/reference/supervise_employee__employeeid_invite_post.md
+  - https://developer.deputy.com/reference/supervise_employee__employeeid_manage_login_get.md
+  - https://developer.deputy.com/reference/supervise_employee__employeeid_photo_post.md
+  - https://developer.deputy.com/reference/supervise_employee__employeeid_post.md
+  - https://developer.deputy.com/reference/supervise_employee__employeeid_reset_2fa_post.md
+  - https://developer.deputy.com/reference/supervise_employee__employeeid_send_reset_account_post.md
+  - https://developer.deputy.com/reference/supervise_employee__employeeid_sendlogin_post.md
+  - https://developer.deputy.com/reference/supervise_employee__employeeid_setawardfromlibrary_post.md
+  - https://developer.deputy.com/reference/supervise_employee__employeeid_setawardfromtemplate_post.md
+  - https://developer.deputy.com/reference/supervise_employee__employeeid_terminate_post.md
+  - https://developer.deputy.com/reference/supervise_employee__employeeid_unassoc_wpid_post.md
+  - https://developer.deputy.com/reference/supervise_employee__employeeid_validate_get.md
+  - https://developer.deputy.com/reference/supervise_employee__invitation_delete.md
+  - https://developer.deputy.com/reference/supervise_employee__invitation_get.md
+  - https://developer.deputy.com/reference/supervise_employee__invitation_post.md
+  - https://developer.deputy.com/reference/supervise_employee__invitation_validate_post.md
+  - https://developer.deputy.com/reference/supervise_employee__post.md
+  - https://developer.deputy.com/reference/supervise_employee__put.md
+  - https://developer.deputy.com/reference/supervise_employee__query_post.md
+  - https://developer.deputy.com/reference/supervise_employee__real_count_get.md
+  - https://developer.deputy.com/reference/supervise_employee__real_get.md
+  - https://developer.deputy.com/reference/supervise_employee__reset_gender_post.md
+  - https://developer.deputy.com/reference/supervise_employee__role_manage_get.md
+  - https://developer.deputy.com/reference/supervise_employee__validate_post.md
+  - https://developer.deputy.com/reference/supervise_employee__validate_put.md
+  - https://developer.deputy.com/reference/supervise_empshiftinfo__intempid_blnallcompany__get.md
+  - https://developer.deputy.com/reference/supervise_get_roster_timesheet__post.md
+  - https://developer.deputy.com/reference/supervise_getrecommendation__introsterid_get.md
+  - https://developer.deputy.com/reference/supervise_getrecommendation__introsterid_notify_post.md
+  - https://developer.deputy.com/reference/supervise_getrecommendation__introsterid_notifyallrecommended_post.md
+  - https://developer.deputy.com/reference/supervise_getrecommendation__introsterid_post.md
+  - https://developer.deputy.com/reference/supervise_getrecommendation__introsterid_reset_post.md
+  - https://developer.deputy.com/reference/supervise_getrecommendation__introsterid_status_get.md
+  - https://developer.deputy.com/reference/supervise_journal__date__get.md
+  - https://developer.deputy.com/reference/supervise_journal__post.md
+  - https://developer.deputy.com/reference/supervise_leave__intemployeeid__get.md
+  - https://developer.deputy.com/reference/supervise_leave__intemployeeid_strsetup_get.md
+  - https://developer.deputy.com/reference/supervise_leave__leavemanagement_post.md
+  - https://developer.deputy.com/reference/supervise_leave__post.md
+  - https://developer.deputy.com/reference/supervise_memo__get.md
+  - https://developer.deputy.com/reference/supervise_memo__id_addrecipient_post.md
+  - https://developer.deputy.com/reference/supervise_memo__id_delete.md
+  - https://developer.deputy.com/reference/supervise_memo__id_get.md
+  - https://developer.deputy.com/reference/supervise_memo__id_post.md
+  - https://developer.deputy.com/reference/supervise_memo__id_put.md
+  - https://developer.deputy.com/reference/supervise_memo__memoid_mark_read_memologid_post.md
+  - https://developer.deputy.com/reference/supervise_memo__memoid_mark_unread_memologid_post.md
+  - https://developer.deputy.com/reference/supervise_memo__post.md
+  - https://developer.deputy.com/reference/supervise_memo__put.md
+  - https://developer.deputy.com/reference/supervise_metric__config_get.md
+  - https://developer.deputy.com/reference/supervise_metric__config_upsert_post.md
+  - https://developer.deputy.com/reference/supervise_metric__data_list_post.md
+  - https://developer.deputy.com/reference/supervise_metric__delete_post.md
+  - https://developer.deputy.com/reference/supervise_metric__fetch_post.md
+  - https://developer.deputy.com/reference/supervise_metric__multiple_post.md
+  - https://developer.deputy.com/reference/supervise_metric__multiple_put.md
+  - https://developer.deputy.com/reference/supervise_metric__post.md
+  - https://developer.deputy.com/reference/supervise_metric__put.md
+  - https://developer.deputy.com/reference/supervise_metric__query_post.md
+  - https://developer.deputy.com/reference/supervise_metric__type_delete_post.md
+  - https://developer.deputy.com/reference/supervise_metric__type_get.md
+  - https://developer.deputy.com/reference/supervise_metric__type_post.md
+  merge:
+    pages: 111
+    deduped: 110
+    conflicts_kept_first: 0

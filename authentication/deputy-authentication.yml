@@ -1,0 +1,36 @@
+generated: '2026-10-14'
+method: derived
+source: openapi/deputy-deputy-openapi.yml, openapi/deputy-v1-resource-api-openapi.yml, openapi/deputy-v1-supervise-api-openapi.yml,
+  openapi/deputy-v2-api-openapi.yml
+summary:
+  types:
+  - apiKey
+  - http
+  - oauth2
+  api_key_in:
+  - header
+  oauth2_flows:
+  - authorizationCode
+schemes:
+- name: httpBearer
+  type: http
+  scheme: bearer
+  sources:
+  - openapi/deputy-deputy-openapi.yml
+  - openapi/deputy-v1-resource-api-openapi.yml
+  - openapi/deputy-v1-supervise-api-openapi.yml
+- name: OAuth2
+  type: oauth2
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://once.deputy.com/my/oauth/login
+    tokenUrl: https://once.deputy.com/my/oauth/access_token
+    scopes: 1
+  sources:
+  - openapi/deputy-v1-resource-api-openapi.yml
+- name: ApiToken
+  type: apiKey
+  in: header
+  parameter: OAuth
+  sources:
+  - openapi/deputy-v2-api-openapi.yml

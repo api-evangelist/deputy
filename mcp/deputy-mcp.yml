@@ -1,0 +1,216 @@
+generated: '2026-10-14'
+method: derived
+generator: derive-mcp-candidate.py
+source:
+- openapi/deputy-deputy-openapi.yml
+- openapi/deputy-v1-resource-api-openapi.yml
+- openapi/deputy-v1-supervise-api-openapi.yml
+- openapi/deputy-v2-api-openapi.yml
+status: candidate
+deployment:
+  mode: none
+  auth: unknown
+  verified: derived
+note: No MCP server was found. No probe result in the dossier. Candidate tools below are derived from the 1498 operation(s) in the provider's
+  own OpenAPI (40 listed); they describe what a server WOULD expose, not one that exists.
+tools:
+- name: get_agreed_hoursby_employee_id
+  operationId: GetAgreedHoursbyEmployeeID
+  method: GET
+  path: /management/v2/agreed_hour/{employeeid}
+  description: Get Agreed Hours by Employee ID
+- name: list_address
+  operationId: listAddress
+  method: GET
+  path: /resource/Address
+  description: List Address records
+- name: supervise_company_put
+  operationId: supervise_company__put
+  method: PUT
+  path: /supervise/company
+  description: Create Company
+- name: access_management_v2_controller_get_privilege_hierarchy
+  operationId: AccessManagementV2Controller_GetPrivilegeHierarchy
+  method: GET
+  path: /access-management/v2/privilege-hierarchy
+  description: Get privilege hierarchy
+- name: whodo_iworkwith?
+  operationId: WhodoIworkwith?
+  method: GET
+  path: /v1/my/colleague
+  description: Who do I work with?
+- name: create_address
+  operationId: createAddress
+  method: POST
+  path: /resource/Address
+  description: Create a Address
+- name: supervise_company_all_settings_post
+  operationId: supervise_company__all_settings_post
+  method: POST
+  path: /supervise/company/all/settings
+  description: POST Company / settings
+- name: access_management_v2_controller_list_role
+  operationId: AccessManagementV2Controller_ListRole
+  method: GET
+  path: /access-management/v2/roles
+  description: List all available roles
+- name: myaddressonfile
+  operationId: Myaddressonfile
+  method: GET
+  path: /v1/my/contactaddress
+  description: My address on file
+- name: create_or_replace_address
+  operationId: createOrReplaceAddress
+  method: PUT
+  path: /resource/Address
+  description: Create a Address
+- name: supervise_company_bulk_settings_post
+  operationId: supervise_company__bulk_settings_post
+  method: POST
+  path: /supervise/company/bulk/settings
+  description: POST Company / settings
+- name: access_management_v2_controller_create_role
+  operationId: AccessManagementV2Controller_CreateRole
+  method: POST
+  path: /access-management/v2/roles
+  description: Create a new role
+- name: updatemyaddress
+  operationId: Updatemyaddress
+  method: POST
+  path: /v1/my/contactaddress
+  description: Update my address
+- name: bulk_address
+  operationId: bulkAddress
+  method: POST
+  path: /resource/Address/BULK
+  description: Bulk create/update Address
+- name: supervise_company_bulk_settings_check_jobid_get
+  operationId: supervise_company__bulk_settings_check_jobid_get
+  method: GET
+  path: /supervise/company/bulk/settings/check/{jobId}
+  description: GET Company / :jobId
+- name: access_management_v2_controller_delete_role
+  operationId: AccessManagementV2Controller_DeleteRole
+  method: DELETE
+  path: /access-management/v2/roles/{roleId}
+  description: Delete role
+- name: myaddressonfileincludingemergency
+  operationId: Myaddressonfileincludingemergency
+  method: GET
+  path: /v1/my/contactaddress/all
+  description: Myaddressonfileincludingemergency
+- name: info_address
+  operationId: infoAddress
+  method: GET
+  path: /resource/Address/INFO
+  description: Get field metadata for Address
+- name: supervise_company_simple_get
+  operationId: supervise_company__simple_get
+  method: GET
+  path: /supervise/company/simple
+  description: GET Company / simple
+- name: access_management_v2_controller_update_role
+  operationId: AccessManagementV2Controller_UpdateRole
+  method: PUT
+  path: /access-management/v2/roles/{roleId}
+  description: Update role
+- name: getmysubordinatecontactdetails
+  operationId: Getmysubordinatecontactdetails
+  method: GET
+  path: /v1/my/contactaddress/subordinate
+  description: Get my subordinate contact details
+- name: predict_address
+  operationId: predictAddress
+  method: POST
+  path: /resource/Address/PREDICT
+  description: Predict-match a Address record
+- name: supervise_company_timezone_get
+  operationId: supervise_company__timezone_get
+  method: GET
+  path: /supervise/company/timezone
+  description: GET Company / timezone
+- name: access_management_v2_controller_get_employee_role
+  operationId: AccessManagementV2Controller_GetEmployeeRole
+  method: GET
+  path: /access-management/v2/roles/{roleId}
+  description: Get employee role
+- name: my_leave_requests
+  operationId: MyLeaveRequests
+  method: GET
+  path: /v1/my/leave
+  description: My Leave Requests
+- name: search_address
+  operationId: searchAddress
+  method: POST
+  path: /resource/Address/QUERY
+  description: Search Address
+- name: supervise_company_id_post
+  operationId: supervise_company__id_post
+  method: POST
+  path: /supervise/company/{id}
+  description: POST Company / :id
+- name: access_management_v2_controller_list_employee_by_role
+  operationId: AccessManagementV2Controller_ListEmployeeByRole
+  method: GET
+  path: /access-management/v2/roles/{roleId}/employees
+  description: Get team members by role
+- name: whatlocationscaniworkin
+  operationId: Whatlocationscaniworkin
+  method: GET
+  path: /v1/my/location
+  description: What locations can I work in
+- name: get_address_by_id
+  operationId: getAddressById
+  method: GET
+  path: /resource/Address/{id}
+  description: Get a Address by id
+- name: supervise_company_id_archive_post
+  operationId: supervise_company__id_archive_post
+  method: POST
+  path: /supervise/company/{id}/archive
+  description: POST Company / archive
+- name: access_management_v2_controller_list_employee_role_history
+  operationId: AccessManagementV2Controller_ListEmployeeRoleHistory
+  method: GET
+  path: /access-management/v2/roles/{roleId}/history
+  description: List employee role history
+- name: getlocationbyid
+  operationId: Getlocationbyid
+  method: GET
+  path: /v1/my/location/{id}
+  description: Get location by id
+- name: update_address
+  operationId: updateAddress
+  method: POST
+  path: /resource/Address/{id}
+  description: Update a Address
+- name: supervise_company_id_cascade_settings_post
+  operationId: supervise_company__id_cascade_settings_post
+  method: POST
+  path: /supervise/company/{id}/cascade/settings
+  description: POST Company / settings
+- name: schedule_agent_v2_controller_get_late
+  operationId: ScheduleAgentV2Controller_getLate
+  method: GET
+  path: /agent/schedule/v2/late
+  description: Get employees who are currently late or were late in the given time range.
+- name: getmynewsfeed
+  operationId: Getmynewsfeed
+  method: GET
+  path: /v1/my/memo
+  description: Get my news feed
+- name: replace_address
+  operationId: replaceAddress
+  method: PUT
+  path: /resource/Address/{id}
+  description: Update a Address
+- name: supervise_company_id_delete_post
+  operationId: supervise_company__id_delete_post
+  method: POST
+  path: /supervise/company/{id}/delete
+  description: POST Company / delete
+- name: schedule_agent_v2_controller_upsert_shifts
+  operationId: ScheduleAgentV2Controller_upsertShifts
+  method: POST
+  path: /agent/schedule/v2/shifts:upsert
+  description: Batch create or update shifts

@@ -1,0 +1,64 @@
+generated: '2026-10-14'
+method: probed
+source: pre-flight dossier (docs platform, portal detections) + CNAME chains and response headers of the hosts apis.yml names
+registry: all/0-working/vendors.yml
+areas_vocabulary:
+- documentation
+- developer-portal
+- api-gateway
+- cdn
+- hosting
+- sdk-generation
+- api-collections
+- status-page
+- support
+- community
+- identity
+- mcp-hosting
+vendors:
+- vendor: cloudflare
+  name: Cloudflare
+  area: cdn
+  host: www.deputy.com
+  evidence: cname:cloudflare.net
+  signal: cname
+  confidence: high
+  kin_score:
+  - https_enforced
+  - hsts
+- vendor: fastly
+  name: Fastly
+  area: cdn
+  host: once.deputy.com
+  evidence: cname:fastly.net
+  signal: cname
+  confidence: high
+  kin_score: []
+- vendor: zendesk
+  name: Zendesk
+  area: support
+  host: help.deputy.com
+  evidence: cname:zendesk.com
+  signal: cname
+  confidence: high
+  kin_score:
+  - support_channel
+reliance:
+  areas_vendor_served:
+  - cdn
+  - support
+  vendor_count: 3
+  areas_observed: 12
+  share_of_observable_areas: 0.167
+  note: areas where a third party was DETECTED serving this provider; an area absent here was either self-run or not observed, and this script
+    cannot tell those apart
+checked:
+- 'docs-platform: not probed'
+- www.deputy.com (Website)
+- developer.deputy.com (Documentation)
+- developer.deputy.com (DeveloperPortal)
+- developer.deputy.com (GettingStarted)
+- once.deputy.com (Login)
+- help.deputy.com (Support)
+- status.deputy.com (StatusPage)
+- '{install}.{geo}.deputy.com (baseURL)'

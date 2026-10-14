@@ -1,0 +1,230 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/deputy/main/json-schema/deputy-timesheet-schema.json",
+  "title": "Timesheet",
+  "x-generated": "2026-10-14",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/deputy-v1-resource-api-openapi.yml#/components/schemas/Timesheet",
+  "type": "object",
+  "properties": {
+    "Id": {
+      "type": "integer"
+    },
+    "Employee": {
+      "type": "integer"
+    },
+    "EmployeeHistory": {
+      "type": "integer"
+    },
+    "EmployeeAgreement": {
+      "type": "integer"
+    },
+    "Date": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "StartTime": {
+      "type": "integer"
+    },
+    "EndTime": {
+      "type": "integer"
+    },
+    "Mealbreak": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "MealbreakSlots": {
+      "type": "string",
+      "maxLength": 255
+    },
+    "Slots": {
+      "type": "string",
+      "maxLength": 255
+    },
+    "TotalTime": {
+      "type": "number",
+      "format": "double"
+    },
+    "TotalTimeInv": {
+      "type": "number",
+      "format": "double"
+    },
+    "Cost": {
+      "type": "number",
+      "format": "double"
+    },
+    "Roster": {
+      "type": "integer"
+    },
+    "EmployeeComment": {
+      "type": "string"
+    },
+    "SupervisorComment": {
+      "type": "string",
+      "maxLength": 255
+    },
+    "Supervisor": {
+      "type": "integer"
+    },
+    "Disputed": {
+      "type": "boolean"
+    },
+    "TimeApproved": {
+      "type": "boolean"
+    },
+    "TimeApprover": {
+      "type": "integer"
+    },
+    "Discarded": {
+      "type": "boolean"
+    },
+    "ValidationFlag": {
+      "type": "integer"
+    },
+    "OperationalUnit": {
+      "type": "integer"
+    },
+    "IsInProgress": {
+      "type": "boolean"
+    },
+    "IsLeave": {
+      "type": "boolean"
+    },
+    "LeaveId": {
+      "type": "integer"
+    },
+    "LeaveRule": {
+      "type": "integer"
+    },
+    "Invoiced": {
+      "type": "boolean"
+    },
+    "InvoiceComment": {
+      "type": "string",
+      "maxLength": 255
+    },
+    "PayRuleApproved": {
+      "type": "boolean"
+    },
+    "Exported": {
+      "type": "boolean"
+    },
+    "StagingId": {
+      "type": "integer"
+    },
+    "PayStaged": {
+      "type": "boolean"
+    },
+    "PaycycleId": {
+      "type": "integer"
+    },
+    "AccrualState": {
+      "type": "integer"
+    },
+    "AccrualStateChangedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "AccrualAttempts": {
+      "type": "integer"
+    },
+    "MarkedPaidUnpaidAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "File": {
+      "type": "integer"
+    },
+    "CustomFieldData": {
+      "type": "integer"
+    },
+    "RealTime": {
+      "type": "boolean"
+    },
+    "AutoProcessed": {
+      "type": "boolean"
+    },
+    "AutoRounded": {
+      "type": "boolean"
+    },
+    "AutoTimeApproved": {
+      "type": "boolean"
+    },
+    "AutoPayRuleApproved": {
+      "type": "boolean"
+    },
+    "Metadata": {
+      "type": "string"
+    },
+    "ParentId": {
+      "type": "integer"
+    },
+    "Creator": {
+      "type": "integer"
+    },
+    "Created": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "Modified": {
+      "type": "string"
+    },
+    "ReviewState": {
+      "type": "integer"
+    },
+    "EmployeeObject": {
+      "type": "object"
+    },
+    "EmployeeAgreementObject": {
+      "type": "object"
+    },
+    "RosterObject": {
+      "type": "object"
+    },
+    "SupervisorObject": {
+      "type": "object"
+    },
+    "OperationalUnitObject": {
+      "type": "object"
+    },
+    "Leave": {
+      "type": "object"
+    },
+    "LeaveRuleObject": {
+      "type": "object"
+    },
+    "Staging": {
+      "type": "object"
+    },
+    "Paycycle": {
+      "type": "object"
+    },
+    "CustomFieldDataObject": {
+      "type": "object"
+    },
+    "Parent": {
+      "type": "object"
+    },
+    "DirtyDeputecPayrateCalculationMetadata": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "Id",
+    "Employee",
+    "StartTime",
+    "Mealbreak",
+    "TotalTime",
+    "TotalTimeInv",
+    "Disputed",
+    "TimeApproved",
+    "ValidationFlag",
+    "Invoiced",
+    "PayRuleApproved",
+    "PayStaged",
+    "PaycycleId",
+    "Modified",
+    "ReviewState"
+  ]
+}

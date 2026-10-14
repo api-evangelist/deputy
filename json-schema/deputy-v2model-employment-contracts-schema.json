@@ -1,0 +1,128 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/deputy/main/json-schema/deputy-v2model-employment-contracts-schema.json",
+  "title": "Employment Contracts",
+  "x-generated": "2026-10-14",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/deputy-v2-api-openapi.yml#/components/schemas/v2modelEmploymentContracts",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "integer",
+      "format": "int32",
+      "title": "Employment Contracts ID"
+    },
+    "code": {
+      "type": "integer",
+      "format": "int32",
+      "title": "Code"
+    },
+    "name": {
+      "type": "string",
+      "title": "Name"
+    },
+    "description": {
+      "type": "string",
+      "title": "Description"
+    },
+    "basis": {
+      "$ref": "#/$defs/modelEmploymentBasis",
+      "title": "Basis"
+    },
+    "category": {
+      "$ref": "#/$defs/v2employee_contractsmodelEmploymentCategory",
+      "title": "Category"
+    },
+    "type": {
+      "$ref": "#/$defs/v2employee_contractsmodelEmploymentType",
+      "title": "Type"
+    },
+    "conditionId": {
+      "type": "integer",
+      "format": "int32",
+      "title": "Condition ID"
+    },
+    "payCycleType": {
+      "$ref": "#/$defs/modelPayCycleType",
+      "title": "Pay Period Type"
+    },
+    "basePayRuleId": {
+      "type": "integer",
+      "format": "int32",
+      "title": "Base Pay Rule ID"
+    },
+    "isStrictLeaveApproval": {
+      "type": "boolean",
+      "title": "Is Strict Leave Approval"
+    },
+    "startAt": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Employment Contracts start date and time"
+    },
+    "endAt": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Employment Contracts start date and time"
+    },
+    "createdById": {
+      "type": "integer",
+      "format": "int32",
+      "title": "Employee ID of who created the Employment Contracts"
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Timestamp when the Employment Contracts was created"
+    },
+    "modifiedAt": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Timestamp when the Employment Contracts was modified"
+    }
+  },
+  "$defs": {
+    "modelEmploymentBasis": {
+      "type": "string",
+      "enum": [
+        "UNKNOWN_BASIS",
+        "INDIVIDUAL",
+        "LABOUR_HIRE"
+      ],
+      "default": "UNKNOWN_BASIS"
+    },
+    "modelPayCycleType": {
+      "type": "string",
+      "enum": [
+        "UNKNOWN_CYCLE",
+        "WEEKLY",
+        "FORTNIGHTLY",
+        "MONTHLY",
+        "EVERY_3_WEEKS",
+        "EVERY_4_WEEKS",
+        "BIMONTHLY"
+      ],
+      "default": "UNKNOWN_CYCLE"
+    },
+    "v2employee_contractsmodelEmploymentCategory": {
+      "type": "string",
+      "enum": [
+        "UNKNOWN_CATEGORY",
+        "PERMANENT",
+        "TEMPORARY"
+      ],
+      "default": "UNKNOWN_CATEGORY"
+    },
+    "v2employee_contractsmodelEmploymentType": {
+      "type": "string",
+      "enum": [
+        "UNKNOWN_TYPE",
+        "FULL_TIME",
+        "PART_TIME",
+        "CASUAL"
+      ],
+      "default": "UNKNOWN_TYPE"
+    }
+  }
+}

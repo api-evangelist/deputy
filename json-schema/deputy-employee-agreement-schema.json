@@ -1,0 +1,126 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/deputy/main/json-schema/deputy-employee-agreement-schema.json",
+  "title": "EmployeeAgreement",
+  "x-generated": "2026-10-14",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/deputy-v1-resource-api-openapi.yml#/components/schemas/EmployeeAgreement",
+  "type": "object",
+  "properties": {
+    "Id": {
+      "type": "integer"
+    },
+    "EmployeeId": {
+      "type": "integer"
+    },
+    "PayPoint": {
+      "type": "integer"
+    },
+    "EmpType": {
+      "type": "integer"
+    },
+    "CompanyName": {
+      "type": "string",
+      "maxLength": 32
+    },
+    "Active": {
+      "type": "boolean"
+    },
+    "StartDate": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "EndDate": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "EffectiveDate": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "Contract": {
+      "type": "integer"
+    },
+    "SalaryPayRule": {
+      "type": "integer"
+    },
+    "ContractFile": {
+      "type": "integer"
+    },
+    "PayrollId": {
+      "type": "string",
+      "maxLength": 64
+    },
+    "PayPeriod": {
+      "type": "integer"
+    },
+    "PayCalendarId": {
+      "type": "integer"
+    },
+    "HistoryId": {
+      "type": "integer"
+    },
+    "Creator": {
+      "type": "integer"
+    },
+    "Created": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "Modified": {
+      "type": "string"
+    },
+    "BaseRate": {
+      "type": "number",
+      "format": "double"
+    },
+    "LevelId": {
+      "type": "integer"
+    },
+    "AnnualSalary": {
+      "type": "number",
+      "format": "double"
+    },
+    "JuniorRateId": {
+      "type": "integer"
+    },
+    "Employee": {
+      "type": "object"
+    },
+    "PayPointObject": {
+      "type": "object"
+    },
+    "ContractObject": {
+      "type": "object"
+    },
+    "SalaryPayRuleObject": {
+      "type": "object"
+    },
+    "ContractFileObject": {
+      "type": "object"
+    },
+    "PayPeriodObject": {
+      "type": "object"
+    },
+    "PayCalendar": {
+      "type": "object"
+    },
+    "Level": {
+      "type": "object"
+    },
+    "JuniorRate": {
+      "type": "object"
+    }
+  },
+  "required": [
+    "Id",
+    "EmployeeId",
+    "PayPoint",
+    "EmpType",
+    "Active",
+    "StartDate",
+    "PayPeriod",
+    "Modified"
+  ]
+}

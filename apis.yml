@@ -1,14 +1,14 @@
 aid: deputy
+
 name: Deputy
-description: >-
-  Deputy is an API-first workforce management platform that handles employee
-  scheduling, time and attendance tracking, timesheets, leave management, task
-  delegation, and team communications for businesses with hourly workers. The
-  platform integrates with payroll, HR, and point of sale systems and exposes
-  most of its product surface area via a public REST API. The Deputy API uses
-  OAuth 2.0 or permanent token authentication and provides JSON endpoints for
-  employees, schedules, timesheets, locations, sales metrics, and more.
+
+description: Deputy is an API-first workforce management platform that handles employee scheduling, time and attendance tracking, timesheets,
+  leave management, task delegation, and team communications for businesses with hourly workers. The platform integrates with payroll, HR, and
+  point of sale systems and exposes most of its product surface area via a public REST API. The Deputy API uses OAuth 2.0 or permanent token authentication
+  and provides JSON endpoints for employees, schedules, timesheets, locations, sales metrics, and more.
+
 type: Index
+
 deliveryModel:
   model: saas
   open_source: false
@@ -20,6 +20,7 @@ deliveryModel:
   - pricing
   generated: '2026-08-28'
   method: derived
+
 accessModel:
   pricing: unknown
   onboarding: unknown
@@ -31,97 +32,223 @@ accessModel:
   source: []
   generated: '2026-07-22'
   method: derived
+
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/deputy.png
+
 x-docs-platform: readme
+
 x-docs-platform-confidence: high
+
 x-docs-platform-checked: 2026-09-25
+
 tags:
-  - Workforce Management
-  - Employee Scheduling
-  - Time and Attendance
-  - Timesheets
-  - Human Resources
-  - Shift Planning
-  - Australia
-  - Scheduling
-url: >-
-  https://raw.githubusercontent.com/api-evangelist/deputy/refs/heads/main/apis.yml
+- Workforce Management
+- Employee Scheduling
+- Time and Attendance
+- Timesheets
+- Human Resources
+- Shift Planning
+- Australia
+- Scheduling
+
+url: https://raw.githubusercontent.com/api-evangelist/deputy/refs/heads/main/apis.yml
+
 created: '2026-05-11'
+
 modified: '2026-05-11'
+
 specificationVersion: '0.23'
-apis:
-  - aid: deputy:public-api
-    name: Deputy Public API
-    description: >-
-      REST API for managing employees, schedules, timesheets, locations, leave,
-      tasks, and sales metrics in the Deputy workforce management platform.
-      Authentication is handled via OAuth 2.0 or a permanent access token,
-      with most endpoints living under /api/v1 and a few newer endpoints under
-      /api/v2 on the customer's install subdomain.
-    humanURL: https://developer.deputy.com/deputy-docs
-    baseURL: https://{install}.{geo}.deputy.com/api/v1
-    tags:
-      - Workforce Management
-      - Scheduling
-      - Timesheets
-      - Employees
-      - Leave
-      - Location
-    tags_raw:
-      - Workforce Management
-      - Scheduling
-      - Timesheets
-      - Employees
-      - Leave
-      - Locations
-    properties:
-      - type: Documentation
-        url: https://developer.deputy.com/deputy-docs
-      - type: GettingStarted
-        url: https://developer.deputy.com/docs/getting-started-with-the-deputy-api
-      - type: Authentication
-        url: https://developer.deputy.com/docs/using-oauth-20
+
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com
+
 common:
-  - type: TrustCenter
-    url: security/deputy-trust-center.yml
-  - type: VulnerabilityDisclosure
-    url: security/deputy-vulnerability-disclosure.yml
-  - type: DomainSecurity
-    url: security/deputy-domain-security.yml
-  - type: Website
-    url: https://www.deputy.com
+- type: AgenticAccess
+  url: agentic-access/deputy-agentic-access.yml
+- type: Spectral
+  url: rules/deputy-rules.yml
+- type: JSONLD
+  url: json-ld/deputy-context.jsonld
+- type: Vocabulary
+  url: vocabulary/deputy-vocabulary.yml
+- type: DataModel
+  url: data-model/deputy-data-model.yml
+- type: Compliance
+  url: https://trust.deputy.com/
+- type: ErrorCatalog
+  url: errors/deputy-problem-types.yml
+- type: Conformance
+  url: conformance/deputy-conformance.yml
+- type: LLMsTxt
+  url: llms/deputy-llms.txt
+- type: SecurityTxt
+  url: well-known/deputy-status-security.txt
+- type: SecurityTxt
+  url: well-known/deputy-security.txt
+- type: WellKnown
+  url: well-known/deputy-well-known.yml
+- type: Hosts
+  url: hosts/deputy-hosts.yml
+- type: IntegrationEdges
+  url: integrations/deputy-integration-edges.yml
+- type: Vendors
+  url: vendors/deputy-vendors.yml
+- type: Security
+  url: https://www.deputy.com/security
+- type: Newsroom
+  url: https://www.deputy.com/press
+- type: Leadership
+  url: https://www.deputy.com/about/leadership
+- type: OAuthScopes
+  url: scopes/deputy-scopes.yml
+- type: Authentication
+  url: authentication/deputy-authentication.yml
+- type: TrustCenter
+  url: security/deputy-trust-center.yml
+- type: VulnerabilityDisclosure
+  url: security/deputy-vulnerability-disclosure.yml
+- type: DomainSecurity
+  url: security/deputy-domain-security.yml
+- type: Website
+  url: https://www.deputy.com
+- type: Documentation
+  url: https://developer.deputy.com/deputy-docs
+- type: DeveloperPortal
+  url: https://developer.deputy.com
+- type: GettingStarted
+  url: https://developer.deputy.com/docs/getting-started-with-the-deputy-api
+- type: Authentication
+  url: https://developer.deputy.com/docs/using-oauth-20
+- type: Pricing
+  url: https://www.deputy.com/pricing
+- type: Login
+  url: https://once.deputy.com/login/
+- type: Support
+  url: https://help.deputy.com/
+- type: Blog
+  url: https://www.deputy.com/blog
+- type: StatusPage
+  url: https://status.deputy.com/
+- type: PrivacyPolicy
+  url: https://www.deputy.com/privacy-policy
+- type: TermsOfService
+  url: https://www.deputy.com/terms-of-service
+- type: GitHubOrganization
+  url: https://github.com/deputydev
+- type: X (Twitter)
+  url: https://x.com/deputyapp
+- type: LlmsText
+  url: https://developer.deputy.com/llms.txt
+
+apis:
+- aid: deputy:public-api
+  name: Deputy Public API
+  description: REST API for managing employees, schedules, timesheets, locations, leave, tasks, and sales metrics in the Deputy workforce management
+    platform. Authentication is handled via OAuth 2.0 or a permanent access token, with most endpoints living under /api/v1 and a few newer endpoints
+    under /api/v2 on the customer's install subdomain.
+  humanURL: https://developer.deputy.com/deputy-docs
+  baseURL: https://{install}.{geo}.deputy.com/api/v1
+  tags:
+  - Workforce Management
+  - Scheduling
+  - Timesheets
+  - Employees
+  - Leave
+  - Location
+  tags_raw:
+  - Workforce Management
+  - Scheduling
+  - Timesheets
+  - Employees
+  - Leave
+  - Locations
+  properties:
   - type: Documentation
     url: https://developer.deputy.com/deputy-docs
-  - type: DeveloperPortal
-    url: https://developer.deputy.com
   - type: GettingStarted
     url: https://developer.deputy.com/docs/getting-started-with-the-deputy-api
   - type: Authentication
     url: https://developer.deputy.com/docs/using-oauth-20
-  - type: Pricing
-    url: https://www.deputy.com/pricing
-  - type: Signup
-    url: https://once.deputy.com/signup/
-  - type: Login
-    url: https://once.deputy.com/login/
-  - type: Support
-    url: https://help.deputy.com/
-  - type: Blog
-    url: https://www.deputy.com/blog
-  - type: StatusPage
-    url: https://status.deputy.com/
-  - type: PrivacyPolicy
-    url: https://www.deputy.com/privacy-policy
-  - type: TermsOfService
-    url: https://www.deputy.com/terms-of-service
-  - type: GitHubOrganization
-    url: https://github.com/deputydev
-  - type: LinkedIn
-    url: https://www.linkedin.com/company/deputy-com
-  - type: X (Twitter)
-    url: https://x.com/deputyapp
-  - type: LlmsText
-    url: https://developer.deputy.com/llms.txt
-maintainers:
-  - FN: Kin Lane
-    email: kin@apievangelist.com
+- aid: deputy:deputy-deputy
+  name: Deputy Locations API
+  description: The Locations API from Deputy — 66 operation(s) for locations.
+  humanURL: https://developer.deputy.com/deputy-docs
+  baseURL: https://{install}.{geo}.deputy.com/api/v1
+  tags:
+  - Locations
+  properties:
+  - type: OpenAPI
+    url: openapi/deputy-deputy-openapi.yml
+  - type: JSONSchema
+    url: json-schema/deputy-addanemployee-request-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-createa-department-request-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-addleaveforaemployee-request-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-createamemo-request-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-add-new-workplace-request-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-setawardforemployee-request-schema.json
+- aid: deputy:deputy-v1-resource-api
+  name: Deputy Company API
+  description: Operations on the Company resource
+  humanURL: https://developer.deputy.com/deputy-docs
+  baseURL: https://{install}.{geo}.deputy.com/api/v1
+  tags:
+  - Company
+  properties:
+  - type: OpenAPI
+    url: openapi/deputy-v1-resource-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/deputy-custom-field-data-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-timesheet-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-employee-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-pay-rules-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-roster-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-employee-agreement-schema.json
+- aid: deputy:deputy-v1-supervise-api
+  name: Deputy Company API
+  description: V1 /supervise/company/* endpoints
+  humanURL: https://developer.deputy.com/deputy-docs
+  baseURL: https://{install}.{geo}.deputy.com/api/v1
+  tags:
+  - Company
+  properties:
+  - type: OpenAPI
+    url: openapi/deputy-v1-supervise-api-openapi.yml
+- aid: deputy:deputy-v2-api
+  name: Deputy V2 API
+  description: The V2 API from Deputy — 351 operation(s) for v2.
+  humanURL: https://developer.deputy.com/deputy-docs
+  baseURL: https://{install}.{geo}.deputy.com/api/v1
+  tags:
+  - V2
+  properties:
+  - type: OpenAPI
+    url: openapi/deputy-v2-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/deputy-tenanttimesheetv2model-timesheet-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-pay-comparison-submit-report-request-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-v2model-leave-request-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-v2model-employment-contracts-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-copy-request-copy-request-data-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-v2model-area-profile-schema.json
+
+x-readme-harvest:
+  date: '2026-10-14'
+  ops: 1500
+  tool: harvest-readme-openapi.py
+  portal: https://developer.deputy.com

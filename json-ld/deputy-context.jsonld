@@ -1,0 +1,2769 @@
+{
+  "@context": {
+    "@vocab": "https://deputy.com/schema#",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "dcterms": "http://purl.org/dc/terms/",
+    "deputy": "https://deputy.com/schema#",
+    "ModifysettingsinalllocationsRequest": "deputy:ModifysettingsinalllocationsRequest",
+    "WEEK_START": {
+      "@id": "deputy:WEEK_START",
+      "@type": "xsd:integer"
+    },
+    "AddalocationRequest": "deputy:AddalocationRequest",
+    "strWorkplaceName": {
+      "@id": "deputy:strWorkplaceName",
+      "@type": "xsd:string"
+    },
+    "strWorkplaceCode": {
+      "@id": "deputy:strWorkplaceCode",
+      "@type": "xsd:string"
+    },
+    "strAddress": {
+      "@id": "deputy:strAddress",
+      "@type": "xsd:string"
+    },
+    "strAddressNotes": {
+      "@id": "deputy:strAddressNotes",
+      "@type": "xsd:string"
+    },
+    "intParentCompany": {
+      "@id": "deputy:intParentCompany",
+      "@type": "xsd:integer"
+    },
+    "intIsWorkplace": {
+      "@id": "deputy:intIsWorkplace",
+      "@type": "xsd:integer"
+    },
+    "intIsPayrollEntity": {
+      "@id": "deputy:intIsPayrollEntity",
+      "@type": "xsd:integer"
+    },
+    "strTimezone": {
+      "@id": "deputy:strTimezone",
+      "@type": "xsd:string"
+    },
+    "strPayrollExportCode": {
+      "@id": "deputy:strPayrollExportCode",
+      "@type": "xsd:string"
+    },
+    "UpdatealocationRequest": "deputy:UpdatealocationRequest",
+    "AddNewWorkplaceRequest": "deputy:AddNewWorkplaceRequest",
+    "strWorkplaceTimezone": {
+      "@id": "deputy:strWorkplaceTimezone",
+      "@type": "xsd:string"
+    },
+    "strLat": {
+      "@id": "deputy:strLat",
+      "@type": "xsd:string"
+    },
+    "strLon": {
+      "@id": "deputy:strLon",
+      "@type": "xsd:string"
+    },
+    "intCountry": {
+      "@id": "deputy:intCountry",
+      "@type": "xsd:integer"
+    },
+    "arrAreaNames": {
+      "@id": "deputy:arrAreaNames",
+      "@container": "@list"
+    },
+    "blnIsWorkplace": {
+      "@id": "deputy:blnIsWorkplace",
+      "@type": "xsd:integer"
+    },
+    "blnIsPayrollEntity": {
+      "@id": "deputy:blnIsPayrollEntity",
+      "@type": "xsd:integer"
+    },
+    "CreateamemoRequest": "deputy:CreateamemoRequest",
+    "strContent": {
+      "@id": "deputy:strContent",
+      "@type": "xsd:string"
+    },
+    "intCompany": {
+      "@id": "deputy:intCompany",
+      "@type": "xsd:integer"
+    },
+    "blnRequireConfirm": {
+      "@id": "deputy:blnRequireConfirm",
+      "@type": "xsd:integer"
+    },
+    "arrAssignedCompanyIds": {
+      "@id": "deputy:arrAssignedCompanyIds",
+      "@container": "@list"
+    },
+    "arrAssignedUserIds": {
+      "@id": "deputy:arrAssignedUserIds",
+      "@container": "@list"
+    },
+    "PostajournalRequest": "deputy:PostajournalRequest",
+    "strComment": {
+      "@id": "deputy:strComment",
+      "@type": "xsd:string"
+    },
+    "intEmployeeId": {
+      "@id": "deputy:intEmployeeId",
+      "@type": "xsd:integer"
+    },
+    "AddleaveforaemployeeRequest": "deputy:AddleaveforaemployeeRequest",
+    "Status": {
+      "@id": "deputy:Status",
+      "@type": "xsd:integer"
+    },
+    "Employee": {
+      "@id": "deputy:Employee",
+      "@type": "xsd:integer"
+    },
+    "DateStart": {
+      "@id": "deputy:DateStart",
+      "@type": "xsd:string"
+    },
+    "DateEnd": {
+      "@id": "deputy:DateEnd",
+      "@type": "xsd:string"
+    },
+    "ApprovalComment": {
+      "@id": "deputy:ApprovalComment",
+      "@type": "xsd:string"
+    },
+    "ActionOverlappingRosters": {
+      "@id": "deputy:ActionOverlappingRosters",
+      "@type": "xsd:integer"
+    },
+    "AddunavailabilitydetailsforaemployeeRequest": "deputy:AddunavailabilitydetailsforaemployeeRequest",
+    "employee": {
+      "@id": "deputy:employee",
+      "@type": "xsd:integer"
+    },
+    "start": {
+      "@id": "deputy:start",
+      "@type": "@id"
+    },
+    "end": {
+      "@id": "deputy:end",
+      "@type": "@id"
+    },
+    "recurrence": {
+      "@id": "deputy:recurrence",
+      "@type": "@id"
+    },
+    "Start": "deputy:Start",
+    "timestamp": {
+      "@id": "deputy:timestamp",
+      "@type": "xsd:integer"
+    },
+    "End": "deputy:End",
+    "Recurrence": "deputy:Recurrence",
+    "FREQ": {
+      "@id": "deputy:FREQ",
+      "@type": "xsd:string"
+    },
+    "INTERVAL": {
+      "@id": "deputy:INTERVAL",
+      "@type": "xsd:integer"
+    },
+    "BYDAY": {
+      "@id": "deputy:BYDAY",
+      "@type": "xsd:string"
+    },
+    "CreateaDepartmentRequest": "deputy:CreateaDepartmentRequest",
+    "intCompanyId": {
+      "@id": "deputy:intCompanyId",
+      "@type": "xsd:integer"
+    },
+    "strOpunitName": {
+      "@id": "deputy:strOpunitName",
+      "@type": "xsd:string"
+    },
+    "strExportName": {
+      "@id": "deputy:strExportName",
+      "@type": "xsd:string"
+    },
+    "intSortOrder": {
+      "@id": "deputy:intSortOrder",
+      "@type": "xsd:integer"
+    },
+    "intOpunitType": {
+      "@id": "deputy:intOpunitType",
+      "@type": "xsd:integer"
+    },
+    "LocationId": {
+      "@id": "deputy:LocationId",
+      "@type": "xsd:integer"
+    },
+    "CreateMultipleDepartmentsRequest": "deputy:CreateMultipleDepartmentsRequest",
+    "arrArea": {
+      "@id": "deputy:arrArea",
+      "@container": "@list"
+    },
+    "ArrArea": "deputy:ArrArea",
+    "intAddressId": {
+      "@id": "deputy:intAddressId",
+      "@type": "xsd:integer"
+    },
+    "arrTrainingId": {
+      "@id": "deputy:arrTrainingId",
+      "@container": "@list"
+    },
+    "UpdateasingleoperationalunitRequest": "deputy:UpdateasingleoperationalunitRequest",
+    "CopyaRosterRequest": "deputy:CopyaRosterRequest",
+    "strFromDate": {
+      "@id": "deputy:strFromDate",
+      "@type": "xsd:string"
+    },
+    "strToDate": {
+      "@id": "deputy:strToDate",
+      "@type": "xsd:string"
+    },
+    "intOperationalUnitArray": {
+      "@id": "deputy:intOperationalUnitArray",
+      "@container": "@list"
+    },
+    "blnRequireErrorDetails": {
+      "@id": "deputy:blnRequireErrorDetails",
+      "@type": "xsd:integer"
+    },
+    "PublisharosterRequest": "deputy:PublisharosterRequest",
+    "intMode": {
+      "@id": "deputy:intMode",
+      "@type": "xsd:integer"
+    },
+    "blnAllLocationsMode": {
+      "@id": "deputy:blnAllLocationsMode",
+      "@type": "xsd:integer"
+    },
+    "intRosterArray": {
+      "@id": "deputy:intRosterArray",
+      "@container": "@list"
+    },
+    "DiscardarosterRequest": "deputy:DiscardarosterRequest",
+    "AddasaletosalesmetricsRequest": "deputy:AddasaletosalesmetricsRequest",
+    "data": {
+      "@id": "deputy:data",
+      "@container": "@list"
+    },
+    "Datum": "deputy:Datum",
+    "area": {
+      "@id": "deputy:area",
+      "@type": "xsd:integer"
+    },
+    "type": {
+      "@id": "deputy:type",
+      "@type": "xsd:string"
+    },
+    "reference": {
+      "@id": "deputy:reference",
+      "@type": "xsd:string"
+    },
+    "value": {
+      "@id": "deputy:value",
+      "@type": "xsd:decimal"
+    },
+    "location": {
+      "@id": "deputy:location",
+      "@type": "xsd:integer"
+    },
+    "UpdatemyaddressRequest": "deputy:UpdatemyaddressRequest",
+    "ContactName": {
+      "@id": "deputy:ContactName",
+      "@type": "xsd:string"
+    },
+    "UnitNo": {
+      "@id": "deputy:UnitNo",
+      "@type": "xsd:string"
+    },
+    "Street1": {
+      "@id": "deputy:Street1",
+      "@type": "xsd:string"
+    },
+    "City": {
+      "@id": "deputy:City",
+      "@type": "xsd:string"
+    },
+    "State": {
+      "@id": "deputy:State",
+      "@type": "xsd:string"
+    },
+    "Postcode": {
+      "@id": "deputy:Postcode",
+      "@type": "xsd:string"
+    },
+    "Country": {
+      "@id": "deputy:Country",
+      "@type": "xsd:integer"
+    },
+    "Notes": {
+      "@id": "deputy:Notes",
+      "@type": "xsd:string"
+    },
+    "AddawebhookURLRequest": "deputy:AddawebhookURLRequest",
+    "Topic": {
+      "@id": "deputy:Topic",
+      "@type": "xsd:string"
+    },
+    "Enabled": {
+      "@id": "deputy:Enabled",
+      "@type": "xsd:integer"
+    },
+    "Type": {
+      "@id": "deputy:Type",
+      "@type": "xsd:string"
+    },
+    "Address": {
+      "@id": "deputy:Address",
+      "@type": "xsd:string"
+    },
+    "AddanemployeeRequest": "deputy:AddanemployeeRequest",
+    "strFirstName": {
+      "@id": "deputy:strFirstName",
+      "@type": "xsd:string"
+    },
+    "strLastName": {
+      "@id": "deputy:strLastName",
+      "@type": "xsd:string"
+    },
+    "intGender": {
+      "@id": "deputy:intGender",
+      "@type": "xsd:integer"
+    },
+    "strCountryCode": {
+      "@id": "deputy:strCountryCode",
+      "@type": "xsd:string"
+    },
+    "strDob": {
+      "@id": "deputy:strDob",
+      "@type": "xsd:string"
+    },
+    "strStartDate": {
+      "@id": "deputy:strStartDate",
+      "@type": "xsd:string"
+    },
+    "strMobilePhone": {
+      "@id": "deputy:strMobilePhone",
+      "@type": "xsd:string"
+    },
+    "strPayrollId": {
+      "@id": "deputy:strPayrollId",
+      "@type": "xsd:string"
+    },
+    "fltWeekDayRate": {
+      "@id": "deputy:fltWeekDayRate",
+      "@type": "xsd:integer"
+    },
+    "UpdateanexistingemployeeRequest": "deputy:UpdateanexistingemployeeRequest",
+    "Phone": {
+      "@id": "deputy:Phone",
+      "@type": "xsd:string"
+    },
+    "AddlocationagainstemployeeRequest": "deputy:AddlocationagainstemployeeRequest",
+    "intAgreementId": {
+      "@id": "deputy:intAgreementId",
+      "@type": "xsd:integer"
+    },
+    "blnSetPrimary": {
+      "@id": "deputy:blnSetPrimary",
+      "@type": "xsd:boolean"
+    },
+    "SetawardforemployeeRequest": "deputy:SetawardforemployeeRequest",
+    "strAwardCode": {
+      "@id": "deputy:strAwardCode",
+      "@type": "xsd:string"
+    },
+    "arrAgreementId": {
+      "@id": "deputy:arrAgreementId",
+      "@container": "@list"
+    },
+    "StartanemployeestimesheetClockOnRequest": "deputy:StartanemployeestimesheetClockOnRequest",
+    "intOpunitId": {
+      "@id": "deputy:intOpunitId",
+      "@type": "xsd:integer"
+    },
+    "StopanemployeestimesheetClockOffRequest": "deputy:StopanemployeestimesheetClockOffRequest",
+    "intTimesheetId": {
+      "@id": "deputy:intTimesheetId",
+      "@type": "xsd:integer"
+    },
+    "intMealbreakMinute": {
+      "@id": "deputy:intMealbreakMinute",
+      "@type": "xsd:integer"
+    },
+    "Company": "deputy:Company",
+    "Id": {
+      "@id": "deputy:Id",
+      "@type": "xsd:integer"
+    },
+    "Portfolio": {
+      "@id": "deputy:Portfolio",
+      "@type": "xsd:integer"
+    },
+    "Code": {
+      "@id": "deputy:Code",
+      "@type": "xsd:string"
+    },
+    "Active": {
+      "@id": "deputy:Active",
+      "@type": "xsd:boolean"
+    },
+    "ParentCompany": {
+      "@id": "deputy:ParentCompany",
+      "@type": "xsd:integer"
+    },
+    "CompanyName": {
+      "@id": "deputy:CompanyName",
+      "@type": "xsd:string"
+    },
+    "TradingName": {
+      "@id": "deputy:TradingName",
+      "@type": "xsd:string"
+    },
+    "BusinessNumber": {
+      "@id": "deputy:BusinessNumber",
+      "@type": "xsd:string"
+    },
+    "CompanyNumber": {
+      "@id": "deputy:CompanyNumber",
+      "@type": "xsd:string"
+    },
+    "IsWorkplace": {
+      "@id": "deputy:IsWorkplace",
+      "@type": "xsd:boolean"
+    },
+    "IsPayrollEntity": {
+      "@id": "deputy:IsPayrollEntity",
+      "@type": "xsd:boolean"
+    },
+    "PayrollExportCode": {
+      "@id": "deputy:PayrollExportCode",
+      "@type": "xsd:string"
+    },
+    "Contact": {
+      "@id": "deputy:Contact",
+      "@type": "xsd:integer"
+    },
+    "Creator": {
+      "@id": "deputy:Creator",
+      "@type": "xsd:integer"
+    },
+    "Created": {
+      "@id": "deputy:Created",
+      "@type": "xsd:dateTime"
+    },
+    "Modified": {
+      "@id": "deputy:Modified",
+      "@type": "xsd:string"
+    },
+    "ParentCompanyObject": {
+      "@id": "deputy:ParentCompanyObject"
+    },
+    "AddressObject": {
+      "@id": "deputy:AddressObject"
+    },
+    "ContactObject": {
+      "@id": "deputy:ContactObject"
+    },
+    "QueryRequest": "deputy:QueryRequest",
+    "search": {
+      "@id": "deputy:search"
+    },
+    "sort": {
+      "@id": "deputy:sort"
+    },
+    "max": {
+      "@id": "deputy:max",
+      "@type": "xsd:integer"
+    },
+    "join": {
+      "@id": "deputy:join",
+      "@container": "@list"
+    },
+    "Category": "deputy:Category",
+    "Group": {
+      "@id": "deputy:Group",
+      "@type": "xsd:string"
+    },
+    "SortOrder": {
+      "@id": "deputy:SortOrder",
+      "@type": "xsd:integer"
+    },
+    "Stafflog": {
+      "@id": "deputy:Stafflog",
+      "@type": "xsd:boolean"
+    },
+    "System": {
+      "@id": "deputy:System",
+      "@type": "xsd:boolean"
+    },
+    "CompanyPeriod": "deputy:CompanyPeriod",
+    "PayPeriod": {
+      "@id": "deputy:PayPeriod",
+      "@type": "xsd:integer"
+    },
+    "CompanyObject": {
+      "@id": "deputy:CompanyObject"
+    },
+    "PayPeriodObject": {
+      "@id": "deputy:PayPeriodObject"
+    },
+    "Leave": "deputy:Leave",
+    "EmployeeHistory": {
+      "@id": "deputy:EmployeeHistory",
+      "@type": "xsd:integer"
+    },
+    "LeaveRule": {
+      "@id": "deputy:LeaveRule",
+      "@type": "xsd:integer"
+    },
+    "Days": {
+      "@id": "deputy:Days",
+      "@type": "xsd:decimal"
+    },
+    "ApproverTime": {
+      "@id": "deputy:ApproverTime",
+      "@type": "xsd:integer"
+    },
+    "ApproverPay": {
+      "@id": "deputy:ApproverPay",
+      "@type": "xsd:integer"
+    },
+    "Comment": {
+      "@id": "deputy:Comment",
+      "@type": "xsd:string"
+    },
+    "TotalHours": {
+      "@id": "deputy:TotalHours",
+      "@type": "xsd:decimal"
+    },
+    "ExternalId": {
+      "@id": "deputy:ExternalId",
+      "@type": "xsd:string"
+    },
+    "AllDay": {
+      "@id": "deputy:AllDay",
+      "@type": "xsd:boolean"
+    },
+    "EmployeeObject": {
+      "@id": "deputy:EmployeeObject"
+    },
+    "EmployeeHistoryObject": {
+      "@id": "deputy:EmployeeHistoryObject"
+    },
+    "LeaveRuleObject": {
+      "@id": "deputy:LeaveRuleObject"
+    },
+    "Memo": "deputy:Memo",
+    "ShowFrom": {
+      "@id": "deputy:ShowFrom",
+      "@type": "xsd:dateTime"
+    },
+    "ShowTill": {
+      "@id": "deputy:ShowTill",
+      "@type": "xsd:dateTime"
+    },
+    "Title": {
+      "@id": "deputy:Title",
+      "@type": "xsd:string"
+    },
+    "Content": {
+      "@id": "deputy:Content",
+      "@type": "xsd:string"
+    },
+    "File": {
+      "@id": "deputy:File",
+      "@type": "xsd:integer"
+    },
+    "Url": {
+      "@id": "deputy:Url",
+      "@type": "xsd:string"
+    },
+    "ConfirmText": {
+      "@id": "deputy:ConfirmText",
+      "@type": "xsd:string"
+    },
+    "Keyword": {
+      "@id": "deputy:Keyword",
+      "@type": "xsd:string"
+    },
+    "DisableComment": {
+      "@id": "deputy:DisableComment",
+      "@type": "xsd:boolean"
+    },
+    "CreatorObject": {
+      "@id": "deputy:CreatorObject"
+    },
+    "CustomAppData": "deputy:CustomAppData",
+    "DocumentId": {
+      "@id": "deputy:DocumentId",
+      "@type": "xsd:string"
+    },
+    "Data": {
+      "@id": "deputy:Data",
+      "@type": "xsd:string"
+    },
+    "KeyInt": {
+      "@id": "deputy:KeyInt",
+      "@type": "xsd:integer"
+    },
+    "KeyString": {
+      "@id": "deputy:KeyString",
+      "@type": "xsd:string"
+    },
+    "Label": {
+      "@id": "deputy:Label",
+      "@type": "xsd:string"
+    },
+    "OperationalUnit": {
+      "@id": "deputy:OperationalUnit",
+      "@type": "xsd:integer"
+    },
+    "Permission": {
+      "@id": "deputy:Permission",
+      "@type": "xsd:string"
+    },
+    "Deleted": {
+      "@id": "deputy:Deleted",
+      "@type": "xsd:boolean"
+    },
+    "CustomField": "deputy:CustomField",
+    "Name": {
+      "@id": "deputy:Name",
+      "@type": "xsd:string"
+    },
+    "ApiName": {
+      "@id": "deputy:ApiName",
+      "@type": "xsd:string"
+    },
+    "DeputyField": {
+      "@id": "deputy:DeputyField",
+      "@type": "xsd:string"
+    },
+    "Default": {
+      "@id": "deputy:Default",
+      "@type": "xsd:string"
+    },
+    "DisplayTiming": {
+      "@id": "deputy:DisplayTiming",
+      "@type": "xsd:integer"
+    },
+    "ConditionalRules": {
+      "@id": "deputy:ConditionalRules",
+      "@type": "xsd:string"
+    },
+    "Action": {
+      "@id": "deputy:Action",
+      "@type": "xsd:integer"
+    },
+    "Published": {
+      "@id": "deputy:Published",
+      "@type": "xsd:integer"
+    },
+    "Valuelist": {
+      "@id": "deputy:Valuelist",
+      "@type": "xsd:string"
+    },
+    "Visible": {
+      "@id": "deputy:Visible",
+      "@type": "xsd:boolean"
+    },
+    "EmployeeVisible": {
+      "@id": "deputy:EmployeeVisible",
+      "@type": "xsd:boolean"
+    },
+    "TriggerScript": {
+      "@id": "deputy:TriggerScript",
+      "@type": "xsd:integer"
+    },
+    "Validation": {
+      "@id": "deputy:Validation",
+      "@type": "xsd:string"
+    },
+    "Helptext": {
+      "@id": "deputy:Helptext",
+      "@type": "xsd:string"
+    },
+    "TriggerScriptObject": {
+      "@id": "deputy:TriggerScriptObject"
+    },
+    "Journal": "deputy:Journal",
+    "Date": {
+      "@id": "deputy:Date",
+      "@type": "xsd:dateTime"
+    },
+    "EmployeeId": {
+      "@id": "deputy:EmployeeId",
+      "@type": "xsd:integer"
+    },
+    "CustomFieldData": "deputy:CustomFieldData",
+    "F01": {
+      "@id": "deputy:F01",
+      "@type": "xsd:string"
+    },
+    "F02": {
+      "@id": "deputy:F02",
+      "@type": "xsd:string"
+    },
+    "F03": {
+      "@id": "deputy:F03",
+      "@type": "xsd:string"
+    },
+    "F04": {
+      "@id": "deputy:F04",
+      "@type": "xsd:string"
+    },
+    "F05": {
+      "@id": "deputy:F05",
+      "@type": "xsd:string"
+    },
+    "F06": {
+      "@id": "deputy:F06",
+      "@type": "xsd:string"
+    },
+    "F07": {
+      "@id": "deputy:F07",
+      "@type": "xsd:string"
+    },
+    "F08": {
+      "@id": "deputy:F08",
+      "@type": "xsd:string"
+    },
+    "F09": {
+      "@id": "deputy:F09",
+      "@type": "xsd:string"
+    },
+    "F10": {
+      "@id": "deputy:F10",
+      "@type": "xsd:string"
+    },
+    "F11": {
+      "@id": "deputy:F11",
+      "@type": "xsd:string"
+    },
+    "F12": {
+      "@id": "deputy:F12",
+      "@type": "xsd:string"
+    },
+    "F13": {
+      "@id": "deputy:F13",
+      "@type": "xsd:string"
+    },
+    "F14": {
+      "@id": "deputy:F14",
+      "@type": "xsd:string"
+    },
+    "F15": {
+      "@id": "deputy:F15",
+      "@type": "xsd:string"
+    },
+    "F16": {
+      "@id": "deputy:F16",
+      "@type": "xsd:string"
+    },
+    "F17": {
+      "@id": "deputy:F17",
+      "@type": "xsd:string"
+    },
+    "F18": {
+      "@id": "deputy:F18",
+      "@type": "xsd:string"
+    },
+    "F19": {
+      "@id": "deputy:F19",
+      "@type": "xsd:string"
+    },
+    "F20": {
+      "@id": "deputy:F20",
+      "@type": "xsd:string"
+    },
+    "F21": {
+      "@id": "deputy:F21",
+      "@type": "xsd:string"
+    },
+    "F22": {
+      "@id": "deputy:F22",
+      "@type": "xsd:string"
+    },
+    "F23": {
+      "@id": "deputy:F23",
+      "@type": "xsd:string"
+    },
+    "F24": {
+      "@id": "deputy:F24",
+      "@type": "xsd:string"
+    },
+    "F25": {
+      "@id": "deputy:F25",
+      "@type": "xsd:string"
+    },
+    "F26": {
+      "@id": "deputy:F26",
+      "@type": "xsd:string"
+    },
+    "F27": {
+      "@id": "deputy:F27",
+      "@type": "xsd:string"
+    },
+    "F28": {
+      "@id": "deputy:F28",
+      "@type": "xsd:string"
+    },
+    "F29": {
+      "@id": "deputy:F29",
+      "@type": "xsd:string"
+    },
+    "F30": {
+      "@id": "deputy:F30",
+      "@type": "xsd:string"
+    },
+    "F31": {
+      "@id": "deputy:F31",
+      "@type": "xsd:string"
+    },
+    "F32": {
+      "@id": "deputy:F32",
+      "@type": "xsd:string"
+    },
+    "F33": {
+      "@id": "deputy:F33",
+      "@type": "xsd:string"
+    },
+    "F34": {
+      "@id": "deputy:F34",
+      "@type": "xsd:string"
+    },
+    "F35": {
+      "@id": "deputy:F35",
+      "@type": "xsd:string"
+    },
+    "F36": {
+      "@id": "deputy:F36",
+      "@type": "xsd:string"
+    },
+    "F37": {
+      "@id": "deputy:F37",
+      "@type": "xsd:string"
+    },
+    "F38": {
+      "@id": "deputy:F38",
+      "@type": "xsd:string"
+    },
+    "F39": {
+      "@id": "deputy:F39",
+      "@type": "xsd:string"
+    },
+    "F40": {
+      "@id": "deputy:F40",
+      "@type": "xsd:string"
+    },
+    "F41": {
+      "@id": "deputy:F41",
+      "@type": "xsd:string"
+    },
+    "F42": {
+      "@id": "deputy:F42",
+      "@type": "xsd:string"
+    },
+    "F43": {
+      "@id": "deputy:F43",
+      "@type": "xsd:string"
+    },
+    "F44": {
+      "@id": "deputy:F44",
+      "@type": "xsd:string"
+    },
+    "F45": {
+      "@id": "deputy:F45",
+      "@type": "xsd:string"
+    },
+    "F46": {
+      "@id": "deputy:F46",
+      "@type": "xsd:string"
+    },
+    "F47": {
+      "@id": "deputy:F47",
+      "@type": "xsd:string"
+    },
+    "F48": {
+      "@id": "deputy:F48",
+      "@type": "xsd:string"
+    },
+    "F49": {
+      "@id": "deputy:F49",
+      "@type": "xsd:string"
+    },
+    "F50": {
+      "@id": "deputy:F50",
+      "@type": "xsd:string"
+    },
+    "F51": {
+      "@id": "deputy:F51",
+      "@type": "xsd:string"
+    },
+    "F52": {
+      "@id": "deputy:F52",
+      "@type": "xsd:string"
+    },
+    "F53": {
+      "@id": "deputy:F53",
+      "@type": "xsd:string"
+    },
+    "F54": {
+      "@id": "deputy:F54",
+      "@type": "xsd:string"
+    },
+    "F55": {
+      "@id": "deputy:F55",
+      "@type": "xsd:string"
+    },
+    "F56": {
+      "@id": "deputy:F56",
+      "@type": "xsd:string"
+    },
+    "F57": {
+      "@id": "deputy:F57",
+      "@type": "xsd:string"
+    },
+    "F58": {
+      "@id": "deputy:F58",
+      "@type": "xsd:string"
+    },
+    "F59": {
+      "@id": "deputy:F59",
+      "@type": "xsd:string"
+    },
+    "F60": {
+      "@id": "deputy:F60",
+      "@type": "xsd:string"
+    },
+    "F61": {
+      "@id": "deputy:F61",
+      "@type": "xsd:string"
+    },
+    "F62": {
+      "@id": "deputy:F62",
+      "@type": "xsd:string"
+    },
+    "F63": {
+      "@id": "deputy:F63",
+      "@type": "xsd:string"
+    },
+    "F64": {
+      "@id": "deputy:F64",
+      "@type": "xsd:string"
+    },
+    "F65": {
+      "@id": "deputy:F65",
+      "@type": "xsd:string"
+    },
+    "F66": {
+      "@id": "deputy:F66",
+      "@type": "xsd:string"
+    },
+    "F67": {
+      "@id": "deputy:F67",
+      "@type": "xsd:string"
+    },
+    "F68": {
+      "@id": "deputy:F68",
+      "@type": "xsd:string"
+    },
+    "F69": {
+      "@id": "deputy:F69",
+      "@type": "xsd:string"
+    },
+    "F70": {
+      "@id": "deputy:F70",
+      "@type": "xsd:string"
+    },
+    "F71": {
+      "@id": "deputy:F71",
+      "@type": "xsd:string"
+    },
+    "F72": {
+      "@id": "deputy:F72",
+      "@type": "xsd:string"
+    },
+    "F73": {
+      "@id": "deputy:F73",
+      "@type": "xsd:string"
+    },
+    "F74": {
+      "@id": "deputy:F74",
+      "@type": "xsd:string"
+    },
+    "F75": {
+      "@id": "deputy:F75",
+      "@type": "xsd:string"
+    },
+    "F76": {
+      "@id": "deputy:F76",
+      "@type": "xsd:string"
+    },
+    "F77": {
+      "@id": "deputy:F77",
+      "@type": "xsd:string"
+    },
+    "F78": {
+      "@id": "deputy:F78",
+      "@type": "xsd:string"
+    },
+    "F79": {
+      "@id": "deputy:F79",
+      "@type": "xsd:string"
+    },
+    "F80": {
+      "@id": "deputy:F80",
+      "@type": "xsd:string"
+    },
+    "F81": {
+      "@id": "deputy:F81",
+      "@type": "xsd:string"
+    },
+    "F82": {
+      "@id": "deputy:F82",
+      "@type": "xsd:string"
+    },
+    "F83": {
+      "@id": "deputy:F83",
+      "@type": "xsd:string"
+    },
+    "F84": {
+      "@id": "deputy:F84",
+      "@type": "xsd:string"
+    },
+    "F85": {
+      "@id": "deputy:F85",
+      "@type": "xsd:string"
+    },
+    "F86": {
+      "@id": "deputy:F86",
+      "@type": "xsd:string"
+    },
+    "F87": {
+      "@id": "deputy:F87",
+      "@type": "xsd:string"
+    },
+    "F88": {
+      "@id": "deputy:F88",
+      "@type": "xsd:string"
+    },
+    "F89": {
+      "@id": "deputy:F89",
+      "@type": "xsd:string"
+    },
+    "F90": {
+      "@id": "deputy:F90",
+      "@type": "xsd:string"
+    },
+    "F91": {
+      "@id": "deputy:F91",
+      "@type": "xsd:string"
+    },
+    "F92": {
+      "@id": "deputy:F92",
+      "@type": "xsd:string"
+    },
+    "F93": {
+      "@id": "deputy:F93",
+      "@type": "xsd:string"
+    },
+    "F94": {
+      "@id": "deputy:F94",
+      "@type": "xsd:string"
+    },
+    "F95": {
+      "@id": "deputy:F95",
+      "@type": "xsd:string"
+    },
+    "F96": {
+      "@id": "deputy:F96",
+      "@type": "xsd:string"
+    },
+    "F97": {
+      "@id": "deputy:F97",
+      "@type": "xsd:string"
+    },
+    "F98": {
+      "@id": "deputy:F98",
+      "@type": "xsd:string"
+    },
+    "F99": {
+      "@id": "deputy:F99",
+      "@type": "xsd:string"
+    },
+    "F100": {
+      "@id": "deputy:F100",
+      "@type": "xsd:string"
+    },
+    "F101": {
+      "@id": "deputy:F101",
+      "@type": "xsd:string"
+    },
+    "F102": {
+      "@id": "deputy:F102",
+      "@type": "xsd:string"
+    },
+    "F103": {
+      "@id": "deputy:F103",
+      "@type": "xsd:string"
+    },
+    "F104": {
+      "@id": "deputy:F104",
+      "@type": "xsd:string"
+    },
+    "F105": {
+      "@id": "deputy:F105",
+      "@type": "xsd:string"
+    },
+    "F106": {
+      "@id": "deputy:F106",
+      "@type": "xsd:string"
+    },
+    "F107": {
+      "@id": "deputy:F107",
+      "@type": "xsd:string"
+    },
+    "F108": {
+      "@id": "deputy:F108",
+      "@type": "xsd:string"
+    },
+    "F109": {
+      "@id": "deputy:F109",
+      "@type": "xsd:string"
+    },
+    "F110": {
+      "@id": "deputy:F110",
+      "@type": "xsd:string"
+    },
+    "F111": {
+      "@id": "deputy:F111",
+      "@type": "xsd:string"
+    },
+    "F112": {
+      "@id": "deputy:F112",
+      "@type": "xsd:string"
+    },
+    "F113": {
+      "@id": "deputy:F113",
+      "@type": "xsd:string"
+    },
+    "F114": {
+      "@id": "deputy:F114",
+      "@type": "xsd:string"
+    },
+    "F115": {
+      "@id": "deputy:F115",
+      "@type": "xsd:string"
+    },
+    "F116": {
+      "@id": "deputy:F116",
+      "@type": "xsd:string"
+    },
+    "F117": {
+      "@id": "deputy:F117",
+      "@type": "xsd:string"
+    },
+    "F118": {
+      "@id": "deputy:F118",
+      "@type": "xsd:string"
+    },
+    "F119": {
+      "@id": "deputy:F119",
+      "@type": "xsd:string"
+    },
+    "F120": {
+      "@id": "deputy:F120",
+      "@type": "xsd:string"
+    },
+    "F121": {
+      "@id": "deputy:F121",
+      "@type": "xsd:string"
+    },
+    "F122": {
+      "@id": "deputy:F122",
+      "@type": "xsd:string"
+    },
+    "F123": {
+      "@id": "deputy:F123",
+      "@type": "xsd:string"
+    },
+    "F124": {
+      "@id": "deputy:F124",
+      "@type": "xsd:string"
+    },
+    "F125": {
+      "@id": "deputy:F125",
+      "@type": "xsd:string"
+    },
+    "F126": {
+      "@id": "deputy:F126",
+      "@type": "xsd:string"
+    },
+    "F127": {
+      "@id": "deputy:F127",
+      "@type": "xsd:string"
+    },
+    "F128": {
+      "@id": "deputy:F128",
+      "@type": "xsd:string"
+    },
+    "Task": "deputy:Task",
+    "TaskSetupId": {
+      "@id": "deputy:TaskSetupId",
+      "@type": "xsd:integer"
+    },
+    "OpUnitId": {
+      "@id": "deputy:OpUnitId",
+      "@type": "xsd:integer"
+    },
+    "GroupId": {
+      "@id": "deputy:GroupId",
+      "@type": "xsd:integer"
+    },
+    "DayTimestamp": {
+      "@id": "deputy:DayTimestamp",
+      "@type": "xsd:integer"
+    },
+    "OrigDayTimestamp": {
+      "@id": "deputy:OrigDayTimestamp",
+      "@type": "xsd:integer"
+    },
+    "OrigDate": {
+      "@id": "deputy:OrigDate",
+      "@type": "xsd:dateTime"
+    },
+    "AvailableAfterTimestamp": {
+      "@id": "deputy:AvailableAfterTimestamp",
+      "@type": "xsd:integer"
+    },
+    "DueDate": {
+      "@id": "deputy:DueDate",
+      "@type": "xsd:dateTime"
+    },
+    "DueTimestamp": {
+      "@id": "deputy:DueTimestamp",
+      "@type": "xsd:integer"
+    },
+    "RepeatIfNotCompleted": {
+      "@id": "deputy:RepeatIfNotCompleted",
+      "@type": "xsd:boolean"
+    },
+    "Question": {
+      "@id": "deputy:Question",
+      "@type": "xsd:string"
+    },
+    "Answer": {
+      "@id": "deputy:Answer",
+      "@type": "xsd:string"
+    },
+    "UserEntry": {
+      "@id": "deputy:UserEntry",
+      "@type": "xsd:integer"
+    },
+    "UserPerformTask": {
+      "@id": "deputy:UserPerformTask",
+      "@type": "xsd:integer"
+    },
+    "UserResponsible": {
+      "@id": "deputy:UserResponsible",
+      "@type": "xsd:integer"
+    },
+    "TsCompleted": {
+      "@id": "deputy:TsCompleted",
+      "@type": "xsd:integer"
+    },
+    "Duration": {
+      "@id": "deputy:Duration",
+      "@type": "xsd:integer"
+    },
+    "TaskSetup": {
+      "@id": "deputy:TaskSetup"
+    },
+    "OpUnit": {
+      "@id": "deputy:OpUnit"
+    },
+    "Timesheet": "deputy:Timesheet",
+    "EmployeeAgreement": {
+      "@id": "deputy:EmployeeAgreement",
+      "@type": "xsd:integer"
+    },
+    "StartTime": {
+      "@id": "deputy:StartTime",
+      "@type": "xsd:integer"
+    },
+    "EndTime": {
+      "@id": "deputy:EndTime",
+      "@type": "xsd:integer"
+    },
+    "Mealbreak": {
+      "@id": "deputy:Mealbreak",
+      "@type": "xsd:dateTime"
+    },
+    "MealbreakSlots": {
+      "@id": "deputy:MealbreakSlots",
+      "@type": "xsd:string"
+    },
+    "Slots": {
+      "@id": "deputy:Slots",
+      "@type": "xsd:string"
+    },
+    "TotalTime": {
+      "@id": "deputy:TotalTime",
+      "@type": "xsd:decimal"
+    },
+    "TotalTimeInv": {
+      "@id": "deputy:TotalTimeInv",
+      "@type": "xsd:decimal"
+    },
+    "Cost": {
+      "@id": "deputy:Cost",
+      "@type": "xsd:decimal"
+    },
+    "Roster": {
+      "@id": "deputy:Roster",
+      "@type": "xsd:integer"
+    },
+    "EmployeeComment": {
+      "@id": "deputy:EmployeeComment",
+      "@type": "xsd:string"
+    },
+    "SupervisorComment": {
+      "@id": "deputy:SupervisorComment",
+      "@type": "xsd:string"
+    },
+    "Supervisor": {
+      "@id": "deputy:Supervisor",
+      "@type": "xsd:integer"
+    },
+    "Disputed": {
+      "@id": "deputy:Disputed",
+      "@type": "xsd:boolean"
+    },
+    "TimeApproved": {
+      "@id": "deputy:TimeApproved",
+      "@type": "xsd:boolean"
+    },
+    "TimeApprover": {
+      "@id": "deputy:TimeApprover",
+      "@type": "xsd:integer"
+    },
+    "Discarded": {
+      "@id": "deputy:Discarded",
+      "@type": "xsd:boolean"
+    },
+    "ValidationFlag": {
+      "@id": "deputy:ValidationFlag",
+      "@type": "xsd:integer"
+    },
+    "IsInProgress": {
+      "@id": "deputy:IsInProgress",
+      "@type": "xsd:boolean"
+    },
+    "IsLeave": {
+      "@id": "deputy:IsLeave",
+      "@type": "xsd:boolean"
+    },
+    "LeaveId": {
+      "@id": "deputy:LeaveId",
+      "@type": "xsd:integer"
+    },
+    "Invoiced": {
+      "@id": "deputy:Invoiced",
+      "@type": "xsd:boolean"
+    },
+    "InvoiceComment": {
+      "@id": "deputy:InvoiceComment",
+      "@type": "xsd:string"
+    },
+    "PayRuleApproved": {
+      "@id": "deputy:PayRuleApproved",
+      "@type": "xsd:boolean"
+    },
+    "Exported": {
+      "@id": "deputy:Exported",
+      "@type": "xsd:boolean"
+    },
+    "StagingId": {
+      "@id": "deputy:StagingId",
+      "@type": "xsd:integer"
+    },
+    "PayStaged": {
+      "@id": "deputy:PayStaged",
+      "@type": "xsd:boolean"
+    },
+    "PaycycleId": {
+      "@id": "deputy:PaycycleId",
+      "@type": "xsd:integer"
+    },
+    "AccrualState": {
+      "@id": "deputy:AccrualState",
+      "@type": "xsd:integer"
+    },
+    "AccrualStateChangedAt": {
+      "@id": "deputy:AccrualStateChangedAt",
+      "@type": "xsd:dateTime"
+    },
+    "AccrualAttempts": {
+      "@id": "deputy:AccrualAttempts",
+      "@type": "xsd:integer"
+    },
+    "MarkedPaidUnpaidAt": {
+      "@id": "deputy:MarkedPaidUnpaidAt",
+      "@type": "xsd:dateTime"
+    },
+    "RealTime": {
+      "@id": "deputy:RealTime",
+      "@type": "xsd:boolean"
+    },
+    "AutoProcessed": {
+      "@id": "deputy:AutoProcessed",
+      "@type": "xsd:boolean"
+    },
+    "AutoRounded": {
+      "@id": "deputy:AutoRounded",
+      "@type": "xsd:boolean"
+    },
+    "AutoTimeApproved": {
+      "@id": "deputy:AutoTimeApproved",
+      "@type": "xsd:boolean"
+    },
+    "AutoPayRuleApproved": {
+      "@id": "deputy:AutoPayRuleApproved",
+      "@type": "xsd:boolean"
+    },
+    "Metadata": {
+      "@id": "deputy:Metadata",
+      "@type": "xsd:string"
+    },
+    "ParentId": {
+      "@id": "deputy:ParentId",
+      "@type": "xsd:integer"
+    },
+    "ReviewState": {
+      "@id": "deputy:ReviewState",
+      "@type": "xsd:integer"
+    },
+    "EmployeeAgreementObject": {
+      "@id": "deputy:EmployeeAgreementObject"
+    },
+    "RosterObject": {
+      "@id": "deputy:RosterObject"
+    },
+    "SupervisorObject": {
+      "@id": "deputy:SupervisorObject"
+    },
+    "OperationalUnitObject": {
+      "@id": "deputy:OperationalUnitObject"
+    },
+    "Staging": {
+      "@id": "deputy:Staging"
+    },
+    "Paycycle": {
+      "@id": "deputy:Paycycle"
+    },
+    "CustomFieldDataObject": {
+      "@id": "deputy:CustomFieldDataObject"
+    },
+    "Parent": {
+      "@id": "deputy:Parent"
+    },
+    "DirtyDeputecPayrateCalculationMetadata": {
+      "@id": "deputy:DirtyDeputecPayrateCalculationMetadata",
+      "@type": "xsd:boolean"
+    },
+    "EmployeeAgreementAreaRate": "deputy:EmployeeAgreementAreaRate",
+    "EmployeeAgreementId": {
+      "@id": "deputy:EmployeeAgreementId",
+      "@type": "xsd:integer"
+    },
+    "OperationalUnitId": {
+      "@id": "deputy:OperationalUnitId",
+      "@type": "xsd:integer"
+    },
+    "ContractId": {
+      "@id": "deputy:ContractId",
+      "@type": "xsd:integer"
+    },
+    "BaseRate": {
+      "@id": "deputy:BaseRate",
+      "@type": "xsd:decimal"
+    },
+    "LevelId": {
+      "@id": "deputy:LevelId",
+      "@type": "xsd:integer"
+    },
+    "JuniorRateId": {
+      "@id": "deputy:JuniorRateId",
+      "@type": "xsd:integer"
+    },
+    "Contract": {
+      "@id": "deputy:Contract"
+    },
+    "Level": {
+      "@id": "deputy:Level"
+    },
+    "EmployeeAgreementHistory": "deputy:EmployeeAgreementHistory",
+    "AgreementId": {
+      "@id": "deputy:AgreementId",
+      "@type": "xsd:integer"
+    },
+    "PayPoint": {
+      "@id": "deputy:PayPoint",
+      "@type": "xsd:integer"
+    },
+    "EmpType": {
+      "@id": "deputy:EmpType",
+      "@type": "xsd:integer"
+    },
+    "StartDate": {
+      "@id": "deputy:StartDate",
+      "@type": "xsd:dateTime"
+    },
+    "EffectiveDate": {
+      "@id": "deputy:EffectiveDate",
+      "@type": "xsd:dateTime"
+    },
+    "SalaryPayRule": {
+      "@id": "deputy:SalaryPayRule",
+      "@type": "xsd:integer"
+    },
+    "ContractFile": {
+      "@id": "deputy:ContractFile",
+      "@type": "xsd:integer"
+    },
+    "PayrollId": {
+      "@id": "deputy:PayrollId",
+      "@type": "xsd:string"
+    },
+    "AnnualSalary": {
+      "@id": "deputy:AnnualSalary",
+      "@type": "xsd:decimal"
+    },
+    "EmployeeAppraisal": "deputy:EmployeeAppraisal",
+    "Mark01": {
+      "@id": "deputy:Mark01",
+      "@type": "xsd:decimal"
+    },
+    "Mark02": {
+      "@id": "deputy:Mark02",
+      "@type": "xsd:decimal"
+    },
+    "Mark03": {
+      "@id": "deputy:Mark03",
+      "@type": "xsd:decimal"
+    },
+    "Mark04": {
+      "@id": "deputy:Mark04",
+      "@type": "xsd:decimal"
+    },
+    "Mark05": {
+      "@id": "deputy:Mark05",
+      "@type": "xsd:decimal"
+    },
+    "EmployeeAvailability": "deputy:EmployeeAvailability",
+    "MaxDateRecurringGenerated": {
+      "@id": "deputy:MaxDateRecurringGenerated",
+      "@type": "xsd:dateTime"
+    },
+    "Schedule": {
+      "@id": "deputy:Schedule",
+      "@type": "xsd:integer"
+    },
+    "ScheduleObject": {
+      "@id": "deputy:ScheduleObject"
+    },
+    "EmployeePaycycle": "deputy:EmployeePaycycle",
+    "PeriodId": {
+      "@id": "deputy:PeriodId",
+      "@type": "xsd:integer"
+    },
+    "RecommendedLoadings": {
+      "@id": "deputy:RecommendedLoadings",
+      "@type": "xsd:boolean"
+    },
+    "Timesheets": {
+      "@id": "deputy:Timesheets",
+      "@type": "xsd:integer"
+    },
+    "TimesheetsTimeApproved": {
+      "@id": "deputy:TimesheetsTimeApproved",
+      "@type": "xsd:integer"
+    },
+    "TimesheetsPayApproved": {
+      "@id": "deputy:TimesheetsPayApproved",
+      "@type": "xsd:integer"
+    },
+    "PaycycleRules": {
+      "@id": "deputy:PaycycleRules",
+      "@type": "xsd:integer"
+    },
+    "PaycycleRulesApproved": {
+      "@id": "deputy:PaycycleRulesApproved",
+      "@type": "xsd:integer"
+    },
+    "ExportId": {
+      "@id": "deputy:ExportId",
+      "@type": "xsd:integer"
+    },
+    "Paid": {
+      "@id": "deputy:Paid",
+      "@type": "xsd:boolean"
+    },
+    "TimeTotal": {
+      "@id": "deputy:TimeTotal",
+      "@type": "xsd:decimal"
+    },
+    "CostTotal": {
+      "@id": "deputy:CostTotal",
+      "@type": "xsd:decimal"
+    },
+    "EmployeeAgreementHistoryId": {
+      "@id": "deputy:EmployeeAgreementHistoryId",
+      "@type": "xsd:integer"
+    },
+    "Period": {
+      "@id": "deputy:Period"
+    },
+    "EmployeePaycycleReturn": "deputy:EmployeePaycycleReturn",
+    "PayRule": {
+      "@id": "deputy:PayRule",
+      "@type": "xsd:integer"
+    },
+    "Approved": {
+      "@id": "deputy:Approved",
+      "@type": "xsd:boolean"
+    },
+    "Overridden": {
+      "@id": "deputy:Overridden",
+      "@type": "xsd:boolean"
+    },
+    "Value": {
+      "@id": "deputy:Value",
+      "@type": "xsd:decimal"
+    },
+    "OverrideComment": {
+      "@id": "deputy:OverrideComment",
+      "@type": "xsd:string"
+    },
+    "PayRuleObject": {
+      "@id": "deputy:PayRuleObject"
+    },
+    "EmployeeRole": "deputy:EmployeeRole",
+    "Role": {
+      "@id": "deputy:Role",
+      "@type": "xsd:string"
+    },
+    "Ranking": {
+      "@id": "deputy:Ranking",
+      "@type": "xsd:integer"
+    },
+    "ReportTo": {
+      "@id": "deputy:ReportTo",
+      "@type": "xsd:integer"
+    },
+    "Permissions": {
+      "@id": "deputy:Permissions",
+      "@type": "xsd:string"
+    },
+    "Require2fa": {
+      "@id": "deputy:Require2fa",
+      "@type": "xsd:boolean"
+    },
+    "ReportToObject": {
+      "@id": "deputy:ReportToObject"
+    },
+    "EmployeeSalaryOpunitCosting": "deputy:EmployeeSalaryOpunitCosting",
+    "AgreementHistory": {
+      "@id": "deputy:AgreementHistory",
+      "@type": "xsd:integer"
+    },
+    "Final": {
+      "@id": "deputy:Final",
+      "@type": "xsd:boolean"
+    },
+    "OpUnitObject": {
+      "@id": "deputy:OpUnitObject"
+    },
+    "EmployeeContractedHours": "deputy:EmployeeContractedHours",
+    "EndDate": {
+      "@id": "deputy:EndDate",
+      "@type": "xsd:dateTime"
+    },
+    "IsTemplate": {
+      "@id": "deputy:IsTemplate",
+      "@type": "xsd:boolean"
+    },
+    "TemplateName": {
+      "@id": "deputy:TemplateName",
+      "@type": "xsd:string"
+    },
+    "ConfirmationType": {
+      "@id": "deputy:ConfirmationType",
+      "@type": "xsd:integer"
+    },
+    "ConfirmationId": {
+      "@id": "deputy:ConfirmationId",
+      "@type": "xsd:integer"
+    },
+    "EmployeeContractedHoursShift": "deputy:EmployeeContractedHoursShift",
+    "EmployeeContractedHoursId": {
+      "@id": "deputy:EmployeeContractedHoursId",
+      "@type": "xsd:integer"
+    },
+    "CompanyId": {
+      "@id": "deputy:CompanyId",
+      "@type": "xsd:integer"
+    },
+    "DayOfWeek": {
+      "@id": "deputy:DayOfWeek",
+      "@type": "xsd:integer"
+    },
+    "ShiftType": {
+      "@id": "deputy:ShiftType",
+      "@type": "xsd:integer"
+    },
+    "EmployeeWorkplace": "deputy:EmployeeWorkplace",
+    "Agreement1": {
+      "@id": "deputy:Agreement1",
+      "@type": "xsd:integer"
+    },
+    "Agreement2": {
+      "@id": "deputy:Agreement2",
+      "@type": "xsd:integer"
+    },
+    "Agreement3": {
+      "@id": "deputy:Agreement3",
+      "@type": "xsd:integer"
+    },
+    "Agreement1Object": {
+      "@id": "deputy:Agreement1Object"
+    },
+    "Agreement2Object": {
+      "@id": "deputy:Agreement2Object"
+    },
+    "Agreement3Object": {
+      "@id": "deputy:Agreement3Object"
+    },
+    "EmploymentCondition": "deputy:EmploymentCondition",
+    "Description": {
+      "@id": "deputy:Description",
+      "@type": "xsd:string"
+    },
+    "AwardLevel": {
+      "@id": "deputy:AwardLevel",
+      "@type": "xsd:string"
+    },
+    "EmploymentBasis": {
+      "@id": "deputy:EmploymentBasis",
+      "@type": "xsd:integer"
+    },
+    "EmploymentCategory": {
+      "@id": "deputy:EmploymentCategory",
+      "@type": "xsd:integer"
+    },
+    "EmploymentPeriod": {
+      "@id": "deputy:EmploymentPeriod",
+      "@type": "xsd:integer"
+    },
+    "EmploymentStatus": {
+      "@id": "deputy:EmploymentStatus",
+      "@type": "xsd:integer"
+    },
+    "ProbationaryPeriod": {
+      "@id": "deputy:ProbationaryPeriod",
+      "@type": "xsd:integer"
+    },
+    "WorkingDaysPerPeriod": {
+      "@id": "deputy:WorkingDaysPerPeriod",
+      "@type": "xsd:decimal"
+    },
+    "UsualStartTime": {
+      "@id": "deputy:UsualStartTime",
+      "@type": "xsd:dateTime"
+    },
+    "UsualFinishTime": {
+      "@id": "deputy:UsualFinishTime",
+      "@type": "xsd:dateTime"
+    },
+    "UsualMealbreak": {
+      "@id": "deputy:UsualMealbreak",
+      "@type": "xsd:dateTime"
+    },
+    "AvgHoursPerDay": {
+      "@id": "deputy:AvgHoursPerDay",
+      "@type": "xsd:decimal"
+    },
+    "MinHoursPerDay": {
+      "@id": "deputy:MinHoursPerDay",
+      "@type": "xsd:decimal"
+    },
+    "MinHoursForLeave": {
+      "@id": "deputy:MinHoursForLeave",
+      "@type": "xsd:decimal"
+    },
+    "EmploymentContract": "deputy:EmploymentContract",
+    "BasePayRule": {
+      "@id": "deputy:BasePayRule",
+      "@type": "xsd:integer"
+    },
+    "StressProfile": {
+      "@id": "deputy:StressProfile",
+      "@type": "xsd:integer"
+    },
+    "PeriodType": {
+      "@id": "deputy:PeriodType",
+      "@type": "xsd:integer"
+    },
+    "StrictLeaveApproval": {
+      "@id": "deputy:StrictLeaveApproval",
+      "@type": "xsd:boolean"
+    },
+    "Award": {
+      "@id": "deputy:Award",
+      "@type": "xsd:string"
+    },
+    "EmploymentSubType": {
+      "@id": "deputy:EmploymentSubType",
+      "@type": "xsd:string"
+    },
+    "AwardStartDate": {
+      "@id": "deputy:AwardStartDate",
+      "@type": "xsd:dateTime"
+    },
+    "PpId": {
+      "@id": "deputy:PpId",
+      "@type": "xsd:string"
+    },
+    "CountryId": {
+      "@id": "deputy:CountryId",
+      "@type": "xsd:integer"
+    },
+    "EmploymentConditionObject": {
+      "@id": "deputy:EmploymentConditionObject"
+    },
+    "BasePayRuleObject": {
+      "@id": "deputy:BasePayRuleObject"
+    },
+    "EmploymentContractConfig": "deputy:EmploymentContractConfig",
+    "Subcategory": {
+      "@id": "deputy:Subcategory",
+      "@type": "xsd:integer"
+    },
+    "EmploymentContractLeaveRules": "deputy:EmploymentContractLeaveRules",
+    "LeaveRuleId": {
+      "@id": "deputy:LeaveRuleId",
+      "@type": "xsd:integer"
+    },
+    "LoadingPayRule1": {
+      "@id": "deputy:LoadingPayRule1",
+      "@type": "xsd:integer"
+    },
+    "LoadingPayRule2": {
+      "@id": "deputy:LoadingPayRule2",
+      "@type": "xsd:integer"
+    },
+    "LoadingPayRule3": {
+      "@id": "deputy:LoadingPayRule3",
+      "@type": "xsd:integer"
+    },
+    "LoadingPayRule1Object": {
+      "@id": "deputy:LoadingPayRule1Object"
+    },
+    "LoadingPayRule2Object": {
+      "@id": "deputy:LoadingPayRule2Object"
+    },
+    "LoadingPayRule3Object": {
+      "@id": "deputy:LoadingPayRule3Object"
+    },
+    "Event": "deputy:Event",
+    "Colour": {
+      "@id": "deputy:Colour",
+      "@type": "xsd:string"
+    },
+    "ShowOnRoster": {
+      "@id": "deputy:ShowOnRoster",
+      "@type": "xsd:boolean"
+    },
+    "AddToBudget": {
+      "@id": "deputy:AddToBudget",
+      "@type": "xsd:decimal"
+    },
+    "BlockTimeOff": {
+      "@id": "deputy:BlockTimeOff",
+      "@type": "xsd:boolean"
+    },
+    "Geo": "deputy:Geo",
+    "Orm": {
+      "@id": "deputy:Orm",
+      "@type": "xsd:string"
+    },
+    "RecId": {
+      "@id": "deputy:RecId",
+      "@type": "xsd:integer"
+    },
+    "Longitude": {
+      "@id": "deputy:Longitude",
+      "@type": "xsd:string"
+    },
+    "Latitude": {
+      "@id": "deputy:Latitude",
+      "@type": "xsd:string"
+    },
+    "Accuracy": {
+      "@id": "deputy:Accuracy",
+      "@type": "xsd:decimal"
+    },
+    "No": {
+      "@id": "deputy:No",
+      "@type": "xsd:string"
+    },
+    "Street": {
+      "@id": "deputy:Street",
+      "@type": "xsd:string"
+    },
+    "Suburb": {
+      "@id": "deputy:Suburb",
+      "@type": "xsd:string"
+    },
+    "Kiosk": "deputy:Kiosk",
+    "InstallationId": {
+      "@id": "deputy:InstallationId",
+      "@type": "xsd:string"
+    },
+    "ConnectionMode": {
+      "@id": "deputy:ConnectionMode",
+      "@type": "xsd:integer"
+    },
+    "SubnetRestriction": {
+      "@id": "deputy:SubnetRestriction",
+      "@type": "xsd:string"
+    },
+    "AuthenticationMode": {
+      "@id": "deputy:AuthenticationMode",
+      "@type": "xsd:integer"
+    },
+    "UseBiometric": {
+      "@id": "deputy:UseBiometric",
+      "@type": "xsd:boolean"
+    },
+    "LastActivity": {
+      "@id": "deputy:LastActivity",
+      "@type": "xsd:string"
+    },
+    "IpAddress": {
+      "@id": "deputy:IpAddress",
+      "@type": "xsd:string"
+    },
+    "EnableMultiLocations": {
+      "@id": "deputy:EnableMultiLocations",
+      "@type": "xsd:boolean"
+    },
+    "LeavePayLine": "deputy:LeavePayLine",
+    "Hours": {
+      "@id": "deputy:Hours",
+      "@type": "xsd:string"
+    },
+    "TimesheetId": {
+      "@id": "deputy:TimesheetId",
+      "@type": "xsd:integer"
+    },
+    "RecalculateWithReferencePeriod": {
+      "@id": "deputy:RecalculateWithReferencePeriod",
+      "@type": "xsd:boolean"
+    },
+    "LeaveAccrual": "deputy:LeaveAccrual",
+    "TransactionDate": {
+      "@id": "deputy:TransactionDate",
+      "@type": "xsd:dateTime"
+    },
+    "FkId": {
+      "@id": "deputy:FkId",
+      "@type": "xsd:integer"
+    },
+    "BalanceCalculatedAt": {
+      "@id": "deputy:BalanceCalculatedAt",
+      "@type": "xsd:dateTime"
+    },
+    "LeaveRules": "deputy:LeaveRules",
+    "SvcLeavePolicyId": {
+      "@id": "deputy:SvcLeavePolicyId",
+      "@type": "xsd:string"
+    },
+    "MaxAllowedAnnually": {
+      "@id": "deputy:MaxAllowedAnnually",
+      "@type": "xsd:decimal"
+    },
+    "PaidLeave": {
+      "@id": "deputy:PaidLeave",
+      "@type": "xsd:boolean"
+    },
+    "AnnualRollOver": {
+      "@id": "deputy:AnnualRollOver",
+      "@type": "xsd:boolean"
+    },
+    "UnitType": {
+      "@id": "deputy:UnitType",
+      "@type": "xsd:integer"
+    },
+    "ResetType": {
+      "@id": "deputy:ResetType",
+      "@type": "xsd:integer"
+    },
+    "ResetSchedule": {
+      "@id": "deputy:ResetSchedule",
+      "@type": "xsd:integer"
+    },
+    "ResetValue": {
+      "@id": "deputy:ResetValue",
+      "@type": "xsd:decimal"
+    },
+    "PayoutOnTermination": {
+      "@id": "deputy:PayoutOnTermination",
+      "@type": "xsd:boolean"
+    },
+    "EntitlementAfterMonth": {
+      "@id": "deputy:EntitlementAfterMonth",
+      "@type": "xsd:integer"
+    },
+    "ExportType": {
+      "@id": "deputy:ExportType",
+      "@type": "xsd:integer"
+    },
+    "PayrollCategory": {
+      "@id": "deputy:PayrollCategory",
+      "@type": "xsd:string"
+    },
+    "CalcType": {
+      "@id": "deputy:CalcType",
+      "@type": "xsd:integer"
+    },
+    "Calc": {
+      "@id": "deputy:Calc",
+      "@type": "xsd:string"
+    },
+    "F00": {
+      "@id": "deputy:F00",
+      "@type": "xsd:string"
+    },
+    "ResetScheduleObject": {
+      "@id": "deputy:ResetScheduleObject"
+    },
+    "PayRules": "deputy:PayRules",
+    "PayTitle": {
+      "@id": "deputy:PayTitle",
+      "@type": "xsd:string"
+    },
+    "RemunerationType": {
+      "@id": "deputy:RemunerationType",
+      "@type": "xsd:integer"
+    },
+    "RemunerationBy": {
+      "@id": "deputy:RemunerationBy",
+      "@type": "xsd:integer"
+    },
+    "HourlyRate": {
+      "@id": "deputy:HourlyRate",
+      "@type": "xsd:decimal"
+    },
+    "IsMultiplier": {
+      "@id": "deputy:IsMultiplier",
+      "@type": "xsd:boolean"
+    },
+    "MultiplierValue": {
+      "@id": "deputy:MultiplierValue",
+      "@type": "xsd:decimal"
+    },
+    "MultiplierBaseRate": {
+      "@id": "deputy:MultiplierBaseRate",
+      "@type": "xsd:integer"
+    },
+    "MinimumType": {
+      "@id": "deputy:MinimumType",
+      "@type": "xsd:integer"
+    },
+    "MaximumType": {
+      "@id": "deputy:MaximumType",
+      "@type": "xsd:integer"
+    },
+    "MinimumValue": {
+      "@id": "deputy:MinimumValue",
+      "@type": "xsd:decimal"
+    },
+    "MaximumValue": {
+      "@id": "deputy:MaximumValue",
+      "@type": "xsd:decimal"
+    },
+    "MinimumShiftLength": {
+      "@id": "deputy:MinimumShiftLength",
+      "@type": "xsd:string"
+    },
+    "MaximumShiftLength": {
+      "@id": "deputy:MaximumShiftLength",
+      "@type": "xsd:string"
+    },
+    "AdvancedCalculation": {
+      "@id": "deputy:AdvancedCalculation",
+      "@type": "xsd:string"
+    },
+    "IsExported": {
+      "@id": "deputy:IsExported",
+      "@type": "xsd:boolean"
+    },
+    "UnitValue": {
+      "@id": "deputy:UnitValue",
+      "@type": "xsd:decimal"
+    },
+    "RecommendWith": {
+      "@id": "deputy:RecommendWith",
+      "@type": "xsd:integer"
+    },
+    "DexmlScript": {
+      "@id": "deputy:DexmlScript",
+      "@type": "xsd:integer"
+    },
+    "DexmlScriptParam": {
+      "@id": "deputy:DexmlScriptParam",
+      "@type": "xsd:string"
+    },
+    "PayPortionRule": {
+      "@id": "deputy:PayPortionRule",
+      "@type": "xsd:integer"
+    },
+    "RateType": {
+      "@id": "deputy:RateType",
+      "@type": "xsd:integer"
+    },
+    "RateTag": {
+      "@id": "deputy:RateTag",
+      "@type": "xsd:string"
+    },
+    "CtId": {
+      "@id": "deputy:CtId",
+      "@type": "xsd:string"
+    },
+    "CrId": {
+      "@id": "deputy:CrId",
+      "@type": "xsd:string"
+    },
+    "StpClass": {
+      "@id": "deputy:StpClass",
+      "@type": "xsd:string"
+    },
+    "StpCode": {
+      "@id": "deputy:StpCode",
+      "@type": "xsd:string"
+    },
+    "MultiplierBaseRateObject": {
+      "@id": "deputy:MultiplierBaseRateObject"
+    },
+    "DexmlScriptObject": {
+      "@id": "deputy:DexmlScriptObject"
+    },
+    "PublicHoliday": "deputy:PublicHoliday",
+    "RosterOpen": "deputy:RosterOpen",
+    "Accepted": {
+      "@id": "deputy:Accepted",
+      "@type": "xsd:boolean"
+    },
+    "Seen": {
+      "@id": "deputy:Seen",
+      "@type": "xsd:boolean"
+    },
+    "Declined": {
+      "@id": "deputy:Declined",
+      "@type": "xsd:boolean"
+    },
+    "Link": {
+      "@id": "deputy:Link",
+      "@type": "xsd:string"
+    },
+    "Message": {
+      "@id": "deputy:Message",
+      "@type": "xsd:string"
+    },
+    "RosterSwap": "deputy:RosterSwap",
+    "SourceRoster": {
+      "@id": "deputy:SourceRoster",
+      "@type": "xsd:integer"
+    },
+    "TargetRoster": {
+      "@id": "deputy:TargetRoster",
+      "@type": "xsd:integer"
+    },
+    "RequestMessage": {
+      "@id": "deputy:RequestMessage",
+      "@type": "xsd:string"
+    },
+    "ResponseMessage": {
+      "@id": "deputy:ResponseMessage",
+      "@type": "xsd:string"
+    },
+    "SourceRosterObject": {
+      "@id": "deputy:SourceRosterObject"
+    },
+    "TargetRosterObject": {
+      "@id": "deputy:TargetRosterObject"
+    },
+    "RosterTemplate": "deputy:RosterTemplate",
+    "Shifts": {
+      "@id": "deputy:Shifts",
+      "@type": "xsd:string"
+    },
+    "TotalCount": {
+      "@id": "deputy:TotalCount",
+      "@type": "xsd:integer"
+    },
+    "StartFrom": {
+      "@id": "deputy:StartFrom",
+      "@type": "xsd:dateTime"
+    },
+    "EndTo": {
+      "@id": "deputy:EndTo",
+      "@type": "xsd:dateTime"
+    },
+    "SalesData": "deputy:SalesData",
+    "Timestamp": {
+      "@id": "deputy:Timestamp",
+      "@type": "xsd:integer"
+    },
+    "SalesType": {
+      "@id": "deputy:SalesType",
+      "@type": "xsd:string"
+    },
+    "SalesRef": {
+      "@id": "deputy:SalesRef",
+      "@type": "xsd:string"
+    },
+    "SalesQty": {
+      "@id": "deputy:SalesQty",
+      "@type": "xsd:decimal"
+    },
+    "SalesAmount": {
+      "@id": "deputy:SalesAmount",
+      "@type": "xsd:decimal"
+    },
+    "SalesPayload": {
+      "@id": "deputy:SalesPayload",
+      "@type": "xsd:string"
+    },
+    "Session": "deputy:Session",
+    "UserId": {
+      "@id": "deputy:UserId",
+      "@type": "xsd:integer"
+    },
+    "Ip": {
+      "@id": "deputy:Ip",
+      "@type": "xsd:string"
+    },
+    "Host": {
+      "@id": "deputy:Host",
+      "@type": "xsd:string"
+    },
+    "Browser": {
+      "@id": "deputy:Browser",
+      "@type": "xsd:string"
+    },
+    "ScreenRes": {
+      "@id": "deputy:ScreenRes",
+      "@type": "xsd:string"
+    },
+    "User": {
+      "@id": "deputy:User"
+    },
+    "SmsLog": "deputy:SmsLog",
+    "Destination": {
+      "@id": "deputy:Destination",
+      "@type": "xsd:string"
+    },
+    "Count": {
+      "@id": "deputy:Count",
+      "@type": "xsd:integer"
+    },
+    "SmsId": {
+      "@id": "deputy:SmsId",
+      "@type": "xsd:string"
+    },
+    "DeliveryReport": {
+      "@id": "deputy:DeliveryReport",
+      "@type": "xsd:string"
+    },
+    "SystemUsageBalance": "deputy:SystemUsageBalance",
+    "Credit": {
+      "@id": "deputy:Credit",
+      "@type": "xsd:decimal"
+    },
+    "SystemUsageTracking": "deputy:SystemUsageTracking",
+    "EmpId": {
+      "@id": "deputy:EmpId",
+      "@type": "xsd:integer"
+    },
+    "BalanceId": {
+      "@id": "deputy:BalanceId",
+      "@type": "xsd:integer"
+    },
+    "UsageType": {
+      "@id": "deputy:UsageType",
+      "@type": "xsd:integer"
+    },
+    "UsageRecordId": {
+      "@id": "deputy:UsageRecordId",
+      "@type": "xsd:integer"
+    },
+    "Usage": {
+      "@id": "deputy:Usage",
+      "@type": "xsd:decimal"
+    },
+    "Balance": {
+      "@id": "deputy:Balance"
+    },
+    "TaskGroup": "deputy:TaskGroup",
+    "GroupSetupId": {
+      "@id": "deputy:GroupSetupId",
+      "@type": "xsd:integer"
+    },
+    "Key": {
+      "@id": "deputy:Key",
+      "@type": "xsd:string"
+    },
+    "LaborModel": {
+      "@id": "deputy:LaborModel",
+      "@type": "xsd:boolean"
+    },
+    "GroupSetup": {
+      "@id": "deputy:GroupSetup"
+    },
+    "TaskGroupSetup": "deputy:TaskGroupSetup",
+    "Compulsory": {
+      "@id": "deputy:Compulsory",
+      "@type": "xsd:boolean"
+    },
+    "Notification": {
+      "@id": "deputy:Notification",
+      "@type": "xsd:string"
+    },
+    "Deadline": {
+      "@id": "deputy:Deadline",
+      "@type": "xsd:decimal"
+    },
+    "Plugins": {
+      "@id": "deputy:Plugins",
+      "@type": "xsd:string"
+    },
+    "Oncreate": {
+      "@id": "deputy:Oncreate",
+      "@type": "xsd:string"
+    },
+    "Onsubmit": {
+      "@id": "deputy:Onsubmit",
+      "@type": "xsd:string"
+    },
+    "TaskOpunitConfig": "deputy:TaskOpunitConfig",
+    "TaskGroupId": {
+      "@id": "deputy:TaskGroupId",
+      "@type": "xsd:integer"
+    },
+    "AvailableAfter": {
+      "@id": "deputy:AvailableAfter",
+      "@type": "xsd:string"
+    },
+    "TimesheetExport": "deputy:TimesheetExport",
+    "ExportData": {
+      "@id": "deputy:ExportData",
+      "@type": "xsd:string"
+    },
+    "CompanyPeriodObject": {
+      "@id": "deputy:CompanyPeriodObject"
+    },
+    "TimesheetPayReturn": "deputy:TimesheetPayReturn",
+    "ToilValue": {
+      "@id": "deputy:ToilValue",
+      "@type": "xsd:decimal"
+    },
+    "ToilMultiplier": {
+      "@id": "deputy:ToilMultiplier",
+      "@type": "xsd:decimal"
+    },
+    "TimesheetObject": {
+      "@id": "deputy:TimesheetObject"
+    },
+    "TimesheetPayReturnDetail": "deputy:TimesheetPayReturnDetail",
+    "TimesheetPayReturnId": {
+      "@id": "deputy:TimesheetPayReturnId",
+      "@type": "xsd:integer"
+    },
+    "Rate": {
+      "@id": "deputy:Rate",
+      "@type": "xsd:decimal"
+    },
+    "PayRate": {
+      "@id": "deputy:PayRate",
+      "@type": "xsd:string"
+    },
+    "ExportCode": {
+      "@id": "deputy:ExportCode",
+      "@type": "xsd:string"
+    },
+    "TimesheetPayForecast": "deputy:TimesheetPayForecast",
+    "Team": "deputy:Team",
+    "LeaderEmployee": {
+      "@id": "deputy:LeaderEmployee",
+      "@type": "xsd:integer"
+    },
+    "LeaderEmployeeObject": {
+      "@id": "deputy:LeaderEmployeeObject"
+    },
+    "TrainingModule": "deputy:TrainingModule",
+    "Provider": {
+      "@id": "deputy:Provider",
+      "@type": "xsd:string"
+    },
+    "ProviderAddress": {
+      "@id": "deputy:ProviderAddress",
+      "@type": "xsd:integer"
+    },
+    "TimeRequiredDays": {
+      "@id": "deputy:TimeRequiredDays",
+      "@type": "xsd:integer"
+    },
+    "RenewalPeriodMonths": {
+      "@id": "deputy:RenewalPeriodMonths",
+      "@type": "xsd:integer"
+    },
+    "TrainingRecord": "deputy:TrainingRecord",
+    "Module": {
+      "@id": "deputy:Module",
+      "@type": "xsd:integer"
+    },
+    "TrainingDate": {
+      "@id": "deputy:TrainingDate",
+      "@type": "xsd:dateTime"
+    },
+    "ExpiryDate": {
+      "@id": "deputy:ExpiryDate",
+      "@type": "xsd:dateTime"
+    },
+    "ModuleObject": {
+      "@id": "deputy:ModuleObject"
+    },
+    "Webhook": "deputy:Webhook",
+    "Filters": {
+      "@id": "deputy:Filters",
+      "@type": "xsd:string"
+    },
+    "Headers": {
+      "@id": "deputy:Headers",
+      "@type": "xsd:string"
+    },
+    "ShiftTemplate": "deputy:ShiftTemplate",
+    "AutoCommitBreak": {
+      "@id": "deputy:AutoCommitBreak",
+      "@type": "xsd:boolean"
+    },
+    "BlockEarlyBreakEnd": {
+      "@id": "deputy:BlockEarlyBreakEnd",
+      "@type": "xsd:boolean"
+    },
+    "BlockEarlyBreakStart": {
+      "@id": "deputy:BlockEarlyBreakStart",
+      "@type": "xsd:boolean"
+    },
+    "AdditionalConfig": {
+      "@id": "deputy:AdditionalConfig",
+      "@type": "xsd:string"
+    },
+    "CountryObject": {
+      "@id": "deputy:CountryObject"
+    },
+    "AccountStatsGetPayCalendarCoverageResponse": "deputy:AccountStatsGetPayCalendarCoverageResponse",
+    "success": {
+      "@id": "deputy:success",
+      "@type": "xsd:boolean"
+    },
+    "AccountStatsGetPayCalendarCoverageResponseData": "deputy:AccountStatsGetPayCalendarCoverageResponseData",
+    "employeesWithPayCalendar": {
+      "@id": "deputy:employeesWithPayCalendar",
+      "@type": "xsd:integer"
+    },
+    "totalActiveEmployees": {
+      "@id": "deputy:totalActiveEmployees",
+      "@type": "xsd:integer"
+    },
+    "AccountStatsGetPayRateCoverageResponse": "deputy:AccountStatsGetPayRateCoverageResponse",
+    "AccountStatsGetPayRateCoverageResponseData": "deputy:AccountStatsGetPayRateCoverageResponseData",
+    "employeesWithPayRates": {
+      "@id": "deputy:employeesWithPayRates",
+      "@type": "xsd:integer"
+    },
+    "ScheduleAgentGetLateResponse": "deputy:ScheduleAgentGetLateResponse",
+    "metadata": {
+      "@id": "deputy:metadata",
+      "@type": "@id"
+    },
+    "ScheduleAgentLateEntry": "deputy:ScheduleAgentLateEntry",
+    "employeeId": {
+      "@id": "deputy:employeeId",
+      "@type": "xsd:integer"
+    },
+    "employeeName": {
+      "@id": "deputy:employeeName",
+      "@type": "xsd:string"
+    },
+    "shift": {
+      "@id": "deputy:shift",
+      "@type": "@id"
+    },
+    "timesheet": {
+      "@id": "deputy:timesheet",
+      "@type": "@id"
+    },
+    "minutesLate": {
+      "@id": "deputy:minutesLate",
+      "@type": "xsd:integer"
+    },
+    "status": {
+      "@id": "deputy:status",
+      "@type": "@id"
+    },
+    "ScheduleAgentLateStatus": "deputy:ScheduleAgentLateStatus",
+    "ScheduleAgentMetadata": "deputy:ScheduleAgentMetadata",
+    "nextCursor": {
+      "@id": "deputy:nextCursor",
+      "@type": "xsd:string"
+    },
+    "ScheduleAgentShiftInfo": "deputy:ScheduleAgentShiftInfo",
+    "id": {
+      "@id": "deputy:id",
+      "@type": "xsd:integer"
+    },
+    "startTime": {
+      "@id": "deputy:startTime",
+      "@type": "xsd:string"
+    },
+    "endTime": {
+      "@id": "deputy:endTime",
+      "@type": "xsd:string"
+    },
+    "areaId": {
+      "@id": "deputy:areaId",
+      "@type": "xsd:integer"
+    },
+    "areaName": {
+      "@id": "deputy:areaName",
+      "@type": "xsd:string"
+    },
+    "locationId": {
+      "@id": "deputy:locationId",
+      "@type": "xsd:integer"
+    },
+    "locationName": {
+      "@id": "deputy:locationName",
+      "@type": "xsd:string"
+    },
+    "ScheduleAgentTimesheetInfo": "deputy:ScheduleAgentTimesheetInfo",
+    "MetadataSummary": "deputy:MetadataSummary",
+    "total": {
+      "@id": "deputy:total",
+      "@type": "xsd:integer"
+    },
+    "succeeded": {
+      "@id": "deputy:succeeded",
+      "@type": "xsd:integer"
+    },
+    "failed": {
+      "@id": "deputy:failed",
+      "@type": "xsd:integer"
+    },
+    "pending": {
+      "@id": "deputy:pending",
+      "@type": "xsd:integer"
+    },
+    "ScheduleAgentUpsertShiftBreak": "deputy:ScheduleAgentUpsertShiftBreak",
+    "typeLabel": {
+      "@id": "deputy:typeLabel",
+      "@type": "xsd:string"
+    },
+    "ScheduleAgentUpsertShiftBreakType": "deputy:ScheduleAgentUpsertShiftBreakType",
+    "ScheduleAgentUpsertShiftsRequestUpsertData": "deputy:ScheduleAgentUpsertShiftsRequestUpsertData",
+    "items": {
+      "@id": "deputy:items",
+      "@container": "@list"
+    },
+    "override": {
+      "@id": "deputy:override",
+      "@type": "xsd:boolean"
+    },
+    "ScheduleAgentUpsertShiftsRequestUpsertItem": "deputy:ScheduleAgentUpsertShiftsRequestUpsertItem",
+    "date": {
+      "@id": "deputy:date",
+      "@type": "xsd:string"
+    },
+    "note": {
+      "@id": "deputy:note",
+      "@type": "xsd:string"
+    },
+    "isOpen": {
+      "@id": "deputy:isOpen",
+      "@type": "xsd:boolean"
+    },
+    "isApprovalRequired": {
+      "@id": "deputy:isApprovalRequired",
+      "@type": "xsd:boolean"
+    },
+    "breaks": {
+      "@id": "deputy:breaks",
+      "@container": "@list"
+    },
+    "customFields": {
+      "@id": "deputy:customFields",
+      "@container": "@list"
+    },
+    "children": {
+      "@id": "deputy:children",
+      "@container": "@list"
+    },
+    "updateFields": {
+      "@id": "deputy:updateFields",
+      "@container": "@list"
+    },
+    "breakDuration": {
+      "@id": "deputy:breakDuration",
+      "@type": "xsd:integer"
+    },
+    "publish": {
+      "@id": "deputy:publish",
+      "@type": "xsd:boolean"
+    },
+    "ScheduleAgentUpsertShiftsResponse": "deputy:ScheduleAgentUpsertShiftsResponse",
+    "ScheduleAgentUpsertShiftsResponseMetadata": "deputy:ScheduleAgentUpsertShiftsResponseMetadata",
+    "summary": {
+      "@id": "deputy:summary",
+      "@type": "@id"
+    },
+    "operationId": {
+      "@id": "deputy:operationId",
+      "@type": "xsd:string"
+    },
+    "UpsertShiftsRequestChildItem": "deputy:UpsertShiftsRequestChildItem",
+    "UpsertShiftsResponseUpsertResult": "deputy:UpsertShiftsResponseUpsertResult",
+    "errorCode": {
+      "@id": "deputy:errorCode",
+      "@type": "xsd:string"
+    },
+    "errorMessage": {
+      "@id": "deputy:errorMessage",
+      "@type": "xsd:string"
+    },
+    "index": {
+      "@id": "deputy:index",
+      "@type": "xsd:integer"
+    },
+    "created": {
+      "@id": "deputy:created",
+      "@type": "xsd:boolean"
+    },
+    "modelBooleanField": "deputy:modelBooleanField",
+    "modelFileField": "deputy:modelFileField",
+    "modelListField": "deputy:modelListField",
+    "modelMultiListField": "deputy:modelMultiListField",
+    "modelStringField": "deputy:modelStringField",
+    "tenantsharedv2modelCustomField": "deputy:tenantsharedv2modelCustomField",
+    "booleanField": {
+      "@id": "deputy:booleanField",
+      "@type": "@id"
+    },
+    "stringField": {
+      "@id": "deputy:stringField",
+      "@type": "@id"
+    },
+    "listField": {
+      "@id": "deputy:listField",
+      "@type": "@id"
+    },
+    "multiListField": {
+      "@id": "deputy:multiListField",
+      "@type": "@id"
+    },
+    "fileField": {
+      "@id": "deputy:fileField",
+      "@type": "@id"
+    },
+    "employeeVisible": {
+      "@id": "deputy:employeeVisible",
+      "@type": "xsd:boolean"
+    },
+    "AgreedHourCurrentRequestData": "deputy:AgreedHourCurrentRequestData",
+    "isBaseline": {
+      "@id": "deputy:isBaseline",
+      "@type": "xsd:boolean"
+    },
+    "AgreedHourGetResponse": "deputy:AgreedHourGetResponse",
+    "agreedHour": {
+      "@id": "deputy:agreedHour",
+      "@type": "@id"
+    },
+    "error": {
+      "@id": "deputy:error",
+      "@type": "xsd:string"
+    },
+    "AgreedHourWeekWeekIndex": "deputy:AgreedHourWeekWeekIndex",
+    "WorkPeriodChangesReason": "deputy:WorkPeriodChangesReason",
+    "WorkPeriodCycle": "deputy:WorkPeriodCycle",
+    "modelAgreedHourDay": "deputy:modelAgreedHourDay",
+    "day": {
+      "@id": "deputy:day",
+      "@type": "xsd:integer"
+    },
+    "shifts": {
+      "@id": "deputy:shifts",
+      "@container": "@list"
+    },
+    "modelAgreedHourDetails": "deputy:modelAgreedHourDetails",
+    "weeks": {
+      "@id": "deputy:weeks",
+      "@container": "@list"
+    },
+    "modelAgreedHourShift": "deputy:modelAgreedHourShift",
+    "totalHours": {
+      "@id": "deputy:totalHours",
+      "@type": "xsd:decimal"
+    },
+    "changeDetails": {
+      "@id": "deputy:changeDetails",
+      "@type": "xsd:string"
+    },
+    "modelAgreedHourStatus": "deputy:modelAgreedHourStatus",
+    "modelAgreedHourWeek": "deputy:modelAgreedHourWeek",
+    "week": {
+      "@id": "deputy:week",
+      "@type": "@id"
+    },
+    "days": {
+      "@id": "deputy:days",
+      "@container": "@list"
+    },
+    "modelBreakTime": "deputy:modelBreakTime",
+    "breakType": {
+      "@id": "deputy:breakType",
+      "@type": "@id"
+    },
+    "startBreakTime": {
+      "@id": "deputy:startBreakTime",
+      "@type": "xsd:string"
+    },
+    "endBreakTime": {
+      "@id": "deputy:endBreakTime",
+      "@type": "xsd:string"
+    },
+    "modelBreakTimeBreakType": "deputy:modelBreakTimeBreakType"
+  },
+  "@type": "schema:Dataset",
+  "schema:name": "Deputy API JSON-LD context",
+  "schema:description": "A JSON-LD @context for the objects Deputy's own API contract declares: one class per component schema, one property per declared field, typed from the contract. Derived by script (derive-json-ld.py, 2026-10-14) from openapi/deputy-deputy-openapi.yml, openapi/deputy-v1-resource-api-openapi.yml, openapi/deputy-v1-supervise-api-openapi.yml.",
+  "dcterms:created": "2026-10-14",
+  "dcterms:source": [
+    "openapi/deputy-deputy-openapi.yml",
+    "openapi/deputy-v1-resource-api-openapi.yml",
+    "openapi/deputy-v1-supervise-api-openapi.yml",
+    "openapi/deputy-v2-api-openapi.yml"
+  ]
+}

@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/deputy/main/json-schema/deputy-createamemo-request-schema.json",
+  "title": "CreateamemoRequest",
+  "x-generated": "2026-10-14",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/deputy-deputy-openapi.yml#/components/schemas/CreateamemoRequest",
+  "required": [
+    "strContent",
+    "intCompany"
+  ],
+  "type": "object",
+  "properties": {
+    "strContent": {
+      "type": "string",
+      "description": "Text to include in memo"
+    },
+    "intCompany": {
+      "type": "integer",
+      "format": "int32",
+      "description": "Location ID record"
+    },
+    "blnRequireConfirm": {
+      "type": "integer",
+      "format": "int32",
+      "description": "0 No, 1 Yes"
+    },
+    "arrAssignedCompanyIds": {
+      "type": "array",
+      "items": {
+        "type": "integer",
+        "format": "int32",
+        "description": "Array of Location ID records"
+      }
+    },
+    "arrAssignedUserIds": {
+      "type": "array",
+      "items": {
+        "type": "integer",
+        "format": "int32",
+        "description": "Array of User IDs (Not employee ids) to get the memo"
+      }
+    }
+  }
+}

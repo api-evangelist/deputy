@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/deputy/main/json-schema/deputy-add-new-workplace-request-schema.json",
+  "title": "AddNewWorkplaceRequest",
+  "x-generated": "2026-10-14",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/deputy-deputy-openapi.yml#/components/schemas/AddNewWorkplaceRequest",
+  "required": [
+    "strWorkplaceName",
+    "strAddress"
+  ],
+  "type": "object",
+  "properties": {
+    "strWorkplaceName": {
+      "type": "string"
+    },
+    "strWorkplaceTimezone": {
+      "type": "string"
+    },
+    "strAddress": {
+      "type": "string"
+    },
+    "strLat": {
+      "type": "string"
+    },
+    "strLon": {
+      "type": "string"
+    },
+    "intCountry": {
+      "type": "integer",
+      "format": "int32"
+    },
+    "arrAreaNames": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": ""
+    },
+    "strWorkplaceCode": {
+      "type": "string"
+    },
+    "strPayrollExportCode": {
+      "type": "string"
+    },
+    "blnIsWorkplace": {
+      "type": "integer",
+      "format": "int32"
+    },
+    "blnIsPayrollEntity": {
+      "type": "integer",
+      "format": "int32"
+    }
+  }
+}

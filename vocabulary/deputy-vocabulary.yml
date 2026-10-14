@@ -1,0 +1,419 @@
+generated: '2026-10-14'
+method: derived
+generator: derive-vocabulary.py
+source:
+- openapi/deputy-deputy-openapi.yml
+- openapi/deputy-v1-resource-api-openapi.yml
+- openapi/deputy-v1-supervise-api-openapi.yml
+- openapi/deputy-v2-api-openapi.yml
+vocabulary:
+  name: Deputy Domain Vocabulary
+  description: 'Terms declared by Deputy''s own API contract: its resource groups, objects and enumerations, with the contract''s definitions.
+    Derived, not authored.'
+  version: '2026-10-14'
+  terms:
+  - term: Logged in User Details
+    definition: '# All about "Me" This set of API endpoints allow you to retrieve data about the authenticated user the API token relates too.
+      You can find information out such as locations the user is able to work, their contact details, current rosters and timesheets just to name
+      a few options. In many cases you can also provide updates to this profile via the API. For example there are endpoints which allow you'
+    tags:
+    - Resource Group
+    source: openapi/deputy-deputy-openapi.yml
+  - term: Company
+    definition: Operations on the Company resource
+    tags:
+    - Resource Group
+    source: openapi/deputy-v1-resource-api-openapi.yml
+  - term: Category
+    definition: Operations on the Category resource
+    tags:
+    - Resource Group
+    source: openapi/deputy-v1-resource-api-openapi.yml
+  - term: Address
+    definition: Operations on the Address resource
+    tags:
+    - Resource Group
+    source: openapi/deputy-v1-resource-api-openapi.yml
+  - term: CompanyPeriod
+    definition: Operations on the CompanyPeriod resource
+    tags:
+    - Resource Group
+    source: openapi/deputy-v1-resource-api-openapi.yml
+  - term: Employee
+    definition: Operations on the Employee resource
+    tags:
+    - Resource Group
+    source: openapi/deputy-v1-resource-api-openapi.yml
+  - term: Leave
+    definition: Operations on the Leave resource
+    tags:
+    - Resource Group
+    source: openapi/deputy-v1-resource-api-openapi.yml
+  - term: Contact
+    definition: Operations on the Contact resource
+    tags:
+    - Resource Group
+    source: openapi/deputy-v1-resource-api-openapi.yml
+  - term: Memo
+    definition: Operations on the Memo resource
+    tags:
+    - Resource Group
+    source: openapi/deputy-v1-resource-api-openapi.yml
+  - term: Country
+    definition: Operations on the Country resource
+    tags:
+    - Resource Group
+    source: openapi/deputy-v1-resource-api-openapi.yml
+  - term: CustomAppData
+    definition: Operations on the CustomAppData resource
+    tags:
+    - Resource Group
+    source: openapi/deputy-v1-resource-api-openapi.yml
+  - term: CustomField
+    definition: Operations on the CustomField resource
+    tags:
+    - Resource Group
+    source: openapi/deputy-v1-resource-api-openapi.yml
+  - term: Journal
+    definition: Operations on the Journal resource
+    tags:
+    - Resource Group
+    source: openapi/deputy-v1-resource-api-openapi.yml
+  - term: CustomFieldData
+    definition: Operations on the CustomFieldData resource
+    tags:
+    - Resource Group
+    source: openapi/deputy-v1-resource-api-openapi.yml
+  - term: Comment
+    definition: Operations on the Comment resource
+    tags:
+    - Resource Group
+    source: openapi/deputy-v1-resource-api-openapi.yml
+  - term: Task
+    definition: Operations on the Task resource
+    tags:
+    - Resource Group
+    source: openapi/deputy-v1-resource-api-openapi.yml
+  - term: Timesheet
+    definition: Operations on the Timesheet resource
+    tags:
+    - Resource Group
+    source: openapi/deputy-v1-resource-api-openapi.yml
+  - term: EmployeeAgreement
+    definition: Operations on the EmployeeAgreement resource
+    tags:
+    - Resource Group
+    source: openapi/deputy-v1-resource-api-openapi.yml
+  - term: EmployeeAgreementAreaRate
+    definition: Operations on the EmployeeAgreementAreaRate resource
+    tags:
+    - Resource Group
+    source: openapi/deputy-v1-resource-api-openapi.yml
+  - term: EmployeeAgreementHistory
+    definition: Operations on the EmployeeAgreementHistory resource
+    tags:
+    - Resource Group
+    source: openapi/deputy-v1-resource-api-openapi.yml
+  - term: EmployeeAppraisal
+    definition: Operations on the EmployeeAppraisal resource
+    tags:
+    - Resource Group
+    source: openapi/deputy-v1-resource-api-openapi.yml
+  - term: EmployeeAvailability
+    definition: Operations on the EmployeeAvailability resource
+    tags:
+    - Resource Group
+    source: openapi/deputy-v1-resource-api-openapi.yml
+  - term: EmployeeHistory
+    definition: Operations on the EmployeeHistory resource
+    tags:
+    - Resource Group
+    source: openapi/deputy-v1-resource-api-openapi.yml
+  - term: EmployeePaycycle
+    definition: Operations on the EmployeePaycycle resource
+    tags:
+    - Resource Group
+    source: openapi/deputy-v1-resource-api-openapi.yml
+  - term: EmployeePaycycleReturn
+    definition: Operations on the EmployeePaycycleReturn resource
+    tags:
+    - Resource Group
+    source: openapi/deputy-v1-resource-api-openapi.yml
+  - term: EmployeeRole
+    definition: Operations on the EmployeeRole resource
+    tags:
+    - Resource Group
+    source: openapi/deputy-v1-resource-api-openapi.yml
+  - term: EmployeeSalaryOpunitCosting
+    definition: Operations on the EmployeeSalaryOpunitCosting resource
+    tags:
+    - Resource Group
+    source: openapi/deputy-v1-resource-api-openapi.yml
+  - term: EmployeeContractedHours
+    definition: Operations on the EmployeeContractedHours resource
+    tags:
+    - Resource Group
+    source: openapi/deputy-v1-resource-api-openapi.yml
+  - term: EmployeeContractedHoursShift
+    definition: Operations on the EmployeeContractedHoursShift resource
+    tags:
+    - Resource Group
+    source: openapi/deputy-v1-resource-api-openapi.yml
+  - term: EmployeeWorkplace
+    definition: Operations on the EmployeeWorkplace resource
+    tags:
+    - Resource Group
+    source: openapi/deputy-v1-resource-api-openapi.yml
+  - term: EmploymentCondition
+    definition: Operations on the EmploymentCondition resource
+    tags:
+    - Resource Group
+    source: openapi/deputy-v1-resource-api-openapi.yml
+  - term: EmploymentContract
+    definition: Operations on the EmploymentContract resource
+    tags:
+    - Resource Group
+    source: openapi/deputy-v1-resource-api-openapi.yml
+  - term: EmploymentContractConfig
+    definition: Operations on the EmploymentContractConfig resource
+    tags:
+    - Resource Group
+    source: openapi/deputy-v1-resource-api-openapi.yml
+  - term: EmploymentContractLeaveRules
+    definition: Operations on the EmploymentContractLeaveRules resource
+    tags:
+    - Resource Group
+    source: openapi/deputy-v1-resource-api-openapi.yml
+  - term: Event
+    definition: Operations on the Event resource
+    tags:
+    - Resource Group
+    source: openapi/deputy-v1-resource-api-openapi.yml
+  - term: Geo
+    definition: Operations on the Geo resource
+    tags:
+    - Resource Group
+    source: openapi/deputy-v1-resource-api-openapi.yml
+  - term: Kiosk
+    definition: Operations on the Kiosk resource
+    tags:
+    - Resource Group
+    source: openapi/deputy-v1-resource-api-openapi.yml
+  - term: LeavePayLine
+    definition: Operations on the LeavePayLine resource
+    tags:
+    - Resource Group
+    source: openapi/deputy-v1-resource-api-openapi.yml
+  - term: LeaveAccrual
+    definition: Operations on the LeaveAccrual resource
+    tags:
+    - Resource Group
+    source: openapi/deputy-v1-resource-api-openapi.yml
+  - term: LeaveRules
+    definition: Operations on the LeaveRules resource
+    tags:
+    - Resource Group
+    source: openapi/deputy-v1-resource-api-openapi.yml
+  - term: OperationalUnit
+    definition: Operations on the OperationalUnit resource
+    tags:
+    - Resource Group
+    source: openapi/deputy-v1-resource-api-openapi.yml
+  - term: PayRules
+    definition: Operations on the PayRules resource
+    tags:
+    - Resource Group
+    source: openapi/deputy-v1-resource-api-openapi.yml
+  - term: PayPeriod
+    definition: Operations on the PayPeriod resource
+    tags:
+    - Resource Group
+    source: openapi/deputy-v1-resource-api-openapi.yml
+  - term: PublicHoliday
+    definition: Operations on the PublicHoliday resource
+    tags:
+    - Resource Group
+    source: openapi/deputy-v1-resource-api-openapi.yml
+  - term: Roster
+    definition: Operations on the Roster resource
+    tags:
+    - Resource Group
+    source: openapi/deputy-v1-resource-api-openapi.yml
+  - term: RosterOpen
+    definition: Operations on the RosterOpen resource
+    tags:
+    - Resource Group
+    source: openapi/deputy-v1-resource-api-openapi.yml
+  - term: RosterSwap
+    definition: Operations on the RosterSwap resource
+    tags:
+    - Resource Group
+    source: openapi/deputy-v1-resource-api-openapi.yml
+  - term: RosterTemplate
+    definition: Operations on the RosterTemplate resource
+    tags:
+    - Resource Group
+    source: openapi/deputy-v1-resource-api-openapi.yml
+  - term: SalesData
+    definition: Operations on the SalesData resource
+    tags:
+    - Resource Group
+    source: openapi/deputy-v1-resource-api-openapi.yml
+  - term: Schedule
+    definition: Operations on the Schedule resource
+    tags:
+    - Resource Group
+    source: openapi/deputy-v1-resource-api-openapi.yml
+  - term: Session
+    definition: Operations on the Session resource
+    tags:
+    - Resource Group
+    source: openapi/deputy-v1-resource-api-openapi.yml
+  - term: SmsLog
+    definition: Operations on the SmsLog resource
+    tags:
+    - Resource Group
+    source: openapi/deputy-v1-resource-api-openapi.yml
+  - term: SystemUsageBalance
+    definition: Operations on the SystemUsageBalance resource
+    tags:
+    - Resource Group
+    source: openapi/deputy-v1-resource-api-openapi.yml
+  - term: SystemUsageTracking
+    definition: Operations on the SystemUsageTracking resource
+    tags:
+    - Resource Group
+    source: openapi/deputy-v1-resource-api-openapi.yml
+  - term: State
+    definition: Operations on the State resource
+    tags:
+    - Resource Group
+    source: openapi/deputy-v1-resource-api-openapi.yml
+  - term: StressProfile
+    definition: Operations on the StressProfile resource
+    tags:
+    - Resource Group
+    source: openapi/deputy-v1-resource-api-openapi.yml
+  - term: TaskGroup
+    definition: Operations on the TaskGroup resource
+    tags:
+    - Resource Group
+    source: openapi/deputy-v1-resource-api-openapi.yml
+  - term: TaskGroupSetup
+    definition: Operations on the TaskGroupSetup resource
+    tags:
+    - Resource Group
+    source: openapi/deputy-v1-resource-api-openapi.yml
+  - term: TaskOpunitConfig
+    definition: Operations on the TaskOpunitConfig resource
+    tags:
+    - Resource Group
+    source: openapi/deputy-v1-resource-api-openapi.yml
+  - term: TaskSetup
+    definition: Operations on the TaskSetup resource
+    tags:
+    - Resource Group
+    source: openapi/deputy-v1-resource-api-openapi.yml
+  - term: TimesheetExport
+    definition: Operations on the TimesheetExport resource
+    tags:
+    - Resource Group
+    source: openapi/deputy-v1-resource-api-openapi.yml
+  - term: TimesheetPayReturn
+    definition: Operations on the TimesheetPayReturn resource
+    tags:
+    - Resource Group
+    source: openapi/deputy-v1-resource-api-openapi.yml
+  - term: TimesheetPayReturnDetail
+    definition: Operations on the TimesheetPayReturnDetail resource
+    tags:
+    - Resource Group
+    source: openapi/deputy-v1-resource-api-openapi.yml
+  - term: TimesheetPayForecast
+    definition: Operations on the TimesheetPayForecast resource
+    tags:
+    - Resource Group
+    source: openapi/deputy-v1-resource-api-openapi.yml
+  - term: Team
+    definition: Operations on the Team resource
+    tags:
+    - Resource Group
+    source: openapi/deputy-v1-resource-api-openapi.yml
+  - term: TrainingModule
+    definition: Operations on the TrainingModule resource
+    tags:
+    - Resource Group
+    source: openapi/deputy-v1-resource-api-openapi.yml
+  - term: TrainingRecord
+    definition: Operations on the TrainingRecord resource
+    tags:
+    - Resource Group
+    source: openapi/deputy-v1-resource-api-openapi.yml
+  - term: Webhook
+    definition: Operations on the Webhook resource
+    tags:
+    - Resource Group
+    source: openapi/deputy-v1-resource-api-openapi.yml
+  - term: ShiftTemplate
+    definition: Operations on the ShiftTemplate resource
+    tags:
+    - Resource Group
+    source: openapi/deputy-v1-resource-api-openapi.yml
+  - term: Config
+    definition: V1 /supervise/config/* endpoints
+    tags:
+    - Resource Group
+    source: openapi/deputy-v1-supervise-api-openapi.yml
+  - term: Cost
+    definition: V1 /supervise/cost/* endpoints
+    tags:
+    - Resource Group
+    source: openapi/deputy-v1-supervise-api-openapi.yml
+  - term: Department
+    definition: V1 /my/department/* endpoints
+    tags:
+    - Resource Group
+    source: openapi/deputy-v1-supervise-api-openapi.yml
+  - term: Empshiftinfo
+    definition: V1 /supervise/empshiftinfo/* endpoints
+    tags:
+    - Resource Group
+    source: openapi/deputy-v1-supervise-api-openapi.yml
+  - term: Get Roster Timesheet
+    definition: V1 /supervise/get-roster-timesheet/* endpoints
+    tags:
+    - Resource Group
+    source: openapi/deputy-v1-supervise-api-openapi.yml
+  - term: Getrecommendation
+    definition: V1 /my/getrecommendation/* endpoints
+    tags:
+    - Resource Group
+    source: openapi/deputy-v1-supervise-api-openapi.yml
+  - term: Metric
+    definition: V1 /supervise/metric/* endpoints
+    tags:
+    - Resource Group
+    source: openapi/deputy-v1-supervise-api-openapi.yml
+  - term: ModifysettingsinalllocationsRequest
+    definition: 'Object declared by the contract with fields: WEEK_START.'
+    tags:
+    - Object
+    source: openapi/deputy-deputy-openapi.yml#/components/schemas/ModifysettingsinalllocationsRequest
+  - term: AddalocationRequest
+    definition: 'Object declared by the contract with fields: strWorkplaceName, strWorkplaceCode, strAddress, strAddressNotes, intParentCompany,
+      intIsWorkplace, intIsPayrollEntity, strTimezone, strPayrollExportCode.'
+    tags:
+    - Object
+    source: openapi/deputy-deputy-openapi.yml#/components/schemas/AddalocationRequest
+  - term: UpdatealocationRequest
+    definition: 'Object declared by the contract with fields: strWorkplaceName, strWorkplaceCode, strAddress, strAddressNotes, intParentCompany,
+      intIsWorkplace, intIsPayrollEntity, strTimezone, strPayrollExportCode.'
+    tags:
+    - Object
+    source: openapi/deputy-deputy-openapi.yml#/components/schemas/UpdatealocationRequest
+  - term: AddNewWorkplaceRequest
+    definition: 'Object declared by the contract with fields: strWorkplaceName, strWorkplaceTimezone, strAddress, strLat, strLon, intCountry,
+      arrAreaNames, strWorkplaceCode, strPayrollExportCode, blnIsWorkplace, blnIsPayrollEntity.'
+    tags:
+    - Object
+    source: openapi/deputy-deputy-openapi.yml#/components/schemas/AddNewWorkplaceRequest

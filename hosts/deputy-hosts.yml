@@ -1,0 +1,110 @@
+generated: '2026-10-14'
+method: derived
+source: the pre-flight dossier, apis.yml pointers, spec servers, well-known, vendors -- nothing fetched here
+generator: derive-hosts.py
+summary:
+  hosts: 9
+  own: 6
+  other_domain: 0
+  platform: 3
+  roles:
+  - identity
+  - other
+  - portal
+  - source
+  - status
+  - support
+  - website
+hosts:
+- host: developer.deputy.com
+  found_by:
+  - pointer
+  - apis[]
+  types:
+  - Documentation
+  - DeveloperPortal
+  - GettingStarted
+  - Authentication
+  - LlmsText
+  serves:
+  - docs
+  registrable_domain: deputy.com
+  role: portal
+  relation: own
+- host: github.com
+  found_by:
+  - pointer
+  types:
+  - GitHubOrganization
+  serves: []
+  registrable_domain: github.com
+  role: source
+  relation: platform
+- host: help.deputy.com
+  found_by:
+  - pointer
+  types:
+  - Support
+  serves: []
+  registrable_domain: deputy.com
+  role: support
+  relation: own
+- host: once.deputy.com
+  found_by:
+  - pointer
+  types:
+  - Signup
+  - Login
+  serves: []
+  registrable_domain: deputy.com
+  role: identity
+  relation: own
+- host: status.deputy.com
+  found_by:
+  - pointer
+  types:
+  - StatusPage
+  serves: []
+  registrable_domain: deputy.com
+  role: status
+  relation: own
+- host: www.deputy.com
+  found_by:
+  - pointer
+  types:
+  - Website
+  - Pricing
+  - Blog
+  - PrivacyPolicy
+  - TermsOfService
+  serves: []
+  registrable_domain: deputy.com
+  role: website
+  relation: own
+- host: www.linkedin.com
+  found_by:
+  - pointer
+  types:
+  - LinkedIn
+  serves: []
+  registrable_domain: linkedin.com
+  role: other
+  relation: platform
+- host: x.com
+  found_by:
+  - pointer
+  types:
+  - X (Twitter)
+  serves: []
+  registrable_domain: x.com
+  role: other
+  relation: platform
+- host: '{install}.{geo}.deputy.com'
+  found_by:
+  - apis[]
+  types: []
+  serves:
+  - api
+  registrable_domain: deputy.com
+  role: other
+  relation: own

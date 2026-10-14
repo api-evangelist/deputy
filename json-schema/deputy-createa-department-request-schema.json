@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/deputy/main/json-schema/deputy-createa-department-request-schema.json",
+  "title": "CreateaDepartmentRequest",
+  "x-generated": "2026-10-14",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/deputy-deputy-openapi.yml#/components/schemas/CreateaDepartmentRequest",
+  "required": [
+    "strOpunitName"
+  ],
+  "type": "object",
+  "properties": {
+    "intCompanyId": {
+      "type": "integer",
+      "format": "int32",
+      "description": "Id of location the area should be added to"
+    },
+    "strOpunitName": {
+      "type": "string",
+      "description": "Name of the Area"
+    },
+    "strAddress": {
+      "type": "string",
+      "description": "Address of the area"
+    },
+    "strExportName": {
+      "type": "string",
+      "description": "Payroll export name to be used for the area"
+    },
+    "intSortOrder": {
+      "type": "integer",
+      "format": "int32",
+      "description": "Order that the areas will appear in Deputy. If for example this is 0, it will list this area first and changing the order of the existing areas"
+    },
+    "intOpunitType": {
+      "type": "integer",
+      "format": "int32",
+      "description": "Designates if the area should have geo coordinates set. 0 - Default, 1 - Area with Geo"
+    },
+    "LocationId": {
+      "type": "integer",
+      "format": "int32",
+      "description": "Id of the location for the area."
+    }
+  }
+}

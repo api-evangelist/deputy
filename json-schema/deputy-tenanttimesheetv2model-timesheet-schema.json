@@ -1,0 +1,428 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/deputy/main/json-schema/deputy-tenanttimesheetv2model-timesheet-schema.json",
+  "title": "Timesheet model",
+  "x-generated": "2026-10-14",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/deputy-v2-api-openapi.yml#/components/schemas/tenanttimesheetv2modelTimesheet",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "integer",
+      "format": "int32",
+      "title": "Timesheets ID"
+    },
+    "employeeId": {
+      "type": "integer",
+      "format": "int32",
+      "title": "Employee ID"
+    },
+    "employeeHistoryId": {
+      "type": "integer",
+      "format": "int32",
+      "title": "Employee History ID"
+    },
+    "employeeAgreementId": {
+      "type": "integer",
+      "format": "int32",
+      "title": "Employee Agreement ID"
+    },
+    "start": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Timesheets start time"
+    },
+    "end": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Timesheets end time"
+    },
+    "mealBreak": {
+      "type": "number",
+      "format": "float",
+      "title": "Meal Break in minutes"
+    },
+    "mealBreakSlots": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/modelBreak"
+      },
+      "title": "Break Slots"
+    },
+    "slots": {
+      "type": "string",
+      "title": "Slot"
+    },
+    "totalTime": {
+      "type": "number",
+      "format": "float",
+      "title": "Total Time"
+    },
+    "totalTimeInvoiced": {
+      "type": "number",
+      "format": "float",
+      "title": "Total Time Invoiced"
+    },
+    "cost": {
+      "type": "number",
+      "format": "float",
+      "title": "Cost"
+    },
+    "shiftId": {
+      "type": "integer",
+      "format": "int32",
+      "title": "Shift ID"
+    },
+    "comments": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "title": "Timesheet Comments"
+    },
+    "isDisputed": {
+      "type": "boolean",
+      "title": "Is Disputed"
+    },
+    "isTimeApproved": {
+      "type": "boolean",
+      "title": "Is Time Approved"
+    },
+    "approvedById": {
+      "type": "integer",
+      "format": "int32",
+      "title": "Approver ID"
+    },
+    "isDiscarded": {
+      "type": "boolean",
+      "title": "Is Discarded"
+    },
+    "validationFlag": {
+      "$ref": "#/$defs/modelValidationFlag",
+      "title": "Validation Flag"
+    },
+    "areaId": {
+      "type": "integer",
+      "format": "int32",
+      "title": "Area ID"
+    },
+    "isInProgress": {
+      "type": "boolean",
+      "title": "Is In Progress"
+    },
+    "isLeave": {
+      "type": "boolean",
+      "title": "Is Leave"
+    },
+    "leaveId": {
+      "type": "integer",
+      "format": "int32",
+      "title": "Leave ID"
+    },
+    "leaveRuleId": {
+      "type": "integer",
+      "format": "int32",
+      "title": "Leave Rule ID"
+    },
+    "isInvoiced": {
+      "type": "boolean",
+      "title": "Is Invoiced"
+    },
+    "invoiceComment": {
+      "type": "string",
+      "title": "Invoice Comment"
+    },
+    "isPayRuleApproved": {
+      "type": "boolean",
+      "title": "Is Pay Rule Approved"
+    },
+    "isExported": {
+      "type": "boolean",
+      "title": "Is Exported"
+    },
+    "stagingId": {
+      "type": "integer",
+      "format": "int32",
+      "title": "Staging ID"
+    },
+    "isPayStaged": {
+      "type": "boolean",
+      "title": "Is Pay Staged"
+    },
+    "payCycleId": {
+      "type": "integer",
+      "format": "int32",
+      "title": "Pay Cycle ID"
+    },
+    "fileId": {
+      "type": "integer",
+      "format": "int32",
+      "title": "File ID"
+    },
+    "customFieldDataId": {
+      "type": "integer",
+      "format": "int32",
+      "title": "Custom Field Data"
+    },
+    "isRealTime": {
+      "type": "boolean",
+      "title": "Is Real Time"
+    },
+    "isAutoProcessed": {
+      "type": "boolean",
+      "title": "Is Auto Processed"
+    },
+    "isAutoRounded": {
+      "type": "boolean",
+      "title": "Is Auto Rounded"
+    },
+    "isAutoTimeApproved": {
+      "type": "boolean",
+      "title": "Is Auto Time Approved"
+    },
+    "isAutoPayRuleApproved": {
+      "type": "boolean",
+      "title": "Is Auto Pay Rule Approved"
+    },
+    "parentId": {
+      "type": "integer",
+      "format": "int32",
+      "title": "Parent ID if it is a child timesheet"
+    },
+    "children": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/modelChildTimesheet"
+      },
+      "title": "child timesheets"
+    },
+    "employeeComment": {
+      "type": "string",
+      "title": "employee comment"
+    },
+    "areaName": {
+      "type": "string",
+      "title": "Area name"
+    },
+    "locationId": {
+      "type": "integer",
+      "format": "int32",
+      "title": "Location ID"
+    },
+    "locationName": {
+      "type": "string",
+      "title": "Location name"
+    },
+    "createdById": {
+      "type": "integer",
+      "format": "int32",
+      "title": "Employee ID of who created the Timesheets"
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Timestamp when the Timesheet was created"
+    },
+    "modifiedAt": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Timestamp when the Timesheet was modified"
+    },
+    "payReturns": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/modelTimesheetPayReturn"
+      },
+      "title": "Timesheet Pay Returns"
+    },
+    "startTimeLocalized": {
+      "type": "string",
+      "title": "Timesheet start time localized. Format: ISO8601 eg 2012-12-18T13:45:00+01:00"
+    },
+    "endTimeLocalized": {
+      "type": "string",
+      "title": "Timesheet end time localized. Format: ISO8601 eg 2012-12-18T13:45:00+01:00"
+    }
+  },
+  "$defs": {
+    "modelBreak": {
+      "type": "object",
+      "properties": {
+        "slotType": {
+          "$ref": "#/$defs/modelSlotType",
+          "title": "type of slot"
+        },
+        "start": {
+          "type": "integer",
+          "format": "int32",
+          "title": "can start break after seconds passed after shift start"
+        },
+        "end": {
+          "type": "integer",
+          "format": "int32",
+          "title": "can end break after seconds passed after shift start"
+        },
+        "state": {
+          "$ref": "#/$defs/modelBreakState",
+          "title": "Break state"
+        },
+        "canStartEarly": {
+          "type": "boolean",
+          "title": "[Deprecated] can employee start break early, override shift template"
+        },
+        "canEndEarly": {
+          "type": "boolean",
+          "title": "[Deprecated] can employee end break early, override shift template"
+        },
+        "isMandatory": {
+          "type": "boolean",
+          "title": "[Deprecated] is it mandatory to take this break, override shift template"
+        },
+        "type": {
+          "$ref": "#/$defs/tenantsharedv2modelBreakType",
+          "title": "type of break"
+        },
+        "typeLabel": {
+          "type": "string",
+          "title": "break type name in config"
+        },
+        "startDateTime": {
+          "type": "string",
+          "title": "format ISO8601 eg 2024-06-25T13:45:00+01:00"
+        },
+        "endDateTime": {
+          "type": "string",
+          "title": "format ISO8601 eg 2024-06-25T13:45:00+01:00"
+        }
+      }
+    },
+    "modelBreakState": {
+      "type": "string",
+      "enum": [
+        "NOT_START",
+        "IN_PROGRESS",
+        "FINISHED",
+        "DURATION_ONLY",
+        "DURATION_FINISHED"
+      ],
+      "default": "NOT_START",
+      "title": "Break States"
+    },
+    "modelChildTimesheet": {
+      "type": "object",
+      "properties": {
+        "start": {
+          "type": "string",
+          "title": "child shift start time, format ISO8601 eg 2012-12-18T13:45:00+01:00"
+        },
+        "end": {
+          "type": "string",
+          "title": "child shift end time, format ISO8601 eg 2012-12-18T13:45:00+01:00"
+        },
+        "areaId": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "areaName": {
+          "type": "string",
+          "title": "Area name"
+        },
+        "locationId": {
+          "type": "integer",
+          "format": "int32",
+          "title": "Location ID"
+        },
+        "locationName": {
+          "type": "string",
+          "title": "Location name"
+        }
+      }
+    },
+    "modelSlotType": {
+      "type": "string",
+      "enum": [
+        "BREAK",
+        "WORK",
+        "CUSTOM"
+      ],
+      "default": "BREAK",
+      "title": "Type of Slot"
+    },
+    "modelTimesheetPayReturn": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "payRuleId": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "value": {
+          "type": "number",
+          "format": "float"
+        },
+        "cost": {
+          "type": "number",
+          "format": "float"
+        },
+        "overridden": {
+          "type": "boolean"
+        },
+        "overrideComment": {
+          "type": "string"
+        },
+        "toilValue": {
+          "type": "number",
+          "format": "float"
+        },
+        "toilMultiplier": {
+          "type": "number",
+          "format": "float"
+        }
+      }
+    },
+    "modelValidationFlag": {
+      "type": "string",
+      "enum": [
+        "VALIDATION_FLAG_NONE",
+        "VALIDATION_FLAG_GENERIC_ERROR",
+        "VALIDATION_FLAG_DIFFERS_FROM_ROSTER",
+        "VALIDATION_FLAG_SHORTER_THAN_ROSTER",
+        "VALIDATION_FLAG_LONGER_THAN_ROSTER",
+        "VALIDATION_FLAG_NO_MEALBREAK",
+        "VALIDATION_FLAG_SHORTER_MEALBREAK",
+        "VALIDATION_FLAG_LONGER_MEALBREAK",
+        "VALIDATION_FLAG_LATE_MEALBREAK",
+        "VALIDATION_FLAG_INSUFFICIENT_MEALBREAK",
+        "VALIDATION_FLAG_OUTSIDE_GEO_BOUNDARIES",
+        "VALIDATION_FLAG_SHIFT_PLAN_ISSUES",
+        "VALIDATION_FLAG_NO_START_PHOTO",
+        "VALIDATION_FLAG_NO_END_PHOTO",
+        "VALIDATION_FLAG_PHOTO_DOES_NOT_MATCH",
+        "VALIDATION_FLAG_CLOSED_BY_SYSTEM",
+        "VALIDATION_FLAG_SHORTER_REST_BREAK",
+        "VALIDATION_FLAG_SHORTER_MEAL_BREAK",
+        "VALIDATION_FLAG_MISSED_SCHEDULE_BREAK",
+        "VALIDATION_FLAG_ATTESTATION_PREVENT_CLOCK_IN",
+        "VALIDATION_FLAG_ATTESTATION_NOTIFY_MANAGER"
+      ],
+      "default": "VALIDATION_FLAG_NONE"
+    },
+    "tenantsharedv2modelBreakType": {
+      "type": "string",
+      "enum": [
+        "MEAL_BREAK",
+        "REST_BREAK"
+      ],
+      "default": "MEAL_BREAK",
+      "title": "Break Type"
+    }
+  }
+}

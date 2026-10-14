@@ -1,0 +1,17 @@
+generated: '2026-10-14'
+method: derived
+source: openapi/deputy-v1-resource-api-openapi.yml
+schemes:
+- name: OAuth2
+  source: openapi/deputy-v1-resource-api-openapi.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://once.deputy.com/my/oauth/login
+    tokenUrl: https://once.deputy.com/my/oauth/access_token
+scopes:
+- scope: longlife_refresh_token
+  description: Extended session
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/deputy-v1-resource-api-openapi.yml
