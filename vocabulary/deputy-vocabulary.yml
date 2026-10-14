@@ -3,9 +3,10 @@ method: derived
 generator: derive-vocabulary.py
 source:
 - openapi/deputy-deputy-openapi.yml
+- openapi/deputy-resource-api-openapi.yml
+- openapi/deputy-v1-my-api-openapi.yml
 - openapi/deputy-v1-resource-api-openapi.yml
 - openapi/deputy-v1-supervise-api-openapi.yml
-- openapi/deputy-v2-api-openapi.yml
 vocabulary:
   name: Deputy Domain Vocabulary
   description: 'Terms declared by Deputy''s own API contract: its resource groups, objects and enumerations, with the contract''s definitions.
@@ -19,6 +20,111 @@ vocabulary:
     tags:
     - Resource Group
     source: openapi/deputy-deputy-openapi.yml
+  - term: Colleague
+    definition: V1 /my/colleague/* endpoints
+    tags:
+    - Resource Group
+    source: openapi/deputy-v1-my-api-openapi.yml
+  - term: Contactaddress
+    definition: V1 /my/contactaddress/* endpoints
+    tags:
+    - Resource Group
+    source: openapi/deputy-v1-my-api-openapi.yml
+  - term: Department
+    definition: V1 /my/department/* endpoints
+    tags:
+    - Resource Group
+    source: openapi/deputy-v1-my-api-openapi.yml
+  - term: Feed
+    definition: V1 /my/feed/* endpoints
+    tags:
+    - Resource Group
+    source: openapi/deputy-v1-my-api-openapi.yml
+  - term: Getrecommendation
+    definition: V1 /my/getrecommendation/* endpoints
+    tags:
+    - Resource Group
+    source: openapi/deputy-v1-my-api-openapi.yml
+  - term: Leave
+    definition: V1 /my/leave/* endpoints
+    tags:
+    - Resource Group
+    source: openapi/deputy-v1-my-api-openapi.yml
+  - term: Location
+    definition: V1 /my/location/* endpoints
+    tags:
+    - Resource Group
+    source: openapi/deputy-v1-my-api-openapi.yml
+  - term: Memo
+    definition: V1 /my/memo/* endpoints
+    tags:
+    - Resource Group
+    source: openapi/deputy-v1-my-api-openapi.yml
+  - term: Notification
+    definition: V1 /my/notification/* endpoints
+    tags:
+    - Resource Group
+    source: openapi/deputy-v1-my-api-openapi.yml
+  - term: Nps
+    definition: V1 /my/nps/* endpoints
+    tags:
+    - Resource Group
+    source: openapi/deputy-v1-my-api-openapi.yml
+  - term: Photo
+    definition: V1 /my/photo/* endpoints
+    tags:
+    - Resource Group
+    source: openapi/deputy-v1-my-api-openapi.yml
+  - term: Pref
+    definition: V1 /my/pref/* endpoints
+    tags:
+    - Resource Group
+    source: openapi/deputy-v1-my-api-openapi.yml
+  - term: Roster
+    definition: V1 /my/roster/* endpoints
+    tags:
+    - Resource Group
+    source: openapi/deputy-v1-my-api-openapi.yml
+  - term: Setup
+    definition: V1 /my/setup/* endpoints
+    tags:
+    - Resource Group
+    source: openapi/deputy-v1-my-api-openapi.yml
+  - term: Task
+    definition: V1 /my/task/* endpoints
+    tags:
+    - Resource Group
+    source: openapi/deputy-v1-my-api-openapi.yml
+  - term: Timesheet
+    definition: V1 /my/timesheet/* endpoints
+    tags:
+    - Resource Group
+    source: openapi/deputy-v1-my-api-openapi.yml
+  - term: Todo
+    definition: V1 /my/todo/* endpoints
+    tags:
+    - Resource Group
+    source: openapi/deputy-v1-my-api-openapi.yml
+  - term: Token
+    definition: V1 /my/token/* endpoints
+    tags:
+    - Resource Group
+    source: openapi/deputy-v1-my-api-openapi.yml
+  - term: Training
+    definition: V1 /my/training/* endpoints
+    tags:
+    - Resource Group
+    source: openapi/deputy-v1-my-api-openapi.yml
+  - term: Unavail
+    definition: V1 /my/unavail/* endpoints
+    tags:
+    - Resource Group
+    source: openapi/deputy-v1-my-api-openapi.yml
+  - term: Widget
+    definition: V1 /my/widget/* endpoints
+    tags:
+    - Resource Group
+    source: openapi/deputy-v1-my-api-openapi.yml
   - term: Company
     definition: Operations on the Company resource
     tags:
@@ -44,18 +150,8 @@ vocabulary:
     tags:
     - Resource Group
     source: openapi/deputy-v1-resource-api-openapi.yml
-  - term: Leave
-    definition: Operations on the Leave resource
-    tags:
-    - Resource Group
-    source: openapi/deputy-v1-resource-api-openapi.yml
   - term: Contact
     definition: Operations on the Contact resource
-    tags:
-    - Resource Group
-    source: openapi/deputy-v1-resource-api-openapi.yml
-  - term: Memo
-    definition: Operations on the Memo resource
     tags:
     - Resource Group
     source: openapi/deputy-v1-resource-api-openapi.yml
@@ -86,16 +182,6 @@ vocabulary:
     source: openapi/deputy-v1-resource-api-openapi.yml
   - term: Comment
     definition: Operations on the Comment resource
-    tags:
-    - Resource Group
-    source: openapi/deputy-v1-resource-api-openapi.yml
-  - term: Task
-    definition: Operations on the Task resource
-    tags:
-    - Resource Group
-    source: openapi/deputy-v1-resource-api-openapi.yml
-  - term: Timesheet
-    definition: Operations on the Timesheet resource
     tags:
     - Resource Group
     source: openapi/deputy-v1-resource-api-openapi.yml
@@ -234,11 +320,6 @@ vocabulary:
     tags:
     - Resource Group
     source: openapi/deputy-v1-resource-api-openapi.yml
-  - term: Roster
-    definition: Operations on the Roster resource
-    tags:
-    - Resource Group
-    source: openapi/deputy-v1-resource-api-openapi.yml
   - term: RosterOpen
     definition: Operations on the RosterOpen resource
     tags:
@@ -334,86 +415,3 @@ vocabulary:
     tags:
     - Resource Group
     source: openapi/deputy-v1-resource-api-openapi.yml
-  - term: Team
-    definition: Operations on the Team resource
-    tags:
-    - Resource Group
-    source: openapi/deputy-v1-resource-api-openapi.yml
-  - term: TrainingModule
-    definition: Operations on the TrainingModule resource
-    tags:
-    - Resource Group
-    source: openapi/deputy-v1-resource-api-openapi.yml
-  - term: TrainingRecord
-    definition: Operations on the TrainingRecord resource
-    tags:
-    - Resource Group
-    source: openapi/deputy-v1-resource-api-openapi.yml
-  - term: Webhook
-    definition: Operations on the Webhook resource
-    tags:
-    - Resource Group
-    source: openapi/deputy-v1-resource-api-openapi.yml
-  - term: ShiftTemplate
-    definition: Operations on the ShiftTemplate resource
-    tags:
-    - Resource Group
-    source: openapi/deputy-v1-resource-api-openapi.yml
-  - term: Config
-    definition: V1 /supervise/config/* endpoints
-    tags:
-    - Resource Group
-    source: openapi/deputy-v1-supervise-api-openapi.yml
-  - term: Cost
-    definition: V1 /supervise/cost/* endpoints
-    tags:
-    - Resource Group
-    source: openapi/deputy-v1-supervise-api-openapi.yml
-  - term: Department
-    definition: V1 /my/department/* endpoints
-    tags:
-    - Resource Group
-    source: openapi/deputy-v1-supervise-api-openapi.yml
-  - term: Empshiftinfo
-    definition: V1 /supervise/empshiftinfo/* endpoints
-    tags:
-    - Resource Group
-    source: openapi/deputy-v1-supervise-api-openapi.yml
-  - term: Get Roster Timesheet
-    definition: V1 /supervise/get-roster-timesheet/* endpoints
-    tags:
-    - Resource Group
-    source: openapi/deputy-v1-supervise-api-openapi.yml
-  - term: Getrecommendation
-    definition: V1 /my/getrecommendation/* endpoints
-    tags:
-    - Resource Group
-    source: openapi/deputy-v1-supervise-api-openapi.yml
-  - term: Metric
-    definition: V1 /supervise/metric/* endpoints
-    tags:
-    - Resource Group
-    source: openapi/deputy-v1-supervise-api-openapi.yml
-  - term: ModifysettingsinalllocationsRequest
-    definition: 'Object declared by the contract with fields: WEEK_START.'
-    tags:
-    - Object
-    source: openapi/deputy-deputy-openapi.yml#/components/schemas/ModifysettingsinalllocationsRequest
-  - term: AddalocationRequest
-    definition: 'Object declared by the contract with fields: strWorkplaceName, strWorkplaceCode, strAddress, strAddressNotes, intParentCompany,
-      intIsWorkplace, intIsPayrollEntity, strTimezone, strPayrollExportCode.'
-    tags:
-    - Object
-    source: openapi/deputy-deputy-openapi.yml#/components/schemas/AddalocationRequest
-  - term: UpdatealocationRequest
-    definition: 'Object declared by the contract with fields: strWorkplaceName, strWorkplaceCode, strAddress, strAddressNotes, intParentCompany,
-      intIsWorkplace, intIsPayrollEntity, strTimezone, strPayrollExportCode.'
-    tags:
-    - Object
-    source: openapi/deputy-deputy-openapi.yml#/components/schemas/UpdatealocationRequest
-  - term: AddNewWorkplaceRequest
-    definition: 'Object declared by the contract with fields: strWorkplaceName, strWorkplaceTimezone, strAddress, strLat, strLon, intCountry,
-      arrAreaNames, strWorkplaceCode, strPayrollExportCode, blnIsWorkplace, blnIsPayrollEntity.'
-    tags:
-    - Object
-    source: openapi/deputy-deputy-openapi.yml#/components/schemas/AddNewWorkplaceRequest

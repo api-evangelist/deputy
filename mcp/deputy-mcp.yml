@@ -3,15 +3,18 @@ method: derived
 generator: derive-mcp-candidate.py
 source:
 - openapi/deputy-deputy-openapi.yml
+- openapi/deputy-resource-api-openapi.yml
+- openapi/deputy-v1-my-api-openapi.yml
 - openapi/deputy-v1-resource-api-openapi.yml
 - openapi/deputy-v1-supervise-api-openapi.yml
 - openapi/deputy-v2-api-openapi.yml
+- openapi/deputy-v2-scoped-api-openapi.yml
 status: candidate
 deployment:
   mode: none
   auth: unknown
   verified: derived
-note: No MCP server was found. No probe result in the dossier. Candidate tools below are derived from the 1498 operation(s) in the provider's
+note: No MCP server was found. No probe result in the dossier. Candidate tools below are derived from the 1767 operation(s) in the provider's
   own OpenAPI (40 listed); they describe what a server WOULD expose, not one that exists.
 tools:
 - name: get_agreed_hoursby_employee_id
@@ -19,6 +22,16 @@ tools:
   method: GET
   path: /management/v2/agreed_hour/{employeeid}
   description: Get Agreed Hours by Employee ID
+- name: get_addresses
+  operationId: GetAddresses
+  method: GET
+  path: /Address
+  description: Get Addresses
+- name: my_colleague_get
+  operationId: my_colleague__get
+  method: GET
+  path: /my/colleague
+  description: List or get Colleague
 - name: list_address
   operationId: listAddress
   method: GET
@@ -34,11 +47,26 @@ tools:
   method: GET
   path: /access-management/v2/privilege-hierarchy
   description: Get privilege hierarchy
+- name: hr_export_v2_controller_export_hr_data
+  operationId: HrExportV2Controller_exportHrData
+  method: GET
+  path: /hr/v2/employees/{employeeId}/onboarding/export
+  description: Export HR data
 - name: whodo_iworkwith?
   operationId: WhodoIworkwith?
   method: GET
   path: /v1/my/colleague
   description: Who do I work with?
+- name: get_address_object_info
+  operationId: GetAddressObjectInfo
+  method: GET
+  path: /Address/INFO
+  description: Get Address Object Info
+- name: my_colleague_query_post
+  operationId: my_colleague__query_post
+  method: POST
+  path: /my/colleague/QUERY
+  description: POST Colleague / QUERY
 - name: create_address
   operationId: createAddress
   method: POST
@@ -54,11 +82,26 @@ tools:
   method: GET
   path: /access-management/v2/roles
   description: List all available roles
+- name: hr_export_v2_controller_export_hr_pay_details_data
+  operationId: HrExportV2Controller_exportHrPayDetailsData
+  method: GET
+  path: /hr/v2/employees/{employeeId}/pay-details/export
+  description: Export HR pay details data
 - name: myaddressonfile
   operationId: Myaddressonfile
   method: GET
   path: /v1/my/contactaddress
   description: My address on file
+- name: searchforaddress
+  operationId: Searchforaddress
+  method: POST
+  path: /Address/QUERY
+  description: Search for address
+- name: my_colleague_count_get
+  operationId: my_colleague__count_get
+  method: GET
+  path: /my/colleague/count
+  description: GET Colleague / count
 - name: create_or_replace_address
   operationId: createOrReplaceAddress
   method: PUT
@@ -74,11 +117,26 @@ tools:
   method: POST
   path: /access-management/v2/roles
   description: Create a new role
+- name: hr_export_v2_controller_export_hr_bulk_data
+  operationId: HrExportV2Controller_exportHrBulkData
+  method: GET
+  path: /hr/v2/onboarding/bulk-export
+  description: Export HR bulk data
 - name: updatemyaddress
   operationId: Updatemyaddress
   method: POST
   path: /v1/my/contactaddress
   description: Update my address
+- name: get_categories
+  operationId: GetCategories
+  method: GET
+  path: /Category
+  description: Get Categories
+- name: my_contactaddress_get
+  operationId: my_contactaddress__get
+  method: GET
+  path: /my/contactaddress
+  description: List or get Contactaddress
 - name: bulk_address
   operationId: bulkAddress
   method: POST
@@ -94,11 +152,26 @@ tools:
   method: DELETE
   path: /access-management/v2/roles/{roleId}
   description: Delete role
+- name: user_info_v2_controller_get
+  operationId: UserInfoV2Controller_get
+  method: GET
+  path: /management/v2/auth/user-info
+  description: Retrieve user info
 - name: myaddressonfileincludingemergency
   operationId: Myaddressonfileincludingemergency
   method: GET
   path: /v1/my/contactaddress/all
   description: Myaddressonfileincludingemergency
+- name: get_category_object_info
+  operationId: GetCategoryObjectInfo
+  method: GET
+  path: /Category/INFO
+  description: Get Category Object Info
+- name: my_contactaddress_post
+  operationId: my_contactaddress__post
+  method: POST
+  path: /my/contactaddress
+  description: Create or update Contactaddress
 - name: info_address
   operationId: infoAddress
   method: GET
@@ -119,6 +192,16 @@ tools:
   method: GET
   path: /v1/my/contactaddress/subordinate
   description: Get my subordinate contact details
+- name: searchfor_category
+  operationId: SearchforCategory
+  method: POST
+  path: /Category/QUERY
+  description: Search for Category
+- name: my_contactaddress_all_get
+  operationId: my_contactaddress__all_get
+  method: GET
+  path: /my/contactaddress/all
+  description: GET Contactaddress / all
 - name: predict_address
   operationId: predictAddress
   method: POST
@@ -134,83 +217,3 @@ tools:
   method: GET
   path: /access-management/v2/roles/{roleId}
   description: Get employee role
-- name: my_leave_requests
-  operationId: MyLeaveRequests
-  method: GET
-  path: /v1/my/leave
-  description: My Leave Requests
-- name: search_address
-  operationId: searchAddress
-  method: POST
-  path: /resource/Address/QUERY
-  description: Search Address
-- name: supervise_company_id_post
-  operationId: supervise_company__id_post
-  method: POST
-  path: /supervise/company/{id}
-  description: POST Company / :id
-- name: access_management_v2_controller_list_employee_by_role
-  operationId: AccessManagementV2Controller_ListEmployeeByRole
-  method: GET
-  path: /access-management/v2/roles/{roleId}/employees
-  description: Get team members by role
-- name: whatlocationscaniworkin
-  operationId: Whatlocationscaniworkin
-  method: GET
-  path: /v1/my/location
-  description: What locations can I work in
-- name: get_address_by_id
-  operationId: getAddressById
-  method: GET
-  path: /resource/Address/{id}
-  description: Get a Address by id
-- name: supervise_company_id_archive_post
-  operationId: supervise_company__id_archive_post
-  method: POST
-  path: /supervise/company/{id}/archive
-  description: POST Company / archive
-- name: access_management_v2_controller_list_employee_role_history
-  operationId: AccessManagementV2Controller_ListEmployeeRoleHistory
-  method: GET
-  path: /access-management/v2/roles/{roleId}/history
-  description: List employee role history
-- name: getlocationbyid
-  operationId: Getlocationbyid
-  method: GET
-  path: /v1/my/location/{id}
-  description: Get location by id
-- name: update_address
-  operationId: updateAddress
-  method: POST
-  path: /resource/Address/{id}
-  description: Update a Address
-- name: supervise_company_id_cascade_settings_post
-  operationId: supervise_company__id_cascade_settings_post
-  method: POST
-  path: /supervise/company/{id}/cascade/settings
-  description: POST Company / settings
-- name: schedule_agent_v2_controller_get_late
-  operationId: ScheduleAgentV2Controller_getLate
-  method: GET
-  path: /agent/schedule/v2/late
-  description: Get employees who are currently late or were late in the given time range.
-- name: getmynewsfeed
-  operationId: Getmynewsfeed
-  method: GET
-  path: /v1/my/memo
-  description: Get my news feed
-- name: replace_address
-  operationId: replaceAddress
-  method: PUT
-  path: /resource/Address/{id}
-  description: Update a Address
-- name: supervise_company_id_delete_post
-  operationId: supervise_company__id_delete_post
-  method: POST
-  path: /supervise/company/{id}/delete
-  description: POST Company / delete
-- name: schedule_agent_v2_controller_upsert_shifts
-  operationId: ScheduleAgentV2Controller_upsertShifts
-  method: POST
-  path: /agent/schedule/v2/shifts:upsert
-  description: Batch create or update shifts

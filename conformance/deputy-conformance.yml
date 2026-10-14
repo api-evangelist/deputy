@@ -1,7 +1,7 @@
 generated: '2026-10-14'
 method: derived
 generator: derive-conformance.py
-source: openapi/ (4 document(s), 881 mutating operations)
+source: openapi/ (7 document(s), 1010 mutating operations)
 standards:
 - id: openapi-3.0
   conforms: true

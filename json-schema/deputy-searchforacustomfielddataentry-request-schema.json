@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/deputy/main/json-schema/deputy-searchforacustomfielddataentry-request-schema.json",
+  "title": "SearchforacustomfielddataentryRequest",
+  "x-generated": "2026-10-14",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/deputy-resource-api-openapi.yml#/components/schemas/SearchforacustomfielddataentryRequest",
+  "required": [
+    "search"
+  ],
+  "type": "object",
+  "properties": {
+    "search": {
+      "$ref": "#/$defs/Search"
+    }
+  },
+  "$defs": {
+    "S1": {
+      "title": "S1",
+      "required": [
+        "field",
+        "data",
+        "type"
+      ],
+      "type": "object",
+      "properties": {
+        "field": {
+          "type": "string"
+        },
+        "data": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "type": {
+          "type": "string"
+        }
+      }
+    },
+    "Search": {
+      "title": "Search",
+      "required": [
+        "s1"
+      ],
+      "type": "object",
+      "properties": {
+        "s1": {
+          "$ref": "#/$defs/S1"
+        }
+      }
+    }
+  }
+}

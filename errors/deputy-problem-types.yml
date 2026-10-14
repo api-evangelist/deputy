@@ -3,38 +3,41 @@ method: derived
 generator: derive-problem-types.py
 source:
 - openapi/deputy-deputy-openapi.yml
+- openapi/deputy-resource-api-openapi.yml
+- openapi/deputy-v1-my-api-openapi.yml
 - openapi/deputy-v1-resource-api-openapi.yml
 - openapi/deputy-v1-supervise-api-openapi.yml
 - openapi/deputy-v2-api-openapi.yml
+- openapi/deputy-v2-scoped-api-openapi.yml
 format: custom
 envelope:
   media_type: null
   schema: null
 coverage:
-  operations: 1500
+  operations: 1773
   statuses_declared: 4
 problems:
 - status: 400
   title: Bad Request
   description: Bad request
-  operations: 1037
+  operations: 1246
   media_types: []
   schema: null
 - status: 401
   title: Unauthorized
   description: Authentication required or invalid token
-  operations: 1037
+  operations: 1246
   media_types: []
   schema: null
 - status: 403
   title: Forbidden
   description: Forbidden — token lacks access to this resource
-  operations: 1037
+  operations: 1246
   media_types: []
   schema: null
 - status: 404
   title: Not Found
   description: Resource not found
-  operations: 1037
+  operations: 1246
   media_types: []
   schema: null

@@ -1,14 +1,10 @@
 aid: deputy
-
 name: Deputy
-
 description: Deputy is an API-first workforce management platform that handles employee scheduling, time and attendance tracking, timesheets,
   leave management, task delegation, and team communications for businesses with hourly workers. The platform integrates with payroll, HR, and
   point of sale systems and exposes most of its product surface area via a public REST API. The Deputy API uses OAuth 2.0 or permanent token authentication
   and provides JSON endpoints for employees, schedules, timesheets, locations, sales metrics, and more.
-
 type: Index
-
 deliveryModel:
   model: saas
   open_source: false
@@ -20,7 +16,6 @@ deliveryModel:
   - pricing
   generated: '2026-08-28'
   method: derived
-
 accessModel:
   pricing: unknown
   onboarding: unknown
@@ -32,15 +27,10 @@ accessModel:
   source: []
   generated: '2026-07-22'
   method: derived
-
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/deputy.png
-
 x-docs-platform: readme
-
 x-docs-platform-confidence: high
-
 x-docs-platform-checked: 2026-09-25
-
 tags:
 - Workforce Management
 - Employee Scheduling
@@ -50,19 +40,13 @@ tags:
 - Shift Planning
 - Australia
 - Scheduling
-
 url: https://raw.githubusercontent.com/api-evangelist/deputy/refs/heads/main/apis.yml
-
 created: '2026-05-11'
-
 modified: '2026-05-11'
-
 specificationVersion: '0.23'
-
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
-
 common:
 - type: AgenticAccess
   url: agentic-access/deputy-agentic-access.yml
@@ -112,8 +96,6 @@ common:
   url: security/deputy-domain-security.yml
 - type: Website
   url: https://www.deputy.com
-- type: Documentation
-  url: https://developer.deputy.com/deputy-docs
 - type: DeveloperPortal
   url: https://developer.deputy.com
 - type: GettingStarted
@@ -140,7 +122,6 @@ common:
   url: https://x.com/deputyapp
 - type: LlmsText
   url: https://developer.deputy.com/llms.txt
-
 apis:
 - aid: deputy:public-api
   name: Deputy Public API
@@ -246,9 +227,58 @@ apis:
     url: json-schema/deputy-copy-request-copy-request-data-schema.json
   - type: JSONSchema
     url: json-schema/deputy-v2model-area-profile-schema.json
-
+- aid: deputy:deputy-resource-api
+  name: Deputy Resource API
+  description: The Resource API API from Deputy — 55 operation(s) for resource api.
+  humanURL: https://developer.deputy.com/deputy-docs
+  baseURL: https://{install}.{geo}.deputy.com/api/v1
+  tags:
+  - Resource API
+  properties:
+  - type: OpenAPI
+    url: openapi/deputy-resource-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/deputy-searchfor-employment-contract-leave-rules-request-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-searchforan-employee-agreement-history-request-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-searchforan-employee-availability-request-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-searchforacustomfielddataentry-request-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-searchforan-employment-condition-request-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-searchforan-employment-contract-request-schema.json
+- aid: deputy:deputy-v1-my-api
+  name: Deputy Colleague API
+  description: V1 /my/colleague/* endpoints
+  humanURL: https://developer.deputy.com/deputy-docs
+  baseURL: https://{install}.{geo}.deputy.com/api/v1
+  tags:
+  - Colleague
+  properties:
+  - type: OpenAPI
+    url: openapi/deputy-v1-my-api-openapi.yml
+- aid: deputy:deputy-v2-scoped-api
+  name: Deputy V2 Scoped API
+  description: The V2 Scoped API from Deputy — 4 operation(s) for v2 scoped.
+  humanURL: https://developer.deputy.com/deputy-docs
+  baseURL: https://{install}.{geo}.deputy.com/api/v1
+  tags:
+  - V2 Scoped
+  properties:
+  - type: OpenAPI
+    url: openapi/deputy-v2-scoped-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/deputy-hr-export-export-hr-bulk-data-response-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-user-info-get-response-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-hr-export-export-hr-data-response-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-hr-export-export-hr-pay-details-data-response-schema.json
 x-readme-harvest:
   date: '2026-10-14'
-  ops: 1500
+  ops: 1773
   tool: harvest-readme-openapi.py
   portal: https://developer.deputy.com

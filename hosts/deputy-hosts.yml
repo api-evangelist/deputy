@@ -4,9 +4,9 @@ source: the pre-flight dossier, apis.yml pointers, spec servers, well-known, ven
 generator: derive-hosts.py
 summary:
   hosts: 9
-  own: 6
+  own: 7
   other_domain: 0
-  platform: 3
+  platform: 2
   roles:
   - identity
   - other
@@ -43,19 +43,24 @@ hosts:
 - host: help.deputy.com
   found_by:
   - pointer
+  - vendor-detect
   types:
   - Support
-  serves: []
+  serves:
+  - support
+  vendor: zendesk
   registrable_domain: deputy.com
   role: support
   relation: own
 - host: once.deputy.com
   found_by:
   - pointer
+  - vendor-detect
   types:
-  - Signup
   - Login
-  serves: []
+  serves:
+  - cdn
+  vendor: fastly
   registrable_domain: deputy.com
   role: identity
   relation: own
@@ -68,28 +73,34 @@ hosts:
   registrable_domain: deputy.com
   role: status
   relation: own
-- host: www.deputy.com
+- host: trust.deputy.com
   found_by:
   - pointer
   types:
+  - Compliance
+  serves: []
+  registrable_domain: deputy.com
+  role: other
+  relation: own
+- host: www.deputy.com
+  found_by:
+  - pointer
+  - vendor-detect
+  types:
+  - Security
+  - Newsroom
+  - Leadership
   - Website
   - Pricing
   - Blog
   - PrivacyPolicy
   - TermsOfService
-  serves: []
+  serves:
+  - cdn
+  vendor: cloudflare
   registrable_domain: deputy.com
   role: website
   relation: own
-- host: www.linkedin.com
-  found_by:
-  - pointer
-  types:
-  - LinkedIn
-  serves: []
-  registrable_domain: linkedin.com
-  role: other
-  relation: platform
 - host: x.com
   found_by:
   - pointer
