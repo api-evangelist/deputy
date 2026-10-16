@@ -2,6 +2,13 @@
   "repo": "deputy",
   "feeds": [
     {
+      "source": "https://www.deputy.com/blog",
+      "feed_url": "https://www.deputy.com/blog",
+      "title": "",
+      "saved": 0,
+      "method": "none"
+    },
+    {
       "source": "https://help.deputy.com/",
       "feed_url": "https://help.deputy.com/",
       "title": "",
@@ -10,7 +17,7 @@
     }
   ],
   "post_count": 26,
-  "fetched": "2026-10-03T12:30:02Z",
+  "fetched": "2026-10-10T13:15:00Z",
   "agent_pulled": "2026-07-04",
   "feed_nature": "vendor-blog",
   "feed_nature_basis": "path_blog",
