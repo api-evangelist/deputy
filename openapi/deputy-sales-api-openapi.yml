@@ -1,0 +1,239 @@
+openapi: 3.2.0
+info:
+  title: Deputy Sales API
+  contact: {}
+  version: '1.0'
+servers:
+- url: https://{install}.{geo}.deputy.com/api
+  variables:
+    install:
+      default: ''
+    geo:
+      default: ''
+security:
+- httpBearer: []
+tags:
+- name: Sales
+paths:
+  /v2/metrics:
+    post:
+      tags:
+      - Sales
+      summary: Add a sale to sales metrics
+      operationId: Addasaletosalesmetrics
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/AddasaletosalesmetricsRequest'
+              - example:
+                  data:
+                  - timestamp: 1660272300
+                    area: 2
+                    type: Sales
+                    reference: API-Sales-Entry-1660272300
+                    value: 100.3
+                    employee: 1
+                    location: 1
+            example:
+              data:
+              - timestamp: 1660272300
+                area: 2
+                type: Sales
+                reference: API-Sales-Entry-1660272300
+                value: 100.3
+                employee: 1
+                location: 1
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content: {}
+      deprecated: false
+  /v2/metrics/raw:
+    get:
+      tags:
+      - Sales
+      summary: Retrieve Sales Data
+      operationId: RetrieveSalesData
+      parameters:
+      - name: areas
+        in: query
+        description: ''
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: integer
+          format: int32
+          example: 1
+      - name: types
+        in: query
+        description: ''
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+          example: Sales
+      - name: start
+        in: query
+        description: ''
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: integer
+          format: int32
+          example: 1626203567
+      - name: end
+        in: query
+        description: ''
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: integer
+          format: int32
+          example: 1657775576
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content: {}
+      deprecated: false
+components:
+  schemas:
+    AddasaletosalesmetricsRequest:
+      title: AddasaletosalesmetricsRequest
+      required:
+      - data
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Datum'
+          description: ''
+    Datum:
+      title: Datum
+      required:
+      - timestamp
+      - type
+      - reference
+      - value
+      type: object
+      properties:
+        timestamp:
+          type: integer
+          format: int32
+          description: Timestamp in unix time of when the transaction occured
+        area:
+          type: integer
+          format: int32
+          description: The id of the area that should be associated with the transaction
+        type:
+          type: string
+          description: The type of transaction. MANUAL or ACTUAL
+        reference:
+          type: string
+          description: Unique reference for the transaction. If reference is not unique it will overwrite previous transaction
+        value:
+          type: number
+          description: The amount for the transaction
+        employee:
+          type: integer
+          format: int32
+          description: The id of the employee to be associated with the transaction
+        location:
+          type: integer
+          format: int32
+          description: The id of the location to be associated with the transaction
+  securitySchemes:
+    httpBearer:
+      type: http
+      scheme: bearer
+x-provenance:
+  method: searched
+  source: https://developer.deputy.com/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://developer.deputy.com/reference/addalocation.md
+  - https://developer.deputy.com/reference/addalocationagainstanemployee.md
+  - https://developer.deputy.com/reference/addanemployee.md
+  - https://developer.deputy.com/reference/addasaletosalesmetrics.md
+  - https://developer.deputy.com/reference/addawebhookurl.md
+  - https://developer.deputy.com/reference/addleaveforaemployee.md
+  - https://developer.deputy.com/reference/addnewworkplace.md
+  - https://developer.deputy.com/reference/addunavailabilitydetailsforaemployee.md
+  - https://developer.deputy.com/reference/archivealocation.md
+  - https://developer.deputy.com/reference/copyaroster.md
+  - https://developer.deputy.com/reference/create-a-memo.md
+  - https://developer.deputy.com/reference/createadepartment.md
+  - https://developer.deputy.com/reference/createmultipledepartments.md
+  - https://developer.deputy.com/reference/deletealocation.md
+  - https://developer.deputy.com/reference/deleteanemployeesaccountindeputy.md
+  - https://developer.deputy.com/reference/deleteasingleoperationalunit.md
+  - https://developer.deputy.com/reference/discardaroster.md
+  - https://developer.deputy.com/reference/doatask.md
+  - https://developer.deputy.com/reference/example-searchforemployeesfromalocation.md
+  - https://developer.deputy.com/reference/findanemployeesleave.md
+  - https://developer.deputy.com/reference/findoutanemployeesstatus.md
+  - https://developer.deputy.com/reference/getagreedhoursbyemployeeid.md
+  - https://developer.deputy.com/reference/getalistofrostersfromlast12hoursandforward36hours.md
+  - https://developer.deputy.com/reference/getalocationssettings.md
+  - https://developer.deputy.com/reference/getawardslibrarylist.md
+  - https://developer.deputy.com/reference/getdetailsforaemployeebyid.md
+  - https://developer.deputy.com/reference/getdetailsforallemployees.md
+  - https://developer.deputy.com/reference/getlocationbyid.md
+  - https://developer.deputy.com/reference/getlocations.md
+  - https://developer.deputy.com/reference/getmyindividualtimesheet.md
+  - https://developer.deputy.com/reference/getmynewsfeed.md
+  - https://developer.deputy.com/reference/getmynotifications.md
+  - https://developer.deputy.com/reference/getmysubordinatecontactdetails.md
+  - https://developer.deputy.com/reference/getmytasks.md
+  - https://developer.deputy.com/reference/getmytimesheets.md
+  - https://developer.deputy.com/reference/getmytraining.md
+  - https://developer.deputy.com/reference/getoperationalunits.md
+  - https://developer.deputy.com/reference/getrostersavailableforswap.md
+  - https://developer.deputy.com/reference/getsimplifiedlocationlist.md
+  - https://developer.deputy.com/reference/getsuggestionsforrosterbyid.md
+  - https://developer.deputy.com/reference/getunavailabilitydetailsforaemployee.md
+  - https://developer.deputy.com/reference/inviteemployeetodeputy.md
+  - https://developer.deputy.com/reference/modifysettingsinalllocations.md
+  - https://developer.deputy.com/reference/modifysettingsinasinglelocation.md
+  - https://developer.deputy.com/reference/myaddressonfile.md
+  - https://developer.deputy.com/reference/myaddressonfileincludingemergency.md
+  - https://developer.deputy.com/reference/myleaverequests.md
+  - https://developer.deputy.com/reference/pauseorunpauseemployeestimesheettakeabreakfinishbreak.md
+  - https://developer.deputy.com/reference/postajournal.md
+  - https://developer.deputy.com/reference/publisharoster.md
+  - https://developer.deputy.com/reference/re-activateaterminatedemployee.md
+  - https://developer.deputy.com/reference/removealocationfromanemployee.md
+  - https://developer.deputy.com/reference/retrievecurrentsystemtime.md
+  - https://developer.deputy.com/reference/retrievecurrentsystemtimeofalocation.md
+  - https://developer.deputy.com/reference/retrievesalesdata.md
+  - https://developer.deputy.com/reference/setawardforemployee.md
+  - https://developer.deputy.com/reference/startanemployeestimesheetclockon.md
+  - https://developer.deputy.com/reference/stopanemployeestimesheetclockoff.md
+  - https://developer.deputy.com/reference/terminateanemployee.md
+  - https://developer.deputy.com/reference/updatealocation.md
+  - https://developer.deputy.com/reference/updateanexistingemployee.md
+  - https://developer.deputy.com/reference/updateasingleoperationalunit.md
+  - https://developer.deputy.com/reference/updatemyaddress.md
+  - https://developer.deputy.com/reference/viewatimesheetbyid.md
+  - https://developer.deputy.com/reference/whatlocationscaniworkin.md
+  - https://developer.deputy.com/reference/whenaminextworking.md
+  - https://developer.deputy.com/reference/whenamiunavailable.md
+  - https://developer.deputy.com/reference/wherecaniworkwhatdoido.md
+  - https://developer.deputy.com/reference/whodoiworkwith.md
+  merge:
+    pages: 69
+    deduped: 70
+    conflicts_kept_first: 0

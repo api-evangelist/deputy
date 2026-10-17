@@ -1,0 +1,1856 @@
+openapi: 3.2.0
+info:
+  title: Deputy V2 Compliance API
+  version: '1.0'
+  description: Filtered to publicly-authenticated routes only (APIAuthenticator). Scoped-OAuth routes and internal JWT routes are excluded — see the separate "Deputy V2 Scoped API" spec for scoped endpoints.
+servers:
+- url: https://{subdomain}.{region}.deputy.com/api
+  description: Deputy tenant
+  variables:
+    subdomain:
+      default: your-subdomain
+      description: Your Deputy tenant subdomain
+    region:
+      default: deputy
+      enum:
+      - au
+      - eu
+      - na
+      - deputy
+      description: 'Deputy region: au, eu, na, or deputy (AU default)'
+security:
+- ApiToken: []
+tags:
+- name: Compliance
+paths:
+  /management/v2/compliance/awards:
+    get:
+      operationId: ComplianceV2Controller_listAwards
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AwardListResponse'
+      tags:
+      - Compliance
+      summary: List awards
+      description: List awards.
+  /management/v2/compliance/calculation-types:
+    get:
+      operationId: ComplianceV2Controller_getCalculationTypes
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CalculationTypeSearchResponse'
+      parameters:
+      - name: includeGlobal
+        in: query
+        required: false
+        schema:
+          type: boolean
+      - name: country
+        in: query
+        required: false
+        schema:
+          type: string
+      tags:
+      - Compliance
+      summary: Get calculation types
+      description: Get calculation types.
+  /management/v2/compliance/contract:
+    get:
+      operationId: ComplianceV2Controller_getContractList
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContractListGetContractListResponse'
+      parameters:
+      - name: pageSize
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+      - name: pageToken
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: title
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: statuses
+        in: query
+        required: false
+        schema:
+          type: string
+      tags:
+      - Compliance
+      summary: Get contract list
+      description: Get contract list.
+    post:
+      operationId: ComplianceV2Controller_createContract
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContractCreateResponse'
+      tags:
+      - Compliance
+      summary: Create contract
+      description: Create contract.
+  /management/v2/compliance/contract-config:batch-save:
+    post:
+      operationId: ComplianceV2Controller_batchSaveContractConfigs
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContractConfigBatchSaveResponse'
+      tags:
+      - Compliance
+      summary: Batch save contract configs
+      description: Batch save contract configs.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ContractConfigBatchSaveRequest'
+  /management/v2/compliance/contract-pay-rule-ordering:
+    post:
+      operationId: ComplianceV2Controller_saveContractPayRuleOrder
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContractPayRuleOrderingResponse'
+      tags:
+      - Compliance
+      summary: Save contract pay rule order
+      description: Save contract pay rule order.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ContractPayRuleOrderingRequest'
+  /management/v2/compliance/contract/{id}:
+    get:
+      operationId: ComplianceV2Controller_getContract
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContractGetByIdResponse'
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      tags:
+      - Compliance
+      summary: Get contract
+      description: Get contract.
+    put:
+      operationId: ComplianceV2Controller_updateContract
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContractUpdateResponse'
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      tags:
+      - Compliance
+      summary: Update contract
+      description: Update contract.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ContractUpdateDetail'
+  /management/v2/compliance/contract/{id}/employees:
+    get:
+      operationId: ComplianceV2Controller_getEmployeesByContract
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContractGetEmployeesByContractIdResponse'
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      tags:
+      - Compliance
+      summary: Get employees by contract
+      description: Get employees by contract.
+  /management/v2/compliance/contract:duplicate:
+    post:
+      operationId: ComplianceV2Controller_duplicateContract
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContractDuplicateResponse'
+      tags:
+      - Compliance
+      summary: Duplicate contract
+      description: Duplicate contract.
+  /management/v2/compliance/contract:export-json:
+    get:
+      operationId: ComplianceV2Controller_exportContractJson
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContractExportJsonResponse'
+      parameters:
+      - name: id
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int64
+      tags:
+      - Compliance
+      summary: Export contract JSON
+      description: Export contract JSON.
+  /management/v2/compliance/contract:import-json:
+    post:
+      operationId: ComplianceV2Controller_importContractJson
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContractImportJsonResponse'
+      tags:
+      - Compliance
+      summary: Import contract JSON
+      description: Import contract JSON.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ContractImportJsonRequest'
+  /management/v2/compliance/contract:update-json:
+    post:
+      operationId: ComplianceV2Controller_updateContractJson
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContractUpdateJsonResponse'
+      tags:
+      - Compliance
+      summary: Update contract JSON
+      description: Update contract JSON.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ContractUpdateJsonRequest'
+  /management/v2/compliance/contracts/{contractId}/leave-rules:
+    post:
+      operationId: ComplianceV2Controller_associateLeaveRules
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LeaveRuleAssociateResponse'
+      parameters:
+      - name: contractId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      tags:
+      - Compliance
+      summary: Associate leave rules
+      description: Associate leave rules.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LeaveRuleAssociateRequest'
+  /management/v2/compliance/contracts/{contractId}/leave-rules/{leaveRuleId}:
+    delete:
+      operationId: ComplianceV2Controller_unassociateLeaveRule
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LeaveRuleUnassociateResponse'
+      parameters:
+      - name: contractId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: leaveRuleId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      tags:
+      - Compliance
+      summary: Unassociate leave rule
+      description: Unassociate leave rule.
+  /management/v2/compliance/contracts/{contractId}/payrules/{payRuleId}/association:
+    delete:
+      operationId: ComplianceV2Controller_unassociatePayRule
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayRuleUnassociateResponse'
+      parameters:
+      - name: contractId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: payRuleId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      tags:
+      - Compliance
+      summary: Unassociate pay rule
+      description: Unassociate pay rule.
+  /management/v2/compliance/employee-rates:
+    get:
+      operationId: ComplianceV2Controller_getEmployeeRatesByContract
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmployeeRateGetEmployeeRateByContractResponse'
+      parameters:
+      - name: contractId
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int64
+      - name: pageSize
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int64
+      - name: pageToken
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int64
+      tags:
+      - Compliance
+      summary: Get employee rates by contract
+      description: Get employee rates by contract.
+    put:
+      operationId: ComplianceV2Controller_updateEmployeeRates
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmployeeRateUpdateEmployeeRatesResponse'
+      tags:
+      - Compliance
+      summary: Update employee rates
+      description: Update employee rates.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EmployeeRateUpdateEmployeeRatesRequest'
+  /management/v2/compliance/junior-rate:update:
+    post:
+      operationId: ComplianceV2Controller_updateJuniorRate
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JuniorRateUpdateJuniorRateResponse'
+      tags:
+      - Compliance
+      summary: Update junior rate
+      description: Update junior rate.
+  /management/v2/compliance/leave-rules:
+    get:
+      operationId: ComplianceV2Controller_getLeaveRules
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LeaveRuleListResponse'
+      tags:
+      - Compliance
+      summary: Get leave rules
+      description: Get leave rules.
+  /management/v2/compliance/pay-policies:
+    get:
+      operationId: ComplianceV2Controller_getPayPolicies
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayPolicyPayPolicySearchResponse'
+      parameters:
+      - name: includeGlobal
+        in: query
+        required: false
+        schema:
+          type: boolean
+      - name: country
+        in: query
+        required: false
+        schema:
+          type: string
+      tags:
+      - Compliance
+      summary: Get pay policies
+      description: Get pay policies.
+  /management/v2/compliance/pay-policies/{ppId}/latest-version:
+    get:
+      summary: Get latest pay policy version
+      operationId: ComplianceV2Controller_getLatestVersion
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayPolicyLatestVersionGetLatestVersionResponse'
+      parameters:
+      - name: ppId
+        in: path
+        required: true
+        schema:
+          type: string
+      tags:
+      - Compliance
+      description: Get latest pay policy version.
+  /management/v2/compliance/pay-rule:batch-save:
+    post:
+      operationId: ComplianceV2Controller_batchSavePayRules
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayRuleBatchSaveResponse'
+      tags:
+      - Compliance
+      summary: Batch save pay rules
+      description: Batch save pay rules.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PayRuleBatchSaveRequest'
+  /management/v2/compliance/payrules/{id}:
+    delete:
+      operationId: ComplianceV2Controller_deletePayRule
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayRuleDeleteResponse'
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      tags:
+      - Compliance
+      summary: Delete pay rule
+      description: Delete pay rule.
+components:
+  schemas:
+    v2modelEmployeeRate:
+      type: object
+      properties:
+        employeeId:
+          type: integer
+          format: int64
+        employeeName:
+          type: string
+        rates:
+          type: array
+          items:
+            $ref: '#/components/schemas/modelRateDetail'
+      title: EmployeeRate represents the rates of an employee linked to a specific contract, contains a list of rate details
+    modelRateDetail:
+      type: object
+      properties:
+        agreementId:
+          type: integer
+          format: int64
+          title: The agreement id of the rate
+        contractId:
+          type: integer
+          format: int64
+          title: the contract the base rate belongs to
+        locationName:
+          type: string
+          title: Name of the location to which the rate belongs
+        areaRateId:
+          type: integer
+          format: int64
+          title: The area rate id of the rate. Only set when this is area rate
+        areaName:
+          type: string
+          title: The name of the area to which the rate belongs. Only set when this is area rate
+        areaId:
+          type: integer
+          format: int64
+          title: The area id (i.e. operationalUnitId). Only set when this is area rate
+        rate:
+          type: number
+          format: double
+          title: 'The rate value.
+
+            When retrieving rate details, if was main rate, then this is `agreement.base_rate`, or basePayRule.hourlyRate as fallback; If was area rate, then this is `area_rate.base_rate`
+
+            When updating rate details, this is the new rate value'
+      title: Rate represents the details of the employee rate, either main rate or area rate, and related location and area
+    modelContractListItem:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        description:
+          type: string
+        ppid:
+          type: string
+        employeeCount:
+          type: integer
+          format: int64
+        employmentType:
+          $ref: '#/components/schemas/tenantcompliancev2modelEmploymentType'
+        status:
+          $ref: '#/components/schemas/modelContractStatus'
+        type:
+          $ref: '#/components/schemas/modelContractType'
+    modelContractStatus:
+      type: string
+      enum:
+      - INACTIVE
+      - ACTIVE
+      - DRAFT
+      default: INACTIVE
+    CalculationTypeCalculationTypeCategory:
+      type: string
+      enum:
+      - NONE
+      - OVERTIME
+      - PENALTY
+      - ORDINARY
+      default: NONE
+    LeaveRuleUnassociateResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+    ContractConfigBatchSaveResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        error:
+          type: string
+        requiresConfirmation:
+          type: boolean
+    CustomFieldAnswerSystem:
+      type: string
+      enum:
+      - UNSPECIFIED
+      - TIMESHEET
+      - EMPLOYEE
+      - ROSTER
+      default: UNSPECIFIED
+    PayRuleUnassociateResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+    modelCustomFieldAnswerConfig:
+      type: object
+      properties:
+        operation:
+          type: string
+          title: one of eq, neq, gt, lt, gte, lte, in, nin
+        values:
+          type: array
+          items:
+            type: string
+    PayRulePayPortionRule:
+      type: string
+      enum:
+      - PAY_PORTION_RULE_UNKNOWN
+      - PAY_PORTION_RULE_GREATER
+      - PAY_PORTION_RULE_EXACT
+      - PAY_PORTION_RULE_FULL
+      default: PAY_PORTION_RULE_UNKNOWN
+    ContractImportJsonResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        newContractId:
+          type: integer
+          format: int64
+    modelContractJuniorRate:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uint64
+        contractId:
+          type: string
+          format: uint64
+        name:
+          type: string
+        age:
+          type: string
+          format: uint64
+        type:
+          $ref: '#/components/schemas/modelContractJuniorRateType'
+        value:
+          type: string
+        exportCode:
+          type: string
+    modelCustomFieldAnswerAction:
+      type: string
+      enum:
+      - UNSPECIFIED_ACTION
+      - FILTER
+      - TOIL_ACCRUAL
+      default: UNSPECIFIED_ACTION
+      title: "- UNSPECIFIED_ACTION: default is filter action, same as FILTER\n - FILTER: filter pay rule according to the CustomFieldAnswer setup\n - TOIL_ACCRUAL: convert Overtime to TimeOffInLieu when calculating shift cost"
+    modelEmployeeProfilePayRate:
+      type: object
+      properties:
+        id:
+          type: string
+          format: int64
+          title: Employee ID
+        firstName:
+          type: string
+          title: Employee first name
+        lastName:
+          type: string
+          title: Employee last name
+        displayName:
+          type: string
+          title: Employee display name
+        photoUrl:
+          type: string
+          title: Photo url
+        photoFileId:
+          type: string
+          format: int64
+          title: Photo file id
+        baseRate:
+          type: string
+          title: Employee pay rate
+        levelId:
+          type: string
+          title: Level Id
+    ContractDuplicateResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          $ref: '#/components/schemas/tenantcompliancev2modelContract'
+    PayRuleBatchSaveRequest:
+      type: object
+      properties:
+        contractId:
+          type: integer
+          format: int32
+        payRules:
+          type: array
+          items:
+            $ref: '#/components/schemas/tenantcompliancev2modelPayRule'
+        confirmCustomisation:
+          type: boolean
+    PayRuleBatchSaveResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        error:
+          type: string
+        requiresConfirmation:
+          type: boolean
+    v2modelFilter:
+      type: object
+      properties:
+        customFieldAnswers:
+          type: array
+          items:
+            $ref: '#/components/schemas/modelCustomFieldAnswer'
+        recurrenceRule:
+          type: string
+        shiftSchedulingType:
+          $ref: '#/components/schemas/FilterShiftSchedulingType'
+        shiftStartTimeRange:
+          type: string
+        shiftEndTimeRange:
+          type: string
+        rRulePublicHolidayInclusion:
+          $ref: '#/components/schemas/FilterRRulePublicHolidayInclusionType'
+          title: Determines recurrence rule is applicable on public holiday (recurrenceRule AND public holiday condition should be met)
+        particularDate:
+          type: string
+        applyOncePerDay:
+          type: boolean
+        areaNames:
+          type: array
+          items:
+            type: string
+        trainingRequirements:
+          type: array
+          items:
+            $ref: '#/components/schemas/modelTrainingRequirement'
+    CalculationTypeSearchResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/compliancev2modelCalculationType'
+    ContractGetEmployeesByContractIdResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/modelEmployeeProfilePayRate'
+    PayRuleRemunerationType:
+      type: string
+      enum:
+      - REMUNERATION_TYPE_UNKNOWN
+      - REMUNERATION_TYPE_HOURLY
+      - REMUNERATION_TYPE_MULTIPLIER
+      - REMUNERATION_TYPE_UNIT
+      - REMUNERATION_TYPE_SALARY
+      default: REMUNERATION_TYPE_UNKNOWN
+    modelPayConfig:
+      type: object
+      properties:
+        roundUpHours:
+          type: boolean
+        loadingLimit:
+          $ref: '#/components/schemas/modelLoadingLimit'
+        classificationReference:
+          type: string
+    ContractExportJsonResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          type: string
+    ContractCreateResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          $ref: '#/components/schemas/tenantcompliancev2modelContract'
+    ContractListGetContractListResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        nextPageToken:
+          type: string
+        totalCount:
+          type: integer
+          format: int64
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/modelContractListItem'
+    ContractConfigBatchSaveRequest:
+      type: object
+      properties:
+        configs:
+          type: array
+          items:
+            $ref: '#/components/schemas/v2modelContractConfig'
+        confirmCustomisation:
+          type: boolean
+    ContractPayRuleOrderingResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        requiresConfirmation:
+          type: boolean
+    modelContractLevel:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        levelKsuid:
+          type: string
+        contractId:
+          type: integer
+          format: int64
+        baseRate:
+          type: string
+        crIds:
+          type: array
+          items:
+            type: string
+        exportCode:
+          type: string
+    modelContractPayType:
+      type: string
+      enum:
+      - CONTRACT_PAY_TYPE_UNKNOWN
+      - CONTRACT_PAY_TYPE_HOURLY
+      - CONTRACT_PAY_TYPE_SALARY
+      default: CONTRACT_PAY_TYPE_UNKNOWN
+    tenantcompliancev2modelLevel:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        levelKsuid:
+          type: string
+        levelBaseRate:
+          type: string
+    tenantcompliancev2modelAward:
+      type: object
+      properties:
+        code:
+          type: string
+          title: code of the award
+        name:
+          type: string
+          title: name of the award
+        employmentType:
+          $ref: '#/components/schemas/modelAwardEmploymentType'
+          title: employment type
+        contractId:
+          type: string
+          format: uint64
+          title: the id of the existing pay policy contract
+        basePayRuleId:
+          type: string
+          format: uint64
+          title: the id of the base pay rule of the existing pay policy contract
+        levels:
+          type: array
+          items:
+            $ref: '#/components/schemas/tenantcompliancev2modelLevel'
+          title: levels associated with the award
+        basePayRuleCrId:
+          type: string
+          title: the CR ID of the base pay rule from the library pay policy
+        basePayRuleRate:
+          type: string
+          title: the base pay rule hourly rate
+      title: Award represents a library award/pay policy, or a custom pay policy created from PRB
+    FilterShiftSchedulingType:
+      type: string
+      enum:
+      - UNSPECIFIED
+      - SCHEDULED_ONLY
+      - UNSCHEDULED_ONLY
+      default: UNSPECIFIED
+    ContractUpdateJsonResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+    v2modelLeaveRule:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        description:
+          type: string
+        isPaid:
+          type: boolean
+        type:
+          type: integer
+          format: int64
+    PayRuleRemunerationBy:
+      type: string
+      enum:
+      - REMUNERATION_BY_UNKNOWN
+      - REMUNERATION_BY_BASE
+      - REMUNERATION_BY_SHIFT_LOADING
+      - REMUNERATION_BY_PERIOD_LOADING
+      default: REMUNERATION_BY_UNKNOWN
+    modelPayRuleRateType:
+      type: string
+      enum:
+      - RATE_TYPE_UNKNOWN
+      - RATE_TYPE_ORDINARY
+      - RATE_TYPE_OVERTIME
+      - RATE_TYPE_PENALTY
+      - RATE_TYPE_NON_PAYABLE
+      default: RATE_TYPE_UNKNOWN
+    modelCustomFieldAnswerType:
+      type: string
+      enum:
+      - TYPE_UNSPECIFIED
+      - TYPE_LIST
+      - TYPE_BOOL
+      - TYPE_NUMBER
+      - TYPE_TEXT
+      - TYPE_BOOL_YES_COMMENT
+      - TYPE_BOOL_NO_COMMENT
+      default: TYPE_UNSPECIFIED
+    modelTrainingRequirement:
+      type: object
+      properties:
+        module:
+          type: string
+          format: int64
+    modelLoadingLimit:
+      type: object
+      properties:
+        limitType:
+          type: string
+        limitPer:
+          type: string
+        customPeriod:
+          type: string
+        minValue:
+          type: number
+          format: float
+        maxValue:
+          type: number
+          format: float
+    PayRuleDeleteResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+    compliancev2modelCalculationType:
+      type: object
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        country:
+          type: string
+        description:
+          type: string
+        category:
+          $ref: '#/components/schemas/CalculationTypeCalculationTypeCategory'
+        localContextList:
+          type: array
+          items:
+            type: string
+        supportedRuleTypes:
+          type: array
+          items:
+            $ref: '#/components/schemas/CalculationTypeRuleType'
+        systemContextList:
+          type: array
+          items:
+            type: string
+        sharedContextList:
+          type: array
+          items:
+            type: string
+    ContractImportJsonRequest:
+      type: object
+      properties:
+        data:
+          type: string
+    tenantcompliancev2modelPayRule:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        title:
+          type: string
+        value:
+          type: number
+          format: double
+        remunerationBy:
+          $ref: '#/components/schemas/PayRuleRemunerationBy'
+        remunerationType:
+          $ref: '#/components/schemas/PayRuleRemunerationType'
+        isExported:
+          type: boolean
+        payrollCategory:
+          type: string
+        payPortionRule:
+          $ref: '#/components/schemas/PayRulePayPortionRule'
+        rateType:
+          $ref: '#/components/schemas/modelPayRuleRateType'
+        comment:
+          type: string
+        operationalUnitIds:
+          type: array
+          items:
+            type: integer
+            format: int64
+        calculationRuleId:
+          type: string
+        calculationTypeId:
+          type: string
+        filter:
+          $ref: '#/components/schemas/v2modelFilter'
+        localContext:
+          type: string
+        rateTag:
+          type: string
+        payConfig:
+          $ref: '#/components/schemas/modelPayConfig'
+        levelIds:
+          type: array
+          items:
+            type: integer
+            format: int64
+        levelAssnType:
+          type: integer
+          format: int64
+        stpClass:
+          type: string
+        stpCode:
+          type: string
+        toilMultiplier:
+          type: number
+          format: double
+          title: the Multiplier Rate that indicates how much TimeOffInLieu an hour of Overtime converts to
+        leaveRuleId:
+          type: integer
+          format: int64
+          title: the id of leave rule which TOIL Accrual goes to when TOIL is set up to convert OT to TOIL, only used with toilMultiplier
+        payrollTaxCode:
+          type: string
+    CalculationTypeRuleType:
+      type: string
+      enum:
+      - RULE_TYPE_UNKNOWN
+      - BASE
+      - SHIFT_LOADING
+      - PERIOD_LOADING
+      default: RULE_TYPE_UNKNOWN
+    modelContractJuniorRateType:
+      type: string
+      enum:
+      - CONTRACT_JUNIOR_RATE_TYPE_UNKNOWN
+      - CONTRACT_JUNIOR_RATE_TYPE_MULTIPLIER
+      - CONTRACT_JUNIOR_RATE_TYPE_FIXED
+      default: CONTRACT_JUNIOR_RATE_TYPE_UNKNOWN
+    PayPolicyLatestVersionGetLatestVersionResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          $ref: '#/components/schemas/modelPayPolicyVersion'
+      title: Get latest active version of pay policy response
+    LeaveRuleListResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/v2modelLeaveRule'
+    EmployeeRateGetEmployeeRateByContractResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        totalCount:
+          type: integer
+          format: int64
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/v2modelEmployeeRate'
+    AwardListResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/tenantcompliancev2modelAward'
+    tenantcompliancev2modelEmploymentType:
+      type: string
+      enum:
+      - EMPLOYMENT_TYPE_UNKNOWN
+      - EMPLOYMENT_TYPE_FULL_TIME
+      - EMPLOYMENT_TYPE_PART_TIME
+      - EMPLOYMENT_TYPE_CASUAL
+      - EMPLOYMENT_TYPE_CONTRACTOR
+      - EMPLOYMENT_TYPE_HOURLY
+      - EMPLOYMENT_TYPE_SALARY
+      - EMPLOYMENT_TYPE_GENERIC
+      default: EMPLOYMENT_TYPE_UNKNOWN
+      description: 'In the code this is also referred to as employment status
+
+        (employment_status DB table column).'
+    LeaveRuleAssociateResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+    EmployeeRateUpdateEmployeeRatesRequest:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/modelRateDetail'
+    ContractUpdateJsonRequest:
+      type: object
+      properties:
+        data:
+          type: string
+    tenantcompliancev2modelContract:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        description:
+          type: string
+        employmentCategory:
+          $ref: '#/components/schemas/compliancev2modelEmploymentCategory'
+        employmentType:
+          $ref: '#/components/schemas/tenantcompliancev2modelEmploymentType'
+        basePayRule:
+          $ref: '#/components/schemas/tenantcompliancev2modelPayRule'
+        payRules:
+          type: array
+          items:
+            $ref: '#/components/schemas/tenantcompliancev2modelPayRule'
+        configs:
+          type: array
+          items:
+            $ref: '#/components/schemas/v2modelContractConfig'
+        leaveRules:
+          type: array
+          items:
+            $ref: '#/components/schemas/v2modelLeaveRule'
+        payPolicyName:
+          type: string
+        levels:
+          type: array
+          items:
+            $ref: '#/components/schemas/modelContractLevel'
+        payType:
+          $ref: '#/components/schemas/modelContractPayType'
+        juniorRates:
+          type: array
+          items:
+            $ref: '#/components/schemas/modelContractJuniorRate'
+        standardHours:
+          type: string
+          description: Standard hours per day for this contract. Maps to employment condition's avgHoursPerDay. Set to 0 to unlink employment condition.
+    modelContractConfigStatus:
+      type: string
+      enum:
+      - CONTRACT_CONFIG_STATUS_INACTIVE
+      - CONTRACT_CONFIG_STATUS_ACTIVE
+      - CONTRACT_CONFIG_STATUS_ARCHIVED
+      default: CONTRACT_CONFIG_STATUS_INACTIVE
+    PayPolicyPayPolicySearchResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/v2modelPayPolicy'
+    ContractUpdateDetail:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        employmentCategory:
+          $ref: '#/components/schemas/compliancev2modelEmploymentCategory'
+        employmentType:
+          $ref: '#/components/schemas/tenantcompliancev2modelEmploymentType'
+        basePayRule:
+          $ref: '#/components/schemas/tenantcompliancev2modelPayRule'
+        standardHours:
+          type: string
+          description: Standard hours per day for this contract. Omit to leave unchanged, set to 0 to unlink employment condition, or provide a positive value to create/update employment condition.
+    modelPayPolicyVersion:
+      type: object
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        country:
+          type: string
+        employmentType:
+          $ref: '#/components/schemas/tenantcompliancev2modelEmploymentType'
+        effectiveDate:
+          type: string
+        award:
+          type: string
+        subType:
+          type: string
+        deprecationDate:
+          type: string
+    v2modelContractConfig:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        contractId:
+          type: integer
+          format: int64
+        category:
+          $ref: '#/components/schemas/modelContractConfigCategory'
+        config:
+          type: string
+        status:
+          $ref: '#/components/schemas/modelContractConfigStatus'
+    ContractUpdateResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+    modelContractType:
+      type: string
+      enum:
+      - LIBRARY
+      - CUSTOM
+      default: LIBRARY
+    v2modelPayPolicy:
+      type: object
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        country:
+          type: string
+        award:
+          type: string
+        effectiveDate:
+          type: string
+        employmentType:
+          $ref: '#/components/schemas/tenantcompliancev2modelEmploymentType'
+    FilterRRulePublicHolidayInclusionType:
+      type: string
+      enum:
+      - PH_INCLUSION_UNSPECIFIED
+      - PH_ONLY
+      - NON_PH_ONLY
+      default: PH_INCLUSION_UNSPECIFIED
+    LeaveRuleAssociateRequest:
+      type: object
+      properties:
+        contractId:
+          type: integer
+          format: int64
+        leaveRuleIds:
+          type: array
+          items:
+            type: integer
+            format: int64
+    modelAwardEmploymentType:
+      type: string
+      enum:
+      - EMPLOYMENT_TYPE_UNKNOWN
+      - FULL_TIME
+      - PART_TIME
+      - CASUAL
+      - CONTRACTOR
+      - HOURLY
+      - SALARY
+      default: EMPLOYMENT_TYPE_UNKNOWN
+    EmployeeRateUpdateEmployeeRatesResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+    ContractPayRuleOrderingRequest:
+      type: object
+      properties:
+        contractId:
+          type: integer
+          format: int64
+        payRuleIds:
+          type: array
+          items:
+            type: integer
+            format: int64
+        confirmCustomisation:
+          type: boolean
+    modelCustomFieldAnswer:
+      type: object
+      properties:
+        identifier:
+          type: string
+          title: the unique identifier of the custom field (api_name)
+        system:
+          $ref: '#/components/schemas/CustomFieldAnswerSystem'
+          title: type of the custom field, i.e. "TIMESHEET" or "EMPLOYEE"
+        configs:
+          type: array
+          items:
+            $ref: '#/components/schemas/modelCustomFieldAnswerConfig'
+          title: configuration for the custom field answer, i.e. operation and acceptable answers
+        type:
+          $ref: '#/components/schemas/modelCustomFieldAnswerType'
+          title: type of the custom field, e.g. list, boolean, number, text
+        action:
+          $ref: '#/components/schemas/modelCustomFieldAnswerAction'
+          title: specific action we would like to perform when checking the pay rule against the question/answer; Unspecified means it's the default filtering action
+    ContractGetByIdResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          $ref: '#/components/schemas/tenantcompliancev2modelContract'
+    JuniorRateUpdateJuniorRateResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        error:
+          type: string
+    compliancev2modelEmploymentCategory:
+      type: string
+      enum:
+      - EMPLOYMENT_CATEGORY_UNKNOWN
+      - EMPLOYMENT_CATEGORY_PERMANENT
+      - EMPLOYMENT_CATEGORY_TEMPORARY
+      default: EMPLOYMENT_CATEGORY_UNKNOWN
+    modelContractConfigCategory:
+      type: string
+      enum:
+      - CONTRACT_CONFIG_CATEGORY_UNKNOWN
+      - CONTRACT_CONFIG_CATEGORY_GLOBAL_SETTINGS
+      - CONTRACT_CONFIG_CATEGORY_JUNIOR_RATE
+      - CONTRACT_CONFIG_CATEGORY_CONTRACT_DETAILS
+      - CONTRACT_CONFIG_CATEGORY_PAY_POLICY_CONTEXT
+      - CONTRACT_CONFIG_CATEGORY_SHARED_CONTEXT
+      - CONTRACT_CONFIG_CATEGORY_EXPORT_CODE_TEMPLATE
+      default: CONTRACT_CONFIG_CATEGORY_UNKNOWN
+  securitySchemes:
+    ApiToken:
+      type: apiKey
+      in: header
+      name: OAuth
+x-provenance:
+  method: searched
+  source: https://developer.deputy.com/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://developer.deputy.com/reference/accessmanagementv2controller_createrole.md
+  - https://developer.deputy.com/reference/accessmanagementv2controller_deleterole.md
+  - https://developer.deputy.com/reference/accessmanagementv2controller_getemployeerole.md
+  - https://developer.deputy.com/reference/accessmanagementv2controller_getprivilegehierarchy.md
+  - https://developer.deputy.com/reference/accessmanagementv2controller_listemployeebyrole.md
+  - https://developer.deputy.com/reference/accessmanagementv2controller_listemployeerolehistory.md
+  - https://developer.deputy.com/reference/accessmanagementv2controller_listrole.md
+  - https://developer.deputy.com/reference/accessmanagementv2controller_updaterole.md
+  - https://developer.deputy.com/reference/accountstatsv2controller_getpaycalendarcoverage.md
+  - https://developer.deputy.com/reference/accountstatsv2controller_getpayratecoverage.md
+  - https://developer.deputy.com/reference/agreedhourservicev2controller_archiveagreedhourversionwithreason.md
+  - https://developer.deputy.com/reference/agreedhourservicev2controller_auditagreedhours.md
+  - https://developer.deputy.com/reference/agreedhourservicev2controller_batchupdateagreedhour.md
+  - https://developer.deputy.com/reference/agreedhourservicev2controller_consentemployeeagreedhours.md
+  - https://developer.deputy.com/reference/agreedhourservicev2controller_createagreedhour.md
+  - https://developer.deputy.com/reference/agreedhourservicev2controller_deleteemployeeagreedhours.md
+  - https://developer.deputy.com/reference/agreedhourservicev2controller_diffemployeeagreedhours.md
+  - https://developer.deputy.com/reference/agreedhourservicev2controller_getagreedhour.md
+  - https://developer.deputy.com/reference/agreedhourservicev2controller_getagreedhoursbystatus.md
+  - https://developer.deputy.com/reference/agreedhourservicev2controller_getagreedhoursemployeeapprovalconfiguration.md
+  - https://developer.deputy.com/reference/agreedhourservicev2controller_getagreedhoursgeneralconfiguration.md
+  - https://developer.deputy.com/reference/agreedhourservicev2controller_getagreedhourversion.md
+  - https://developer.deputy.com/reference/agreedhourservicev2controller_getareasbyemployees.md
+  - https://developer.deputy.com/reference/agreedhourservicev2controller_getconsentrecords.md
+  - https://developer.deputy.com/reference/agreedhourservicev2controller_getcurrentagreedhour.md
+  - https://developer.deputy.com/reference/agreedhourservicev2controller_migrateagreedhourssteptwo.md
+  - https://developer.deputy.com/reference/agreedhourservicev2controller_notifyemployeeagreedhours.md
+  - https://developer.deputy.com/reference/agreedhourservicev2controller_searchagreedhours.md
+  - https://developer.deputy.com/reference/aiassistantv2controller_getsettings.md
+  - https://developer.deputy.com/reference/areamanagementv2controller_listbyemployeeid.md
+  - https://developer.deputy.com/reference/areaprofilev2controller_create.md
+  - https://developer.deputy.com/reference/areaprofilev2controller_delete.md
+  - https://developer.deputy.com/reference/areaprofilev2controller_get.md
+  - https://developer.deputy.com/reference/areaprofilev2controller_list.md
+  - https://developer.deputy.com/reference/areaprofilev2controller_listareainuse.md
+  - https://developer.deputy.com/reference/areaprofilev2controller_listemployeetrained.md
+  - https://developer.deputy.com/reference/areaprofilev2controller_update.md
+  - https://developer.deputy.com/reference/arearatev2controller_batchsave.md
+  - https://developer.deputy.com/reference/arearatev2controller_get.md
+  - https://developer.deputy.com/reference/auditpayrecalculationv2controller_create.md
+  - https://developer.deputy.com/reference/autobuildv2controller_autobuild.md
+  - https://developer.deputy.com/reference/availabilityv2controller_delete.md
+  - https://developer.deputy.com/reference/availabilityv2controller_get.md
+  - https://developer.deputy.com/reference/availabilityv2controller_list.md
+  - https://developer.deputy.com/reference/businesssettingv2controller_getallvisibleemployeeroles.md
+  - https://developer.deputy.com/reference/businesssettingv2controller_getallvisibleemployeerolesincludeadvisor.md
+  - https://developer.deputy.com/reference/businesssettingv2controller_getemployeeroleidsforprivilegenames.md
+  - https://developer.deputy.com/reference/businesssettingv2controller_getemployeeroleidswithtwofaenforced.md
+  - https://developer.deputy.com/reference/businesssettingv2controller_getsetting.md
+  - https://developer.deputy.com/reference/businesssettingv2controller_gettemplate.md
+  - https://developer.deputy.com/reference/businesssettingv2controller_saveconfig.md
+  - https://developer.deputy.com/reference/businessv2controller_getdetails.md
+  - https://developer.deputy.com/reference/businessv2controller_updatedetails.md
+  - https://developer.deputy.com/reference/chatemployeeshiftstatusv2controller_getemployeesshiftstatus.md
+  - https://developer.deputy.com/reference/compliancev2controller_associateleaverules.md
+  - https://developer.deputy.com/reference/compliancev2controller_batchsavecontractconfigs.md
+  - https://developer.deputy.com/reference/compliancev2controller_batchsavepayrules.md
+  - https://developer.deputy.com/reference/compliancev2controller_createcontract.md
+  - https://developer.deputy.com/reference/compliancev2controller_deletepayrule.md
+  - https://developer.deputy.com/reference/compliancev2controller_duplicatecontract.md
+  - https://developer.deputy.com/reference/compliancev2controller_exportcontractjson.md
+  - https://developer.deputy.com/reference/compliancev2controller_getcalculationtypes.md
+  - https://developer.deputy.com/reference/compliancev2controller_getcontract.md
+  - https://developer.deputy.com/reference/compliancev2controller_getcontractlist.md
+  - https://developer.deputy.com/reference/compliancev2controller_getemployeeratesbycontract.md
+  - https://developer.deputy.com/reference/compliancev2controller_getemployeesbycontract.md
+  - https://developer.deputy.com/reference/compliancev2controller_getlatestversion.md
+  - https://developer.deputy.com/reference/compliancev2controller_getleaverules.md
+  - https://developer.deputy.com/reference/compliancev2controller_getpaypolicies.md
+  - https://developer.deputy.com/reference/compliancev2controller_importcontractjson.md
+  - https://developer.deputy.com/reference/compliancev2controller_listawards.md
+  - https://developer.deputy.com/reference/compliancev2controller_savecontractpayruleorder.md
+  - https://developer.deputy.com/reference/compliancev2controller_unassociateleaverule.md
+  - https://developer.deputy.com/reference/compliancev2controller_unassociatepayrule.md
+  - https://developer.deputy.com/reference/compliancev2controller_updatecontract.md
+  - https://developer.deputy.com/reference/compliancev2controller_updatecontractjson.md
+  - https://developer.deputy.com/reference/compliancev2controller_updateemployeerates.md
+  - https://developer.deputy.com/reference/compliancev2controller_updatejuniorrate.md
+  - https://developer.deputy.com/reference/concurrentleavecapconfigv2controller_getconcurrentleavecapconfig.md
+  - https://developer.deputy.com/reference/customfieldsv2controller_get.md
+  - https://developer.deputy.com/reference/customfieldsv2controller_getcustomfieldsbyrecordtype.md
+  - https://developer.deputy.com/reference/embeddedreportsv2controller_copyworkbook.md
+  - https://developer.deputy.com/reference/embeddedreportsv2controller_createworkbook.md
+  - https://developer.deputy.com/reference/embeddedreportsv2controller_deleteworkbook.md
+  - https://developer.deputy.com/reference/embeddedreportsv2controller_downgradesigmamemberlicensebulk.md
+  - https://developer.deputy.com/reference/embeddedreportsv2controller_generateembedurlforworkbook.md
+  - https://developer.deputy.com/reference/embeddedreportsv2controller_getusersbypermission.md
+  - https://developer.deputy.com/reference/embeddedreportsv2controller_list.md
+  - https://developer.deputy.com/reference/embeddedreportsv2controller_listclassicreports.md
+  - https://developer.deputy.com/reference/embeddedreportsv2controller_listhomefolderworkbooks.md
+  - https://developer.deputy.com/reference/embeddedreportsv2controller_listsharedwithmeworkbooks.md
+  - https://developer.deputy.com/reference/embeddedreportsv2controller_listsharedwithstatus.md
+  - https://developer.deputy.com/reference/embeddedreportsv2controller_provisiontenantonsigma.md
+  - https://developer.deputy.com/reference/embeddedreportsv2controller_removesharedworkbookaccess.md
+  - https://developer.deputy.com/reference/embeddedreportsv2controller_renamehomefolderworkbook.md
+  - https://developer.deputy.com/reference/embeddedreportsv2controller_shareworkbook.md
+  - https://developer.deputy.com/reference/embeddedreportsv2controller_updatetenantdataonsigma.md
+  - https://developer.deputy.com/reference/employeeagreementv2controller_create.md
+  - https://developer.deputy.com/reference/employeeagreementv2controller_delete.md
+  - https://developer.deputy.com/reference/employeeagreementv2controller_get.md
+  - https://developer.deputy.com/reference/employeeagreementv2controller_list.md
+  - https://developer.deputy.com/reference/employeeagreementv2controller_update.md
+  - https://developer.deputy.com/reference/employeedatafixv2controller_seteffectivedate.md
+  - https://developer.deputy.com/reference/employeedatafixv2controller_syncemployeeagreementcompany.md
+  - https://developer.deputy.com/reference/employeedatafixv2controller_triggerworkplaceagreementsync.md
+  - https://developer.deputy.com/reference/employeedatafixv2controller_updateworkplaceagreement.md
+  - https://developer.deputy.com/reference/employeeonboardingexportv2controller_listemployeesbydaterange.md
+  - https://developer.deputy.com/reference/employeeonboardingexportv2controller_onboardingexport.md
+  - https://developer.deputy.com/reference/employeeonboardingusagev2controller_getremainingpromousages.md
+  - https://developer.deputy.com/reference/employeeonboardingv2controller_listonboardingstatus.md
+  - https://developer.deputy.com/reference/employeepreferencesv2controller_list.md
+  - https://developer.deputy.com/reference/employeeprofilehistoryv2controller_get.md
+  - https://developer.deputy.com/reference/employeeprofilev2controller_get.md
+  - https://developer.deputy.com/reference/employeeprofilev2controller_list.md
+  - https://developer.deputy.com/reference/employeeprofilev2controller_retrieveemployeeprofilebyidsandcustomfiltersrequest.md
+  - https://developer.deputy.com/reference/employeesentimentv2controller_aggregate.md
+  - https://developer.deputy.com/reference/employeesentimentv2controller_aggregatelocation.md
+  - https://developer.deputy.com/reference/employeesentimentv2controller_check.md
+  - https://developer.deputy.com/reference/employeesentimentv2controller_create.md
+  - https://developer.deputy.com/reference/employeesentimentv2controller_getsettings.md
+  - https://developer.deputy.com/reference/employeesentimentv2controller_getweeklyaggregated.md
+  - https://developer.deputy.com/reference/employeesentimentv2controller_getweeklyaggregatedlocation.md
+  - https://developer.deputy.com/reference/employeestandarddayhoursv2controller_getemployeestandarddayhours.md
+  - https://developer.deputy.com/reference/employeesv2controller_create.md
+  - https://developer.deputy.com/reference/employeesv2controller_createbulk.md
+  - https://developer.deputy.com/reference/employeesv2controller_get.md
+  - https://developer.deputy.com/reference/employeesv2controller_list.md
+  - https://developer.deputy.com/reference/employeesv2controller_patch.md
+  - https://developer.deputy.com/reference/employeesv2controller_patchbulk.md
+  - https://developer.deputy.com/reference/employeesv2controller_validateemails.md
+  - https://developer.deputy.com/reference/employmentconditionv2controller_get.md
+  - https://developer.deputy.com/reference/employmentconditionv2controller_list.md
+  - https://developer.deputy.com/reference/employmentcontractlevelv2controller_batchsave.md
+  - https://developer.deputy.com/reference/employmentcontractlevelv2controller_create.md
+  - https://developer.deputy.com/reference/employmentcontractlevelv2controller_get.md
+  - https://developer.deputy.com/reference/employmentcontractlevelv2controller_getemployeesbylevelid.md
+  - https://developer.deputy.com/reference/employmentcontractlevelv2controller_update.md
+  - https://developer.deputy.com/reference/employmentcontractsv2controller_create.md
+  - https://developer.deputy.com/reference/employmentcontractsv2controller_delete.md
+  - https://developer.deputy.com/reference/employmentcontractsv2controller_get.md
+  - https://developer.deputy.com/reference/employmentcontractsv2controller_list.md
+  - https://developer.deputy.com/reference/employmentcontractsv2controller_update.md
+  - https://developer.deputy.com/reference/eocallbackv2controller_storeonboardingidforemployee.md
+  - https://developer.deputy.com/reference/filev2controller_createfile.md
+  - https://developer.deputy.com/reference/flagrecordv2controller_get.md
+  - https://developer.deputy.com/reference/flagrecordv2controller_list.md
+  - https://developer.deputy.com/reference/flagrecordv2controller_put.md
+  - https://developer.deputy.com/reference/flagrecordv2controller_togglebytag.md
+  - https://developer.deputy.com/reference/hronboardingactionv2controller_perform.md
+  - https://developer.deputy.com/reference/labormodelv2controller_copylabormodelrules.md
+  - https://developer.deputy.com/reference/labormodelv2controller_createlabormodelrule.md
+  - https://developer.deputy.com/reference/labormodelv2controller_deletelabormodelrule.md
+  - https://developer.deputy.com/reference/labormodelv2controller_deletelabormodelrules.md
+  - https://developer.deputy.com/reference/labormodelv2controller_editlabormodelrule.md
+  - https://developer.deputy.com/reference/labormodelv2controller_getlabormodelpendingjobs.md
+  - https://developer.deputy.com/reference/labormodelv2controller_getlabormodelrule.md
+  - https://developer.deputy.com/reference/labormodelv2controller_runlabormodel.md
+  - https://developer.deputy.com/reference/leaveabsencev2controller_validateleaveabsence.md
+  - https://developer.deputy.com/reference/leaveaccrualv2controller_agreedhoursrecalculationpreview.md
+  - https://developer.deputy.com/reference/leaveaccrualv2controller_releaseforhiredate.md
+  - https://developer.deputy.com/reference/leaveauditlogv2controller_listlogs.md
+  - https://developer.deputy.com/reference/leavebalancev2controller_createleavebalance.md
+  - https://developer.deputy.com/reference/leavebalancev2controller_getleavebalances.md
+  - https://developer.deputy.com/reference/leavebalancev2controller_listleavebalancesforemployee.md
+  - https://developer.deputy.com/reference/leaveconfigv2controller_getleaveconfig.md
+  - https://developer.deputy.com/reference/leaveconfigv2controller_setleaveconfig.md
+  - https://developer.deputy.com/reference/leaveentitlementsremediationv2controller_getentitlementremediationfiledownloadlink.md
+  - https://developer.deputy.com/reference/leaveentitlementsremediationv2controller_getentitlementremediationstatus.md
+  - https://developer.deputy.com/reference/leaveentitlementsremediationv2controller_setentitlementremediationactiontype.md
+  - https://developer.deputy.com/reference/leaveentitlementsv2controller_addleaveentitlementstoemployees.md
+  - https://developer.deputy.com/reference/leaveentitlementsv2controller_addleaveentitlementtoemployees.md
+  - https://developer.deputy.com/reference/leaveentitlementsv2controller_getemployeeentitlementsbyemployees.md
+  - https://developer.deputy.com/reference/leaveentitlementsv2controller_getemployeeleaveentitlements.md
+  - https://developer.deputy.com/reference/leaveentitlementsv2controller_getentitledemployeesbyleaverule.md
+  - https://developer.deputy.com/reference/leaveentitlementsv2controller_removeleaveentitlementsfromemployees.md
+  - https://developer.deputy.com/reference/leaveentitlementsv2controller_setleaveentitlementsbyemployees.md
+  - https://developer.deputy.com/reference/leaveextensionv2controller_softdeleteleaveextensions.md
+  - https://developer.deputy.com/reference/leavefeaturesetv2controller_getadoptionstatus.md
+  - https://developer.deputy.com/reference/leavefeaturesetv2controller_getleavefeaturesetstatus.md
+  - https://developer.deputy.com/reference/leavefeaturesetv2controller_setadoptionstatus.md
+  - https://developer.deputy.com/reference/leavefeaturesetv2controller_setsuggestionstatus.md
+  - https://developer.deputy.com/reference/leavelocationsettingsv2controller_getleavelocationsettings.md
+  - https://developer.deputy.com/reference/leavemigrationv2controller_exportleavebalances.md
+  - https://developer.deputy.com/reference/leavemigrationv2controller_exportleaverules.md
+  - https://developer.deputy.com/reference/leavemigrationv2controller_getsoftdeletedleaveextensions.md
+  - https://developer.deputy.com/reference/leavemigrationv2controller_getstatus.md
+  - https://developer.deputy.com/reference/leavemigrationv2controller_overridebalancetomigration.md
+  - https://developer.deputy.com/reference/leavemigrationv2controller_setstatus.md
+  - https://developer.deputy.com/reference/leavemigrationv2controller_start.md
+  - https://developer.deputy.com/reference/leavenonworkingdaysv2controller_getleavenonworkingdays.md
+  - https://developer.deputy.com/reference/leavepayrulesv2controller_countovertimepayrulesbyleaveruleid.md
+  - https://developer.deputy.com/reference/leavereferenceperiodv2controller_calculateaveragedayhours.md
+  - https://developer.deputy.com/reference/leaverequestv2controller_create.md
+  - https://developer.deputy.com/reference/leaverequestv2controller_delete.md
+  - https://developer.deputy.com/reference/leaverequestv2controller_get.md
+  - https://developer.deputy.com/reference/leaverequestv2controller_getupcomingleaveforemployee.md
+  - https://developer.deputy.com/reference/leaverequestv2controller_list.md
+  - https://developer.deputy.com/reference/leaverequestv2controller_update.md
+  - https://developer.deputy.com/reference/leaverequestv2controller_updateexternalid.md
+  - https://developer.deputy.com/reference/leaverequestv2controller_validateleaverequestforapproval.md
+  - https://developer.deputy.com/reference/leaverulev2controller_listtoilleaverules.md
+  - https://developer.deputy.com/reference/locationprofilev2controller_get.md
+  - https://developer.deputy.com/reference/locationprofilev2controller_list.md
+  - https://developer.deputy.com/reference/locationprofilev2controller_unarchive.md
+  - https://developer.deputy.com/reference/locationprofilev2controller_updateaddress.md
+  - https://developer.deputy.com/reference/locationprofilev2controller_updatebusinessnumber.md
+  - https://developer.deputy.com/reference/locationsettingv2controller_fetch.md
+  - https://developer.deputy.com/reference/locationsettingv2controller_fetchkeyvalue.md
+  - https://developer.deputy.com/reference/metricsv2controller_checkbudgetstatus.md
+  - https://developer.deputy.com/reference/metricsv2controller_delete.md
+  - https://developer.deputy.com/reference/metricsv2controller_download.md
+  - https://developer.deputy.com/reference/metricsv2controller_getraw.md
+  - https://developer.deputy.com/reference/metricsv2controller_upsert.md
+  - https://developer.deputy.com/reference/metricsv2controller_upsertbulk.md
+  - https://developer.deputy.com/reference/mev2controller_getalsoworking.md
+  - https://developer.deputy.com/reference/mev2controller_getincomingshiftoffer.md
+  - https://developer.deputy.com/reference/mev2controller_getpendingswapshifts.md
+  - https://developer.deputy.com/reference/onboardingdashboardv2controller_getembedonboardingstatus.md
+  - https://developer.deputy.com/reference/onboardingdashboardv2controller_getonboardingdashboard.md
+  - https://developer.deputy.com/reference/onboardingdashboardv2controller_performembedonboardingaction.md
+  - https://developer.deputy.com/reference/onboardingdashboardv2controller_updateonboardingdashboard.md
+  - https://developer.deputy.com/reference/onboardingdashboardv2controller_updateonboardingroute.md
+  - https://developer.deputy.com/reference/onboardinggamificationv2controller_completegamificationtask.md
+  - https://developer.deputy.com/reference/onboardinggamificationv2controller_getgamificationstatus.md
+  - https://developer.deputy.com/reference/partneremployeesv2controller_filterbyexternallinkids.md
+  - https://developer.deputy.com/reference/partneremployeesv2controller_hasimportedemployees.md
+  - https://developer.deputy.com/reference/paycalendarv2controller_assignemployees.md
+  - https://developer.deputy.com/reference/paycalendarv2controller_create.md
+  - https://developer.deputy.com/reference/paycalendarv2controller_deactivate.md
+  - https://developer.deputy.com/reference/paycalendarv2controller_get.md
+  - https://developer.deputy.com/reference/paycalendarv2controller_list.md
+  - https://developer.deputy.com/reference/paycalendarv2controller_listassignedemployees.md
+  - https://developer.deputy.com/reference/paycalendarv2controller_listpayperiods.md
+  - https://developer.deputy.com/reference/paycalendarv2controller_searchassignedemployees.md
+  - https://developer.deputy.com/reference/paycalendarv2controller_update.md
+  - https://developer.deputy.com/reference/paycomparisoncontroller_cancelreports.md
+  - https://developer.deputy.com/reference/paycomparisoncontroller_deletereports.md
+  - https://developer.deputy.com/reference/paycomparisoncontroller_downloadreport.md
+  - https://developer.deputy.com/reference/paycomparisoncontroller_findreports.md
+  - https://developer.deputy.com/reference/paycomparisoncontroller_getemployees.md
+  - https://developer.deputy.com/reference/paycomparisoncontroller_resubmitreports.md
+  - https://developer.deputy.com/reference/paycomparisoncontroller_submitreport.md
+  - https://developer.deputy.com/reference/payrollexporttemplatesv2controller_create.md
+  - https://developer.deputy.com/reference/payrollexporttemplatesv2controller_delete.md
+  - https://developer.deputy.com/reference/payrollexporttemplatesv2controller_get.md
+  - https://developer.deputy.com/reference/payrollexporttemplatesv2controller_list.md
+  - https://developer.deputy.com/reference/payrollexporttemplatesv2controller_update.md
+  - https://developer.deputy.com/reference/payrollmobilev2controller_getrecentpayslipswidget.md
+  - https://developer.deputy.com/reference/payrollpartnerauthorizationcodev2controller_generateauthorizationcodeforpayrolluser.md
+  - https://developer.deputy.com/reference/peoplev2controller_listcompanies.md
+  - https://developer.deputy.com/reference/peoplev2controller_listcontracts.md
+  - https://developer.deputy.com/reference/permissionv2controller_getemployeeidswithprivilege.md
+  - https://developer.deputy.com/reference/permissionv2controller_getpermissions.md
+  - https://developer.deputy.com/reference/permissionv2controller_getuseridswithprivilege.md
+  - https://developer.deputy.com/reference/productaddonsv2controller_getaddonproducts.md
+  - https://developer.deputy.com/reference/productaddonsv2controller_update.md
+  - https://developer.deputy.com/reference/productsubscriptiondowngradejobv2controller_plandowngradejob.md
+  - https://developer.deputy.com/reference/productsubscriptionv2controller_getproductsubscription.md
+  - https://developer.deputy.com/reference/publishshiftv2controller_preview.md
+  - https://developer.deputy.com/reference/publishshiftv2controller_resume.md
+  - https://developer.deputy.com/reference/publishshiftv2controller_status.md
+  - https://developer.deputy.com/reference/reactionv2controller_create.md
+  - https://developer.deputy.com/reference/reactionv2controller_delete.md
+  - https://developer.deputy.com/reference/referralv2controller_getreferralurls.md
+  - https://developer.deputy.com/reference/remediationv2controller_startremediation.md
+  - https://developer.deputy.com/reference/reportv2controller_create.md
+  - https://developer.deputy.com/reference/reportv2controller_exportscheduletimesheetsales.md
+  - https://developer.deputy.com/reference/reportv2controller_list.md
+  - https://developer.deputy.com/reference/reportv2controller_url.md
+  - https://developer.deputy.com/reference/scheduleagentv2controller_getlate.md
+  - https://developer.deputy.com/reference/scheduleagentv2controller_upsertshifts.md
+  - https://developer.deputy.com/reference/scheduleconsentv2controller_createbulkconsents.md
+  - https://developer.deputy.com/reference/schedulefiltersv2controller_getschedulefilters.md
+  - https://developer.deputy.com/reference/scheduleshiftv2controller_aggregatedlist.md
+  - https://developer.deputy.com/reference/scheduleshiftv2controller_autofill.md
+  - https://developer.deputy.com/reference/scheduleshiftv2controller_bulkdefaults.md
+  - https://developer.deputy.com/reference/scheduleshiftv2controller_bulkdelete.md
+  - https://developer.deputy.com/reference/scheduleshiftv2controller_bulkpatch.md
+  - https://developer.deputy.com/reference/scheduleshiftv2controller_bulkupdate.md
+  - https://developer.deputy.com/reference/scheduleshiftv2controller_bulkupsert.md
+  - https://developer.deputy.com/reference/scheduleshiftv2controller_checkconsent.md
+  - https://developer.deputy.com/reference/scheduleshiftv2controller_copy.md
+  - https://developer.deputy.com/reference/scheduleshiftv2controller_cost.md
+  - https://developer.deputy.com/reference/scheduleshiftv2controller_create.md
+  - https://developer.deputy.com/reference/scheduleshiftv2controller_declineshift.md
+  - https://developer.deputy.com/reference/scheduleshiftv2controller_defaults.md
+  - https://developer.deputy.com/reference/scheduleshiftv2controller_delete.md
+  - https://developer.deputy.com/reference/scheduleshiftv2controller_deleteopeninvitations.md
+  - https://developer.deputy.com/reference/scheduleshiftv2controller_deletewithparams.md
+  - https://developer.deputy.com/reference/scheduleshiftv2controller_get.md
+  - https://developer.deputy.com/reference/scheduleshiftv2controller_getbidsstatuscounts.md
+  - https://developer.deputy.com/reference/scheduleshiftv2controller_getcopystatus.md
+  - https://developer.deputy.com/reference/scheduleshiftv2controller_getopeninvitations.md
+  - https://developer.deputy.com/reference/scheduleshiftv2controller_getopenshifts.md
+  - https://developer.deputy.com/reference/scheduleshiftv2controller_getopenstatuscounts.md
+  - https://developer.deputy.com/reference/scheduleshiftv2controller_getpendingapprovalopenshifts.md
+  - https://developer.deputy.com/reference/scheduleshiftv2controller_getpermissions.md
+  - https://developer.deputy.com/reference/scheduleshiftv2controller_getrosters.md
+  - https://developer.deputy.com/reference/scheduleshiftv2controller_history.md
+  - https://developer.deputy.com/reference/scheduleshiftv2controller_link.md
+  - https://developer.deputy.com/reference/scheduleshiftv2controller_list.md
+  - https://developer.deputy.com/reference/scheduleshiftv2controller_log.md
+  - https://developer.deputy.com/reference/scheduleshiftv2controller_myschedule.md
+  - https://developer.deputy.com/reference/scheduleshiftv2controller_publish.md
+  - https://developer.deputy.com/reference/scheduleshiftv2controller_resave.md
+  - https://developer.deputy.com/reference/scheduleshiftv2controller_split.md
+  - https://developer.deputy.com/reference/scheduleshiftv2controller_suggest.md
+  - https://developer.deputy.com/reference/scheduleshiftv2controller_togglemicroscheduling.md
+  - https://developer.deputy.com/reference/scheduleshiftv2controller_update.md
+  - https://developer.deputy.com/reference/scheduleshiftv2controller_updateopenshiftstatus.md
+  - https://developer.deputy.com/reference/scheduleshiftv2controller_validateexternalshifts.md
+  - https://developer.deputy.com/reference/scheduletemplatev2controller_bulkdeletetemplate.md
+  - https://developer.deputy.com/reference/scheduletemplatev2controller_createtemplate.md
+  - https://developer.deputy.com/reference/scheduletemplatev2controller_loadtemplate.md
+  - https://developer.deputy.com/reference/sessionhistoryv2controller_list.md
+  - https://developer.deputy.com/reference/shiftbidv2controller_approve.md
+  - https://developer.deputy.com/reference/shiftoffersv2controller_cancel.md
+  - https://developer.deputy.com/reference/shiftoffersv2controller_notify.md
+  - https://developer.deputy.com/reference/shiftsuggestionv2controller_suggestemployees.md
+  - https://developer.deputy.com/reference/shiftswapv2controller_confirm.md
+  - https://developer.deputy.com/reference/shiftswapv2controller_decline.md
+  - https://developer.deputy.com/reference/shiftswapv2controller_getpendingapproval.md
+  - https://developer.deputy.com/reference/shiftswapv2controller_getpendingdetails.md
+  - https://developer.deputy.com/reference/shiftswapv2controller_recommend.md
+  - https://developer.deputy.com/reference/timesheetexportv2controller_getconfig.md
+  - https://developer.deputy.com/reference/timesheetexportv2controller_getfeaturestatus.md
+  - https://developer.deputy.com/reference/timesheetexportv2controller_getpayperiodfilteroptions.md
+  - https://developer.deputy.com/reference/timesheetexportv2controller_getratesummary.md
+  - https://developer.deputy.com/reference/timesheetexportv2controller_getsummary.md
+  - https://developer.deputy.com/reference/timesheetexportv2controller_refreshemployeefilteroptions.md
+  - https://developer.deputy.com/reference/timesheetexportv2controller_refreshlocationfilteroptions.md
+  - https://developer.deputy.com/reference/timesheetexportv2controller_refreshpaycenterfilter.md
+  - https://developer.deputy.com/reference/timesheetquestionremediationv2controller_getdatapack.md
+  - https://developer.deputy.com/reference/timesheetquestionremediationv2controller_gettimesheetquestionremediationstatus.md
+  - https://developer.deputy.com/reference/timesheetquestionremediationv2controller_triggertimesheetquestionremediationpayrecalculation.md
+  - https://developer.deputy.com/reference/timesheetrostercontroller_getroster.md
+  - https://developer.deputy.com/reference/timesheetsv2controller_autoendtimesheet.md
+  - https://developer.deputy.com/reference/timesheetsv2controller_create.md
+  - https://developer.deputy.com/reference/timesheetsv2controller_delete.md
+  - https://developer.deputy.com/reference/timesheetsv2controller_end.md
+  - https://developer.deputy.com/reference/timesheetsv2controller_export.md
+  - https://developer.deputy.com/reference/timesheetsv2controller_get.md
+  - https://developer.deputy.com/reference/timesheetsv2controller_list.md
+  - https://developer.deputy.com/reference/timesheetsv2controller_listbyexportid.md
+  - https://developer.deputy.com/reference/timesheetsv2controller_pause.md
+  - https://developer.deputy.com/reference/timesheetsv2controller_start.md
+  - https://developer.deputy.com/reference/timesheetsv2controller_update.md
+  - https://developer.deputy.com/reference/tsaconfigandpermissionv2controller_getconfigandpermission.md
+  - https://developer.deputy.com/reference/tsav2controller_approveroster.md
+  - https://developer.deputy.com/reference/tsav2controller_approverostersync.md
+  - https://developer.deputy.com/reference/tsav2controller_approvetimeroster.md
+  - https://developer.deputy.com/reference/tsav2controller_approvetimerostersync.md
+  - https://developer.deputy.com/reference/tsav2controller_approvetimesheet.md
+  - https://developer.deputy.com/reference/tsav2controller_approvetimesheetsync.md
+  - https://developer.deputy.com/reference/tsav2controller_approvetimetimesheet.md
+  - https://developer.deputy.com/reference/tsav2controller_approvetimetimesheetsync.md
+  - https://developer.deputy.com/reference/tsav2controller_batchapprovetimesheet.md
+  - https://developer.deputy.com/reference/tsav2controller_batchapprovetimetimesheet.md
+  - https://developer.deputy.com/reference/tsav2controller_batchdiscardtimesheet.md
+  - https://developer.deputy.com/reference/tsav2controller_batchforecasttimesheet.md
+  - https://developer.deputy.com/reference/tsav2controller_batchmarkaspaid.md
+  - https://developer.deputy.com/reference/tsav2controller_batchmarkasunpaid.md
+  - https://developer.deputy.com/reference/tsav2controller_batchreinstatetimesheet.md
+  - https://developer.deputy.com/reference/tsav2controller_batchunapprovepaytimesheet.md
+  - https://developer.deputy.com/reference/tsav2controller_batchunapprovetimetimesheet.md
+  - https://developer.deputy.com/reference/tsav2controller_canceldisputeattestation.md
+  - https://developer.deputy.com/reference/tsav2controller_confirmattestation.md
+  - https://developer.deputy.com/reference/tsav2controller_createcomment.md
+  - https://developer.deputy.com/reference/tsav2controller_createtimesheet.md
+  - https://developer.deputy.com/reference/tsav2controller_discardroster.md
+  - https://developer.deputy.com/reference/tsav2controller_discardtimesheet.md
+  - https://developer.deputy.com/reference/tsav2controller_disputeattestation.md
+  - https://developer.deputy.com/reference/tsav2controller_endshift.md
+  - https://developer.deputy.com/reference/tsav2controller_getapplicablerangesummary.md
+  - https://developer.deputy.com/reference/tsav2controller_getemployeesforstatusgrouping.md
+  - https://developer.deputy.com/reference/tsav2controller_getpayreturnrates.md
+  - https://developer.deputy.com/reference/tsav2controller_getpaysuggestion.md
+  - https://developer.deputy.com/reference/tsav2controller_getsuggestedtimesheetrounding.md
+  - https://developer.deputy.com/reference/tsav2controller_gettimesheetquestions.md
+  - https://developer.deputy.com/reference/tsav2controller_markaspaid.md
+  - https://developer.deputy.com/reference/tsav2controller_markasunpaid.md
+  - https://developer.deputy.com/reference/tsav2controller_reapprovetimesheet.md
+  - https://developer.deputy.com/reference/tsav2controller_reinstatetimesheet.md
+  - https://developer.deputy.com/reference/tsav2controller_resolvedisputedattestation.md
+  - https://developer.deputy.com/reference/tsav2controller_unapprovepaytimesheet.md
+  - https://developer.deputy.com/reference/tsav2controller_unapprovetimetimesheet.md
+  - https://developer.deputy.com/reference/tsav2controller_updatetimesheet.md
+  - https://developer.deputy.com/reference/tsav2controller_validatecreatetimesheet.md
+  - https://developer.deputy.com/reference/tsav2controller_validateupdatetimesheet.md
+  - https://developer.deputy.com/reference/userssotokenwithpkcev2controller_get.md
+  - https://developer.deputy.com/reference/userv2controller_emailloginlink.md
+  - https://developer.deputy.com/reference/weatherv2controller_getlocationdailyaggregated.md
+  - https://developer.deputy.com/reference/webhooktriggerv2controller_trigger.md
+  - https://developer.deputy.com/reference/webhooktriggerv2controller_triggerbulk.md
+  merge:
+    pages: 394
+    deduped: 2095
+    conflicts_kept_first: 0

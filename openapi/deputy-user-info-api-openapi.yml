@@ -1,0 +1,92 @@
+openapi: 3.2.0
+info:
+  title: Deputy V2 Scoped User info API
+  version: '1.0'
+  description: Scoped-OAuth API. These endpoints require a specific OAuth scope (e.g. HR export) and are NOT callable with a standard Deputy access token. Request the appropriate scope during your OAuth flow.
+servers:
+- url: https://{subdomain}.{region}.deputy.com/api
+  description: Deputy tenant
+  variables:
+    subdomain:
+      default: your-subdomain
+      description: Your Deputy tenant subdomain
+    region:
+      default: deputy
+      enum:
+      - au
+      - eu
+      - na
+      - deputy
+      description: 'Deputy region: au, eu, na, or deputy (AU default)'
+security:
+- ApiToken: []
+tags:
+- name: User Info
+paths:
+  /management/v2/auth/user-info:
+    get:
+      summary: Retrieve user info
+      operationId: UserInfoV2Controller_get
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserInfoGetResponse'
+      tags:
+      - User Info
+      security:
+      - OAuth2ScopedAuthenticator: []
+      description: Retrieve user info.
+components:
+  schemas:
+    v2modelUserInfo:
+      type: object
+      properties:
+        userId:
+          type: string
+          title: User ID
+        employeeId:
+          type: string
+          format: int64
+          title: Employee ID
+        tenantId:
+          type: string
+          title: Tenant ID
+        email:
+          type: string
+          title: User's email
+        firstName:
+          type: string
+          title: User's first name
+        lastName:
+          type: string
+          title: User's last name
+    UserInfoGetResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          $ref: '#/components/schemas/v2modelUserInfo'
+  securitySchemes:
+    ApiToken:
+      type: apiKey
+      in: header
+      name: OAuth
+x-provenance:
+  method: searched
+  source: https://developer.deputy.com/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://developer.deputy.com/reference/hrexportv2controller_exporthrbulkdata.md
+  - https://developer.deputy.com/reference/hrexportv2controller_exporthrdata.md
+  - https://developer.deputy.com/reference/hrexportv2controller_exporthrpaydetailsdata.md
+  - https://developer.deputy.com/reference/userinfov2controller_get.md
+  merge:
+    pages: 4
+    deduped: 3
+    conflicts_kept_first: 0

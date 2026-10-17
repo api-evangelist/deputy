@@ -1,0 +1,377 @@
+openapi: 3.2.0
+info:
+  title: Deputy Departments API
+  contact: {}
+  version: '1.0'
+servers:
+- url: https://{install}.{geo}.deputy.com/api
+  variables:
+    install:
+      default: ''
+    geo:
+      default: ''
+security:
+- httpBearer: []
+tags:
+- name: Departments
+paths:
+  /v1/resource/OperationalUnit:
+    get:
+      tags:
+      - Departments
+      summary: Get Operational Units
+      operationId: GetOperationalUnits
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content: {}
+      deprecated: false
+  /v1/resource/OperationalUnit/{id}:
+    delete:
+      tags:
+      - Departments
+      summary: Delete a Single Operational Unit
+      operationId: DeleteaSingleOperationalUnit
+      parameters:
+      - name: id
+        in: path
+        description: The area id record
+        required: true
+        style: simple
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content: {}
+      deprecated: false
+  /v1/resource/OperationalUnit/{opunitid}:
+    post:
+      tags:
+      - Departments
+      summary: Update a single operational unit
+      operationId: Updateasingleoperationalunit
+      parameters:
+      - name: opunitid
+        in: path
+        description: The area id record
+        required: true
+        style: simple
+        schema:
+          type: integer
+          format: int32
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/UpdateasingleoperationalunitRequest'
+              - example:
+                  intCompanyId: 12
+                  intAddressId: 17
+                  strOpunitName: Ibrox Stadium
+                  strExportName: Rangers
+                  arrTrainingId:
+                  - 1
+                  - 2
+                  - 3
+            example:
+              intCompanyId: 12
+              intAddressId: 17
+              strOpunitName: Ibrox Stadium
+              strExportName: Rangers
+              arrTrainingId:
+              - 1
+              - 2
+              - 3
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content: {}
+      deprecated: false
+  /v1/supervise/department:
+    put:
+      tags:
+      - Departments
+      summary: Create a Department
+      operationId: CreateaDepartment
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/CreateaDepartmentRequest'
+              - example:
+                  intCompanyId: 1
+                  strOpunitName: Deutsche Bank Park
+                  strAddress: Mörfelder Landstraße 362, 60528 Frankfurt am Main
+                  strExportName: Fußball
+                  intSortOrder: 0
+                  intOpunitType: 1
+                  LocationId: 1
+            example:
+              intCompanyId: 1
+              strOpunitName: Deutsche Bank Park
+              strAddress: Mörfelder Landstraße 362, 60528 Frankfurt am Main
+              strExportName: Fußball
+              intSortOrder: 0
+              intOpunitType: 1
+              LocationId: 1
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content: {}
+      deprecated: false
+  /v1/supervise/department/create:
+    put:
+      tags:
+      - Departments
+      summary: Create Multiple Departments
+      operationId: CreateMultipleDepartments
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/CreateMultipleDepartmentsRequest'
+              - example:
+                  arrArea:
+                  - intCompanyId: 1
+                    strOpunitName: Stamford Bridge
+                    intAddressId: 172
+                    arrTrainingId:
+                    - 2
+                    intCountry: 222
+                    intOpunitType: 1
+                  - intCompanyId: 1
+                    strOpunitName: Craven Cottage
+                    strAddress: Moor Ln, Salford M7 3BS, United Kingdom
+                    strExportName: Project92Ltd
+                    intSortOrder: 0
+                    intCountry: 222
+                    intOpunitType: 1
+            example:
+              arrArea:
+              - intCompanyId: 1
+                strOpunitName: Stamford Bridge
+                intAddressId: 172
+                arrTrainingId:
+                - 2
+                intCountry: 222
+                intOpunitType: 1
+              - intCompanyId: 1
+                strOpunitName: Craven Cottage
+                strAddress: Moor Ln, Salford M7 3BS, United Kingdom
+                strExportName: Project92Ltd
+                intSortOrder: 0
+                intCountry: 222
+                intOpunitType: 1
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content: {}
+      deprecated: false
+components:
+  schemas:
+    ArrArea:
+      title: ArrArea
+      required:
+      - strOpunitName
+      type: object
+      properties:
+        intCompanyId:
+          type: integer
+          format: int32
+          description: Id of the location the areas are for
+        strOpunitName:
+          type: string
+          description: The name of the area being added
+        intAddressId:
+          type: integer
+          format: int32
+          description: The id record of the address resource being associated to the area
+        arrTrainingId:
+          type: array
+          items:
+            type: integer
+            format: int32
+          description: Array of training id records employees must have to work in this area
+        intCountry:
+          type: integer
+          format: int32
+          description: Country code for the area. Can be found using the country code resource
+        intOpunitType:
+          type: integer
+          format: int32
+          description: Designates if the area should have a geo attached. 0 - Default, 1 - Geo based area
+        strAddress:
+          type: string
+          description: An address for the area
+        strExportName:
+          type: string
+          description: The payroll export code for the area
+        intSortOrder:
+          type: integer
+          format: int32
+          description: Defines the order that the areas appear in dropdown lists within Deputy
+    CreateaDepartmentRequest:
+      title: CreateaDepartmentRequest
+      required:
+      - strOpunitName
+      type: object
+      properties:
+        intCompanyId:
+          type: integer
+          format: int32
+          description: Id of location the area should be added to
+        strOpunitName:
+          type: string
+          description: Name of the Area
+        strAddress:
+          type: string
+          description: Address of the area
+        strExportName:
+          type: string
+          description: Payroll export name to be used for the area
+        intSortOrder:
+          type: integer
+          format: int32
+          description: Order that the areas will appear in Deputy. If for example this is 0, it will list this area first and changing the order of the existing areas
+        intOpunitType:
+          type: integer
+          format: int32
+          description: Designates if the area should have geo coordinates set. 0 - Default, 1 - Area with Geo
+        LocationId:
+          type: integer
+          format: int32
+          description: Id of the location for the area.
+    UpdateasingleoperationalunitRequest:
+      title: UpdateasingleoperationalunitRequest
+      type: object
+      properties:
+        intCompanyId:
+          type: integer
+          format: int32
+        intAddressId:
+          type: integer
+          format: int32
+        strOpunitName:
+          type: string
+        strExportName:
+          type: string
+        arrTrainingId:
+          type: array
+          items:
+            type: integer
+            format: int32
+          description: ''
+    CreateMultipleDepartmentsRequest:
+      title: CreateMultipleDepartmentsRequest
+      required:
+      - arrArea
+      type: object
+      properties:
+        arrArea:
+          type: array
+          items:
+            $ref: '#/components/schemas/ArrArea'
+          description: ''
+  securitySchemes:
+    httpBearer:
+      type: http
+      scheme: bearer
+x-provenance:
+  method: searched
+  source: https://developer.deputy.com/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://developer.deputy.com/reference/addalocation.md
+  - https://developer.deputy.com/reference/addalocationagainstanemployee.md
+  - https://developer.deputy.com/reference/addanemployee.md
+  - https://developer.deputy.com/reference/addasaletosalesmetrics.md
+  - https://developer.deputy.com/reference/addawebhookurl.md
+  - https://developer.deputy.com/reference/addleaveforaemployee.md
+  - https://developer.deputy.com/reference/addnewworkplace.md
+  - https://developer.deputy.com/reference/addunavailabilitydetailsforaemployee.md
+  - https://developer.deputy.com/reference/archivealocation.md
+  - https://developer.deputy.com/reference/copyaroster.md
+  - https://developer.deputy.com/reference/create-a-memo.md
+  - https://developer.deputy.com/reference/createadepartment.md
+  - https://developer.deputy.com/reference/createmultipledepartments.md
+  - https://developer.deputy.com/reference/deletealocation.md
+  - https://developer.deputy.com/reference/deleteanemployeesaccountindeputy.md
+  - https://developer.deputy.com/reference/deleteasingleoperationalunit.md
+  - https://developer.deputy.com/reference/discardaroster.md
+  - https://developer.deputy.com/reference/doatask.md
+  - https://developer.deputy.com/reference/example-searchforemployeesfromalocation.md
+  - https://developer.deputy.com/reference/findanemployeesleave.md
+  - https://developer.deputy.com/reference/findoutanemployeesstatus.md
+  - https://developer.deputy.com/reference/getagreedhoursbyemployeeid.md
+  - https://developer.deputy.com/reference/getalistofrostersfromlast12hoursandforward36hours.md
+  - https://developer.deputy.com/reference/getalocationssettings.md
+  - https://developer.deputy.com/reference/getawardslibrarylist.md
+  - https://developer.deputy.com/reference/getdetailsforaemployeebyid.md
+  - https://developer.deputy.com/reference/getdetailsforallemployees.md
+  - https://developer.deputy.com/reference/getlocationbyid.md
+  - https://developer.deputy.com/reference/getlocations.md
+  - https://developer.deputy.com/reference/getmyindividualtimesheet.md
+  - https://developer.deputy.com/reference/getmynewsfeed.md
+  - https://developer.deputy.com/reference/getmynotifications.md
+  - https://developer.deputy.com/reference/getmysubordinatecontactdetails.md
+  - https://developer.deputy.com/reference/getmytasks.md
+  - https://developer.deputy.com/reference/getmytimesheets.md
+  - https://developer.deputy.com/reference/getmytraining.md
+  - https://developer.deputy.com/reference/getoperationalunits.md
+  - https://developer.deputy.com/reference/getrostersavailableforswap.md
+  - https://developer.deputy.com/reference/getsimplifiedlocationlist.md
+  - https://developer.deputy.com/reference/getsuggestionsforrosterbyid.md
+  - https://developer.deputy.com/reference/getunavailabilitydetailsforaemployee.md
+  - https://developer.deputy.com/reference/inviteemployeetodeputy.md
+  - https://developer.deputy.com/reference/modifysettingsinalllocations.md
+  - https://developer.deputy.com/reference/modifysettingsinasinglelocation.md
+  - https://developer.deputy.com/reference/myaddressonfile.md
+  - https://developer.deputy.com/reference/myaddressonfileincludingemergency.md
+  - https://developer.deputy.com/reference/myleaverequests.md
+  - https://developer.deputy.com/reference/pauseorunpauseemployeestimesheettakeabreakfinishbreak.md
+  - https://developer.deputy.com/reference/postajournal.md
+  - https://developer.deputy.com/reference/publisharoster.md
+  - https://developer.deputy.com/reference/re-activateaterminatedemployee.md
+  - https://developer.deputy.com/reference/removealocationfromanemployee.md
+  - https://developer.deputy.com/reference/retrievecurrentsystemtime.md
+  - https://developer.deputy.com/reference/retrievecurrentsystemtimeofalocation.md
+  - https://developer.deputy.com/reference/retrievesalesdata.md
+  - https://developer.deputy.com/reference/setawardforemployee.md
+  - https://developer.deputy.com/reference/startanemployeestimesheetclockon.md
+  - https://developer.deputy.com/reference/stopanemployeestimesheetclockoff.md
+  - https://developer.deputy.com/reference/terminateanemployee.md
+  - https://developer.deputy.com/reference/updatealocation.md
+  - https://developer.deputy.com/reference/updateanexistingemployee.md
+  - https://developer.deputy.com/reference/updateasingleoperationalunit.md
+  - https://developer.deputy.com/reference/updatemyaddress.md
+  - https://developer.deputy.com/reference/viewatimesheetbyid.md
+  - https://developer.deputy.com/reference/whatlocationscaniworkin.md
+  - https://developer.deputy.com/reference/whenaminextworking.md
+  - https://developer.deputy.com/reference/whenamiunavailable.md
+  - https://developer.deputy.com/reference/wherecaniworkwhatdoido.md
+  - https://developer.deputy.com/reference/whodoiworkwith.md
+  merge:
+    pages: 69
+    deduped: 70
+    conflicts_kept_first: 0

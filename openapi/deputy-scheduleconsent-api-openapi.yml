@@ -1,0 +1,525 @@
+openapi: 3.2.0
+info:
+  title: Deputy V2 Schedule Consent API
+  version: '1.0'
+  description: Filtered to publicly-authenticated routes only (APIAuthenticator). Scoped-OAuth routes and internal JWT routes are excluded — see the separate "Deputy V2 Scoped API" spec for scoped endpoints.
+servers:
+- url: https://{subdomain}.{region}.deputy.com/api
+  description: Deputy tenant
+  variables:
+    subdomain:
+      default: your-subdomain
+      description: Your Deputy tenant subdomain
+    region:
+      default: deputy
+      enum:
+      - au
+      - eu
+      - na
+      - deputy
+      description: 'Deputy region: au, eu, na, or deputy (AU default)'
+security:
+- ApiToken: []
+tags:
+- name: ScheduleConsent
+paths:
+  /management/v2/schedule/consents:bulk:
+    post:
+      summary: Create a bulk consents
+      operationId: ScheduleConsentV2Controller_createBulkConsents
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScheduleConsentCreateBulkConsentsResponse'
+      tags:
+      - ScheduleConsent
+      description: Create a bulk consents.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ScheduleConsentCreateBulkConsentsRequestData'
+components:
+  schemas:
+    modelConsent:
+      type: object
+      properties:
+        id:
+          type: string
+        recordId:
+          type: string
+        recordType:
+          $ref: '#/components/schemas/ConsentConsentRecordType'
+        transactionId:
+          type: string
+        employeeId:
+          type: integer
+          format: int32
+        status:
+          $ref: '#/components/schemas/ConsentConsentStatus'
+        description:
+          type: string
+        metadata:
+          $ref: '#/components/schemas/modelShiftTypeConsentMetadata'
+        creator:
+          type: integer
+          format: int32
+        createdAt:
+          type: string
+          format: date-time
+    modelShiftTypeConsentMetadata:
+      type: object
+      properties:
+        comment:
+          type: string
+        extras:
+          type: object
+          additionalProperties:
+            type: string
+    ScheduleConsentCreateBulkConsentsRequestData:
+      type: object
+      properties:
+        consents:
+          type: array
+          items:
+            $ref: '#/components/schemas/modelConsent'
+    ConsentConsentStatus:
+      type: string
+      enum:
+      - PENDING
+      - ACCEPTED
+      - DECLINED
+      - CANCELLED
+      - OVERRIDDEN_ACCEPTED
+      default: PENDING
+    ScheduleConsentCreateBulkConsentsResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/modelConsent'
+      description: Creates bulk consents response.
+    ConsentConsentRecordType:
+      type: string
+      enum:
+      - SHIFT
+      - TIMESHEET
+      - REGULAR_SCHEDULE
+      default: SHIFT
+  securitySchemes:
+    ApiToken:
+      type: apiKey
+      in: header
+      name: OAuth
+x-provenance:
+  method: searched
+  source: https://developer.deputy.com/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://developer.deputy.com/reference/accessmanagementv2controller_createrole.md
+  - https://developer.deputy.com/reference/accessmanagementv2controller_deleterole.md
+  - https://developer.deputy.com/reference/accessmanagementv2controller_getemployeerole.md
+  - https://developer.deputy.com/reference/accessmanagementv2controller_getprivilegehierarchy.md
+  - https://developer.deputy.com/reference/accessmanagementv2controller_listemployeebyrole.md
+  - https://developer.deputy.com/reference/accessmanagementv2controller_listemployeerolehistory.md
+  - https://developer.deputy.com/reference/accessmanagementv2controller_listrole.md
+  - https://developer.deputy.com/reference/accessmanagementv2controller_updaterole.md
+  - https://developer.deputy.com/reference/accountstatsv2controller_getpaycalendarcoverage.md
+  - https://developer.deputy.com/reference/accountstatsv2controller_getpayratecoverage.md
+  - https://developer.deputy.com/reference/agreedhourservicev2controller_archiveagreedhourversionwithreason.md
+  - https://developer.deputy.com/reference/agreedhourservicev2controller_auditagreedhours.md
+  - https://developer.deputy.com/reference/agreedhourservicev2controller_batchupdateagreedhour.md
+  - https://developer.deputy.com/reference/agreedhourservicev2controller_consentemployeeagreedhours.md
+  - https://developer.deputy.com/reference/agreedhourservicev2controller_createagreedhour.md
+  - https://developer.deputy.com/reference/agreedhourservicev2controller_deleteemployeeagreedhours.md
+  - https://developer.deputy.com/reference/agreedhourservicev2controller_diffemployeeagreedhours.md
+  - https://developer.deputy.com/reference/agreedhourservicev2controller_getagreedhour.md
+  - https://developer.deputy.com/reference/agreedhourservicev2controller_getagreedhoursbystatus.md
+  - https://developer.deputy.com/reference/agreedhourservicev2controller_getagreedhoursemployeeapprovalconfiguration.md
+  - https://developer.deputy.com/reference/agreedhourservicev2controller_getagreedhoursgeneralconfiguration.md
+  - https://developer.deputy.com/reference/agreedhourservicev2controller_getagreedhourversion.md
+  - https://developer.deputy.com/reference/agreedhourservicev2controller_getareasbyemployees.md
+  - https://developer.deputy.com/reference/agreedhourservicev2controller_getconsentrecords.md
+  - https://developer.deputy.com/reference/agreedhourservicev2controller_getcurrentagreedhour.md
+  - https://developer.deputy.com/reference/agreedhourservicev2controller_migrateagreedhourssteptwo.md
+  - https://developer.deputy.com/reference/agreedhourservicev2controller_notifyemployeeagreedhours.md
+  - https://developer.deputy.com/reference/agreedhourservicev2controller_searchagreedhours.md
+  - https://developer.deputy.com/reference/aiassistantv2controller_getsettings.md
+  - https://developer.deputy.com/reference/areamanagementv2controller_listbyemployeeid.md
+  - https://developer.deputy.com/reference/areaprofilev2controller_create.md
+  - https://developer.deputy.com/reference/areaprofilev2controller_delete.md
+  - https://developer.deputy.com/reference/areaprofilev2controller_get.md
+  - https://developer.deputy.com/reference/areaprofilev2controller_list.md
+  - https://developer.deputy.com/reference/areaprofilev2controller_listareainuse.md
+  - https://developer.deputy.com/reference/areaprofilev2controller_listemployeetrained.md
+  - https://developer.deputy.com/reference/areaprofilev2controller_update.md
+  - https://developer.deputy.com/reference/arearatev2controller_batchsave.md
+  - https://developer.deputy.com/reference/arearatev2controller_get.md
+  - https://developer.deputy.com/reference/auditpayrecalculationv2controller_create.md
+  - https://developer.deputy.com/reference/autobuildv2controller_autobuild.md
+  - https://developer.deputy.com/reference/availabilityv2controller_delete.md
+  - https://developer.deputy.com/reference/availabilityv2controller_get.md
+  - https://developer.deputy.com/reference/availabilityv2controller_list.md
+  - https://developer.deputy.com/reference/businesssettingv2controller_getallvisibleemployeeroles.md
+  - https://developer.deputy.com/reference/businesssettingv2controller_getallvisibleemployeerolesincludeadvisor.md
+  - https://developer.deputy.com/reference/businesssettingv2controller_getemployeeroleidsforprivilegenames.md
+  - https://developer.deputy.com/reference/businesssettingv2controller_getemployeeroleidswithtwofaenforced.md
+  - https://developer.deputy.com/reference/businesssettingv2controller_getsetting.md
+  - https://developer.deputy.com/reference/businesssettingv2controller_gettemplate.md
+  - https://developer.deputy.com/reference/businesssettingv2controller_saveconfig.md
+  - https://developer.deputy.com/reference/businessv2controller_getdetails.md
+  - https://developer.deputy.com/reference/businessv2controller_updatedetails.md
+  - https://developer.deputy.com/reference/chatemployeeshiftstatusv2controller_getemployeesshiftstatus.md
+  - https://developer.deputy.com/reference/compliancev2controller_associateleaverules.md
+  - https://developer.deputy.com/reference/compliancev2controller_batchsavecontractconfigs.md
+  - https://developer.deputy.com/reference/compliancev2controller_batchsavepayrules.md
+  - https://developer.deputy.com/reference/compliancev2controller_createcontract.md
+  - https://developer.deputy.com/reference/compliancev2controller_deletepayrule.md
+  - https://developer.deputy.com/reference/compliancev2controller_duplicatecontract.md
+  - https://developer.deputy.com/reference/compliancev2controller_exportcontractjson.md
+  - https://developer.deputy.com/reference/compliancev2controller_getcalculationtypes.md
+  - https://developer.deputy.com/reference/compliancev2controller_getcontract.md
+  - https://developer.deputy.com/reference/compliancev2controller_getcontractlist.md
+  - https://developer.deputy.com/reference/compliancev2controller_getemployeeratesbycontract.md
+  - https://developer.deputy.com/reference/compliancev2controller_getemployeesbycontract.md
+  - https://developer.deputy.com/reference/compliancev2controller_getlatestversion.md
+  - https://developer.deputy.com/reference/compliancev2controller_getleaverules.md
+  - https://developer.deputy.com/reference/compliancev2controller_getpaypolicies.md
+  - https://developer.deputy.com/reference/compliancev2controller_importcontractjson.md
+  - https://developer.deputy.com/reference/compliancev2controller_listawards.md
+  - https://developer.deputy.com/reference/compliancev2controller_savecontractpayruleorder.md
+  - https://developer.deputy.com/reference/compliancev2controller_unassociateleaverule.md
+  - https://developer.deputy.com/reference/compliancev2controller_unassociatepayrule.md
+  - https://developer.deputy.com/reference/compliancev2controller_updatecontract.md
+  - https://developer.deputy.com/reference/compliancev2controller_updatecontractjson.md
+  - https://developer.deputy.com/reference/compliancev2controller_updateemployeerates.md
+  - https://developer.deputy.com/reference/compliancev2controller_updatejuniorrate.md
+  - https://developer.deputy.com/reference/concurrentleavecapconfigv2controller_getconcurrentleavecapconfig.md
+  - https://developer.deputy.com/reference/customfieldsv2controller_get.md
+  - https://developer.deputy.com/reference/customfieldsv2controller_getcustomfieldsbyrecordtype.md
+  - https://developer.deputy.com/reference/embeddedreportsv2controller_copyworkbook.md
+  - https://developer.deputy.com/reference/embeddedreportsv2controller_createworkbook.md
+  - https://developer.deputy.com/reference/embeddedreportsv2controller_deleteworkbook.md
+  - https://developer.deputy.com/reference/embeddedreportsv2controller_downgradesigmamemberlicensebulk.md
+  - https://developer.deputy.com/reference/embeddedreportsv2controller_generateembedurlforworkbook.md
+  - https://developer.deputy.com/reference/embeddedreportsv2controller_getusersbypermission.md
+  - https://developer.deputy.com/reference/embeddedreportsv2controller_list.md
+  - https://developer.deputy.com/reference/embeddedreportsv2controller_listclassicreports.md
+  - https://developer.deputy.com/reference/embeddedreportsv2controller_listhomefolderworkbooks.md
+  - https://developer.deputy.com/reference/embeddedreportsv2controller_listsharedwithmeworkbooks.md
+  - https://developer.deputy.com/reference/embeddedreportsv2controller_listsharedwithstatus.md
+  - https://developer.deputy.com/reference/embeddedreportsv2controller_provisiontenantonsigma.md
+  - https://developer.deputy.com/reference/embeddedreportsv2controller_removesharedworkbookaccess.md
+  - https://developer.deputy.com/reference/embeddedreportsv2controller_renamehomefolderworkbook.md
+  - https://developer.deputy.com/reference/embeddedreportsv2controller_shareworkbook.md
+  - https://developer.deputy.com/reference/embeddedreportsv2controller_updatetenantdataonsigma.md
+  - https://developer.deputy.com/reference/employeeagreementv2controller_create.md
+  - https://developer.deputy.com/reference/employeeagreementv2controller_delete.md
+  - https://developer.deputy.com/reference/employeeagreementv2controller_get.md
+  - https://developer.deputy.com/reference/employeeagreementv2controller_list.md
+  - https://developer.deputy.com/reference/employeeagreementv2controller_update.md
+  - https://developer.deputy.com/reference/employeedatafixv2controller_seteffectivedate.md
+  - https://developer.deputy.com/reference/employeedatafixv2controller_syncemployeeagreementcompany.md
+  - https://developer.deputy.com/reference/employeedatafixv2controller_triggerworkplaceagreementsync.md
+  - https://developer.deputy.com/reference/employeedatafixv2controller_updateworkplaceagreement.md
+  - https://developer.deputy.com/reference/employeeonboardingexportv2controller_listemployeesbydaterange.md
+  - https://developer.deputy.com/reference/employeeonboardingexportv2controller_onboardingexport.md
+  - https://developer.deputy.com/reference/employeeonboardingusagev2controller_getremainingpromousages.md
+  - https://developer.deputy.com/reference/employeeonboardingv2controller_listonboardingstatus.md
+  - https://developer.deputy.com/reference/employeepreferencesv2controller_list.md
+  - https://developer.deputy.com/reference/employeeprofilehistoryv2controller_get.md
+  - https://developer.deputy.com/reference/employeeprofilev2controller_get.md
+  - https://developer.deputy.com/reference/employeeprofilev2controller_list.md
+  - https://developer.deputy.com/reference/employeeprofilev2controller_retrieveemployeeprofilebyidsandcustomfiltersrequest.md
+  - https://developer.deputy.com/reference/employeesentimentv2controller_aggregate.md
+  - https://developer.deputy.com/reference/employeesentimentv2controller_aggregatelocation.md
+  - https://developer.deputy.com/reference/employeesentimentv2controller_check.md
+  - https://developer.deputy.com/reference/employeesentimentv2controller_create.md
+  - https://developer.deputy.com/reference/employeesentimentv2controller_getsettings.md
+  - https://developer.deputy.com/reference/employeesentimentv2controller_getweeklyaggregated.md
+  - https://developer.deputy.com/reference/employeesentimentv2controller_getweeklyaggregatedlocation.md
+  - https://developer.deputy.com/reference/employeestandarddayhoursv2controller_getemployeestandarddayhours.md
+  - https://developer.deputy.com/reference/employeesv2controller_create.md
+  - https://developer.deputy.com/reference/employeesv2controller_createbulk.md
+  - https://developer.deputy.com/reference/employeesv2controller_get.md
+  - https://developer.deputy.com/reference/employeesv2controller_list.md
+  - https://developer.deputy.com/reference/employeesv2controller_patch.md
+  - https://developer.deputy.com/reference/employeesv2controller_patchbulk.md
+  - https://developer.deputy.com/reference/employeesv2controller_validateemails.md
+  - https://developer.deputy.com/reference/employmentconditionv2controller_get.md
+  - https://developer.deputy.com/reference/employmentconditionv2controller_list.md
+  - https://developer.deputy.com/reference/employmentcontractlevelv2controller_batchsave.md
+  - https://developer.deputy.com/reference/employmentcontractlevelv2controller_create.md
+  - https://developer.deputy.com/reference/employmentcontractlevelv2controller_get.md
+  - https://developer.deputy.com/reference/employmentcontractlevelv2controller_getemployeesbylevelid.md
+  - https://developer.deputy.com/reference/employmentcontractlevelv2controller_update.md
+  - https://developer.deputy.com/reference/employmentcontractsv2controller_create.md
+  - https://developer.deputy.com/reference/employmentcontractsv2controller_delete.md
+  - https://developer.deputy.com/reference/employmentcontractsv2controller_get.md
+  - https://developer.deputy.com/reference/employmentcontractsv2controller_list.md
+  - https://developer.deputy.com/reference/employmentcontractsv2controller_update.md
+  - https://developer.deputy.com/reference/eocallbackv2controller_storeonboardingidforemployee.md
+  - https://developer.deputy.com/reference/filev2controller_createfile.md
+  - https://developer.deputy.com/reference/flagrecordv2controller_get.md
+  - https://developer.deputy.com/reference/flagrecordv2controller_list.md
+  - https://developer.deputy.com/reference/flagrecordv2controller_put.md
+  - https://developer.deputy.com/reference/flagrecordv2controller_togglebytag.md
+  - https://developer.deputy.com/reference/hronboardingactionv2controller_perform.md
+  - https://developer.deputy.com/reference/labormodelv2controller_copylabormodelrules.md
+  - https://developer.deputy.com/reference/labormodelv2controller_createlabormodelrule.md
+  - https://developer.deputy.com/reference/labormodelv2controller_deletelabormodelrule.md
+  - https://developer.deputy.com/reference/labormodelv2controller_deletelabormodelrules.md
+  - https://developer.deputy.com/reference/labormodelv2controller_editlabormodelrule.md
+  - https://developer.deputy.com/reference/labormodelv2controller_getlabormodelpendingjobs.md
+  - https://developer.deputy.com/reference/labormodelv2controller_getlabormodelrule.md
+  - https://developer.deputy.com/reference/labormodelv2controller_runlabormodel.md
+  - https://developer.deputy.com/reference/leaveabsencev2controller_validateleaveabsence.md
+  - https://developer.deputy.com/reference/leaveaccrualv2controller_agreedhoursrecalculationpreview.md
+  - https://developer.deputy.com/reference/leaveaccrualv2controller_releaseforhiredate.md
+  - https://developer.deputy.com/reference/leaveauditlogv2controller_listlogs.md
+  - https://developer.deputy.com/reference/leavebalancev2controller_createleavebalance.md
+  - https://developer.deputy.com/reference/leavebalancev2controller_getleavebalances.md
+  - https://developer.deputy.com/reference/leavebalancev2controller_listleavebalancesforemployee.md
+  - https://developer.deputy.com/reference/leaveconfigv2controller_getleaveconfig.md
+  - https://developer.deputy.com/reference/leaveconfigv2controller_setleaveconfig.md
+  - https://developer.deputy.com/reference/leaveentitlementsremediationv2controller_getentitlementremediationfiledownloadlink.md
+  - https://developer.deputy.com/reference/leaveentitlementsremediationv2controller_getentitlementremediationstatus.md
+  - https://developer.deputy.com/reference/leaveentitlementsremediationv2controller_setentitlementremediationactiontype.md
+  - https://developer.deputy.com/reference/leaveentitlementsv2controller_addleaveentitlementstoemployees.md
+  - https://developer.deputy.com/reference/leaveentitlementsv2controller_addleaveentitlementtoemployees.md
+  - https://developer.deputy.com/reference/leaveentitlementsv2controller_getemployeeentitlementsbyemployees.md
+  - https://developer.deputy.com/reference/leaveentitlementsv2controller_getemployeeleaveentitlements.md
+  - https://developer.deputy.com/reference/leaveentitlementsv2controller_getentitledemployeesbyleaverule.md
+  - https://developer.deputy.com/reference/leaveentitlementsv2controller_removeleaveentitlementsfromemployees.md
+  - https://developer.deputy.com/reference/leaveentitlementsv2controller_setleaveentitlementsbyemployees.md
+  - https://developer.deputy.com/reference/leaveextensionv2controller_softdeleteleaveextensions.md
+  - https://developer.deputy.com/reference/leavefeaturesetv2controller_getadoptionstatus.md
+  - https://developer.deputy.com/reference/leavefeaturesetv2controller_getleavefeaturesetstatus.md
+  - https://developer.deputy.com/reference/leavefeaturesetv2controller_setadoptionstatus.md
+  - https://developer.deputy.com/reference/leavefeaturesetv2controller_setsuggestionstatus.md
+  - https://developer.deputy.com/reference/leavelocationsettingsv2controller_getleavelocationsettings.md
+  - https://developer.deputy.com/reference/leavemigrationv2controller_exportleavebalances.md
+  - https://developer.deputy.com/reference/leavemigrationv2controller_exportleaverules.md
+  - https://developer.deputy.com/reference/leavemigrationv2controller_getsoftdeletedleaveextensions.md
+  - https://developer.deputy.com/reference/leavemigrationv2controller_getstatus.md
+  - https://developer.deputy.com/reference/leavemigrationv2controller_overridebalancetomigration.md
+  - https://developer.deputy.com/reference/leavemigrationv2controller_setstatus.md
+  - https://developer.deputy.com/reference/leavemigrationv2controller_start.md
+  - https://developer.deputy.com/reference/leavenonworkingdaysv2controller_getleavenonworkingdays.md
+  - https://developer.deputy.com/reference/leavepayrulesv2controller_countovertimepayrulesbyleaveruleid.md
+  - https://developer.deputy.com/reference/leavereferenceperiodv2controller_calculateaveragedayhours.md
+  - https://developer.deputy.com/reference/leaverequestv2controller_create.md
+  - https://developer.deputy.com/reference/leaverequestv2controller_delete.md
+  - https://developer.deputy.com/reference/leaverequestv2controller_get.md
+  - https://developer.deputy.com/reference/leaverequestv2controller_getupcomingleaveforemployee.md
+  - https://developer.deputy.com/reference/leaverequestv2controller_list.md
+  - https://developer.deputy.com/reference/leaverequestv2controller_update.md
+  - https://developer.deputy.com/reference/leaverequestv2controller_updateexternalid.md
+  - https://developer.deputy.com/reference/leaverequestv2controller_validateleaverequestforapproval.md
+  - https://developer.deputy.com/reference/leaverulev2controller_listtoilleaverules.md
+  - https://developer.deputy.com/reference/locationprofilev2controller_get.md
+  - https://developer.deputy.com/reference/locationprofilev2controller_list.md
+  - https://developer.deputy.com/reference/locationprofilev2controller_unarchive.md
+  - https://developer.deputy.com/reference/locationprofilev2controller_updateaddress.md
+  - https://developer.deputy.com/reference/locationprofilev2controller_updatebusinessnumber.md
+  - https://developer.deputy.com/reference/locationsettingv2controller_fetch.md
+  - https://developer.deputy.com/reference/locationsettingv2controller_fetchkeyvalue.md
+  - https://developer.deputy.com/reference/metricsv2controller_checkbudgetstatus.md
+  - https://developer.deputy.com/reference/metricsv2controller_delete.md
+  - https://developer.deputy.com/reference/metricsv2controller_download.md
+  - https://developer.deputy.com/reference/metricsv2controller_getraw.md
+  - https://developer.deputy.com/reference/metricsv2controller_upsert.md
+  - https://developer.deputy.com/reference/metricsv2controller_upsertbulk.md
+  - https://developer.deputy.com/reference/mev2controller_getalsoworking.md
+  - https://developer.deputy.com/reference/mev2controller_getincomingshiftoffer.md
+  - https://developer.deputy.com/reference/mev2controller_getpendingswapshifts.md
+  - https://developer.deputy.com/reference/onboardingdashboardv2controller_getembedonboardingstatus.md
+  - https://developer.deputy.com/reference/onboardingdashboardv2controller_getonboardingdashboard.md
+  - https://developer.deputy.com/reference/onboardingdashboardv2controller_performembedonboardingaction.md
+  - https://developer.deputy.com/reference/onboardingdashboardv2controller_updateonboardingdashboard.md
+  - https://developer.deputy.com/reference/onboardingdashboardv2controller_updateonboardingroute.md
+  - https://developer.deputy.com/reference/onboardinggamificationv2controller_completegamificationtask.md
+  - https://developer.deputy.com/reference/onboardinggamificationv2controller_getgamificationstatus.md
+  - https://developer.deputy.com/reference/partneremployeesv2controller_filterbyexternallinkids.md
+  - https://developer.deputy.com/reference/partneremployeesv2controller_hasimportedemployees.md
+  - https://developer.deputy.com/reference/paycalendarv2controller_assignemployees.md
+  - https://developer.deputy.com/reference/paycalendarv2controller_create.md
+  - https://developer.deputy.com/reference/paycalendarv2controller_deactivate.md
+  - https://developer.deputy.com/reference/paycalendarv2controller_get.md
+  - https://developer.deputy.com/reference/paycalendarv2controller_list.md
+  - https://developer.deputy.com/reference/paycalendarv2controller_listassignedemployees.md
+  - https://developer.deputy.com/reference/paycalendarv2controller_listpayperiods.md
+  - https://developer.deputy.com/reference/paycalendarv2controller_searchassignedemployees.md
+  - https://developer.deputy.com/reference/paycalendarv2controller_update.md
+  - https://developer.deputy.com/reference/paycomparisoncontroller_cancelreports.md
+  - https://developer.deputy.com/reference/paycomparisoncontroller_deletereports.md
+  - https://developer.deputy.com/reference/paycomparisoncontroller_downloadreport.md
+  - https://developer.deputy.com/reference/paycomparisoncontroller_findreports.md
+  - https://developer.deputy.com/reference/paycomparisoncontroller_getemployees.md
+  - https://developer.deputy.com/reference/paycomparisoncontroller_resubmitreports.md
+  - https://developer.deputy.com/reference/paycomparisoncontroller_submitreport.md
+  - https://developer.deputy.com/reference/payrollexporttemplatesv2controller_create.md
+  - https://developer.deputy.com/reference/payrollexporttemplatesv2controller_delete.md
+  - https://developer.deputy.com/reference/payrollexporttemplatesv2controller_get.md
+  - https://developer.deputy.com/reference/payrollexporttemplatesv2controller_list.md
+  - https://developer.deputy.com/reference/payrollexporttemplatesv2controller_update.md
+  - https://developer.deputy.com/reference/payrollmobilev2controller_getrecentpayslipswidget.md
+  - https://developer.deputy.com/reference/payrollpartnerauthorizationcodev2controller_generateauthorizationcodeforpayrolluser.md
+  - https://developer.deputy.com/reference/peoplev2controller_listcompanies.md
+  - https://developer.deputy.com/reference/peoplev2controller_listcontracts.md
+  - https://developer.deputy.com/reference/permissionv2controller_getemployeeidswithprivilege.md
+  - https://developer.deputy.com/reference/permissionv2controller_getpermissions.md
+  - https://developer.deputy.com/reference/permissionv2controller_getuseridswithprivilege.md
+  - https://developer.deputy.com/reference/productaddonsv2controller_getaddonproducts.md
+  - https://developer.deputy.com/reference/productaddonsv2controller_update.md
+  - https://developer.deputy.com/reference/productsubscriptiondowngradejobv2controller_plandowngradejob.md
+  - https://developer.deputy.com/reference/productsubscriptionv2controller_getproductsubscription.md
+  - https://developer.deputy.com/reference/publishshiftv2controller_preview.md
+  - https://developer.deputy.com/reference/publishshiftv2controller_resume.md
+  - https://developer.deputy.com/reference/publishshiftv2controller_status.md
+  - https://developer.deputy.com/reference/reactionv2controller_create.md
+  - https://developer.deputy.com/reference/reactionv2controller_delete.md
+  - https://developer.deputy.com/reference/referralv2controller_getreferralurls.md
+  - https://developer.deputy.com/reference/remediationv2controller_startremediation.md
+  - https://developer.deputy.com/reference/reportv2controller_create.md
+  - https://developer.deputy.com/reference/reportv2controller_exportscheduletimesheetsales.md
+  - https://developer.deputy.com/reference/reportv2controller_list.md
+  - https://developer.deputy.com/reference/reportv2controller_url.md
+  - https://developer.deputy.com/reference/scheduleagentv2controller_getlate.md
+  - https://developer.deputy.com/reference/scheduleagentv2controller_upsertshifts.md
+  - https://developer.deputy.com/reference/scheduleconsentv2controller_createbulkconsents.md
+  - https://developer.deputy.com/reference/schedulefiltersv2controller_getschedulefilters.md
+  - https://developer.deputy.com/reference/scheduleshiftv2controller_aggregatedlist.md
+  - https://developer.deputy.com/reference/scheduleshiftv2controller_autofill.md
+  - https://developer.deputy.com/reference/scheduleshiftv2controller_bulkdefaults.md
+  - https://developer.deputy.com/reference/scheduleshiftv2controller_bulkdelete.md
+  - https://developer.deputy.com/reference/scheduleshiftv2controller_bulkpatch.md
+  - https://developer.deputy.com/reference/scheduleshiftv2controller_bulkupdate.md
+  - https://developer.deputy.com/reference/scheduleshiftv2controller_bulkupsert.md
+  - https://developer.deputy.com/reference/scheduleshiftv2controller_checkconsent.md
+  - https://developer.deputy.com/reference/scheduleshiftv2controller_copy.md
+  - https://developer.deputy.com/reference/scheduleshiftv2controller_cost.md
+  - https://developer.deputy.com/reference/scheduleshiftv2controller_create.md
+  - https://developer.deputy.com/reference/scheduleshiftv2controller_declineshift.md
+  - https://developer.deputy.com/reference/scheduleshiftv2controller_defaults.md
+  - https://developer.deputy.com/reference/scheduleshiftv2controller_delete.md
+  - https://developer.deputy.com/reference/scheduleshiftv2controller_deleteopeninvitations.md
+  - https://developer.deputy.com/reference/scheduleshiftv2controller_deletewithparams.md
+  - https://developer.deputy.com/reference/scheduleshiftv2controller_get.md
+  - https://developer.deputy.com/reference/scheduleshiftv2controller_getbidsstatuscounts.md
+  - https://developer.deputy.com/reference/scheduleshiftv2controller_getcopystatus.md
+  - https://developer.deputy.com/reference/scheduleshiftv2controller_getopeninvitations.md
+  - https://developer.deputy.com/reference/scheduleshiftv2controller_getopenshifts.md
+  - https://developer.deputy.com/reference/scheduleshiftv2controller_getopenstatuscounts.md
+  - https://developer.deputy.com/reference/scheduleshiftv2controller_getpendingapprovalopenshifts.md
+  - https://developer.deputy.com/reference/scheduleshiftv2controller_getpermissions.md
+  - https://developer.deputy.com/reference/scheduleshiftv2controller_getrosters.md
+  - https://developer.deputy.com/reference/scheduleshiftv2controller_history.md
+  - https://developer.deputy.com/reference/scheduleshiftv2controller_link.md
+  - https://developer.deputy.com/reference/scheduleshiftv2controller_list.md
+  - https://developer.deputy.com/reference/scheduleshiftv2controller_log.md
+  - https://developer.deputy.com/reference/scheduleshiftv2controller_myschedule.md
+  - https://developer.deputy.com/reference/scheduleshiftv2controller_publish.md
+  - https://developer.deputy.com/reference/scheduleshiftv2controller_resave.md
+  - https://developer.deputy.com/reference/scheduleshiftv2controller_split.md
+  - https://developer.deputy.com/reference/scheduleshiftv2controller_suggest.md
+  - https://developer.deputy.com/reference/scheduleshiftv2controller_togglemicroscheduling.md
+  - https://developer.deputy.com/reference/scheduleshiftv2controller_update.md
+  - https://developer.deputy.com/reference/scheduleshiftv2controller_updateopenshiftstatus.md
+  - https://developer.deputy.com/reference/scheduleshiftv2controller_validateexternalshifts.md
+  - https://developer.deputy.com/reference/scheduletemplatev2controller_bulkdeletetemplate.md
+  - https://developer.deputy.com/reference/scheduletemplatev2controller_createtemplate.md
+  - https://developer.deputy.com/reference/scheduletemplatev2controller_loadtemplate.md
+  - https://developer.deputy.com/reference/sessionhistoryv2controller_list.md
+  - https://developer.deputy.com/reference/shiftbidv2controller_approve.md
+  - https://developer.deputy.com/reference/shiftoffersv2controller_cancel.md
+  - https://developer.deputy.com/reference/shiftoffersv2controller_notify.md
+  - https://developer.deputy.com/reference/shiftsuggestionv2controller_suggestemployees.md
+  - https://developer.deputy.com/reference/shiftswapv2controller_confirm.md
+  - https://developer.deputy.com/reference/shiftswapv2controller_decline.md
+  - https://developer.deputy.com/reference/shiftswapv2controller_getpendingapproval.md
+  - https://developer.deputy.com/reference/shiftswapv2controller_getpendingdetails.md
+  - https://developer.deputy.com/reference/shiftswapv2controller_recommend.md
+  - https://developer.deputy.com/reference/timesheetexportv2controller_getconfig.md
+  - https://developer.deputy.com/reference/timesheetexportv2controller_getfeaturestatus.md
+  - https://developer.deputy.com/reference/timesheetexportv2controller_getpayperiodfilteroptions.md
+  - https://developer.deputy.com/reference/timesheetexportv2controller_getratesummary.md
+  - https://developer.deputy.com/reference/timesheetexportv2controller_getsummary.md
+  - https://developer.deputy.com/reference/timesheetexportv2controller_refreshemployeefilteroptions.md
+  - https://developer.deputy.com/reference/timesheetexportv2controller_refreshlocationfilteroptions.md
+  - https://developer.deputy.com/reference/timesheetexportv2controller_refreshpaycenterfilter.md
+  - https://developer.deputy.com/reference/timesheetquestionremediationv2controller_getdatapack.md
+  - https://developer.deputy.com/reference/timesheetquestionremediationv2controller_gettimesheetquestionremediationstatus.md
+  - https://developer.deputy.com/reference/timesheetquestionremediationv2controller_triggertimesheetquestionremediationpayrecalculation.md
+  - https://developer.deputy.com/reference/timesheetrostercontroller_getroster.md
+  - https://developer.deputy.com/reference/timesheetsv2controller_autoendtimesheet.md
+  - https://developer.deputy.com/reference/timesheetsv2controller_create.md
+  - https://developer.deputy.com/reference/timesheetsv2controller_delete.md
+  - https://developer.deputy.com/reference/timesheetsv2controller_end.md
+  - https://developer.deputy.com/reference/timesheetsv2controller_export.md
+  - https://developer.deputy.com/reference/timesheetsv2controller_get.md
+  - https://developer.deputy.com/reference/timesheetsv2controller_list.md
+  - https://developer.deputy.com/reference/timesheetsv2controller_listbyexportid.md
+  - https://developer.deputy.com/reference/timesheetsv2controller_pause.md
+  - https://developer.deputy.com/reference/timesheetsv2controller_start.md
+  - https://developer.deputy.com/reference/timesheetsv2controller_update.md
+  - https://developer.deputy.com/reference/tsaconfigandpermissionv2controller_getconfigandpermission.md
+  - https://developer.deputy.com/reference/tsav2controller_approveroster.md
+  - https://developer.deputy.com/reference/tsav2controller_approverostersync.md
+  - https://developer.deputy.com/reference/tsav2controller_approvetimeroster.md
+  - https://developer.deputy.com/reference/tsav2controller_approvetimerostersync.md
+  - https://developer.deputy.com/reference/tsav2controller_approvetimesheet.md
+  - https://developer.deputy.com/reference/tsav2controller_approvetimesheetsync.md
+  - https://developer.deputy.com/reference/tsav2controller_approvetimetimesheet.md
+  - https://developer.deputy.com/reference/tsav2controller_approvetimetimesheetsync.md
+  - https://developer.deputy.com/reference/tsav2controller_batchapprovetimesheet.md
+  - https://developer.deputy.com/reference/tsav2controller_batchapprovetimetimesheet.md
+  - https://developer.deputy.com/reference/tsav2controller_batchdiscardtimesheet.md
+  - https://developer.deputy.com/reference/tsav2controller_batchforecasttimesheet.md
+  - https://developer.deputy.com/reference/tsav2controller_batchmarkaspaid.md
+  - https://developer.deputy.com/reference/tsav2controller_batchmarkasunpaid.md
+  - https://developer.deputy.com/reference/tsav2controller_batchreinstatetimesheet.md
+  - https://developer.deputy.com/reference/tsav2controller_batchunapprovepaytimesheet.md
+  - https://developer.deputy.com/reference/tsav2controller_batchunapprovetimetimesheet.md
+  - https://developer.deputy.com/reference/tsav2controller_canceldisputeattestation.md
+  - https://developer.deputy.com/reference/tsav2controller_confirmattestation.md
+  - https://developer.deputy.com/reference/tsav2controller_createcomment.md
+  - https://developer.deputy.com/reference/tsav2controller_createtimesheet.md
+  - https://developer.deputy.com/reference/tsav2controller_discardroster.md
+  - https://developer.deputy.com/reference/tsav2controller_discardtimesheet.md
+  - https://developer.deputy.com/reference/tsav2controller_disputeattestation.md
+  - https://developer.deputy.com/reference/tsav2controller_endshift.md
+  - https://developer.deputy.com/reference/tsav2controller_getapplicablerangesummary.md
+  - https://developer.deputy.com/reference/tsav2controller_getemployeesforstatusgrouping.md
+  - https://developer.deputy.com/reference/tsav2controller_getpayreturnrates.md
+  - https://developer.deputy.com/reference/tsav2controller_getpaysuggestion.md
+  - https://developer.deputy.com/reference/tsav2controller_getsuggestedtimesheetrounding.md
+  - https://developer.deputy.com/reference/tsav2controller_gettimesheetquestions.md
+  - https://developer.deputy.com/reference/tsav2controller_markaspaid.md
+  - https://developer.deputy.com/reference/tsav2controller_markasunpaid.md
+  - https://developer.deputy.com/reference/tsav2controller_reapprovetimesheet.md
+  - https://developer.deputy.com/reference/tsav2controller_reinstatetimesheet.md
+  - https://developer.deputy.com/reference/tsav2controller_resolvedisputedattestation.md
+  - https://developer.deputy.com/reference/tsav2controller_unapprovepaytimesheet.md
+  - https://developer.deputy.com/reference/tsav2controller_unapprovetimetimesheet.md
+  - https://developer.deputy.com/reference/tsav2controller_updatetimesheet.md
+  - https://developer.deputy.com/reference/tsav2controller_validatecreatetimesheet.md
+  - https://developer.deputy.com/reference/tsav2controller_validateupdatetimesheet.md
+  - https://developer.deputy.com/reference/userssotokenwithpkcev2controller_get.md
+  - https://developer.deputy.com/reference/userv2controller_emailloginlink.md
+  - https://developer.deputy.com/reference/weatherv2controller_getlocationdailyaggregated.md
+  - https://developer.deputy.com/reference/webhooktriggerv2controller_trigger.md
+  - https://developer.deputy.com/reference/webhooktriggerv2controller_triggerbulk.md
+  merge:
+    pages: 394
+    deduped: 2095
+    conflicts_kept_first: 0

@@ -1,0 +1,3880 @@
+openapi: 3.2.0
+info:
+  title: Deputy V2 Shifts API
+  version: '1.0'
+  description: Filtered to publicly-authenticated routes only (APIAuthenticator). Scoped-OAuth routes and internal JWT routes are excluded — see the separate "Deputy V2 Scoped API" spec for scoped endpoints.
+servers:
+- url: https://{subdomain}.{region}.deputy.com/api
+  description: Deputy tenant
+  variables:
+    subdomain:
+      default: your-subdomain
+      description: Your Deputy tenant subdomain
+    region:
+      default: deputy
+      enum:
+      - au
+      - eu
+      - na
+      - deputy
+      description: 'Deputy region: au, eu, na, or deputy (AU default)'
+security:
+- ApiToken: []
+tags:
+- name: Shifts
+paths:
+  /management/v2/shifts:
+    get:
+      summary: Retrieve list of shifts
+      operationId: ScheduleShiftV2Controller_list
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScheduleShiftListResponse'
+      parameters:
+      - name: start
+        description: 'Filters shifts starting at or after this time. Format: ISO8601 datetime (e.g., "2023-03-11T13:45:00+11:00"). Default: 7 days ago from today.'
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: end
+        description: 'Filters shifts starting before this time (exclusive). Format: ISO8601 datetime (e.g., "2023-03-11T18:45:00+11:00"). Default: today at 00:00:00.'
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: employee
+        description: Mandatory field. Filters shifts for a specific employee ID.
+        in: query
+        required: false
+        schema:
+          type: string
+          format: int64
+      - name: timesheet
+        description: Not implemented.
+        in: query
+        required: false
+        schema:
+          type: string
+          format: int64
+      - name: published
+        description: "Filters shifts by published status (PUBLISHED, UNPUBLISHED, etc.).\n\n - NOT_SPECIFIED: Not specified\n - TRUE: Published\n - ALL: Both published and unpublished\n - FALSE: Unpublished only"
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - NOT_SPECIFIED
+          - 'TRUE'
+          - ALL
+          - 'FALSE'
+          default: NOT_SPECIFIED
+      - name: cursor
+        description: Pagination cursor from a previous response. Used to fetch the next page of results.
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: limit
+        description: Maximum number of shifts to return in a single response. Used for pagination.
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+      - name: expandMetadata
+        description: If true, includes additional metadata such as custom field definitions.
+        in: query
+        required: false
+        schema:
+          type: boolean
+      tags:
+      - Shifts
+      description: Retrieve list of shifts.
+    post:
+      summary: Create a new shift
+      description: Creates a new shift with the provided data. This is a synchronous API that returns the created shift immediately upon completion. The shift must include required fields such as start/end times, employee and area. Optional override settings can be provided to bypass normal validation rules.
+      operationId: ScheduleShiftV2Controller_create
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScheduleShiftCreateResponse'
+      tags:
+      - Shifts
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateRequestCreateData'
+  /management/v2/shifts/bids:status:
+    post:
+      summary: decline a shift
+      operationId: ScheduleShiftV2Controller_declineShift
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScheduleShiftDeclineShiftResponse'
+      tags:
+      - Shifts
+      description: decline a shift.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ScheduleShiftDeclineShiftRequestData'
+  /management/v2/shifts/copy/job/{jobId}:
+    get:
+      summary: Get copy status
+      description: Gets the status of a copy operation. The copy status includes information about the copy operation such as the number of shifts copied, the number of shifts failed to copy, and the number of shifts pending copy.
+      operationId: ScheduleShiftV2Controller_getCopyStatus
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScheduleShiftCopyStatusResponse'
+      parameters:
+      - name: jobId
+        description: The job ID returned from the copy operation.
+        in: path
+        required: true
+        schema:
+          type: string
+      tags:
+      - Shifts
+  /management/v2/shifts/open/pending-approvals:
+    post:
+      summary: Get pending approval open shifts
+      description: Retrieves open shifts that are pending approval. Returns shifts along with their associated bids and metadata. Supports filtering by location mode, date range, and pagination. Can return count-only results for performance.
+      operationId: ScheduleShiftV2Controller_getPendingApprovalOpenShifts
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScheduleShiftOpenShiftPendingApprovalsResponse'
+      parameters:
+      - name: countOnly
+        description: 'DEPRECATED: This field is ignored. Full data is always returned regardless of this value.'
+        in: query
+        required: false
+        schema:
+          type: boolean
+      tags:
+      - Shifts
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ScheduleShiftOpenShiftPendingApprovalsRequestData'
+  /management/v2/shifts/{id}:
+    get:
+      summary: Retrieve shift data by given Id
+      operationId: ScheduleShiftV2Controller_get
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScheduleShiftGetResponse'
+      parameters:
+      - name: id
+        description: The ID of the shift to retrieve.
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: expandMetadata
+        description: If true, includes additional metadata such as locations, areas, and employee profiles.
+        in: query
+        required: false
+        schema:
+          type: boolean
+      - name: viewContext
+        description: "Determines the context of the viewer, affecting what data is returned and permissions checked.\n\n - EMPLOYEE: Employee context - returns data visible as an employee.\n - MANAGER: Manager context - returns full manager-level data and permissions."
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - EMPLOYEE
+          - MANAGER
+          default: EMPLOYEE
+      tags:
+      - Shifts
+      description: Retrieve shift data by given Id.
+    delete:
+      summary: Delete an existing shift
+      operationId: ScheduleShiftV2Controller_delete
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScheduleShiftDeleteResponse'
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      tags:
+      - Shifts
+      description: Delete an existing shift.
+    put:
+      summary: Update an existing shift
+      operationId: ScheduleShiftV2Controller_update
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScheduleShiftUpdateResponse'
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      tags:
+      - Shifts
+      description: Update an existing shift.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateRequestUpdateData'
+  /management/v2/shifts/{id}/bids:statusCounts:
+    get:
+      summary: get the bid count for each status
+      operationId: ScheduleShiftV2Controller_getBidsStatusCounts
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScheduleShiftGetBidsStatusCountsResponse'
+      parameters:
+      - name: id
+        description: The ID of the shift to retrieve.
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: expandMetadata
+        description: If true, includes additional metadata such as locations, areas, and employee profiles.
+        in: query
+        required: false
+        schema:
+          type: boolean
+      - name: viewContext
+        description: "Determines the context of the viewer, affecting what data is returned and permissions checked.\n\n - EMPLOYEE: Employee context - returns data visible as an employee.\n - MANAGER: Manager context - returns full manager-level data and permissions."
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - EMPLOYEE
+          - MANAGER
+          default: EMPLOYEE
+      tags:
+      - Shifts
+      description: get the bid count for each status.
+  /management/v2/shifts/{id}/history:
+    get:
+      summary: Get shift history
+      operationId: ScheduleShiftV2Controller_history
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScheduleShiftHistoryResponse'
+      parameters:
+      - name: id
+        description: The ID of the shift to retrieve.
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: expandMetadata
+        description: If true, includes additional metadata such as locations, areas, and employee profiles.
+        in: query
+        required: false
+        schema:
+          type: boolean
+      - name: viewContext
+        description: "Determines the context of the viewer, affecting what data is returned and permissions checked.\n\n - EMPLOYEE: Employee context - returns data visible as an employee.\n - MANAGER: Manager context - returns full manager-level data and permissions."
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - EMPLOYEE
+          - MANAGER
+          default: EMPLOYEE
+      tags:
+      - Shifts
+      description: Get shift history.
+  /management/v2/shifts/{id}/log:
+    get:
+      summary: Get shift log new
+      operationId: ScheduleShiftV2Controller_log
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScheduleShiftLogResponse'
+      parameters:
+      - name: id
+        description: The ID of the shift to retrieve.
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: expandMetadata
+        description: If true, includes additional metadata such as locations, areas, and employee profiles.
+        in: query
+        required: false
+        schema:
+          type: boolean
+      - name: viewContext
+        description: "Determines the context of the viewer, affecting what data is returned and permissions checked.\n\n - EMPLOYEE: Employee context - returns data visible as an employee.\n - MANAGER: Manager context - returns full manager-level data and permissions."
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - EMPLOYEE
+          - MANAGER
+          default: EMPLOYEE
+      tags:
+      - Shifts
+      description: Get shift log new.
+  /management/v2/shifts/{id}/open:deleteInvitations:
+    post:
+      summary: delete open shift invitations
+      operationId: ScheduleShiftV2Controller_deleteOpenInvitations
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScheduleShiftDeleteOpenInvitationsResponse'
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      tags:
+      - Shifts
+      description: delete open shift invitations.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ScheduleShiftDeleteOpenInvitationsRequestData'
+  /management/v2/shifts/{id}/open:invitations:
+    get:
+      summary: get open shift invitation list
+      operationId: ScheduleShiftV2Controller_getOpenInvitations
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScheduleShiftGetOpenInvitationsResponse'
+      parameters:
+      - name: id
+        description: The ID of the shift to retrieve.
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: expandMetadata
+        description: If true, includes additional metadata such as locations, areas, and employee profiles.
+        in: query
+        required: false
+        schema:
+          type: boolean
+      - name: viewContext
+        description: "Determines the context of the viewer, affecting what data is returned and permissions checked.\n\n - EMPLOYEE: Employee context - returns data visible as an employee.\n - MANAGER: Manager context - returns full manager-level data and permissions."
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - EMPLOYEE
+          - MANAGER
+          default: EMPLOYEE
+      tags:
+      - Shifts
+      description: get open shift invitation list.
+  /management/v2/shifts/{id}/open:status:
+    post:
+      summary: Accept/decline an open shift
+      operationId: ScheduleShiftV2Controller_updateOpenShiftStatus
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScheduleShiftUpdateOpenShiftStatusResponse'
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      tags:
+      - Shifts
+      description: Accept/decline an open shift.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ScheduleShiftUpdateOpenShiftStatusRequestData'
+  /management/v2/shifts/{id}/open:statusCounts:
+    get:
+      summary: get count for each status in find replacement, open shift
+      operationId: ScheduleShiftV2Controller_getOpenStatusCounts
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScheduleShiftGetOpenStatusCountsResponse'
+      parameters:
+      - name: id
+        description: The ID of the shift to retrieve.
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: expandMetadata
+        description: If true, includes additional metadata such as locations, areas, and employee profiles.
+        in: query
+        required: false
+        schema:
+          type: boolean
+      - name: viewContext
+        description: "Determines the context of the viewer, affecting what data is returned and permissions checked.\n\n - EMPLOYEE: Employee context - returns data visible as an employee.\n - MANAGER: Manager context - returns full manager-level data and permissions."
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - EMPLOYEE
+          - MANAGER
+          default: EMPLOYEE
+      tags:
+      - Shifts
+      description: get count for each status in find replacement, open shift.
+  /management/v2/shifts/{id}/permissions:
+    get:
+      summary: Get shift permissions
+      description: Gets the permissions for a shift. The permissions include information about the permissions such as the ability to offer, swap, and cancel the shift.
+      operationId: ScheduleShiftV2Controller_getPermissions
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScheduleShiftShiftPermissionResponse'
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      tags:
+      - Shifts
+  /management/v2/shifts/{id}/suggestions:
+    post:
+      summary: Get suggestions for a shift
+      operationId: ScheduleShiftV2Controller_suggest
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScheduleShiftSuggestResponse'
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      tags:
+      - Shifts
+      description: Get suggestions for a shift.
+  /management/v2/shifts/{id}:calculateCost:
+    post:
+      summary: Get potential costs for a shift given a list of employee ids
+      operationId: ScheduleShiftV2Controller_cost
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScheduleShiftCostResponse'
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      tags:
+      - Shifts
+      description: Get potential costs for a shift given a list of employee ids.
+  /management/v2/shifts:aggregated:
+    get:
+      summary: Retrieve an aggregated list of shifts
+      operationId: ScheduleShiftV2Controller_aggregatedList
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScheduleShiftAggregatedListResponse'
+      parameters:
+      - name: start
+        description: Filters shifts starting at/after start e.g. 2023-03-11T13:45:00, default -7 days from today.
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: end
+        description: Filters shift starting before end exclusively e.g. 2023-03-11T18:45:00, default today at 00:00:00.
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: employee
+        description: Filters shifts for an employee ID.
+        in: query
+        required: false
+        schema:
+          type: string
+          format: int64
+      - name: timesheet
+        description: Filters shifts for matched or unmatched timesheet.
+        in: query
+        required: false
+        schema:
+          type: string
+          format: int64
+      - name: published
+        description: "Filters shifts for published status.\n\n - NOT_SPECIFIED: Not specified\n - TRUE: Published\n - ALL: Both published and unpublished\n - FALSE: Unpublished only"
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - NOT_SPECIFIED
+          - 'TRUE'
+          - ALL
+          - 'FALSE'
+          default: NOT_SPECIFIED
+      - name: frequency
+        description: Aggregation frequency.
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - DAILY
+          - WEEKLY
+          default: DAILY
+      - name: omitEmptyPeriod
+        description: Omit empty periods in response array.
+        in: query
+        required: false
+        schema:
+          type: boolean
+      - name: expandMetadata
+        description: If true, includes additional metadata such as custom field definitions and more.
+        in: query
+        required: false
+        schema:
+          type: boolean
+      tags:
+      - Shifts
+      description: Retrieve an aggregated list of shifts.
+  /management/v2/shifts:autobuild:
+    post:
+      summary: Auto-build shifts (Asynchronous)
+      description: Automatically builds shifts based on historical patterns for specified areas and date range. Analyses past shift data to generate optimal shift templates. Returns immediately with operation ID for tracking. Use /operations/v2/operations/{id} to poll for completion.
+      operationId: AutoBuildV2Controller_autobuild
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AutoBuildAutobuildResponse'
+      tags:
+      - Shifts
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AutoBuildAutobuildRequestData'
+  /management/v2/shifts:autofill:
+    post:
+      summary: Auto-fill shifts (Asynchronous)
+      description: Automatically assigns employees to open shifts using genetic algorithm optimization. Optimizes for cost, workload equality, coverage, and full-time hours. Returns immediately with operation ID for tracking. Use /operations/v2/operations/{id} to poll for completion.
+      operationId: ScheduleShiftV2Controller_autofill
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScheduleShiftAutofillResponse'
+      tags:
+      - Shifts
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ScheduleShiftAutofillRequestData'
+  /management/v2/shifts:bulk:
+    post:
+      summary: Bulk create or update shifts (asynchronous)
+      description: Creates or updates multiple shifts in bulk. This is an asynchronous API that returns immediately with an operation ID in the response metadata.operation.id field. Shifts without an ID will be created, while shifts with an ID will be updated. Use the operation ID to poll the /operations/v2/operations/{id} endpoint to check completion status. The operation processes upserts in the background. External IDs can be provided to track shifts from external systems. Optional override settings can bypass normal validation rules.
+      operationId: ScheduleShiftV2Controller_bulkUpsert
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScheduleShiftBulkUpsertResponse'
+      tags:
+      - Shifts
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ScheduleShiftBulkUpsertRequestUpsertData'
+  /management/v2/shifts:bulkDefaults:
+    post:
+      summary: Get default shifts for many dates and areas
+      description: Returns a default shift skeleton for every (date, area) combination in the request. Each item carries its own success flag so a single invalid input does not fail the whole call.
+      operationId: ScheduleShiftV2Controller_bulkDefaults
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScheduleShiftBulkDefaultShiftResponse'
+      tags:
+      - Shifts
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BulkDefaultShiftRequestBulkDefaultShiftRequestData'
+  /management/v2/shifts:bulkDelete:
+    post:
+      summary: Bulk delete shifts (asynchronous)
+      description: Deletes multiple shifts in bulk. This is an asynchronous API that returns immediately with an operation ID in the response metadata.operation.id field. Use the operation ID to poll the /operations/v2/operations/{id} endpoint to check completion status. The operation processes deletions in the background. Failed deletions will be reported in the operation status. Optional compliance overrides can be provided to bypass normal validation rules.
+      operationId: ScheduleShiftV2Controller_bulkDelete
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScheduleShiftBulkDeleteResponse'
+      tags:
+      - Shifts
+  /management/v2/shifts:bulkPatch:
+    post:
+      summary: Bulk patch shifts (asynchronous)
+      description: Partially updates multiple shifts in bulk using a patch mask. Only fields specified in the patchMask array will be updated. This is an asynchronous API that returns immediately with an operation ID in the response metadata.operation.id field. Use the operation ID to poll the /operations/v2/operations/{id} endpoint to check completion status. The operation processes patches in the background. Currently supports updating employee assignment and open shift status.
+      operationId: ScheduleShiftV2Controller_bulkPatch
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScheduleShiftBulkPatchResponse'
+      tags:
+      - Shifts
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ScheduleShiftBulkPatchRequest'
+  /management/v2/shifts:bulkUpdate:
+    post:
+      summary: Bulk update shifts (asynchronous)
+      description: Updates multiple shifts in bulk with field-level updates. Only fields specified in the fieldMasks array will be updated. This is an asynchronous API that returns immediately with an operation ID in the response metadata.operation.id field. Use the operation ID to poll the /operations/v2/operations/{id} endpoint to check completion status. The operation processes updates in the background.
+      operationId: ScheduleShiftV2Controller_bulkUpdate
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScheduleShiftBulkUpdateResponse'
+      parameters:
+      - name: fieldMasks
+        description: Array of field masks specifying which fields should be updated. Only fields listed here will be modified.
+        in: query
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+            enum:
+            - EMPLOYEE
+            - START
+            - END
+            - MEAL_BREAK
+            - REST_BREAK
+            - AREA
+            - COMMENT
+            - PUBLISH
+            - OPEN
+            - APPROVAL_REQUIRED
+      tags:
+      - Shifts
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ScheduleShiftBulkUpdateRequestData'
+  /management/v2/shifts:copy:
+    post:
+      summary: Copy shifts (asynchronous)
+      description: 'Copies shifts to new target dates. Supports two patterns: 1) Copy by date range and areas, 2) Copy specific shift IDs. This is an asynchronous API that returns immediately with a job ID in the response data.jobId field. Use the job ID to poll the /management/v2/shifts/copy/job/{jobId} endpoint to check completion status and retrieve results. The operation processes copying in the background.'
+      operationId: ScheduleShiftV2Controller_copy
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScheduleShiftCopyResponse'
+      tags:
+      - Shifts
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CopyRequestCopyRequestData'
+  /management/v2/shifts:defaults:
+    post:
+      summary: Get default shifts
+      description: Gets default shift skeleton object for a given date, start time, end time, and area. This is a synchronous API that returns the default shift immediately with correct breaks depending on area and shift templates. The shifts must include required fields such as start/end times, employee assignment, and area.
+      operationId: ScheduleShiftV2Controller_defaults
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScheduleShiftDefaultShiftResponse'
+      tags:
+      - Shifts
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DefaultShiftRequestDefaultShiftRequestData'
+  /management/v2/shifts:delete:
+    post:
+      summary: Delete shift
+      operationId: ScheduleShiftV2Controller_deleteWithParams
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScheduleShiftDeleteShiftResponse'
+      tags:
+      - Shifts
+      description: Delete shift.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ScheduleShiftDeleteShiftRequestDeleteData'
+  /management/v2/shifts:getRosters:
+    post:
+      summary: manager to get rosters; replacement of v1 getRosters
+      operationId: ScheduleShiftV2Controller_getRosters
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScheduleShiftListShiftResponse'
+      tags:
+      - Shifts
+      description: manager to get rosters; replacement of v1 getRosters.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GetRostersRequestgetRostersRequestData'
+  /management/v2/shifts:link:
+    post:
+      summary: Link shifts
+      description: Links two shifts together. This is a synchronous API that returns the linked shift immediately upon completion. The newShift must include required fields such as start/end times, employee assignment, and area. Optional override settings can be provided to bypass normal validation rules.
+      operationId: ScheduleShiftV2Controller_link
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScheduleShiftLinkShiftResponse'
+      tags:
+      - Shifts
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/modelLinkShiftRequestData'
+  /management/v2/shifts:open:
+    post:
+      operationId: ScheduleShiftV2Controller_getOpenShifts
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScheduleShiftGetOpenShiftsResponse'
+      tags:
+      - Shifts
+      summary: Get open shifts
+      description: Get open shifts.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ScheduleShiftGetOpenShiftsRequestData'
+  /management/v2/shifts:publish:
+    post:
+      summary: Publish shifts (asynchronous)
+      description: Publishes shifts to make them visible to employees and optionally sends notifications. This is an asynchronous API that returns immediately with an operation ID in the response metadata.operation.operationId field. Use the operation ID to poll the /operations/v2/operations/{id} endpoint to check completion status. The publish operation marks shifts as published and sends notifications based on the specified notification mode.
+      operationId: ScheduleShiftV2Controller_publish
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScheduleShiftPublishResponse'
+      tags:
+      - Shifts
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PublishRequestPublishData'
+  /management/v2/shifts:resave:
+    post:
+      summary: Resave shifts (Asynchronous)
+      description: Resaves shifts. This is a asynchronous API that returns the shifts scheduled to be resaved in the response. The operation processes resaves in the background. Currently, it doesn't return the operation status, but this should be updated.
+      operationId: ScheduleShiftV2Controller_resave
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScheduleShiftResaveResponse'
+      tags:
+      - Shifts
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ScheduleShiftResaveRequestData'
+  /management/v2/shifts:split:
+    post:
+      description: Split a shift into multiple shifts
+      operationId: ScheduleShiftV2Controller_split
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScheduleShiftSplitShiftResponse'
+      tags:
+      - Shifts
+      summary: Split
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ScheduleShiftSplitShiftRequestData'
+  /management/v2/shifts:validate:
+    post:
+      summary: Validate external shifts
+      operationId: ScheduleShiftV2Controller_validateExternalShifts
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScheduleShiftValidateExternalShiftsResponse'
+      tags:
+      - Shifts
+      description: Validate external shifts.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ValidateExternalShiftsRequestValidateExternalShiftsData'
+  /schedule/v2/me/shifts:search:
+    post:
+      summary: My schedule
+      description: Gets the schedule for the current user. The schedule includes information about the shifts for the current user such as the shifts, the bids, and the metadata.
+      operationId: ScheduleShiftV2Controller_mySchedule
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScheduleShiftListShiftResponse'
+      tags:
+      - Shifts
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ListShiftRequestListShiftRequestData'
+components:
+  schemas:
+    modelExternalBreak:
+      type: object
+      properties:
+        externalId:
+          type: string
+        type:
+          type: string
+        breakMins:
+          type: integer
+          format: int32
+        breakStartDate:
+          type: string
+        breakStartTime:
+          type: string
+        breakEndDate:
+          type: string
+        breakEndTime:
+          type: string
+      description: A break from an external source.
+    ScheduleShiftCopyStatusResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Indicates whether the status request was successful.
+        data:
+          $ref: '#/components/schemas/CopyStatusResponseCopyStatusData'
+          description: Status data for the copy operation.
+      description: Response containing the status of a copy operation. Synchronous API.
+    modelConsent:
+      type: object
+      properties:
+        id:
+          type: string
+        recordId:
+          type: string
+        recordType:
+          $ref: '#/components/schemas/ConsentConsentRecordType'
+        transactionId:
+          type: string
+        employeeId:
+          type: integer
+          format: int32
+        status:
+          $ref: '#/components/schemas/ConsentConsentStatus'
+        description:
+          type: string
+        metadata:
+          $ref: '#/components/schemas/modelShiftTypeConsentMetadata'
+        creator:
+          type: integer
+          format: int32
+        createdAt:
+          type: string
+          format: date-time
+    ScheduleShiftDeleteResponseMetadata:
+      type: object
+      properties:
+        operation:
+          $ref: '#/components/schemas/ScheduleShiftOperation'
+    ScheduleShiftOpenShiftPendingApprovalsResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/OpenShiftPendingApprovalsResponseOpenShiftPendingApprovalsData'
+        metadata:
+          $ref: '#/components/schemas/ScheduleShiftOpenShiftPendingApprovalsResponseMetadata'
+    ScheduleShiftDeclineShiftResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/DeclineShiftResponseDeclineShiftResponseData'
+    ScheduleShiftOpenShiftPendingApprovalsResponseMetadataLocation:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        name:
+          type: string
+    AutoBuildOperation:
+      type: object
+      properties:
+        operationId:
+          type: string
+          description: Unique identifier for the operation. Use this to poll /operations/v2/operations/{id} for status updates.
+      description: Operation tracking information for asynchronous APIs.
+    CreateRequestCreateData:
+      type: object
+      properties:
+        shift:
+          $ref: '#/components/schemas/modelShiftRequest'
+          description: The shift data to create. Must include required fields such as start/end times, employee and area.
+        override:
+          $ref: '#/components/schemas/modelShiftOverride'
+          description: Optional override settings that bypass normal validation rules during creation.
+    ScheduleShiftDeleteOpenInvitationsRequestData:
+      type: object
+      properties:
+        employees:
+          type: array
+          items:
+            type: integer
+            format: int32
+    tenantschedulev2modelShift:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+          title: Shift ID
+        start:
+          type: string
+          title: Shift start time, format ISO8601 eg 2012-12-18T13:45:00+01:00
+        end:
+          type: string
+          title: Shift end time, format ISO8601 eg 2012-12-18T13:45:00+01:00
+        mealbreakDuration:
+          type: number
+          format: float
+          title: Shift mealbreak stored in minutes
+        mealbreakSlots:
+          type: array
+          items:
+            $ref: '#/components/schemas/modelBreak'
+          title: Shift break slots
+        duration:
+          type: number
+          format: float
+          title: Total hours of shift works excluding mealbreak
+        cost:
+          type: number
+          format: float
+          title: Shift total cost
+        area:
+          type: integer
+          format: int32
+          title: Area Id where shift is allocated
+        employee:
+          type: integer
+          format: int32
+          title: Employee ID the shift is assigned
+        note:
+          type: string
+          title: Notes or comments regarding the shift
+        warning:
+          type: string
+          title: Warning message
+        warningOverrideComment:
+          type: string
+          title: Details once warning message is overridden
+        isPublished:
+          type: boolean
+          title: If shift is published or not
+        timesheet:
+          type: integer
+          format: int32
+          title: Timesheet ID connected to the shift
+        isOpen:
+          type: boolean
+          title: If shift is open or not
+        approvalRequired:
+          type: boolean
+          title: If approval is required or not
+        confirmationStatus:
+          $ref: '#/components/schemas/modelConfirmationStatus'
+          title: Shift confirmation status
+        confirmationNote:
+          type: string
+          title: Message displayed on confirmation
+        confirmedByWhom:
+          type: integer
+          format: int32
+          title: Employee who confirmed the shift
+        confirmedAt:
+          type: string
+          title: Shift confirmation time, format ISO8601 eg 2012-12-18T13:45:00+01:00
+        swapStatus:
+          $ref: '#/components/schemas/modelSwapStatus'
+          title: Shift swap status once shift is opened for swap
+        swapApprovedBy:
+          type: integer
+          format: int32
+          title: Shift Swap Manager ID
+        shiftTemplate:
+          type: integer
+          format: int32
+          title: Shift Template ID
+        children:
+          type: array
+          items:
+            $ref: '#/components/schemas/v2modelChildShift'
+          title: Child Shifts
+        canEdit:
+          type: boolean
+          title: Can edit this shift
+        customFields:
+          type: array
+          items:
+            $ref: '#/components/schemas/tenantsharedv2modelCustomField'
+          title: Custom Fields
+        customFieldData:
+          type: integer
+          format: int32
+          title: Custom Field Data ID
+        creator:
+          type: integer
+          format: int32
+          title: Employee ID who created shift
+        createdAt:
+          type: string
+          title: When the shift was created, format ISO8601 eg 2012-12-18T13:45:00+01:00
+        modifiedAt:
+          type: string
+          title: When the shift was modified, format ISO8601 eg 2012-12-18T13:45:00+01:00
+        consentChangesets:
+          type: array
+          items:
+            $ref: '#/components/schemas/modelShiftConsentChangeset'
+          title: Consent changeset data
+        areaName:
+          type: string
+          title: Area name
+        location:
+          type: integer
+          format: int32
+          title: Location Id
+        locationName:
+          type: string
+          title: Location name
+      title: Shift
+    ShiftConsentChangesetShiftConsentChangesetData:
+      type: object
+      properties:
+        start:
+          type: string
+        end:
+          type: string
+        approvalRequired:
+          type: boolean
+        cost:
+          type: number
+          format: float
+        date:
+          type: string
+        employee:
+          type: integer
+          format: int32
+        mealbreakSlotsUnpaidMinutes:
+          type: number
+          format: float
+        mealbreakSlots:
+          type: array
+          items:
+            $ref: '#/components/schemas/modelBreak'
+        isOpen:
+          type: boolean
+        area:
+          type: integer
+          format: int32
+        duration:
+          type: number
+          format: float
+        location:
+          type: integer
+          format: int32
+    SuggestionResponseErrorMessage:
+      type: object
+      properties:
+        employeeId:
+          type: integer
+          format: int32
+        messages:
+          type: array
+          items:
+            type: string
+    modelFileField:
+      type: object
+      properties:
+        value:
+          type: integer
+          format: int32
+    ScheduleShiftOpenShiftPendingApprovalsResponseMetadata:
+      type: object
+      properties:
+        nextCursor:
+          type: string
+        areas:
+          type: array
+          items:
+            $ref: '#/components/schemas/ScheduleShiftOpenShiftPendingApprovalsResponseMetadataArea'
+        locations:
+          type: array
+          items:
+            $ref: '#/components/schemas/ScheduleShiftOpenShiftPendingApprovalsResponseMetadataLocation'
+        employeeProfiles:
+          type: array
+          items:
+            $ref: '#/components/schemas/ScheduleShiftOpenShiftPendingApprovalsResponseMetadataEmployeeProfile'
+        totalCount:
+          type: string
+        customFields:
+          type: array
+          items:
+            $ref: '#/components/schemas/metadataMetadataCustomField'
+          description: List of custom field definitions (populated when expandMetadata is true).
+    ShiftConsentChangesetShiftConsentStatus:
+      type: string
+      enum:
+      - PENDING
+      - ACTIONED
+      - AUTO_ACTIONED
+      default: PENDING
+    modelCompliance:
+      type: object
+      properties:
+        reason:
+          type: string
+        type:
+          $ref: '#/components/schemas/modelComplianceType'
+    ScheduleShiftAggregatedListResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/modelAggregatedListData'
+        metadata:
+          $ref: '#/components/schemas/ScheduleShiftAggregatedListResponseMetadata'
+          description: Additional metadata (populated when expandMetadata is true).
+    GetBidsStatusCountsResponseStatusCount:
+      type: object
+      properties:
+        status:
+          $ref: '#/components/schemas/GetBidsStatusCountsResponseBidStatus'
+        count:
+          type: integer
+          format: int32
+    modelChildShiftCreateRequest:
+      type: object
+      properties:
+        start:
+          type: string
+          title: Shift start time, format ISO8601 eg 2012-12-18T13:45:00+01:00
+        end:
+          type: string
+          title: Shift end time, format ISO8601 eg 2012-12-18T13:45:00+01:00
+        area:
+          type: integer
+          format: int32
+          title: Area Id where shift is allocated
+      title: Child Shift Create Request
+    ScheduleShiftAutofillRequestData:
+      type: object
+      properties:
+        shiftIds:
+          type: array
+          items:
+            type: integer
+            format: int32
+          title: Array of shift IDs to auto-fill
+        employeeIds:
+          type: array
+          items:
+            type: integer
+            format: int32
+          title: Array of employee IDs to constrain to
+    GetRostersRequestOpen:
+      type: string
+      enum:
+      - NOT_SPECIFIED
+      - 'TRUE'
+      - ALL
+      default: NOT_SPECIFIED
+      title: "- NOT_SPECIFIED: Not specified, defaults to ALL\n - TRUE: Open shifts only\n - ALL: Both open and non-open shifts"
+    modelSuggestionResponseEmployee:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        displayName:
+          type: string
+    ScheduleShiftOpenShiftPendingApprovalsResponseMetadataEmployeeProfile:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        name:
+          type: string
+        displayName:
+          type: string
+        photoUrl:
+          type: string
+        userId:
+          type: integer
+          format: int32
+    modelConfirmationStatus:
+      type: string
+      enum:
+      - ROSTER_CONFIRMATION_NOT_REQUIRED
+      - ROSTER_CONFIRMATION_REQUIRED
+      - ROSTER_CONFIRMATION_DONE
+      - ROSTER_CONFIRMATION_DECLINED
+      default: ROSTER_CONFIRMATION_NOT_REQUIRED
+    DefaultShiftRequestDefaultShiftRequestData:
+      type: object
+      properties:
+        date:
+          type: string
+          title: format YYYY-MM-DD
+        start:
+          type: string
+          title: optional, format YYYY-MM-DDTHH:MM:SSZ, overrides date
+        end:
+          type: string
+          title: optional, format YYYY-MM-DDTHH:MM:SSZ
+        area:
+          type: integer
+          format: int32
+    modelPublished:
+      type: string
+      enum:
+      - NOT_SPECIFIED
+      - 'TRUE'
+      - ALL
+      - 'FALSE'
+      default: NOT_SPECIFIED
+      title: "- NOT_SPECIFIED: Not specified\n - TRUE: Published\n - ALL: Both published and unpublished\n - FALSE: Unpublished only"
+    metadataMetadataCustomField:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        name:
+          type: string
+        employeeVisible:
+          type: boolean
+        areas:
+          type: array
+          items:
+            type: integer
+            format: int32
+    modelShiftCostForecast:
+      type: object
+      properties:
+        value:
+          type: string
+        cost:
+          type: string
+        payRule:
+          $ref: '#/components/schemas/tenantschedulev2modelPayRule'
+    modelShiftConsentChangeset:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        shiftId:
+          type: integer
+          format: int32
+        consentTransactionId:
+          type: string
+        action:
+          $ref: '#/components/schemas/ShiftConsentChangesetShiftConsentAction'
+        status:
+          $ref: '#/components/schemas/ShiftConsentChangesetShiftConsentStatus'
+        newData:
+          $ref: '#/components/schemas/ShiftConsentChangesetShiftConsentChangesetData'
+        oldData:
+          $ref: '#/components/schemas/ShiftConsentChangesetShiftConsentChangesetData'
+        violatedRules:
+          type: array
+          items:
+            $ref: '#/components/schemas/modelViolatedRules'
+        creator:
+          type: integer
+          format: int32
+        createdAt:
+          type: string
+        modifiedAt:
+          type: string
+        consents:
+          type: array
+          items:
+            $ref: '#/components/schemas/modelConsent'
+    UpdateRequestUpdateData:
+      type: object
+      properties:
+        shift:
+          $ref: '#/components/schemas/tenantschedulev2modelShift'
+        override:
+          $ref: '#/components/schemas/modelShiftOverride'
+    ScheduleShiftBulkUpsertResponseMetadata:
+      type: object
+      properties:
+        operation:
+          $ref: '#/components/schemas/ScheduleShiftOperation'
+          description: Operation object containing the operation ID and locks. Use the operation.id to poll for completion status.
+    ScheduleShiftResaveResponseData:
+      type: object
+      properties:
+        shifts:
+          type: array
+          items:
+            $ref: '#/components/schemas/ScheduleShiftResaveResponseShift'
+    AutoBuildAutobuildRequestData:
+      type: object
+      properties:
+        startDate:
+          type: string
+          title: 'Start date of the period to auto-build shifts for. Format: YYYY-MM-DD'
+        endDate:
+          type: string
+          title: 'End date of the period to auto-build shifts for. Format: YYYY-MM-DD'
+        areaIds:
+          type: array
+          items:
+            type: integer
+            format: int32
+          title: Array of area IDs to auto-build shifts for
+        weeksOfHistory:
+          type: integer
+          format: int32
+          title: Number of weeks of historical shift data to analyse for patterns
+    CopyStatusResponseCopyStatusData:
+      type: object
+      properties:
+        state:
+          $ref: '#/components/schemas/CopyStatusResponseCopyState'
+          description: Current state of the copy operation.
+        succeed:
+          type: array
+          items:
+            type: integer
+            format: int32
+          description: List of shift IDs that were successfully copied.
+        failed:
+          type: array
+          items:
+            type: integer
+            format: int32
+          description: List of shift IDs that failed to copy.
+    ScheduleShiftBulkPatchRequest:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/BulkPatchRequestPatchData'
+        patchMask:
+          type: array
+          items:
+            type: string
+          description: Array of field names to update. Only fields listed here will be modified (e.g., ["employee", "isOpen"]).
+      description: Request to patch (partially update) multiple shifts in bulk. Asynchronous API.
+    modelHistoryData:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+          title: shift id
+        creatorName:
+          type: string
+          title: shift creator name
+        created:
+          type: string
+          title: 'human readable shift created date time string
+
+            TODO: change to Datetime format when refactor getRosterHistory'
+        history:
+          type: array
+          items:
+            $ref: '#/components/schemas/HistoryDataHistory'
+        createdDateTime:
+          type: string
+          title: ISO date format of created
+        creatorPhoto:
+          type: string
+          title: the creator's photo
+    GetResponseShiftMetadata:
+      type: object
+      properties:
+        locations:
+          type: array
+          items:
+            $ref: '#/components/schemas/GetResponseShiftMetadataLocation'
+          description: List of locations referenced in the shift.
+        areas:
+          type: array
+          items:
+            $ref: '#/components/schemas/GetResponseShiftMetadataArea'
+          description: List of areas referenced in the shift.
+        employeeProfiles:
+          type: array
+          items:
+            $ref: '#/components/schemas/GetResponseShiftMetadataEmployeeProfile'
+          description: List of employee profiles referenced in the shift.
+        customFields:
+          type: array
+          items:
+            $ref: '#/components/schemas/metadataMetadataCustomField'
+          title: list of custom fields definitions referenced in the shift
+      description: Additional metadata that provides context about related entities.
+    ScheduleShiftDeleteShiftRequestDeleteData:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+          description: The ID of the shift to delete.
+        override:
+          $ref: '#/components/schemas/ScheduleShiftDeleteShiftRequestDeleteDataOverride'
+    ListShiftResponseListShiftData:
+      type: object
+      properties:
+        shifts:
+          type: array
+          items:
+            $ref: '#/components/schemas/tenantschedulev2modelShift'
+    BulkPatchRequestPatchData:
+      type: object
+      properties:
+        shiftIds:
+          type: array
+          items:
+            type: integer
+            format: int32
+          description: Array of shift IDs to update.
+        employee:
+          type: integer
+          format: int32
+          description: New employee ID to assign to the shifts (only applied if "employee" is in patchMask).
+        isOpen:
+          type: boolean
+          description: New open shift status (only applied if "isOpen" is in patchMask).
+    ScheduleShiftSplitShiftResponseMetadata:
+      type: object
+      properties:
+        operation:
+          $ref: '#/components/schemas/ScheduleShiftOperation'
+          description: Operation tracking information for background cost recalculation.
+    ScheduleShiftLinkShiftResponseMetadata:
+      type: object
+      properties:
+        operation:
+          $ref: '#/components/schemas/ScheduleShiftOperation'
+          description: Operation tracking information for background cost recalculation.
+    ScheduleShiftOpenShiftPendingApprovalsResponseMetadataArea:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        name:
+          type: string
+        locationId:
+          type: integer
+          format: int32
+    ScheduleShiftResaveResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          $ref: '#/components/schemas/ScheduleShiftResaveResponseData'
+    ValidateExternalShiftsRequestValidateExternalShiftsData:
+      type: object
+      properties:
+        shifts:
+          type: array
+          items:
+            $ref: '#/components/schemas/modelExternalShift'
+    ScheduleShiftNewShifts:
+      type: object
+      properties:
+        index:
+          type: integer
+          format: int32
+        shift:
+          $ref: '#/components/schemas/modelShiftRequest'
+    OperationLock:
+      type: object
+      properties:
+        kind:
+          type: string
+        ids:
+          type: object
+          additionalProperties:
+            type: boolean
+    modelComplianceType:
+      type: string
+      enum:
+      - ALL
+      default: ALL
+    GetOpenInvitationsResponseOpenInvitationsData:
+      type: object
+      properties:
+        employee:
+          $ref: '#/components/schemas/ScheduleShiftGetOpenInvitationsResponseEmployee'
+        offerCreator:
+          $ref: '#/components/schemas/ScheduleShiftGetOpenInvitationsResponseEmployee'
+        message:
+          type: string
+        status:
+          $ref: '#/components/schemas/open_shiftOpenShiftStatus'
+        cost:
+          type: number
+          format: float
+        hoursThisWeek:
+          type: number
+          format: float
+        isOutsideShiftLocation:
+          type: boolean
+          title: True if the employee's primary location is NOT the shift's location
+    modelMultiListField:
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            type: string
+    HistoryDataHistory:
+      type: object
+      properties:
+        creatorName:
+          type: string
+          title: who made the change
+        dtChanged:
+          type: string
+          title: human readable change date time
+        entries:
+          type: array
+          items:
+            $ref: '#/components/schemas/HistoryEntry'
+          title: list of change history entries
+        updatedDateTime:
+          type: string
+          title: ISO date format of dtChanged
+        creatorPhoto:
+          type: string
+          title: the photo of made the change
+    modelShiftLogData:
+      type: object
+      properties:
+        groups:
+          type: array
+          items:
+            $ref: '#/components/schemas/ShiftLogDataShiftLogGroup'
+    modelShiftTypeConsentMetadata:
+      type: object
+      properties:
+        comment:
+          type: string
+        extras:
+          type: object
+          additionalProperties:
+            type: string
+    ValidateExternalShiftsResponseValidationErrorDetails:
+      type: object
+      properties:
+        externalId:
+          type: string
+        field:
+          $ref: '#/components/schemas/ValidateExternalShiftsResponseValidationField'
+        messages:
+          type: array
+          items:
+            type: string
+        canOverride:
+          type: boolean
+    ScheduleShiftBulkUpsertResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Indicates whether the bulk upsert request was accepted.
+        metadata:
+          $ref: '#/components/schemas/ScheduleShiftBulkUpsertResponseMetadata'
+          description: Metadata containing the operation tracking information.
+      description: Response after initiating bulk upsert operation. Asynchronous API - returns immediately with operation ID.
+    ScheduleShiftCreateResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Indicates whether the creation was successful.
+        data:
+          $ref: '#/components/schemas/tenantschedulev2modelShift'
+          description: The created shift with all populated fields including the generated ID.
+        metadata:
+          $ref: '#/components/schemas/ScheduleShiftCreateResponseMetadata'
+          description: Optional metadata containing operation tracking information for asynchronous background jobs.
+      description: 'Response after creating a shift. Synchronous API - shift creation completes immediately.
+
+        Cost recalculation for affected shifts runs asynchronously in the background.
+
+        If cost recalculation is triggered, metadata.operation contains the operation ID for polling status.'
+    BulkUpdateFields:
+      type: object
+      properties:
+        employee:
+          type: integer
+          format: int32
+        start:
+          type: string
+        end:
+          type: string
+        mealBreak:
+          type: integer
+          format: int32
+        restBreak:
+          type: integer
+          format: int32
+        area:
+          type: integer
+          format: int32
+        comment:
+          type: string
+        publish:
+          type: boolean
+        open:
+          type: boolean
+        approvalRequired:
+          type: boolean
+      title: list of updatable fields and their values
+    ScheduleShiftDefaultShiftResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          $ref: '#/components/schemas/modelShiftRequest'
+    ScheduleShiftLogResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          $ref: '#/components/schemas/modelShiftLogData'
+    ScheduleShiftDeleteShiftRequestDeleteDataOverride:
+      type: object
+      properties:
+        compliance:
+          $ref: '#/components/schemas/modelCompliance'
+          description: Compliance override settings that bypass normal validation rules.
+      description: Optional override settings for compliance validation during deletion.
+    ScheduleShiftBulkUpdateResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Indicates whether the bulk update request was accepted.
+        metadata:
+          $ref: '#/components/schemas/ScheduleShiftBulkUpdateResponseMetadata'
+          description: Metadata containing the operation tracking information.
+      description: Response after initiating bulk update operation. Asynchronous API - returns immediately with operation ID.
+    ScheduleShiftBulkDeleteResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Indicates whether the bulk delete request was accepted.
+        metadata:
+          $ref: '#/components/schemas/ScheduleShiftBulkDeleteResponseMetadata'
+          description: Metadata containing the operation tracking information.
+      description: Response after initiating bulk deletion. Asynchronous API - returns immediately with operation ID.
+    AutoBuildAutobuildResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        metadata:
+          $ref: '#/components/schemas/AutoBuildAutobuildResponseMetadata'
+    modelShiftRequest:
+      type: object
+      properties:
+        start:
+          type: string
+          title: Shift start time, format ISO8601 eg 2012-12-18T13:45:00+01:00
+        end:
+          type: string
+          title: Shift end time, format ISO8601 eg 2012-12-18T13:45:00+01:00
+        mealbreakSlots:
+          type: array
+          items:
+            $ref: '#/components/schemas/modelBreak'
+          title: Shift break slots
+        area:
+          type: integer
+          format: int32
+          title: Area Id where shift is allocated
+        employee:
+          type: integer
+          format: int32
+          title: Employee ID the shift is assigned
+        note:
+          type: string
+          title: Notes or comments regarding the shift
+        isPublished:
+          type: boolean
+          title: If shift is published or not
+        isOpen:
+          type: boolean
+          title: If shift is open or not
+        approvalRequired:
+          type: boolean
+          title: If approval is required or not
+        confirmationStatus:
+          $ref: '#/components/schemas/modelConfirmationStatus'
+          title: Shift confirmation status
+        confirmationNote:
+          type: string
+          title: Message displayed on confirmation
+        swapStatus:
+          $ref: '#/components/schemas/modelSwapStatus'
+          title: Shift swap status once shift is opened for swap
+        shiftTemplate:
+          type: integer
+          format: int32
+          title: Shift Template ID
+        children:
+          type: array
+          items:
+            $ref: '#/components/schemas/modelChildShiftCreateRequest'
+          title: Child shifts
+        customFields:
+          type: array
+          items:
+            $ref: '#/components/schemas/tenantsharedv2modelCustomField'
+          title: Custom Fields
+      title: Shift Create Request
+    ScheduleShiftPublishResponseData:
+      type: object
+      properties:
+        validation:
+          $ref: '#/components/schemas/PublishResponseValidationResult'
+          title: Validation result - populated when validation errors exist
+    GetResponseShiftMetadataEmployeeProfile:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+          description: Employee ID.
+        displayName:
+          type: string
+          description: Employee display name.
+        photoUrl:
+          type: string
+          description: URL to the employee's profile photo.
+      description: Employee profile information included when expandMetadata is true.
+    LocationMode:
+      type: string
+      enum:
+      - ALL
+      - SELECTED
+      default: ALL
+      description: "LocationMode specifies how location filtering should be applied.\n\n - ALL: Include all locations accessible by the current user (no filtering)\n - SELECTED: Filter to only selected locations (requires locationIds to be provided)"
+    ScheduleShiftResaveRequestShift:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+    modelAggregatedListData:
+      type: object
+      properties:
+        start:
+          type: string
+          title: format ISO8601 eg 2012-12-18T13:45:00+01:00
+        end:
+          type: string
+          title: format ISO8601 eg 2012-12-18T13:45:00+01:00
+        shifts:
+          type: array
+          items:
+            $ref: '#/components/schemas/tenantschedulev2modelShift'
+        totals:
+          $ref: '#/components/schemas/modelTotals'
+          title: Shift totals
+    modelViolatedRulesWarning:
+      type: object
+      properties:
+        message:
+          type: string
+    ScheduleShiftBulkUpsertRequestUpsertItem:
+      type: object
+      properties:
+        externalIds:
+          type: array
+          items:
+            type: string
+          description: 'IDs that can be used to identify the shift request from the external system, e.g. a row number in a
+
+            CSV file. The IDs may be used to identify multiple places e.g. for child shifts taken from multiple rows.'
+        override:
+          $ref: '#/components/schemas/modelShiftOverride'
+          description: Optional override settings associated with the shift that bypass normal validation rules.
+        shift:
+          $ref: '#/components/schemas/tenantschedulev2modelShift'
+          description: The shift data to create or update. If the shift ID is null or not provided, a new shift will be created. If an ID is provided, the existing shift will be updated.
+    UpdateOpenShiftStatusRequestUpdateOpenShiftStatus:
+      type: string
+      enum:
+      - ACCEPTED
+      - DECLINED
+      default: ACCEPTED
+    OpenShiftPendingApprovalsRequestDataLocationMode:
+      type: string
+      enum:
+      - ALL
+      - SELECTED
+      default: ALL
+    ScheduleShiftBulkUpsertRequestUpsertData:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/ScheduleShiftBulkUpsertRequestUpsertItem'
+          description: Array of shifts to create or update.
+        skipCountChildren:
+          type: boolean
+          description: If true, skips counting child shifts in the operation result. Useful for performance when dealing with many shifts with children.
+    open_shiftOpenShiftStatus:
+      type: string
+      enum:
+      - AWAITING
+      - DECLINED
+      default: AWAITING
+    ScheduleShiftSuggestResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          $ref: '#/components/schemas/modelSuggestionResponse'
+    ScheduleShiftGetOpenInvitationsResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/GetOpenInvitationsResponseOpenInvitationsData'
+    GetBidsStatusCountsResponseBidStatus:
+      type: string
+      enum:
+      - PENDING
+      - DECLINED
+      - MANAGER_DECLINED
+      default: PENDING
+    modelStringField:
+      type: object
+      properties:
+        value:
+          type: string
+    modelTotals:
+      type: object
+      properties:
+        payableShiftTime:
+          $ref: '#/components/schemas/modelPayableShiftTime'
+    ScheduleShiftCreateResponseMetadata:
+      type: object
+      properties:
+        operation:
+          $ref: '#/components/schemas/ScheduleShiftOperation'
+          description: 'Operation tracking information for background cost recalculation.
+
+            One operation tracks cost recalculation for all affected employees'' shifts in the pay period.'
+    ValidateExternalShiftsResponseValidationField:
+      type: string
+      enum:
+      - NO_FIELD
+      - START_DATE
+      - START_TIME
+      - END_DATE
+      - END_TIME
+      - EMPLOYEE_EMAIL
+      - LOCATION
+      - AREA
+      - NOTE
+      - PUBLISHED_SHIFT
+      - OPEN_SHIFT
+      - MEAL_BREAK_MINS
+      - MEAL_BREAK_START_DATE
+      - MEAL_BREAK_START_TIME
+      - MEAL_BREAK_END_DATE
+      - MEAL_BREAK_END_TIME
+      - REST_BREAK_MINS
+      - REST_BREAK_START_DATE
+      - REST_BREAK_START_TIME
+      - REST_BREAK_END_DATE
+      - REST_BREAK_END_TIME
+      - BREAK_TYPE
+      - CUSTOM_FIELD
+      - GROUP_REFERENCE
+      default: NO_FIELD
+    modelShiftOverride:
+      type: object
+      properties:
+        shiftValidation:
+          type: boolean
+          title: Overrides soft validations like leave, stress & unavailability
+        publishValidation:
+          type: boolean
+        compliance:
+          $ref: '#/components/schemas/modelCompliance'
+    AutoBuildAutobuildResponseMetadata:
+      type: object
+      properties:
+        operation:
+          $ref: '#/components/schemas/AutoBuildOperation'
+    ShiftLogGroupShiftLogEventDetail:
+      type: object
+      properties:
+        field:
+          type: string
+        old:
+          type: string
+        new:
+          type: string
+    GetRostersRequestgetRostersRequestData:
+      type: object
+      properties:
+        locationMode:
+          $ref: '#/components/schemas/LocationMode'
+        locationIds:
+          type: array
+          items:
+            type: integer
+            format: int32
+          title: this is required when locationMode is SELECTED
+        start:
+          type: string
+          title: format YYYY-MM-DD
+        end:
+          type: string
+          title: format YYYY-MM-DD
+        open:
+          $ref: '#/components/schemas/GetRostersRequestOpen'
+          title: Filters open/empty shifts
+        published:
+          $ref: '#/components/schemas/modelPublished'
+          title: Filters shifts for published status
+        includeEmployeePhoto:
+          type: boolean
+          title: Include employee photo URL in response metadata
+        expandMetadata:
+          type: boolean
+    modelViolatedRulesRuleConfig:
+      type: object
+      properties:
+        field:
+          type: string
+          title: What field of roster is triggering the consent
+        operation:
+          $ref: '#/components/schemas/modelViolatedRulesOperation'
+          title: What operation is used for the consent checking
+        value:
+          type: string
+          title: The value of what is compared
+        gap:
+          type: integer
+          format: int32
+          title: How many days different between the shifts
+        space:
+          type: integer
+          format: int32
+          title: The duration from the next or previous shift to the current shift in seconds
+    ScheduleShiftListResponseMetadata:
+      type: object
+      properties:
+        customFields:
+          type: array
+          items:
+            $ref: '#/components/schemas/metadataMetadataCustomField'
+      title: Metadata containing custom field definitions and other supplementary data
+    ScheduleShiftPublishResponseValidationError:
+      type: object
+      properties:
+        reason:
+          type: string
+          title: Reason for the validation error
+        employeeId:
+          type: integer
+          format: int32
+          title: Employee ID associated with the error
+        employeeName:
+          type: string
+          title: Employee display name
+      title: Validation error for a specific employee
+    GetResponseShiftMetadataArea:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+          description: Area ID.
+        name:
+          type: string
+          description: Area name.
+        locationId:
+          type: integer
+          format: int32
+          description: ID of the location.
+      description: Area information included when expandMetadata is true.
+    ScheduleShiftDeclineShiftRequestData:
+      type: object
+      properties:
+        employee:
+          type: integer
+          format: int32
+        status:
+          $ref: '#/components/schemas/modelDeclineStatus'
+        shifts:
+          type: array
+          items:
+            type: integer
+            format: int32
+    OpenShiftPendingApprovalsResponseOpenShiftPendingApprovalsData:
+      type: object
+      properties:
+        shift:
+          $ref: '#/components/schemas/tenantschedulev2modelShift'
+        bids:
+          type: array
+          items:
+            $ref: '#/components/schemas/OpenShiftPendingApprovalsDataBid'
+    shift_bidShiftBidStatus:
+      type: string
+      enum:
+      - PENDING
+      - WITHDRAWN
+      - DECLINED
+      - MANAGER_DECLINED
+      default: PENDING
+    ScheduleShiftGetResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Indicates whether the request was successful.
+        data:
+          $ref: '#/components/schemas/tenantschedulev2modelShift'
+          description: The shift data.
+        metadata:
+          $ref: '#/components/schemas/GetResponseShiftMetadata'
+          description: Additional metadata (only populated if expandMetadata was true in the request).
+      description: Response containing shift data and optional metadata. Synchronous API.
+    ScheduleShiftValidateExternalShiftsResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        shifts:
+          type: array
+          items:
+            $ref: '#/components/schemas/ValidateExternalShiftsResponseValidatedShift'
+    ScheduleShiftAggregatedListResponseMetadata:
+      type: object
+      properties:
+        customFields:
+          type: array
+          items:
+            $ref: '#/components/schemas/metadataMetadataCustomField'
+          description: List of custom field definitions for employees.
+    ScheduleShiftLinkShiftResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          $ref: '#/components/schemas/tenantschedulev2modelShift'
+        metadata:
+          $ref: '#/components/schemas/ScheduleShiftLinkShiftResponseMetadata'
+          description: Optional metadata containing operation tracking information for asynchronous background jobs.
+    PublishResponseValidationResult:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ScheduleShiftPublishResponseValidationError'
+          title: List of validation errors found
+        isHardBlock:
+          type: boolean
+          title: If true, publish cannot proceed even with force=true (hard block from DeXML scripts)
+      title: Result of publish validation checks
+    ConsentConsentStatus:
+      type: string
+      enum:
+      - PENDING
+      - ACCEPTED
+      - DECLINED
+      - CANCELLED
+      - OVERRIDDEN_ACCEPTED
+      default: PENDING
+    ScheduleShiftResaveResponseShift:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+    ScheduleShiftDeleteOpenInvitationsResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+    GetOpenStatusCountsResponseOpenStatusCountData:
+      type: object
+      properties:
+        status:
+          $ref: '#/components/schemas/open_shiftOpenShiftStatus'
+        count:
+          type: integer
+          format: int32
+    ConsentConsentRecordType:
+      type: string
+      enum:
+      - SHIFT
+      - TIMESHEET
+      - REGULAR_SCHEDULE
+      default: SHIFT
+    ScheduleShiftUpdateResponseMetadata:
+      type: object
+      properties:
+        operation:
+          $ref: '#/components/schemas/ScheduleShiftOperation'
+          description: 'Operation tracking information for background cost recalculation.
+
+            One operation tracks cost recalculation for all affected employees'' shifts in the pay period.'
+    modelBreakState:
+      type: string
+      enum:
+      - NOT_START
+      - IN_PROGRESS
+      - FINISHED
+      - DURATION_ONLY
+      - DURATION_FINISHED
+      default: NOT_START
+      title: Break States
+    ScheduleShiftBulkPatchResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Indicates whether the bulk patch request was accepted.
+        metadata:
+          $ref: '#/components/schemas/ScheduleShiftBulkPatchResponseMetadata'
+          description: Metadata containing the operation tracking information.
+      description: Response after initiating bulk patch operation. Asynchronous API - returns immediately with operation ID.
+    modelDeclineStatus:
+      type: string
+      enum:
+      - DECLINED
+      - MANAGER_DECLINED
+      default: DECLINED
+    ScheduleShiftShiftPermissionResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          $ref: '#/components/schemas/ScheduleShiftShiftPermissionResponseData'
+    ScheduleShiftUpdateOpenShiftStatusRequestData:
+      type: object
+      properties:
+        status:
+          $ref: '#/components/schemas/UpdateOpenShiftStatusRequestUpdateOpenShiftStatus'
+    tenantschedulev2modelPayRule:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        payTitle:
+          type: string
+        isOvertime:
+          type: boolean
+    tenantsharedv2modelBreakType:
+      type: string
+      enum:
+      - MEAL_BREAK
+      - REST_BREAK
+      default: MEAL_BREAK
+      title: Break Type
+    modelExternalShift:
+      type: object
+      properties:
+        externalId:
+          type: string
+        startDate:
+          type: string
+        startTime:
+          type: string
+        endDate:
+          type: string
+        endTime:
+          type: string
+        employeeEmail:
+          type: string
+        location:
+          type: string
+        area:
+          type: string
+        note:
+          type: string
+        published:
+          type: boolean
+        open:
+          type: boolean
+        overrideWarning:
+          type: boolean
+        breaks:
+          type: array
+          items:
+            $ref: '#/components/schemas/modelExternalBreak'
+        children:
+          type: array
+          items:
+            $ref: '#/components/schemas/modelExternalShift'
+          description: Note that some child shift fields may be ignored.
+        customFields:
+          type: array
+          items:
+            $ref: '#/components/schemas/tenantsharedv2modelCustomField'
+        approvalRequired:
+          type: boolean
+      description: A shift from an external source, e.g. a spreadsheet.
+    GetResponseShiftMetadataLocation:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+          description: Location ID.
+        name:
+          type: string
+          description: Location name.
+      description: Location information included when expandMetadata is true.
+    tenantsharedv2modelCustomField:
+      type: object
+      properties:
+        id:
+          type: string
+          format: int64
+        booleanField:
+          $ref: '#/components/schemas/modelBooleanField'
+        stringField:
+          $ref: '#/components/schemas/modelStringField'
+        listField:
+          $ref: '#/components/schemas/modelListField'
+        multiListField:
+          $ref: '#/components/schemas/modelMultiListField'
+        fileField:
+          $ref: '#/components/schemas/modelFileField'
+          title: file id
+        employeeVisible:
+          type: boolean
+    ScheduleShiftBulkUpdateRequestData:
+      type: object
+      properties:
+        fields:
+          $ref: '#/components/schemas/BulkUpdateFields'
+          description: Field values to apply to all shifts in the update.
+        shifts:
+          type: array
+          items:
+            $ref: '#/components/schemas/modelBulkUpdateShift'
+          description: Array of shift IDs to update.
+    v2modelShiftBid:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        employee:
+          type: integer
+          format: int32
+          title: Employee ID who bid on the shift
+        cost:
+          type: number
+          format: float
+        shift:
+          type: integer
+          format: int32
+          title: Shift ID
+        status:
+          $ref: '#/components/schemas/shift_bidShiftBidStatus'
+        creator:
+          type: integer
+          format: int32
+          title: Employee ID who created the bid
+        createdAt:
+          type: string
+          title: Bid time, format ISO8601 eg 2012-12-18T13:45:00+01:00
+        modifiedAt:
+          type: string
+          title: When the bid was modified, format ISO8601 eg 2012-12-18T13:45:00+01:00
+    ScheduleShiftGetOpenStatusCountsResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/GetOpenStatusCountsResponseOpenStatusCountData'
+    ScheduleShiftGetBidsStatusCountsResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/GetBidsStatusCountsResponseStatusCount'
+    OpenShiftPendingApprovalsDataBid:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        employee:
+          type: integer
+          format: int32
+        cost:
+          type: number
+          format: float
+        status:
+          $ref: '#/components/schemas/shift_bidShiftBidStatus'
+        createdAt:
+          type: string
+        modifiedAt:
+          type: string
+    ScheduleShiftHistoryResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          $ref: '#/components/schemas/modelHistoryData'
+    ScheduleShiftGetOpenShiftsRequestData:
+      type: object
+      properties:
+        start:
+          type: string
+          title: format ISO8601 eg 2012-12-18T13:45:00+01:00
+        end:
+          type: string
+          title: format ISO8601 eg 2012-12-18T13:45:00+01:00
+        employee:
+          type: string
+          format: int64
+          title: employee id
+        limit:
+          type: integer
+          format: int32
+          title: number of open shifts requested
+        cursor:
+          type: string
+          title: encoded cursor to fetch next set of open shifts
+        expandMetadata:
+          type: boolean
+          description: If true, includes additional metadata such as custom field definitions.
+    GetOpenShiftsResponseOpenShift:
+      type: object
+      properties:
+        shift:
+          $ref: '#/components/schemas/tenantschedulev2modelShift'
+        requestedEmployees:
+          type: array
+          items:
+            type: integer
+            format: int32
+        offeredBy:
+          $ref: '#/components/schemas/ScheduleShiftGetOpenShiftsResponseEmployee'
+    v2modelChildShift:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+          title: Shift ID
+        start:
+          type: string
+          title: Shift start time, format ISO8601 eg 2012-12-18T13:45:00+01:00
+        end:
+          type: string
+          title: Shift end time, format ISO8601 eg 2012-12-18T13:45:00+01:00
+        cost:
+          type: number
+          format: float
+          title: Shift total cost
+        area:
+          type: integer
+          format: int32
+          title: Area Id where shift is allocated
+        canEdit:
+          type: boolean
+          title: Can edit this shift
+        parentId:
+          type: integer
+          format: int32
+          title: Shift parent id
+        isOpen:
+          type: boolean
+          title: If shift is open or not
+        approvalRequired:
+          type: boolean
+          title: If approval is required or not
+        isPublished:
+          type: boolean
+          title: If shift is published or not
+        confirmationStatus:
+          $ref: '#/components/schemas/modelConfirmationStatus'
+          title: Child shift confirmation status
+        confirmedByWhom:
+          type: integer
+          format: int32
+          title: Employee who confirmed the child shift
+        confirmedAt:
+          type: string
+          title: Shift confirmation time, format ISO8601 eg 2012-12-18T13:45:00+01:00
+        creator:
+          type: integer
+          format: int32
+          title: Employee ID who created shift
+        createdAt:
+          type: string
+          title: When the shift was created, format ISO8601 eg 2012-12-18T13:45:00+01:00
+        modifiedAt:
+          type: string
+          title: When the shift was modified, format ISO8601 eg 2012-12-18T13:45:00+01:00
+        warning:
+          type: string
+        warningOverrideComment:
+          type: string
+        areaName:
+          type: string
+          title: Area name
+        location:
+          type: integer
+          format: int32
+          title: Location Id
+        locationName:
+          type: string
+          title: Location name
+      title: Child Shift
+    GetOpenShiftsResponseOpenShifts:
+      type: object
+      properties:
+        openShifts:
+          type: array
+          items:
+            $ref: '#/components/schemas/GetOpenShiftsResponseOpenShift'
+        nextCursor:
+          type: string
+          title: encoded cursor to fetch next set of open shifts
+    ScheduleShiftListResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Indicates whether the request was successful.
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/tenantschedulev2modelShift'
+          description: List of shifts matching the filter criteria.
+        nextCursor:
+          type: string
+          description: Cursor to fetch the next page of results. Present only if more results are available.
+        metadata:
+          $ref: '#/components/schemas/ScheduleShiftListResponseMetadata'
+          description: Additional metadata (populated when expandMetadata header is true).
+      description: Response containing a list of shifts. Synchronous API.
+    ShiftConsentChangesetShiftConsentAction:
+      type: string
+      enum:
+      - CREATE
+      - MODIFY
+      - DELETE
+      default: CREATE
+    ShiftLogDataShiftLogGroup:
+      type: object
+      properties:
+        date:
+          type: string
+        timezone:
+          type: string
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/ShiftLogGroupShiftLogEvent'
+    PublishRequestPublishData:
+      type: object
+      properties:
+        shiftIds:
+          type: array
+          items:
+            type: integer
+            format: int32
+          title: Array of shift IDs to publish
+        notificationMode:
+          $ref: '#/components/schemas/modelPublishNotificationMode'
+          title: Notification mode for employees (defaults to SMS_EMAIL_PUSH if not specified)
+        isAllLocationsMode:
+          type: boolean
+          title: When true, publishes across all managed locations
+        force:
+          type: boolean
+          title: Forces publication even if shifts are already published (defaults to true)
+        start:
+          type: string
+          title: 'Required start date for the publish period. Format: YYYY-MM-DD (e.g., "2023-03-11")'
+        end:
+          type: string
+          title: 'Required end date for the publish period. Format: YYYY-MM-DD (e.g., "2023-03-18")'
+    ScheduleShiftCopyResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Indicates whether the copy request was accepted.
+        data:
+          $ref: '#/components/schemas/CopyResponseCopyResponseData'
+          description: Data containing the job tracking information.
+        metadata:
+          $ref: '#/components/schemas/ScheduleShiftCopyResponseMetadata'
+          description: Metadata containing operation details for the new operations-based flow.
+      description: Response after initiating copy operation. Asynchronous API - returns immediately with job ID.
+    ScheduleShiftCostResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          type: object
+          additionalProperties:
+            type: number
+            format: float
+        details:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/modelShiftCostDetails'
+    ScheduleShiftAutofillResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        metadata:
+          $ref: '#/components/schemas/ScheduleShiftAutofillResponseMetadata'
+    ScheduleShiftGetOpenShiftsResponseEmployee:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        displayName:
+          type: string
+        photoUrl:
+          type: string
+        message:
+          type: string
+    ScheduleShiftValidateExternalShiftsResponseValidationError:
+      type: object
+      properties:
+        type:
+          $ref: '#/components/schemas/ValidateExternalShiftsResponseValidationErrorType'
+        details:
+          type: array
+          items:
+            $ref: '#/components/schemas/ValidateExternalShiftsResponseValidationErrorDetails'
+    CopyResponseCopyResponseData:
+      type: object
+      properties:
+        jobId:
+          type: string
+          description: Job ID for tracking the copy operation. Use this to poll /management/v2/shifts/copy/job/{jobId} for status updates.
+    modelSwapStatus:
+      type: string
+      enum:
+      - SWAP_STATUS_NOT_REQUIRED
+      - SWAP_STATUS_PENDING_OUT
+      - SWAP_STATUS_PENDING_IN
+      - SWAP_STATUS_PENDING_IN_OUT
+      - SWAP_STATUS_PENDING_APPROVAL
+      - SWAP_STATUS_APPROVED
+      - SWAP_STATUS_CANCELLED
+      - SWAP_STATUS_DECLINED
+      default: SWAP_STATUS_NOT_REQUIRED
+    ScheduleShiftUpdateOpenShiftStatusResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          $ref: '#/components/schemas/tenantschedulev2modelShift'
+    ValidateExternalShiftsResponseValidatedShift:
+      type: object
+      properties:
+        externalIds:
+          type: array
+          items:
+            type: string
+        success:
+          type: boolean
+        shift:
+          $ref: '#/components/schemas/tenantschedulev2modelShift'
+          description: Only populated if the shift is valid.
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ScheduleShiftValidateExternalShiftsResponseValidationError'
+    ScheduleShiftAutofillResponseMetadata:
+      type: object
+      properties:
+        operation:
+          $ref: '#/components/schemas/ScheduleShiftOperation'
+    modelViewType:
+      type: string
+      enum:
+      - DAILY
+      - DAILY_EMP
+      - WEEKLY
+      - WEEKLY_EMPLOYEE
+      - FORTNIGHTLY
+      - FORTNIGHTLY_EMP
+      - MONTHLY_EMPLOYEE
+      - FOURWEEKLY_EMP
+      - MONTHLY
+      default: DAILY
+    ListShiftRequestListShiftRequestData:
+      type: object
+      properties:
+        locationMode:
+          $ref: '#/components/schemas/LocationMode'
+        locationIds:
+          type: array
+          items:
+            type: integer
+            format: int32
+          title: this is required when locationMode is SELECTED
+        start:
+          type: string
+          title: format YYYY-MM-DD
+        end:
+          type: string
+          title: format YYYY-MM-DD
+        expandMetadata:
+          type: boolean
+          description: If true, includes additional metadata such as custom field definitions.
+    ShiftLogGroupShiftLogEvent:
+      type: object
+      properties:
+        photoUrl:
+          type: string
+        name:
+          type: string
+        type:
+          type: string
+        updated:
+          type: string
+        details:
+          type: array
+          items:
+            $ref: '#/components/schemas/ShiftLogGroupShiftLogEventDetail'
+    ScheduleShiftUpdateResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          $ref: '#/components/schemas/tenantschedulev2modelShift'
+        metadata:
+          $ref: '#/components/schemas/ScheduleShiftUpdateResponseMetadata'
+          description: Optional metadata containing operation tracking information for asynchronous background jobs.
+      description: 'Response after updating a shift. Synchronous API - shift update completes immediately.
+
+        Cost recalculation for affected shifts runs asynchronously in the background.
+
+        If cost recalculation is triggered, metadata.operation contains the operation ID for polling status.'
+    ScheduleShiftSplitShiftResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/tenantschedulev2modelShift'
+        metadata:
+          $ref: '#/components/schemas/ScheduleShiftSplitShiftResponseMetadata'
+          description: Optional metadata containing operation tracking information for asynchronous background jobs.
+    modelViolatedRulesOperation:
+      type: string
+      enum:
+      - NOT_SPECIFIED
+      - GREATER_THAN
+      - LESS_THAN
+      - GREATER_THAN_OR_EQUAL
+      - LESS_THAN_OR_EQUAL
+      - EQUAL
+      - NOT_EQUAL
+      default: NOT_SPECIFIED
+    modelLinkShiftRequestData:
+      type: object
+      properties:
+        sourceShiftIds:
+          type: array
+          items:
+            type: integer
+            format: int32
+        override:
+          $ref: '#/components/schemas/modelShiftOverride'
+        newShift:
+          $ref: '#/components/schemas/modelShiftRequest'
+    modelSuggestionResponse:
+      type: object
+      properties:
+        approvalRequired:
+          type: boolean
+          title: open Shifts that require Manager Approval when team members apply, or bid, on the shift
+        isAllLocations:
+          type: boolean
+          title: search employees for all locations
+        nextEmployees:
+          type: array
+          items:
+            type: integer
+            format: int32
+          title: next page employee ids
+        trained:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/modelSuggestionResponseEmployee'
+          title: trained employees
+        preferred:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/modelSuggestionResponseEmployee'
+          title: preferred employees
+        onLeave:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/modelSuggestionResponseEmployee'
+          title: on leave employees
+        unavailable:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/modelSuggestionResponseEmployee'
+          title: unavailable employees
+        stressed:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/modelSuggestionResponseEmployee'
+          title: stressed employees
+        overlap:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/modelSuggestionResponseEmployee'
+          title: shift overlap employees
+        shiftSwapOverlap:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/modelSuggestionResponseEmployee'
+          title: shift swap overlap employees
+        allEmployees:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/modelSuggestionResponseEmployee'
+          title: all employees
+        otherLocations:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/modelSuggestionResponseEmployee'
+          title: other location employees
+        isRequiresTraining:
+          type: boolean
+          title: if training is required or not
+        errorStacks:
+          type: array
+          items:
+            $ref: '#/components/schemas/SuggestionResponseErrorMessage'
+          title: employee ids with error
+        notOnboarded:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/modelSuggestionResponseEmployee'
+          title: employees not onboarded
+        available:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/modelSuggestionResponseEmployee'
+          title: available employees
+    ScheduleShiftPublishResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          title: Indicates whether the publish request was accepted
+        data:
+          $ref: '#/components/schemas/ScheduleShiftPublishResponseData'
+          title: Data containing validation results
+        metadata:
+          $ref: '#/components/schemas/ScheduleShiftPublishResponseMetadata'
+          title: Metadata containing the operation tracking information
+      description: Response after initiating publish operation. Asynchronous API - returns immediately with operation ID. If validation errors exist, success=false and data.validation contains the errors.
+    ScheduleShiftPublishResponseMetadata:
+      type: object
+      properties:
+        operation:
+          $ref: '#/components/schemas/ScheduleShiftOperation'
+          description: Operation object containing the operation ID. Use the operation.id to poll for completion status.
+    ScheduleShiftBulkPatchResponseMetadata:
+      type: object
+      properties:
+        operation:
+          $ref: '#/components/schemas/ScheduleShiftOperation'
+          description: Operation object containing the operation ID and locks. Use the operation.id to poll for completion status.
+    modelBreak:
+      type: object
+      properties:
+        slotType:
+          $ref: '#/components/schemas/modelSlotType'
+          title: type of slot
+        start:
+          type: integer
+          format: int32
+          title: can start break after seconds passed after shift start
+        end:
+          type: integer
+          format: int32
+          title: can end break after seconds passed after shift start
+        state:
+          $ref: '#/components/schemas/modelBreakState'
+          title: Break state
+        canStartEarly:
+          type: boolean
+          title: '[Deprecated] can employee start break early, override shift template'
+        canEndEarly:
+          type: boolean
+          title: '[Deprecated] can employee end break early, override shift template'
+        isMandatory:
+          type: boolean
+          title: '[Deprecated] is it mandatory to take this break, override shift template'
+        type:
+          $ref: '#/components/schemas/tenantsharedv2modelBreakType'
+          title: type of break
+        typeLabel:
+          type: string
+          title: break type name in config
+        startDateTime:
+          type: string
+          title: format ISO8601 eg 2024-06-25T13:45:00+01:00
+        endDateTime:
+          type: string
+          title: format ISO8601 eg 2024-06-25T13:45:00+01:00
+    ScheduleShiftResaveRequestData:
+      type: object
+      properties:
+        shifts:
+          type: array
+          items:
+            $ref: '#/components/schemas/ScheduleShiftResaveRequestShift'
+    ScheduleShiftBulkUpdateResponseMetadata:
+      type: object
+      properties:
+        operation:
+          $ref: '#/components/schemas/ScheduleShiftOperation'
+          description: Operation object containing the operation ID and locks. Use the operation.id to poll for completion status.
+    ScheduleShiftCopyResponseMetadata:
+      type: object
+      properties:
+        operation:
+          $ref: '#/components/schemas/ScheduleShiftOperation'
+          description: 'Operation details for tracking via /operations/v2/operations/{id}.
+
+            Present when the operations-based copy flow is enabled.'
+    ScheduleShiftGetOpenInvitationsResponseEmployee:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        displayName:
+          type: string
+        photoUrl:
+          type: string
+    ValidateExternalShiftsResponseValidationErrorType:
+      type: string
+      enum:
+      - VALIDATION_ERR
+      - VALIDATION_MULTI_ERR
+      - INVALID_ARGUMENT_ERR
+      - INTERNAL_SERVER_ERR
+      default: VALIDATION_ERR
+    ScheduleShiftListShiftResponseMetadata:
+      type: object
+      properties:
+        employee:
+          type: array
+          items:
+            $ref: '#/components/schemas/ScheduleShiftListShiftResponseEmployeeProfile'
+        customFields:
+          type: array
+          items:
+            $ref: '#/components/schemas/metadataMetadataCustomField'
+    DeclineShiftResponseDeclineShiftResponseData:
+      type: object
+      properties:
+        shift:
+          $ref: '#/components/schemas/tenantschedulev2modelShift'
+        bid:
+          $ref: '#/components/schemas/v2modelShiftBid'
+    ScheduleShiftBulkDeleteResponseMetadata:
+      type: object
+      properties:
+        operation:
+          $ref: '#/components/schemas/ScheduleShiftOperation'
+          description: Operation object containing the operation ID and locks. Use the operation.id to poll for completion status.
+    CopyRequestCopyRequestData:
+      type: object
+      properties:
+        startDate:
+          type: string
+          description: 'Start date of the shifts to copy. Format: YYYY-MM-DD (e.g., "2023-03-11"). Required for pattern 1.'
+        endDate:
+          type: string
+          description: 'End date of the shifts to copy (inclusive). Format: YYYY-MM-DD (e.g., "2023-03-18"). Required for pattern 1.'
+        areas:
+          type: array
+          items:
+            type: integer
+            format: int32
+          description: Array of area IDs to filter shifts for copying. If empty, all areas are included. Used for pattern 1.
+        targetDates:
+          type: array
+          items:
+            type: string
+          description: 'Target dates to copy shifts to. Format: YYYY-MM-DD. Each date will receive copies of the source shifts.
+
+            Mutually exclusive with dayOffsets.'
+        viewType:
+          $ref: '#/components/schemas/modelViewType'
+          description: 'View type that determines which shifts are included in the copy operation.
+
+            Required when using targetDates. Not required when using dayOffsets.'
+        shiftIds:
+          type: array
+          items:
+            type: integer
+            format: int32
+          description: Array of specific shift IDs to copy. Used for pattern 2. If provided, startDate, endDate, and areas are ignored.
+        dayOffsets:
+          type: array
+          items:
+            type: integer
+            format: int32
+          description: 'Day offsets for copying shifts. Each value is the number of days to offset
+
+            from source shift dates. Mutually exclusive with targetDates.
+
+            When provided, viewType is not required.'
+    ScheduleShiftGetOpenShiftsResponseMetadata:
+      type: object
+      properties:
+        customFields:
+          type: array
+          items:
+            $ref: '#/components/schemas/metadataMetadataCustomField'
+          description: List of custom field definitions for employees.
+      description: Metadata containing custom field definitions and other supplementary data.
+    ScheduleShiftBulkDefaultShiftResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          title: true iff every item succeeded
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/ScheduleShiftBulkDefaultShiftResponseItem'
+    modelBooleanField:
+      type: object
+      properties:
+        value:
+          type: boolean
+          default: 'false'
+    modelPublishNotificationMode:
+      type: string
+      enum:
+      - PUBLISH_NOTIFICATION_NONE
+      - PUBLISH_NOTIFICATION_SMS
+      - PUBLISH_NOTIFICATION_EMAIL_PUSH
+      - PUBLISH_NOTIFICATION_SMS_EMAIL_PUSH
+      - PUBLISH_NOTIFICATION_SMS_CONFIRM
+      default: PUBLISH_NOTIFICATION_NONE
+      description: "- PUBLISH_NOTIFICATION_NONE: No notifications\n - PUBLISH_NOTIFICATION_SMS: SMS only\n - PUBLISH_NOTIFICATION_EMAIL_PUSH: Email and Push only\n - PUBLISH_NOTIFICATION_SMS_EMAIL_PUSH: SMS, Email, and Push notifications\n - PUBLISH_NOTIFICATION_SMS_CONFIRM: SMS with confirmation required"
+      title: Notification mode for publish operation
+    ScheduleShiftListShiftResponseEmployeeProfile:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        name:
+          type: string
+        displayName:
+          type: string
+        photoUrl:
+          type: string
+          title: Employee photo url (only populated if includeEmployeePhoto is true in request)
+    ScheduleShiftGetOpenShiftsResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          $ref: '#/components/schemas/GetOpenShiftsResponseOpenShifts'
+        metadata:
+          $ref: '#/components/schemas/ScheduleShiftGetOpenShiftsResponseMetadata'
+          description: Additional metadata (populated when expandMetadata is true).
+    modelPayableShiftTime:
+      type: object
+      properties:
+        seconds:
+          type: string
+          format: int64
+    ScheduleShiftShiftPermissionResponseData:
+      type: object
+      properties:
+        canOffer:
+          type: boolean
+        canSwap:
+          type: boolean
+    CopyStatusResponseCopyState:
+      type: string
+      enum:
+      - NOT_STARTED
+      - IN_PROGRESS
+      - FINISHED
+      default: NOT_STARTED
+      description: "Current state of the copy operation.\n\n - NOT_STARTED: Copy operation has not started yet.\n - IN_PROGRESS: Copy operation is currently in progress.\n - FINISHED: Copy operation has completed (either successfully or with failures)."
+    modelSlotType:
+      type: string
+      enum:
+      - BREAK
+      - WORK
+      - CUSTOM
+      default: BREAK
+      title: Type of Slot
+    ScheduleShiftListShiftResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          $ref: '#/components/schemas/ListShiftResponseListShiftData'
+        metadata:
+          $ref: '#/components/schemas/ScheduleShiftListShiftResponseMetadata'
+    ScheduleShiftOperation:
+      type: object
+      properties:
+        operationId:
+          type: string
+          description: Unique identifier for the operation. Use this to poll /operations/v2/operations/{id} for status updates.
+        locks:
+          type: array
+          items:
+            $ref: '#/components/schemas/OperationLock'
+          description: Virtual Locks held by this operation that prevent conflicting operations.
+      description: Operation tracking information for asynchronous APIs.
+    ScheduleShiftDeleteResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        metadata:
+          $ref: '#/components/schemas/ScheduleShiftDeleteResponseMetadata'
+      description: 'Response after deleting a shift. Synchronous API - shift deletion completes immediately.
+
+        Cost recalculation for affected shifts runs asynchronously in the background.
+
+        If cost recalculation is triggered, metadata.operation contains the operation ID for polling status.'
+    ScheduleShiftBulkDefaultShiftResponseItem:
+      type: object
+      properties:
+        date:
+          type: string
+          title: format YYYY-MM-DD; echoes the requested date for this item
+        area:
+          type: integer
+          format: int32
+          title: echoes the requested area id for this item
+        success:
+          type: boolean
+          title: true if the default shift was computed successfully for this (date, area)
+        shift:
+          $ref: '#/components/schemas/modelShiftRequest'
+          title: present iff success = true
+        errorMessage:
+          type: string
+          title: present iff success = false
+    BulkDefaultShiftRequestBulkDefaultShiftRequestData:
+      type: object
+      properties:
+        dates:
+          type: array
+          items:
+            type: string
+          title: format YYYY-MM-DD
+        areas:
+          type: array
+          items:
+            type: integer
+            format: int32
+    modelBulkUpdateShift:
+      type: object
+      properties:
+        shiftId:
+          type: integer
+          format: int32
+        override:
+          $ref: '#/components/schemas/modelShiftOverride'
+      title: shift to update and it's override option
+    modelShiftCostDetails:
+      type: object
+      properties:
+        basePay:
+          type: array
+          items:
+            $ref: '#/components/schemas/modelShiftCostForecast'
+        allowances:
+          type: array
+          items:
+            $ref: '#/components/schemas/modelShiftCostForecast'
+        additionalCost:
+          type: string
+        onCostPercentage:
+          type: string
+        subTotal:
+          type: string
+        fieldAccess:
+          type: object
+          additionalProperties:
+            type: boolean
+    modelViolatedRules:
+      type: object
+      properties:
+        ruleCode:
+          type: string
+        warning:
+          $ref: '#/components/schemas/modelViolatedRulesWarning'
+        ruleConfigs:
+          type: array
+          items:
+            $ref: '#/components/schemas/modelViolatedRulesRuleConfig'
+    ScheduleShiftDeleteShiftResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Indicates whether the deletion was successful.
+        shiftPendingDelete:
+          $ref: '#/components/schemas/tenantschedulev2modelShift'
+          description: The shift that was marked for deletion (if applicable).
+      description: Response after deleting a shift. Synchronous API.
+    modelListField:
+      type: object
+      properties:
+        value:
+          type: string
+    ScheduleShiftSplitShiftRequestData:
+      type: object
+      properties:
+        sourceShiftId:
+          type: integer
+          format: int32
+        override:
+          $ref: '#/components/schemas/modelShiftOverride'
+        newShifts:
+          type: array
+          items:
+            $ref: '#/components/schemas/ScheduleShiftNewShifts'
+    ScheduleShiftOpenShiftPendingApprovalsRequestData:
+      type: object
+      properties:
+        locationMode:
+          $ref: '#/components/schemas/OpenShiftPendingApprovalsRequestDataLocationMode'
+        locationIds:
+          type: array
+          items:
+            type: integer
+            format: int32
+          title: this is required when locationMode is SELECTED
+        cursor:
+          type: string
+        limit:
+          type: integer
+          format: int32
+        start:
+          type: string
+          title: 'Filters shifts starting at/after start, optional
+
+            Format: YYYY-MM-DDTHH:mm:ss±HH:mm e.g. 2025-07-14T09:00:00+11:00(Sydney timezone, UTC+11)'
+        end:
+          type: string
+          title: 'Filters shift starting before end exclusively, optional
+
+            Format YYYY-MM-DDTHH:mm:ss±HH:mm e.g. 2025-07-20T18:45:00+11:00(Sydney timezone, UTC+11)'
+        expandMetadata:
+          type: boolean
+          description: 'DEPRECATED: This field is ignored. Metadata is always returned regardless of this value.'
+    HistoryEntry:
+      type: object
+      properties:
+        description:
+          type: string
+          title: description
+        field:
+          type: string
+          title: changed filed
+        oldValue:
+          type: string
+          title: old value
+        newValue:
+          type: string
+          title: new value
+  securitySchemes:
+    ApiToken:
+      type: apiKey
+      in: header
+      name: OAuth
+x-provenance:
+  method: searched
+  source: https://developer.deputy.com/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://developer.deputy.com/reference/accessmanagementv2controller_createrole.md
+  - https://developer.deputy.com/reference/accessmanagementv2controller_deleterole.md
+  - https://developer.deputy.com/reference/accessmanagementv2controller_getemployeerole.md
+  - https://developer.deputy.com/reference/accessmanagementv2controller_getprivilegehierarchy.md
+  - https://developer.deputy.com/reference/accessmanagementv2controller_listemployeebyrole.md
+  - https://developer.deputy.com/reference/accessmanagementv2controller_listemployeerolehistory.md
+  - https://developer.deputy.com/reference/accessmanagementv2controller_listrole.md
+  - https://developer.deputy.com/reference/accessmanagementv2controller_updaterole.md
+  - https://developer.deputy.com/reference/accountstatsv2controller_getpaycalendarcoverage.md
+  - https://developer.deputy.com/reference/accountstatsv2controller_getpayratecoverage.md
+  - https://developer.deputy.com/reference/agreedhourservicev2controller_archiveagreedhourversionwithreason.md
+  - https://developer.deputy.com/reference/agreedhourservicev2controller_auditagreedhours.md
+  - https://developer.deputy.com/reference/agreedhourservicev2controller_batchupdateagreedhour.md
+  - https://developer.deputy.com/reference/agreedhourservicev2controller_consentemployeeagreedhours.md
+  - https://developer.deputy.com/reference/agreedhourservicev2controller_createagreedhour.md
+  - https://developer.deputy.com/reference/agreedhourservicev2controller_deleteemployeeagreedhours.md
+  - https://developer.deputy.com/reference/agreedhourservicev2controller_diffemployeeagreedhours.md
+  - https://developer.deputy.com/reference/agreedhourservicev2controller_getagreedhour.md
+  - https://developer.deputy.com/reference/agreedhourservicev2controller_getagreedhoursbystatus.md
+  - https://developer.deputy.com/reference/agreedhourservicev2controller_getagreedhoursemployeeapprovalconfiguration.md
+  - https://developer.deputy.com/reference/agreedhourservicev2controller_getagreedhoursgeneralconfiguration.md
+  - https://developer.deputy.com/reference/agreedhourservicev2controller_getagreedhourversion.md
+  - https://developer.deputy.com/reference/agreedhourservicev2controller_getareasbyemployees.md
+  - https://developer.deputy.com/reference/agreedhourservicev2controller_getconsentrecords.md
+  - https://developer.deputy.com/reference/agreedhourservicev2controller_getcurrentagreedhour.md
+  - https://developer.deputy.com/reference/agreedhourservicev2controller_migrateagreedhourssteptwo.md
+  - https://developer.deputy.com/reference/agreedhourservicev2controller_notifyemployeeagreedhours.md
+  - https://developer.deputy.com/reference/agreedhourservicev2controller_searchagreedhours.md
+  - https://developer.deputy.com/reference/aiassistantv2controller_getsettings.md
+  - https://developer.deputy.com/reference/areamanagementv2controller_listbyemployeeid.md
+  - https://developer.deputy.com/reference/areaprofilev2controller_create.md
+  - https://developer.deputy.com/reference/areaprofilev2controller_delete.md
+  - https://developer.deputy.com/reference/areaprofilev2controller_get.md
+  - https://developer.deputy.com/reference/areaprofilev2controller_list.md
+  - https://developer.deputy.com/reference/areaprofilev2controller_listareainuse.md
+  - https://developer.deputy.com/reference/areaprofilev2controller_listemployeetrained.md
+  - https://developer.deputy.com/reference/areaprofilev2controller_update.md
+  - https://developer.deputy.com/reference/arearatev2controller_batchsave.md
+  - https://developer.deputy.com/reference/arearatev2controller_get.md
+  - https://developer.deputy.com/reference/auditpayrecalculationv2controller_create.md
+  - https://developer.deputy.com/reference/autobuildv2controller_autobuild.md
+  - https://developer.deputy.com/reference/availabilityv2controller_delete.md
+  - https://developer.deputy.com/reference/availabilityv2controller_get.md
+  - https://developer.deputy.com/reference/availabilityv2controller_list.md
+  - https://developer.deputy.com/reference/businesssettingv2controller_getallvisibleemployeeroles.md
+  - https://developer.deputy.com/reference/businesssettingv2controller_getallvisibleemployeerolesincludeadvisor.md
+  - https://developer.deputy.com/reference/businesssettingv2controller_getemployeeroleidsforprivilegenames.md
+  - https://developer.deputy.com/reference/businesssettingv2controller_getemployeeroleidswithtwofaenforced.md
+  - https://developer.deputy.com/reference/businesssettingv2controller_getsetting.md
+  - https://developer.deputy.com/reference/businesssettingv2controller_gettemplate.md
+  - https://developer.deputy.com/reference/businesssettingv2controller_saveconfig.md
+  - https://developer.deputy.com/reference/businessv2controller_getdetails.md
+  - https://developer.deputy.com/reference/businessv2controller_updatedetails.md
+  - https://developer.deputy.com/reference/chatemployeeshiftstatusv2controller_getemployeesshiftstatus.md
+  - https://developer.deputy.com/reference/compliancev2controller_associateleaverules.md
+  - https://developer.deputy.com/reference/compliancev2controller_batchsavecontractconfigs.md
+  - https://developer.deputy.com/reference/compliancev2controller_batchsavepayrules.md
+  - https://developer.deputy.com/reference/compliancev2controller_createcontract.md
+  - https://developer.deputy.com/reference/compliancev2controller_deletepayrule.md
+  - https://developer.deputy.com/reference/compliancev2controller_duplicatecontract.md
+  - https://developer.deputy.com/reference/compliancev2controller_exportcontractjson.md
+  - https://developer.deputy.com/reference/compliancev2controller_getcalculationtypes.md
+  - https://developer.deputy.com/reference/compliancev2controller_getcontract.md
+  - https://developer.deputy.com/reference/compliancev2controller_getcontractlist.md
+  - https://developer.deputy.com/reference/compliancev2controller_getemployeeratesbycontract.md
+  - https://developer.deputy.com/reference/compliancev2controller_getemployeesbycontract.md
+  - https://developer.deputy.com/reference/compliancev2controller_getlatestversion.md
+  - https://developer.deputy.com/reference/compliancev2controller_getleaverules.md
+  - https://developer.deputy.com/reference/compliancev2controller_getpaypolicies.md
+  - https://developer.deputy.com/reference/compliancev2controller_importcontractjson.md
+  - https://developer.deputy.com/reference/compliancev2controller_listawards.md
+  - https://developer.deputy.com/reference/compliancev2controller_savecontractpayruleorder.md
+  - https://developer.deputy.com/reference/compliancev2controller_unassociateleaverule.md
+  - https://developer.deputy.com/reference/compliancev2controller_unassociatepayrule.md
+  - https://developer.deputy.com/reference/compliancev2controller_updatecontract.md
+  - https://developer.deputy.com/reference/compliancev2controller_updatecontractjson.md
+  - https://developer.deputy.com/reference/compliancev2controller_updateemployeerates.md
+  - https://developer.deputy.com/reference/compliancev2controller_updatejuniorrate.md
+  - https://developer.deputy.com/reference/concurrentleavecapconfigv2controller_getconcurrentleavecapconfig.md
+  - https://developer.deputy.com/reference/customfieldsv2controller_get.md
+  - https://developer.deputy.com/reference/customfieldsv2controller_getcustomfieldsbyrecordtype.md
+  - https://developer.deputy.com/reference/embeddedreportsv2controller_copyworkbook.md
+  - https://developer.deputy.com/reference/embeddedreportsv2controller_createworkbook.md
+  - https://developer.deputy.com/reference/embeddedreportsv2controller_deleteworkbook.md
+  - https://developer.deputy.com/reference/embeddedreportsv2controller_downgradesigmamemberlicensebulk.md
+  - https://developer.deputy.com/reference/embeddedreportsv2controller_generateembedurlforworkbook.md
+  - https://developer.deputy.com/reference/embeddedreportsv2controller_getusersbypermission.md
+  - https://developer.deputy.com/reference/embeddedreportsv2controller_list.md
+  - https://developer.deputy.com/reference/embeddedreportsv2controller_listclassicreports.md
+  - https://developer.deputy.com/reference/embeddedreportsv2controller_listhomefolderworkbooks.md
+  - https://developer.deputy.com/reference/embeddedreportsv2controller_listsharedwithmeworkbooks.md
+  - https://developer.deputy.com/reference/embeddedreportsv2controller_listsharedwithstatus.md
+  - https://developer.deputy.com/reference/embeddedreportsv2controller_provisiontenantonsigma.md
+  - https://developer.deputy.com/reference/embeddedreportsv2controller_removesharedworkbookaccess.md
+  - https://developer.deputy.com/reference/embeddedreportsv2controller_renamehomefolderworkbook.md
+  - https://developer.deputy.com/reference/embeddedreportsv2controller_shareworkbook.md
+  - https://developer.deputy.com/reference/embeddedreportsv2controller_updatetenantdataonsigma.md
+  - https://developer.deputy.com/reference/employeeagreementv2controller_create.md
+  - https://developer.deputy.com/reference/employeeagreementv2controller_delete.md
+  - https://developer.deputy.com/reference/employeeagreementv2controller_get.md
+  - https://developer.deputy.com/reference/employeeagreementv2controller_list.md
+  - https://developer.deputy.com/reference/employeeagreementv2controller_update.md
+  - https://developer.deputy.com/reference/employeedatafixv2controller_seteffectivedate.md
+  - https://developer.deputy.com/reference/employeedatafixv2controller_syncemployeeagreementcompany.md
+  - https://developer.deputy.com/reference/employeedatafixv2controller_triggerworkplaceagreementsync.md
+  - https://developer.deputy.com/reference/employeedatafixv2controller_updateworkplaceagreement.md
+  - https://developer.deputy.com/reference/employeeonboardingexportv2controller_listemployeesbydaterange.md
+  - https://developer.deputy.com/reference/employeeonboardingexportv2controller_onboardingexport.md
+  - https://developer.deputy.com/reference/employeeonboardingusagev2controller_getremainingpromousages.md
+  - https://developer.deputy.com/reference/employeeonboardingv2controller_listonboardingstatus.md
+  - https://developer.deputy.com/reference/employeepreferencesv2controller_list.md
+  - https://developer.deputy.com/reference/employeeprofilehistoryv2controller_get.md
+  - https://developer.deputy.com/reference/employeeprofilev2controller_get.md
+  - https://developer.deputy.com/reference/employeeprofilev2controller_list.md
+  - https://developer.deputy.com/reference/employeeprofilev2controller_retrieveemployeeprofilebyidsandcustomfiltersrequest.md
+  - https://developer.deputy.com/reference/employeesentimentv2controller_aggregate.md
+  - https://developer.deputy.com/reference/employeesentimentv2controller_aggregatelocation.md
+  - https://developer.deputy.com/reference/employeesentimentv2controller_check.md
+  - https://developer.deputy.com/reference/employeesentimentv2controller_create.md
+  - https://developer.deputy.com/reference/employeesentimentv2controller_getsettings.md
+  - https://developer.deputy.com/reference/employeesentimentv2controller_getweeklyaggregated.md
+  - https://developer.deputy.com/reference/employeesentimentv2controller_getweeklyaggregatedlocation.md
+  - https://developer.deputy.com/reference/employeestandarddayhoursv2controller_getemployeestandarddayhours.md
+  - https://developer.deputy.com/reference/employeesv2controller_create.md
+  - https://developer.deputy.com/reference/employeesv2controller_createbulk.md
+  - https://developer.deputy.com/reference/employeesv2controller_get.md
+  - https://developer.deputy.com/reference/employeesv2controller_list.md
+  - https://developer.deputy.com/reference/employeesv2controller_patch.md
+  - https://developer.deputy.com/reference/employeesv2controller_patchbulk.md
+  - https://developer.deputy.com/reference/employeesv2controller_validateemails.md
+  - https://developer.deputy.com/reference/employmentconditionv2controller_get.md
+  - https://developer.deputy.com/reference/employmentconditionv2controller_list.md
+  - https://developer.deputy.com/reference/employmentcontractlevelv2controller_batchsave.md
+  - https://developer.deputy.com/reference/employmentcontractlevelv2controller_create.md
+  - https://developer.deputy.com/reference/employmentcontractlevelv2controller_get.md
+  - https://developer.deputy.com/reference/employmentcontractlevelv2controller_getemployeesbylevelid.md
+  - https://developer.deputy.com/reference/employmentcontractlevelv2controller_update.md
+  - https://developer.deputy.com/reference/employmentcontractsv2controller_create.md
+  - https://developer.deputy.com/reference/employmentcontractsv2controller_delete.md
+  - https://developer.deputy.com/reference/employmentcontractsv2controller_get.md
+  - https://developer.deputy.com/reference/employmentcontractsv2controller_list.md
+  - https://developer.deputy.com/reference/employmentcontractsv2controller_update.md
+  - https://developer.deputy.com/reference/eocallbackv2controller_storeonboardingidforemployee.md
+  - https://developer.deputy.com/reference/filev2controller_createfile.md
+  - https://developer.deputy.com/reference/flagrecordv2controller_get.md
+  - https://developer.deputy.com/reference/flagrecordv2controller_list.md
+  - https://developer.deputy.com/reference/flagrecordv2controller_put.md
+  - https://developer.deputy.com/reference/flagrecordv2controller_togglebytag.md
+  - https://developer.deputy.com/reference/hronboardingactionv2controller_perform.md
+  - https://developer.deputy.com/reference/labormodelv2controller_copylabormodelrules.md
+  - https://developer.deputy.com/reference/labormodelv2controller_createlabormodelrule.md
+  - https://developer.deputy.com/reference/labormodelv2controller_deletelabormodelrule.md
+  - https://developer.deputy.com/reference/labormodelv2controller_deletelabormodelrules.md
+  - https://developer.deputy.com/reference/labormodelv2controller_editlabormodelrule.md
+  - https://developer.deputy.com/reference/labormodelv2controller_getlabormodelpendingjobs.md
+  - https://developer.deputy.com/reference/labormodelv2controller_getlabormodelrule.md
+  - https://developer.deputy.com/reference/labormodelv2controller_runlabormodel.md
+  - https://developer.deputy.com/reference/leaveabsencev2controller_validateleaveabsence.md
+  - https://developer.deputy.com/reference/leaveaccrualv2controller_agreedhoursrecalculationpreview.md
+  - https://developer.deputy.com/reference/leaveaccrualv2controller_releaseforhiredate.md
+  - https://developer.deputy.com/reference/leaveauditlogv2controller_listlogs.md
+  - https://developer.deputy.com/reference/leavebalancev2controller_createleavebalance.md
+  - https://developer.deputy.com/reference/leavebalancev2controller_getleavebalances.md
+  - https://developer.deputy.com/reference/leavebalancev2controller_listleavebalancesforemployee.md
+  - https://developer.deputy.com/reference/leaveconfigv2controller_getleaveconfig.md
+  - https://developer.deputy.com/reference/leaveconfigv2controller_setleaveconfig.md
+  - https://developer.deputy.com/reference/leaveentitlementsremediationv2controller_getentitlementremediationfiledownloadlink.md
+  - https://developer.deputy.com/reference/leaveentitlementsremediationv2controller_getentitlementremediationstatus.md
+  - https://developer.deputy.com/reference/leaveentitlementsremediationv2controller_setentitlementremediationactiontype.md
+  - https://developer.deputy.com/reference/leaveentitlementsv2controller_addleaveentitlementstoemployees.md
+  - https://developer.deputy.com/reference/leaveentitlementsv2controller_addleaveentitlementtoemployees.md
+  - https://developer.deputy.com/reference/leaveentitlementsv2controller_getemployeeentitlementsbyemployees.md
+  - https://developer.deputy.com/reference/leaveentitlementsv2controller_getemployeeleaveentitlements.md
+  - https://developer.deputy.com/reference/leaveentitlementsv2controller_getentitledemployeesbyleaverule.md
+  - https://developer.deputy.com/reference/leaveentitlementsv2controller_removeleaveentitlementsfromemployees.md
+  - https://developer.deputy.com/reference/leaveentitlementsv2controller_setleaveentitlementsbyemployees.md
+  - https://developer.deputy.com/reference/leaveextensionv2controller_softdeleteleaveextensions.md
+  - https://developer.deputy.com/reference/leavefeaturesetv2controller_getadoptionstatus.md
+  - https://developer.deputy.com/reference/leavefeaturesetv2controller_getleavefeaturesetstatus.md
+  - https://developer.deputy.com/reference/leavefeaturesetv2controller_setadoptionstatus.md
+  - https://developer.deputy.com/reference/leavefeaturesetv2controller_setsuggestionstatus.md
+  - https://developer.deputy.com/reference/leavelocationsettingsv2controller_getleavelocationsettings.md
+  - https://developer.deputy.com/reference/leavemigrationv2controller_exportleavebalances.md
+  - https://developer.deputy.com/reference/leavemigrationv2controller_exportleaverules.md
+  - https://developer.deputy.com/reference/leavemigrationv2controller_getsoftdeletedleaveextensions.md
+  - https://developer.deputy.com/reference/leavemigrationv2controller_getstatus.md
+  - https://developer.deputy.com/reference/leavemigrationv2controller_overridebalancetomigration.md
+  - https://developer.deputy.com/reference/leavemigrationv2controller_setstatus.md
+  - https://developer.deputy.com/reference/leavemigrationv2controller_start.md
+  - https://developer.deputy.com/reference/leavenonworkingdaysv2controller_getleavenonworkingdays.md
+  - https://developer.deputy.com/reference/leavepayrulesv2controller_countovertimepayrulesbyleaveruleid.md
+  - https://developer.deputy.com/reference/leavereferenceperiodv2controller_calculateaveragedayhours.md
+  - https://developer.deputy.com/reference/leaverequestv2controller_create.md
+  - https://developer.deputy.com/reference/leaverequestv2controller_delete.md
+  - https://developer.deputy.com/reference/leaverequestv2controller_get.md
+  - https://developer.deputy.com/reference/leaverequestv2controller_getupcomingleaveforemployee.md
+  - https://developer.deputy.com/reference/leaverequestv2controller_list.md
+  - https://developer.deputy.com/reference/leaverequestv2controller_update.md
+  - https://developer.deputy.com/reference/leaverequestv2controller_updateexternalid.md
+  - https://developer.deputy.com/reference/leaverequestv2controller_validateleaverequestforapproval.md
+  - https://developer.deputy.com/reference/leaverulev2controller_listtoilleaverules.md
+  - https://developer.deputy.com/reference/locationprofilev2controller_get.md
+  - https://developer.deputy.com/reference/locationprofilev2controller_list.md
+  - https://developer.deputy.com/reference/locationprofilev2controller_unarchive.md
+  - https://developer.deputy.com/reference/locationprofilev2controller_updateaddress.md
+  - https://developer.deputy.com/reference/locationprofilev2controller_updatebusinessnumber.md
+  - https://developer.deputy.com/reference/locationsettingv2controller_fetch.md
+  - https://developer.deputy.com/reference/locationsettingv2controller_fetchkeyvalue.md
+  - https://developer.deputy.com/reference/metricsv2controller_checkbudgetstatus.md
+  - https://developer.deputy.com/reference/metricsv2controller_delete.md
+  - https://developer.deputy.com/reference/metricsv2controller_download.md
+  - https://developer.deputy.com/reference/metricsv2controller_getraw.md
+  - https://developer.deputy.com/reference/metricsv2controller_upsert.md
+  - https://developer.deputy.com/reference/metricsv2controller_upsertbulk.md
+  - https://developer.deputy.com/reference/mev2controller_getalsoworking.md
+  - https://developer.deputy.com/reference/mev2controller_getincomingshiftoffer.md
+  - https://developer.deputy.com/reference/mev2controller_getpendingswapshifts.md
+  - https://developer.deputy.com/reference/onboardingdashboardv2controller_getembedonboardingstatus.md
+  - https://developer.deputy.com/reference/onboardingdashboardv2controller_getonboardingdashboard.md
+  - https://developer.deputy.com/reference/onboardingdashboardv2controller_performembedonboardingaction.md
+  - https://developer.deputy.com/reference/onboardingdashboardv2controller_updateonboardingdashboard.md
+  - https://developer.deputy.com/reference/onboardingdashboardv2controller_updateonboardingroute.md
+  - https://developer.deputy.com/reference/onboardinggamificationv2controller_completegamificationtask.md
+  - https://developer.deputy.com/reference/onboardinggamificationv2controller_getgamificationstatus.md
+  - https://developer.deputy.com/reference/partneremployeesv2controller_filterbyexternallinkids.md
+  - https://developer.deputy.com/reference/partneremployeesv2controller_hasimportedemployees.md
+  - https://developer.deputy.com/reference/paycalendarv2controller_assignemployees.md
+  - https://developer.deputy.com/reference/paycalendarv2controller_create.md
+  - https://developer.deputy.com/reference/paycalendarv2controller_deactivate.md
+  - https://developer.deputy.com/reference/paycalendarv2controller_get.md
+  - https://developer.deputy.com/reference/paycalendarv2controller_list.md
+  - https://developer.deputy.com/reference/paycalendarv2controller_listassignedemployees.md
+  - https://developer.deputy.com/reference/paycalendarv2controller_listpayperiods.md
+  - https://developer.deputy.com/reference/paycalendarv2controller_searchassignedemployees.md
+  - https://developer.deputy.com/reference/paycalendarv2controller_update.md
+  - https://developer.deputy.com/reference/paycomparisoncontroller_cancelreports.md
+  - https://developer.deputy.com/reference/paycomparisoncontroller_deletereports.md
+  - https://developer.deputy.com/reference/paycomparisoncontroller_downloadreport.md
+  - https://developer.deputy.com/reference/paycomparisoncontroller_findreports.md
+  - https://developer.deputy.com/reference/paycomparisoncontroller_getemployees.md
+  - https://developer.deputy.com/reference/paycomparisoncontroller_resubmitreports.md
+  - https://developer.deputy.com/reference/paycomparisoncontroller_submitreport.md
+  - https://developer.deputy.com/reference/payrollexporttemplatesv2controller_create.md
+  - https://developer.deputy.com/reference/payrollexporttemplatesv2controller_delete.md
+  - https://developer.deputy.com/reference/payrollexporttemplatesv2controller_get.md
+  - https://developer.deputy.com/reference/payrollexporttemplatesv2controller_list.md
+  - https://developer.deputy.com/reference/payrollexporttemplatesv2controller_update.md
+  - https://developer.deputy.com/reference/payrollmobilev2controller_getrecentpayslipswidget.md
+  - https://developer.deputy.com/reference/payrollpartnerauthorizationcodev2controller_generateauthorizationcodeforpayrolluser.md
+  - https://developer.deputy.com/reference/peoplev2controller_listcompanies.md
+  - https://developer.deputy.com/reference/peoplev2controller_listcontracts.md
+  - https://developer.deputy.com/reference/permissionv2controller_getemployeeidswithprivilege.md
+  - https://developer.deputy.com/reference/permissionv2controller_getpermissions.md
+  - https://developer.deputy.com/reference/permissionv2controller_getuseridswithprivilege.md
+  - https://developer.deputy.com/reference/productaddonsv2controller_getaddonproducts.md
+  - https://developer.deputy.com/reference/productaddonsv2controller_update.md
+  - https://developer.deputy.com/reference/productsubscriptiondowngradejobv2controller_plandowngradejob.md
+  - https://developer.deputy.com/reference/productsubscriptionv2controller_getproductsubscription.md
+  - https://developer.deputy.com/reference/publishshiftv2controller_preview.md
+  - https://developer.deputy.com/reference/publishshiftv2controller_resume.md
+  - https://developer.deputy.com/reference/publishshiftv2controller_status.md
+  - https://developer.deputy.com/reference/reactionv2controller_create.md
+  - https://developer.deputy.com/reference/reactionv2controller_delete.md
+  - https://developer.deputy.com/reference/referralv2controller_getreferralurls.md
+  - https://developer.deputy.com/reference/remediationv2controller_startremediation.md
+  - https://developer.deputy.com/reference/reportv2controller_create.md
+  - https://developer.deputy.com/reference/reportv2controller_exportscheduletimesheetsales.md
+  - https://developer.deputy.com/reference/reportv2controller_list.md
+  - https://developer.deputy.com/reference/reportv2controller_url.md
+  - https://developer.deputy.com/reference/scheduleagentv2controller_getlate.md
+  - https://developer.deputy.com/reference/scheduleagentv2controller_upsertshifts.md
+  - https://developer.deputy.com/reference/scheduleconsentv2controller_createbulkconsents.md
+  - https://developer.deputy.com/reference/schedulefiltersv2controller_getschedulefilters.md
+  - https://developer.deputy.com/reference/scheduleshiftv2controller_aggregatedlist.md
+  - https://developer.deputy.com/reference/scheduleshiftv2controller_autofill.md
+  - https://developer.deputy.com/reference/scheduleshiftv2controller_bulkdefaults.md
+  - https://developer.deputy.com/reference/scheduleshiftv2controller_bulkdelete.md
+  - https://developer.deputy.com/reference/scheduleshiftv2controller_bulkpatch.md
+  - https://developer.deputy.com/reference/scheduleshiftv2controller_bulkupdate.md
+  - https://developer.deputy.com/reference/scheduleshiftv2controller_bulkupsert.md
+  - https://developer.deputy.com/reference/scheduleshiftv2controller_checkconsent.md
+  - https://developer.deputy.com/reference/scheduleshiftv2controller_copy.md
+  - https://developer.deputy.com/reference/scheduleshiftv2controller_cost.md
+  - https://developer.deputy.com/reference/scheduleshiftv2controller_create.md
+  - https://developer.deputy.com/reference/scheduleshiftv2controller_declineshift.md
+  - https://developer.deputy.com/reference/scheduleshiftv2controller_defaults.md
+  - https://developer.deputy.com/reference/scheduleshiftv2controller_delete.md
+  - https://developer.deputy.com/reference/scheduleshiftv2controller_deleteopeninvitations.md
+  - https://developer.deputy.com/reference/scheduleshiftv2controller_deletewithparams.md
+  - https://developer.deputy.com/reference/scheduleshiftv2controller_get.md
+  - https://developer.deputy.com/reference/scheduleshiftv2controller_getbidsstatuscounts.md
+  - https://developer.deputy.com/reference/scheduleshiftv2controller_getcopystatus.md
+  - https://developer.deputy.com/reference/scheduleshiftv2controller_getopeninvitations.md
+  - https://developer.deputy.com/reference/scheduleshiftv2controller_getopenshifts.md
+  - https://developer.deputy.com/reference/scheduleshiftv2controller_getopenstatuscounts.md
+  - https://developer.deputy.com/reference/scheduleshiftv2controller_getpendingapprovalopenshifts.md
+  - https://developer.deputy.com/reference/scheduleshiftv2controller_getpermissions.md
+  - https://developer.deputy.com/reference/scheduleshiftv2controller_getrosters.md
+  - https://developer.deputy.com/reference/scheduleshiftv2controller_history.md
+  - https://developer.deputy.com/reference/scheduleshiftv2controller_link.md
+  - https://developer.deputy.com/reference/scheduleshiftv2controller_list.md
+  - https://developer.deputy.com/reference/scheduleshiftv2controller_log.md
+  - https://developer.deputy.com/reference/scheduleshiftv2controller_myschedule.md
+  - https://developer.deputy.com/reference/scheduleshiftv2controller_publish.md
+  - https://developer.deputy.com/reference/scheduleshiftv2controller_resave.md
+  - https://developer.deputy.com/reference/scheduleshiftv2controller_split.md
+  - https://developer.deputy.com/reference/scheduleshiftv2controller_suggest.md
+  - https://developer.deputy.com/reference/scheduleshiftv2controller_togglemicroscheduling.md
+  - https://developer.deputy.com/reference/scheduleshiftv2controller_update.md
+  - https://developer.deputy.com/reference/scheduleshiftv2controller_updateopenshiftstatus.md
+  - https://developer.deputy.com/reference/scheduleshiftv2controller_validateexternalshifts.md
+  - https://developer.deputy.com/reference/scheduletemplatev2controller_bulkdeletetemplate.md
+  - https://developer.deputy.com/reference/scheduletemplatev2controller_createtemplate.md
+  - https://developer.deputy.com/reference/scheduletemplatev2controller_loadtemplate.md
+  - https://developer.deputy.com/reference/sessionhistoryv2controller_list.md
+  - https://developer.deputy.com/reference/shiftbidv2controller_approve.md
+  - https://developer.deputy.com/reference/shiftoffersv2controller_cancel.md
+  - https://developer.deputy.com/reference/shiftoffersv2controller_notify.md
+  - https://developer.deputy.com/reference/shiftsuggestionv2controller_suggestemployees.md
+  - https://developer.deputy.com/reference/shiftswapv2controller_confirm.md
+  - https://developer.deputy.com/reference/shiftswapv2controller_decline.md
+  - https://developer.deputy.com/reference/shiftswapv2controller_getpendingapproval.md
+  - https://developer.deputy.com/reference/shiftswapv2controller_getpendingdetails.md
+  - https://developer.deputy.com/reference/shiftswapv2controller_recommend.md
+  - https://developer.deputy.com/reference/timesheetexportv2controller_getconfig.md
+  - https://developer.deputy.com/reference/timesheetexportv2controller_getfeaturestatus.md
+  - https://developer.deputy.com/reference/timesheetexportv2controller_getpayperiodfilteroptions.md
+  - https://developer.deputy.com/reference/timesheetexportv2controller_getratesummary.md
+  - https://developer.deputy.com/reference/timesheetexportv2controller_getsummary.md
+  - https://developer.deputy.com/reference/timesheetexportv2controller_refreshemployeefilteroptions.md
+  - https://developer.deputy.com/reference/timesheetexportv2controller_refreshlocationfilteroptions.md
+  - https://developer.deputy.com/reference/timesheetexportv2controller_refreshpaycenterfilter.md
+  - https://developer.deputy.com/reference/timesheetquestionremediationv2controller_getdatapack.md
+  - https://developer.deputy.com/reference/timesheetquestionremediationv2controller_gettimesheetquestionremediationstatus.md
+  - https://developer.deputy.com/reference/timesheetquestionremediationv2controller_triggertimesheetquestionremediationpayrecalculation.md
+  - https://developer.deputy.com/reference/timesheetrostercontroller_getroster.md
+  - https://developer.deputy.com/reference/timesheetsv2controller_autoendtimesheet.md
+  - https://developer.deputy.com/reference/timesheetsv2controller_create.md
+  - https://developer.deputy.com/reference/timesheetsv2controller_delete.md
+  - https://developer.deputy.com/reference/timesheetsv2controller_end.md
+  - https://developer.deputy.com/reference/timesheetsv2controller_export.md
+  - https://developer.deputy.com/reference/timesheetsv2controller_get.md
+  - https://developer.deputy.com/reference/timesheetsv2controller_list.md
+  - https://developer.deputy.com/reference/timesheetsv2controller_listbyexportid.md
+  - https://developer.deputy.com/reference/timesheetsv2controller_pause.md
+  - https://developer.deputy.com/reference/timesheetsv2controller_start.md
+  - https://developer.deputy.com/reference/timesheetsv2controller_update.md
+  - https://developer.deputy.com/reference/tsaconfigandpermissionv2controller_getconfigandpermission.md
+  - https://developer.deputy.com/reference/tsav2controller_approveroster.md
+  - https://developer.deputy.com/reference/tsav2controller_approverostersync.md
+  - https://developer.deputy.com/reference/tsav2controller_approvetimeroster.md
+  - https://developer.deputy.com/reference/tsav2controller_approvetimerostersync.md
+  - https://developer.deputy.com/reference/tsav2controller_approvetimesheet.md
+  - https://developer.deputy.com/reference/tsav2controller_approvetimesheetsync.md
+  - https://developer.deputy.com/reference/tsav2controller_approvetimetimesheet.md
+  - https://developer.deputy.com/reference/tsav2controller_approvetimetimesheetsync.md
+  - https://developer.deputy.com/reference/tsav2controller_batchapprovetimesheet.md
+  - https://developer.deputy.com/reference/tsav2controller_batchapprovetimetimesheet.md
+  - https://developer.deputy.com/reference/tsav2controller_batchdiscardtimesheet.md
+  - https://developer.deputy.com/reference/tsav2controller_batchforecasttimesheet.md
+  - https://developer.deputy.com/reference/tsav2controller_batchmarkaspaid.md
+  - https://developer.deputy.com/reference/tsav2controller_batchmarkasunpaid.md
+  - https://developer.deputy.com/reference/tsav2controller_batchreinstatetimesheet.md
+  - https://developer.deputy.com/reference/tsav2controller_batchunapprovepaytimesheet.md
+  - https://developer.deputy.com/reference/tsav2controller_batchunapprovetimetimesheet.md
+  - https://developer.deputy.com/reference/tsav2controller_canceldisputeattestation.md
+  - https://developer.deputy.com/reference/tsav2controller_confirmattestation.md
+  - https://developer.deputy.com/reference/tsav2controller_createcomment.md
+  - https://developer.deputy.com/reference/tsav2controller_createtimesheet.md
+  - https://developer.deputy.com/reference/tsav2controller_discardroster.md
+  - https://developer.deputy.com/reference/tsav2controller_discardtimesheet.md
+  - https://developer.deputy.com/reference/tsav2controller_disputeattestation.md
+  - https://developer.deputy.com/reference/tsav2controller_endshift.md
+  - https://developer.deputy.com/reference/tsav2controller_getapplicablerangesummary.md
+  - https://developer.deputy.com/reference/tsav2controller_getemployeesforstatusgrouping.md
+  - https://developer.deputy.com/reference/tsav2controller_getpayreturnrates.md
+  - https://developer.deputy.com/reference/tsav2controller_getpaysuggestion.md
+  - https://developer.deputy.com/reference/tsav2controller_getsuggestedtimesheetrounding.md
+  - https://developer.deputy.com/reference/tsav2controller_gettimesheetquestions.md
+  - https://developer.deputy.com/reference/tsav2controller_markaspaid.md
+  - https://developer.deputy.com/reference/tsav2controller_markasunpaid.md
+  - https://developer.deputy.com/reference/tsav2controller_reapprovetimesheet.md
+  - https://developer.deputy.com/reference/tsav2controller_reinstatetimesheet.md
+  - https://developer.deputy.com/reference/tsav2controller_resolvedisputedattestation.md
+  - https://developer.deputy.com/reference/tsav2controller_unapprovepaytimesheet.md
+  - https://developer.deputy.com/reference/tsav2controller_unapprovetimetimesheet.md
+  - https://developer.deputy.com/reference/tsav2controller_updatetimesheet.md
+  - https://developer.deputy.com/reference/tsav2controller_validatecreatetimesheet.md
+  - https://developer.deputy.com/reference/tsav2controller_validateupdatetimesheet.md
+  - https://developer.deputy.com/reference/userssotokenwithpkcev2controller_get.md
+  - https://developer.deputy.com/reference/userv2controller_emailloginlink.md
+  - https://developer.deputy.com/reference/weatherv2controller_getlocationdailyaggregated.md
+  - https://developer.deputy.com/reference/webhooktriggerv2controller_trigger.md
+  - https://developer.deputy.com/reference/webhooktriggerv2controller_triggerbulk.md
+  merge:
+    pages: 394
+    deduped: 2095
+    conflicts_kept_first: 0

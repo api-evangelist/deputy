@@ -1,0 +1,3346 @@
+openapi: 3.2.0
+info:
+  title: Deputy Roster API
+  version: '1.0'
+  description: 'Operations tagged Roster across 4 of this provider''s published API definitions: deputy-v1-my-api-openapi.yml, deputy-v1-resource-api-openapi.yml, deputy-v1-supervise-api-openapi.yml, deputy-v2-api-openapi.yml. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://{subdomain}.{region}.deputy.com/api/v1
+  description: Deputy tenant
+  variables:
+    subdomain:
+      default: your-subdomain
+    region:
+      default: deputy
+      enum:
+      - au
+      - eu
+      - na
+      - deputy
+- url: https://{subdomain}.{region}.deputy.com/api
+  description: Deputy tenant
+  variables:
+    subdomain:
+      default: your-subdomain
+      description: Your Deputy tenant subdomain
+    region:
+      default: deputy
+      enum:
+      - au
+      - eu
+      - na
+      - deputy
+      description: 'Deputy region: au, eu, na, or deputy (AU default)'
+tags:
+- name: Roster
+  description: V1 /my/roster/* endpoints
+paths:
+  /my/roster/bids:
+    get:
+      tags:
+      - Roster
+      summary: GET Roster / bids
+      operationId: my_roster__bids_get
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      security:
+      - BearerAuth: []
+    servers:
+    - url: https://{subdomain}.{region}.deputy.com/api/v1
+      description: Deputy tenant
+      variables:
+        subdomain:
+          default: your-subdomain
+        region:
+          default: deputy
+          enum:
+          - au
+          - eu
+          - na
+          - deputy
+  /my/roster/bids/request:
+    post:
+      tags:
+      - Roster
+      summary: POST Roster / request
+      operationId: my_roster__bids_request_post
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      security:
+      - BearerAuth: []
+    servers:
+    - url: https://{subdomain}.{region}.deputy.com/api/v1
+      description: Deputy tenant
+      variables:
+        subdomain:
+          default: your-subdomain
+        region:
+          default: deputy
+          enum:
+          - au
+          - eu
+          - na
+          - deputy
+  /my/roster/bids/withdraw:
+    post:
+      tags:
+      - Roster
+      summary: POST Roster / withdraw
+      operationId: my_roster__bids_withdraw_post
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      security:
+      - BearerAuth: []
+    servers:
+    - url: https://{subdomain}.{region}.deputy.com/api/v1
+      description: Deputy tenant
+      variables:
+        subdomain:
+          default: your-subdomain
+        region:
+          default: deputy
+          enum:
+          - au
+          - eu
+          - na
+          - deputy
+  /my/roster/confirm:
+    post:
+      tags:
+      - Roster
+      summary: POST Roster / confirm
+      operationId: my_roster__confirm_post
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      security:
+      - BearerAuth: []
+    servers:
+    - url: https://{subdomain}.{region}.deputy.com/api/v1
+      description: Deputy tenant
+      variables:
+        subdomain:
+          default: your-subdomain
+        region:
+          default: deputy
+          enum:
+          - au
+          - eu
+          - na
+          - deputy
+  /my/roster/open:
+    get:
+      tags:
+      - Roster
+      summary: GET Roster / open
+      operationId: my_roster__open_get
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      security:
+      - BearerAuth: []
+    post:
+      tags:
+      - Roster
+      summary: POST Roster / open
+      operationId: my_roster__open_post
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      security:
+      - BearerAuth: []
+    servers:
+    - url: https://{subdomain}.{region}.deputy.com/api/v1
+      description: Deputy tenant
+      variables:
+        subdomain:
+          default: your-subdomain
+        region:
+          default: deputy
+          enum:
+          - au
+          - eu
+          - na
+          - deputy
+  /my/roster/open/({startDate})(/{endDate})/{maxWaitTime}:
+    get:
+      tags:
+      - Roster
+      summary: GET Roster / :maxWaitTime)?
+      operationId: my_roster__open_startdate_enddate_maxwaittime__get
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      parameters:
+      - name: startDate
+        in: path
+        required: true
+        schema:
+          type: string
+          pattern: '[0-9]{2,4}\-[0-9]{1,2}\-[0-9]{1,2}'
+      - name: endDate
+        in: path
+        required: true
+        schema:
+          type: string
+          pattern: '[0-9]{2,4}\-[0-9]{1,2}\-[0-9]{1,2}'
+      - name: maxWaitTime
+        in: path
+        required: true
+        schema:
+          type: string
+      security:
+      - BearerAuth: []
+    servers:
+    - url: https://{subdomain}.{region}.deputy.com/api/v1
+      description: Deputy tenant
+      variables:
+        subdomain:
+          default: your-subdomain
+        region:
+          default: deputy
+          enum:
+          - au
+          - eu
+          - na
+          - deputy
+  /my/roster/publish/allow/({numOfRostersToPublish}):
+    get:
+      tags:
+      - Roster
+      summary: GET Roster / (:numOfRostersToPublish)
+      operationId: my_roster__publish_allow_numofrosterstopublish__get
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      parameters:
+      - name: numOfRostersToPublish
+        in: path
+        required: true
+        schema:
+          type: string
+      security:
+      - BearerAuth: []
+    servers:
+    - url: https://{subdomain}.{region}.deputy.com/api/v1
+      description: Deputy tenant
+      variables:
+        subdomain:
+          default: your-subdomain
+        region:
+          default: deputy
+          enum:
+          - au
+          - eu
+          - na
+          - deputy
+  /my/roster/publish/count:
+    get:
+      tags:
+      - Roster
+      summary: GET Roster / count
+      operationId: my_roster__publish_count_get
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      security:
+      - BearerAuth: []
+    servers:
+    - url: https://{subdomain}.{region}.deputy.com/api/v1
+      description: Deputy tenant
+      variables:
+        subdomain:
+          default: your-subdomain
+        region:
+          default: deputy
+          enum:
+          - au
+          - eu
+          - na
+          - deputy
+  /my/roster/startTimestamp/{startTimestamp}/reverse/{reverse}/limit/{limit}:
+    get:
+      tags:
+      - Roster
+      summary: GET Roster / :limit
+      operationId: my_roster__starttimestamp_starttimestamp_reverse_reverse_limit_limit_get
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      parameters:
+      - name: startTimestamp
+        in: path
+        required: true
+        schema:
+          type: integer
+          pattern: \d+
+      - name: reverse
+        in: path
+        required: true
+        schema:
+          type: string
+          pattern: '[0-1]{1}'
+      - name: limit
+        in: path
+        required: true
+        schema:
+          type: integer
+          pattern: \d+
+      security:
+      - BearerAuth: []
+    servers:
+    - url: https://{subdomain}.{region}.deputy.com/api/v1
+      description: Deputy tenant
+      variables:
+        subdomain:
+          default: your-subdomain
+        region:
+          default: deputy
+          enum:
+          - au
+          - eu
+          - na
+          - deputy
+  /my/roster/swap/{startDate}/{endDate}:
+    get:
+      tags:
+      - Roster
+      summary: GET Roster / :endDate)?
+      operationId: my_roster__swap_startdate_enddate__get
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      parameters:
+      - name: startDate
+        in: path
+        required: true
+        schema:
+          type: string
+          pattern: '[0-9]{2,4}\-[0-9]{1,2}\-[0-9]{1,2}'
+      - name: endDate
+        in: path
+        required: true
+        schema:
+          type: string
+          pattern: '[0-9]{2,4}\-[0-9]{1,2}\-[0-9]{1,2}'
+      security:
+      - BearerAuth: []
+    servers:
+    - url: https://{subdomain}.{region}.deputy.com/api/v1
+      description: Deputy tenant
+      variables:
+        subdomain:
+          default: your-subdomain
+        region:
+          default: deputy
+          enum:
+          - au
+          - eu
+          - na
+          - deputy
+  /my/roster/{id}:
+    get:
+      tags:
+      - Roster
+      summary: GET Roster / :id
+      operationId: my_roster__id_get
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          pattern: \d+
+      security:
+      - BearerAuth: []
+    servers:
+    - url: https://{subdomain}.{region}.deputy.com/api/v1
+      description: Deputy tenant
+      variables:
+        subdomain:
+          default: your-subdomain
+        region:
+          default: deputy
+          enum:
+          - au
+          - eu
+          - na
+          - deputy
+  /my/roster/{id}/offer:
+    post:
+      tags:
+      - Roster
+      summary: POST Roster / offer
+      operationId: my_roster__id_offer_post
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          pattern: \d+
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      security:
+      - BearerAuth: []
+    servers:
+    - url: https://{subdomain}.{region}.deputy.com/api/v1
+      description: Deputy tenant
+      variables:
+        subdomain:
+          default: your-subdomain
+        region:
+          default: deputy
+          enum:
+          - au
+          - eu
+          - na
+          - deputy
+  /my/roster/{id}/offer/cancel:
+    post:
+      tags:
+      - Roster
+      summary: POST Roster / cancel
+      operationId: my_roster__id_offer_cancel_post
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          pattern: \d+
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      security:
+      - BearerAuth: []
+    servers:
+    - url: https://{subdomain}.{region}.deputy.com/api/v1
+      description: Deputy tenant
+      variables:
+        subdomain:
+          default: your-subdomain
+        region:
+          default: deputy
+          enum:
+          - au
+          - eu
+          - na
+          - deputy
+  /my/roster/{id}/offer/getrecommendation:
+    get:
+      tags:
+      - Roster
+      summary: GET Roster / getrecommendation
+      operationId: my_roster__id_offer_getrecommendation_get
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          pattern: \d+
+      security:
+      - BearerAuth: []
+    servers:
+    - url: https://{subdomain}.{region}.deputy.com/api/v1
+      description: Deputy tenant
+      variables:
+        subdomain:
+          default: your-subdomain
+        region:
+          default: deputy
+          enum:
+          - au
+          - eu
+          - na
+          - deputy
+  /my/roster/{id}/offer/status:
+    get:
+      tags:
+      - Roster
+      summary: GET Roster / status
+      operationId: my_roster__id_offer_status_get
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          pattern: \d+
+      security:
+      - BearerAuth: []
+    servers:
+    - url: https://{subdomain}.{region}.deputy.com/api/v1
+      description: Deputy tenant
+      variables:
+        subdomain:
+          default: your-subdomain
+        region:
+          default: deputy
+          enum:
+          - au
+          - eu
+          - na
+          - deputy
+  /my/roster/{id}/swap/{action}:
+    post:
+      tags:
+      - Roster
+      summary: POST Roster / :action
+      operationId: my_roster__id_swap_action_post
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          pattern: \d+
+      - name: action
+        in: path
+        required: true
+        schema:
+          type: string
+          pattern: (request|cancel|accept|recommendation|decline|declineall)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      security:
+      - BearerAuth: []
+    servers:
+    - url: https://{subdomain}.{region}.deputy.com/api/v1
+      description: Deputy tenant
+      variables:
+        subdomain:
+          default: your-subdomain
+        region:
+          default: deputy
+          enum:
+          - au
+          - eu
+          - na
+          - deputy
+  /my/roster/{id}/swapdetails:
+    get:
+      tags:
+      - Roster
+      summary: GET Roster / swapdetails
+      operationId: my_roster__id_swapdetails_get
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          pattern: \d+
+      security:
+      - BearerAuth: []
+    servers:
+    - url: https://{subdomain}.{region}.deputy.com/api/v1
+      description: Deputy tenant
+      variables:
+        subdomain:
+          default: your-subdomain
+        region:
+          default: deputy
+          enum:
+          - au
+          - eu
+          - na
+          - deputy
+  /my/roster/{startDate}/{endDate}:
+    get:
+      tags:
+      - Roster
+      summary: GET Roster / :endDate)?
+      operationId: my_roster__startdate_enddate__get
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      parameters:
+      - name: startDate
+        in: path
+        required: true
+        schema:
+          type: string
+          pattern: '[0-9]{2,4}\-[0-9]{1,2}\-[0-9]{1,2}'
+      - name: endDate
+        in: path
+        required: true
+        schema:
+          type: string
+          pattern: '[0-9]{2,4}\-[0-9]{1,2}\-[0-9]{1,2}'
+      security:
+      - BearerAuth: []
+    servers:
+    - url: https://{subdomain}.{region}.deputy.com/api/v1
+      description: Deputy tenant
+      variables:
+        subdomain:
+          default: your-subdomain
+        region:
+          default: deputy
+          enum:
+          - au
+          - eu
+          - na
+          - deputy
+  /resource/Roster:
+    get:
+      tags:
+      - Roster
+      summary: List Roster records
+      description: Returns Roster records the authenticated caller is permitted to see. For large tables prefer POST /QUERY with pagination.
+      operationId: listRoster
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Roster'
+        '400':
+          description: Bad request
+        '401':
+          description: Authentication required or invalid token
+        '403':
+          description: Forbidden — token lacks access to this resource
+        '404':
+          description: Resource not found
+      security:
+      - BearerAuth: []
+      - OAuth2: []
+    post:
+      tags:
+      - Roster
+      summary: Create a Roster
+      operationId: createRoster
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Roster'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Roster'
+        '400':
+          description: Bad request
+        '401':
+          description: Authentication required or invalid token
+        '403':
+          description: Forbidden — token lacks access to this resource
+        '404':
+          description: Resource not found
+      security:
+      - BearerAuth: []
+      - OAuth2: []
+    put:
+      tags:
+      - Roster
+      summary: Create a Roster
+      operationId: createOrReplaceRoster
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Roster'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Roster'
+        '400':
+          description: Bad request
+        '401':
+          description: Authentication required or invalid token
+        '403':
+          description: Forbidden — token lacks access to this resource
+        '404':
+          description: Resource not found
+      security:
+      - BearerAuth: []
+      - OAuth2: []
+    servers:
+    - url: https://{subdomain}.{region}.deputy.com/api/v1
+      description: Deputy tenant
+      variables:
+        subdomain:
+          default: your-subdomain
+        region:
+          default: deputy
+          enum:
+          - au
+          - eu
+          - na
+          - deputy
+  /resource/Roster/BULK:
+    post:
+      tags:
+      - Roster
+      summary: Bulk create/update Roster
+      description: Accepts an array of records. Each record is processed independently.
+      operationId: bulkRoster
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/Roster'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Roster'
+        '400':
+          description: Bad request
+        '401':
+          description: Authentication required or invalid token
+        '403':
+          description: Forbidden — token lacks access to this resource
+        '404':
+          description: Resource not found
+      security:
+      - BearerAuth: []
+      - OAuth2: []
+    servers:
+    - url: https://{subdomain}.{region}.deputy.com/api/v1
+      description: Deputy tenant
+      variables:
+        subdomain:
+          default: your-subdomain
+        region:
+          default: deputy
+          enum:
+          - au
+          - eu
+          - na
+          - deputy
+  /resource/Roster/INFO:
+    get:
+      tags:
+      - Roster
+      summary: Get field metadata for Roster
+      description: Returns the field list, types, and associations for this resource. Useful when building integrations that need to know which fields are queryable.
+      operationId: infoRoster
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Authentication required or invalid token
+        '403':
+          description: Forbidden — token lacks access to this resource
+        '404':
+          description: Resource not found
+      security:
+      - BearerAuth: []
+      - OAuth2: []
+    servers:
+    - url: https://{subdomain}.{region}.deputy.com/api/v1
+      description: Deputy tenant
+      variables:
+        subdomain:
+          default: your-subdomain
+        region:
+          default: deputy
+          enum:
+          - au
+          - eu
+          - na
+          - deputy
+  /resource/Roster/PREDICT:
+    post:
+      tags:
+      - Roster
+      summary: Predict-match a Roster record
+      description: Returns the closest matching existing record for a partial payload. Used by upsert-style integrations to find an existing row before creating.
+      operationId: predictRoster
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Roster'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Roster'
+        '400':
+          description: Bad request
+        '401':
+          description: Authentication required or invalid token
+        '403':
+          description: Forbidden — token lacks access to this resource
+        '404':
+          description: Resource not found
+      security:
+      - BearerAuth: []
+      - OAuth2: []
+    servers:
+    - url: https://{subdomain}.{region}.deputy.com/api/v1
+      description: Deputy tenant
+      variables:
+        subdomain:
+          default: your-subdomain
+        region:
+          default: deputy
+          enum:
+          - au
+          - eu
+          - na
+          - deputy
+  /resource/Roster/QUERY:
+    post:
+      tags:
+      - Roster
+      summary: Search Roster
+      description: 'Flexible search endpoint. Body supports `search`, `sort`, `start`, `max`, and `join` clauses. Example: `{"search": {"s1": {"field": "Id", "data": 1, "type": "eq"}}}`.'
+      operationId: searchRoster
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/QueryRequest'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Roster'
+        '400':
+          description: Bad request
+        '401':
+          description: Authentication required or invalid token
+        '403':
+          description: Forbidden — token lacks access to this resource
+        '404':
+          description: Resource not found
+      security:
+      - BearerAuth: []
+      - OAuth2: []
+    servers:
+    - url: https://{subdomain}.{region}.deputy.com/api/v1
+      description: Deputy tenant
+      variables:
+        subdomain:
+          default: your-subdomain
+        region:
+          default: deputy
+          enum:
+          - au
+          - eu
+          - na
+          - deputy
+  /resource/Roster/{id}:
+    get:
+      tags:
+      - Roster
+      summary: Get a Roster by id
+      operationId: getRosterById
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: Numeric id of the resource
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Roster'
+        '400':
+          description: Bad request
+        '401':
+          description: Authentication required or invalid token
+        '403':
+          description: Forbidden — token lacks access to this resource
+        '404':
+          description: Resource not found
+      security:
+      - BearerAuth: []
+      - OAuth2: []
+    post:
+      tags:
+      - Roster
+      summary: Update a Roster
+      operationId: updateRoster
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: Numeric id of the resource
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Roster'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Roster'
+        '400':
+          description: Bad request
+        '401':
+          description: Authentication required or invalid token
+        '403':
+          description: Forbidden — token lacks access to this resource
+        '404':
+          description: Resource not found
+      security:
+      - BearerAuth: []
+      - OAuth2: []
+    put:
+      tags:
+      - Roster
+      summary: Update a Roster
+      operationId: replaceRoster
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: Numeric id of the resource
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Roster'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Roster'
+        '400':
+          description: Bad request
+        '401':
+          description: Authentication required or invalid token
+        '403':
+          description: Forbidden — token lacks access to this resource
+        '404':
+          description: Resource not found
+      security:
+      - BearerAuth: []
+      - OAuth2: []
+    delete:
+      tags:
+      - Roster
+      summary: Delete a Roster
+      operationId: deleteRoster
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: Numeric id of the resource
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+        '400':
+          description: Bad request
+        '401':
+          description: Authentication required or invalid token
+        '403':
+          description: Forbidden — token lacks access to this resource
+        '404':
+          description: Resource not found
+      security:
+      - BearerAuth: []
+      - OAuth2: []
+    servers:
+    - url: https://{subdomain}.{region}.deputy.com/api/v1
+      description: Deputy tenant
+      variables:
+        subdomain:
+          default: your-subdomain
+        region:
+          default: deputy
+          enum:
+          - au
+          - eu
+          - na
+          - deputy
+  /resource/Roster/{id}/COMMENTS:
+    get:
+      tags:
+      - Roster
+      summary: List comments on a Roster
+      operationId: getCommentsRoster
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: Numeric id of the resource
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    Id:
+                      type: integer
+                    Comment:
+                      type: string
+                    Creator:
+                      type: integer
+                    Created:
+                      type: string
+                      format: date-time
+        '400':
+          description: Bad request
+        '401':
+          description: Authentication required or invalid token
+        '403':
+          description: Forbidden — token lacks access to this resource
+        '404':
+          description: Resource not found
+      security:
+      - BearerAuth: []
+      - OAuth2: []
+    post:
+      tags:
+      - Roster
+      summary: Add a comment to a Roster
+      operationId: addCommentRoster
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: Numeric id of the resource
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                Comment:
+                  type: string
+              required:
+              - Comment
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Authentication required or invalid token
+        '403':
+          description: Forbidden — token lacks access to this resource
+        '404':
+          description: Resource not found
+      security:
+      - BearerAuth: []
+      - OAuth2: []
+    servers:
+    - url: https://{subdomain}.{region}.deputy.com/api/v1
+      description: Deputy tenant
+      variables:
+        subdomain:
+          default: your-subdomain
+        region:
+          default: deputy
+          enum:
+          - au
+          - eu
+          - na
+          - deputy
+  /resource/Roster/{id}/COMMENTS/{commentId}:
+    delete:
+      tags:
+      - Roster
+      summary: Delete a comment on a Roster
+      operationId: deleteCommentRoster
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: Numeric id of the resource
+      - name: commentId
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+        '400':
+          description: Bad request
+        '401':
+          description: Authentication required or invalid token
+        '403':
+          description: Forbidden — token lacks access to this resource
+        '404':
+          description: Resource not found
+      security:
+      - BearerAuth: []
+      - OAuth2: []
+    servers:
+    - url: https://{subdomain}.{region}.deputy.com/api/v1
+      description: Deputy tenant
+      variables:
+        subdomain:
+          default: your-subdomain
+        region:
+          default: deputy
+          enum:
+          - au
+          - eu
+          - na
+          - deputy
+  /resource/Roster/{id}/HISTORY:
+    get:
+      tags:
+      - Roster
+      summary: Get change history for a Roster
+      operationId: historyRoster
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: Numeric id of the resource
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Roster'
+        '400':
+          description: Bad request
+        '401':
+          description: Authentication required or invalid token
+        '403':
+          description: Forbidden — token lacks access to this resource
+        '404':
+          description: Resource not found
+      security:
+      - BearerAuth: []
+      - OAuth2: []
+    servers:
+    - url: https://{subdomain}.{region}.deputy.com/api/v1
+      description: Deputy tenant
+      variables:
+        subdomain:
+          default: your-subdomain
+        region:
+          default: deputy
+          enum:
+          - au
+          - eu
+          - na
+          - deputy
+  /resource/Roster/{id}/HISTORY/travel/{timestamp}:
+    get:
+      tags:
+      - Roster
+      summary: Get a Roster as it existed at a prior time
+      operationId: historyRosterTravel
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: Numeric id of the resource
+      - name: timestamp
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+        description: Unix epoch seconds
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Roster'
+        '400':
+          description: Bad request
+        '401':
+          description: Authentication required or invalid token
+        '403':
+          description: Forbidden — token lacks access to this resource
+        '404':
+          description: Resource not found
+      security:
+      - BearerAuth: []
+      - OAuth2: []
+    servers:
+    - url: https://{subdomain}.{region}.deputy.com/api/v1
+      description: Deputy tenant
+      variables:
+        subdomain:
+          default: your-subdomain
+        region:
+          default: deputy
+          enum:
+          - au
+          - eu
+          - na
+          - deputy
+  /supervise/roster:
+    post:
+      tags:
+      - Roster
+      summary: Create or update Roster
+      operationId: supervise_roster__post
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      security:
+      - BearerAuth: []
+    servers:
+    - url: https://{subdomain}.{region}.deputy.com/api/v1
+      description: Deputy tenant
+      variables:
+        subdomain:
+          default: your-subdomain
+        region:
+          default: deputy
+          enum:
+          - au
+          - eu
+          - na
+          - deputy
+  /supervise/roster/autobuild:
+    post:
+      tags:
+      - Roster
+      summary: POST Roster / autobuild
+      operationId: supervise_roster__autobuild_post
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      security:
+      - BearerAuth: []
+    servers:
+    - url: https://{subdomain}.{region}.deputy.com/api/v1
+      description: Deputy tenant
+      variables:
+        subdomain:
+          default: your-subdomain
+        region:
+          default: deputy
+          enum:
+          - au
+          - eu
+          - na
+          - deputy
+  /supervise/roster/autobuildfromagreedhours:
+    post:
+      tags:
+      - Roster
+      summary: POST Roster / autobuildfromagreedhours
+      operationId: supervise_roster__autobuildfromagreedhours_post
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      security:
+      - BearerAuth: []
+    servers:
+    - url: https://{subdomain}.{region}.deputy.com/api/v1
+      description: Deputy tenant
+      variables:
+        subdomain:
+          default: your-subdomain
+        region:
+          default: deputy
+          enum:
+          - au
+          - eu
+          - na
+          - deputy
+  /supervise/roster/autobuildfromgfe:
+    post:
+      tags:
+      - Roster
+      summary: POST Roster / autobuildfromgfe
+      operationId: supervise_roster__autobuildfromgfe_post
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      security:
+      - BearerAuth: []
+    servers:
+    - url: https://{subdomain}.{region}.deputy.com/api/v1
+      description: Deputy tenant
+      variables:
+        subdomain:
+          default: your-subdomain
+        region:
+          default: deputy
+          enum:
+          - au
+          - eu
+          - na
+          - deputy
+  /supervise/roster/autofill:
+    post:
+      tags:
+      - Roster
+      summary: POST Roster / autofill
+      operationId: supervise_roster__autofill_post
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      security:
+      - BearerAuth: []
+    servers:
+    - url: https://{subdomain}.{region}.deputy.com/api/v1
+      description: Deputy tenant
+      variables:
+        subdomain:
+          default: your-subdomain
+        region:
+          default: deputy
+          enum:
+          - au
+          - eu
+          - na
+          - deputy
+  /supervise/roster/bid/approve:
+    post:
+      tags:
+      - Roster
+      summary: POST Roster / approve
+      operationId: supervise_roster__bid_approve_post
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      security:
+      - BearerAuth: []
+    servers:
+    - url: https://{subdomain}.{region}.deputy.com/api/v1
+      description: Deputy tenant
+      variables:
+        subdomain:
+          default: your-subdomain
+        region:
+          default: deputy
+          enum:
+          - au
+          - eu
+          - na
+          - deputy
+  /supervise/roster/cancelautofill:
+    post:
+      tags:
+      - Roster
+      summary: POST Roster / cancelautofill
+      operationId: supervise_roster__cancelautofill_post
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      security:
+      - BearerAuth: []
+    servers:
+    - url: https://{subdomain}.{region}.deputy.com/api/v1
+      description: Deputy tenant
+      variables:
+        subdomain:
+          default: your-subdomain
+        region:
+          default: deputy
+          enum:
+          - au
+          - eu
+          - na
+          - deputy
+  /supervise/roster/checkautobuild/{jobKey}:
+    get:
+      tags:
+      - Roster
+      summary: GET Roster / :jobKey
+      operationId: supervise_roster__checkautobuild_jobkey_get
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      parameters:
+      - name: jobKey
+        in: path
+        required: true
+        schema:
+          type: string
+      security:
+      - BearerAuth: []
+    servers:
+    - url: https://{subdomain}.{region}.deputy.com/api/v1
+      description: Deputy tenant
+      variables:
+        subdomain:
+          default: your-subdomain
+        region:
+          default: deputy
+          enum:
+          - au
+          - eu
+          - na
+          - deputy
+  /supervise/roster/checkautobuildfromagreedhours/{jobKey}:
+    post:
+      tags:
+      - Roster
+      summary: POST Roster / :jobKey
+      operationId: supervise_roster__checkautobuildfromagreedhours_jobkey_post
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      parameters:
+      - name: jobKey
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      security:
+      - BearerAuth: []
+    servers:
+    - url: https://{subdomain}.{region}.deputy.com/api/v1
+      description: Deputy tenant
+      variables:
+        subdomain:
+          default: your-subdomain
+        region:
+          default: deputy
+          enum:
+          - au
+          - eu
+          - na
+          - deputy
+  /supervise/roster/checkautobuildfromgfe/{jobKey}:
+    post:
+      tags:
+      - Roster
+      summary: POST Roster / :jobKey
+      operationId: supervise_roster__checkautobuildfromgfe_jobkey_post
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      parameters:
+      - name: jobKey
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      security:
+      - BearerAuth: []
+    servers:
+    - url: https://{subdomain}.{region}.deputy.com/api/v1
+      description: Deputy tenant
+      variables:
+        subdomain:
+          default: your-subdomain
+        region:
+          default: deputy
+          enum:
+          - au
+          - eu
+          - na
+          - deputy
+  /supervise/roster/checkautofill/{jobKey}:
+    get:
+      tags:
+      - Roster
+      summary: GET Roster / :jobKey
+      operationId: supervise_roster__checkautofill_jobkey_get
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      parameters:
+      - name: jobKey
+        in: path
+        required: true
+        schema:
+          type: string
+      security:
+      - BearerAuth: []
+    servers:
+    - url: https://{subdomain}.{region}.deputy.com/api/v1
+      description: Deputy tenant
+      variables:
+        subdomain:
+          default: your-subdomain
+        region:
+          default: deputy
+          enum:
+          - au
+          - eu
+          - na
+          - deputy
+  /supervise/roster/connect-info:
+    post:
+      tags:
+      - Roster
+      summary: POST Roster / connect info
+      operationId: supervise_roster__connect_info_post
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      security:
+      - BearerAuth: []
+    servers:
+    - url: https://{subdomain}.{region}.deputy.com/api/v1
+      description: Deputy tenant
+      variables:
+        subdomain:
+          default: your-subdomain
+        region:
+          default: deputy
+          enum:
+          - au
+          - eu
+          - na
+          - deputy
+  /supervise/roster/copy:
+    post:
+      tags:
+      - Roster
+      summary: POST Roster / copy
+      operationId: supervise_roster__copy_post
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      security:
+      - BearerAuth: []
+    servers:
+    - url: https://{subdomain}.{region}.deputy.com/api/v1
+      description: Deputy tenant
+      variables:
+        subdomain:
+          default: your-subdomain
+        region:
+          default: deputy
+          enum:
+          - au
+          - eu
+          - na
+          - deputy
+  /supervise/roster/copy/batch:
+    post:
+      tags:
+      - Roster
+      summary: POST Roster / batch
+      operationId: supervise_roster__copy_batch_post
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      security:
+      - BearerAuth: []
+    servers:
+    - url: https://{subdomain}.{region}.deputy.com/api/v1
+      description: Deputy tenant
+      variables:
+        subdomain:
+          default: your-subdomain
+        region:
+          default: deputy
+          enum:
+          - au
+          - eu
+          - na
+          - deputy
+  /supervise/roster/discard:
+    post:
+      tags:
+      - Roster
+      summary: POST Roster / discard
+      operationId: supervise_roster__discard_post
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      security:
+      - BearerAuth: []
+    servers:
+    - url: https://{subdomain}.{region}.deputy.com/api/v1
+      description: Deputy tenant
+      variables:
+        subdomain:
+          default: your-subdomain
+        region:
+          default: deputy
+          enum:
+          - au
+          - eu
+          - na
+          - deputy
+  /supervise/roster/notifymanager/{id}:
+    get:
+      tags:
+      - Roster
+      summary: GET Roster / :id
+      operationId: supervise_roster__notifymanager_id_get
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          pattern: \d+
+      security:
+      - BearerAuth: []
+    servers:
+    - url: https://{subdomain}.{region}.deputy.com/api/v1
+      description: Deputy tenant
+      variables:
+        subdomain:
+          default: your-subdomain
+        region:
+          default: deputy
+          enum:
+          - au
+          - eu
+          - na
+          - deputy
+  /supervise/roster/pending-approval-swap-details/{id}:
+    get:
+      tags:
+      - Roster
+      summary: GET Roster / :id
+      operationId: supervise_roster__pending_approval_swap_details_id_get
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          pattern: \d+
+      security:
+      - BearerAuth: []
+    servers:
+    - url: https://{subdomain}.{region}.deputy.com/api/v1
+      description: Deputy tenant
+      variables:
+        subdomain:
+          default: your-subdomain
+        region:
+          default: deputy
+          enum:
+          - au
+          - eu
+          - na
+          - deputy
+  /supervise/roster/publish:
+    post:
+      tags:
+      - Roster
+      summary: POST Roster / publish
+      operationId: supervise_roster__publish_post
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      security:
+      - BearerAuth: []
+    servers:
+    - url: https://{subdomain}.{region}.deputy.com/api/v1
+      description: Deputy tenant
+      variables:
+        subdomain:
+          default: your-subdomain
+        region:
+          default: deputy
+          enum:
+          - au
+          - eu
+          - na
+          - deputy
+  /supervise/roster/shift/setup:
+    post:
+      tags:
+      - Roster
+      summary: POST Roster / setup
+      operationId: supervise_roster__shift_setup_post
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      security:
+      - BearerAuth: []
+    servers:
+    - url: https://{subdomain}.{region}.deputy.com/api/v1
+      description: Deputy tenant
+      variables:
+        subdomain:
+          default: your-subdomain
+        region:
+          default: deputy
+          enum:
+          - au
+          - eu
+          - na
+          - deputy
+  /supervise/roster/swap/{action}:
+    post:
+      tags:
+      - Roster
+      summary: POST Roster / :action
+      operationId: supervise_roster__swap_action_post
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      parameters:
+      - name: action
+        in: path
+        required: true
+        schema:
+          type: string
+          pattern: (approve|decline)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      security:
+      - BearerAuth: []
+    servers:
+    - url: https://{subdomain}.{region}.deputy.com/api/v1
+      description: Deputy tenant
+      variables:
+        subdomain:
+          default: your-subdomain
+        region:
+          default: deputy
+          enum:
+          - au
+          - eu
+          - na
+          - deputy
+  /supervise/roster/swap/{startDate}/{endDate}:
+    get:
+      tags:
+      - Roster
+      summary: GET Roster / :endDate)?
+      operationId: supervise_roster__swap_startdate_enddate__get
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      parameters:
+      - name: startDate
+        in: path
+        required: true
+        schema:
+          type: string
+          pattern: '[0-9]{2,4}\-[0-9]{1,2}\-[0-9]{1,2}'
+      - name: endDate
+        in: path
+        required: true
+        schema:
+          type: string
+          pattern: '[0-9]{2,4}\-[0-9]{1,2}\-[0-9]{1,2}'
+      security:
+      - BearerAuth: []
+    servers:
+    - url: https://{subdomain}.{region}.deputy.com/api/v1
+      description: Deputy tenant
+      variables:
+        subdomain:
+          default: your-subdomain
+        region:
+          default: deputy
+          enum:
+          - au
+          - eu
+          - na
+          - deputy
+  /supervise/roster/systemtemplate/copy:
+    post:
+      tags:
+      - Roster
+      summary: POST Roster / copy
+      operationId: supervise_roster__systemtemplate_copy_post
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      security:
+      - BearerAuth: []
+    servers:
+    - url: https://{subdomain}.{region}.deputy.com/api/v1
+      description: Deputy tenant
+      variables:
+        subdomain:
+          default: your-subdomain
+        region:
+          default: deputy
+          enum:
+          - au
+          - eu
+          - na
+          - deputy
+  /supervise/roster/systemtemplate/list/{intMode}:
+    get:
+      tags:
+      - Roster
+      summary: GET Roster / :intMode
+      operationId: supervise_roster__systemtemplate_list_intmode_get
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      parameters:
+      - name: intMode
+        in: path
+        required: true
+        schema:
+          type: integer
+          pattern: \d+
+      security:
+      - BearerAuth: []
+    servers:
+    - url: https://{subdomain}.{region}.deputy.com/api/v1
+      description: Deputy tenant
+      variables:
+        subdomain:
+          default: your-subdomain
+        region:
+          default: deputy
+          enum:
+          - au
+          - eu
+          - na
+          - deputy
+  /supervise/roster/template/{companyId}/{action}:
+    post:
+      tags:
+      - Roster
+      summary: POST Roster / :action
+      operationId: supervise_roster__template_companyid_action_post
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      parameters:
+      - name: companyId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: action
+        in: path
+        required: true
+        schema:
+          type: string
+          pattern: (list|save|copy)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      security:
+      - BearerAuth: []
+    servers:
+    - url: https://{subdomain}.{region}.deputy.com/api/v1
+      description: Deputy tenant
+      variables:
+        subdomain:
+          default: your-subdomain
+        region:
+          default: deputy
+          enum:
+          - au
+          - eu
+          - na
+          - deputy
+  /supervise/roster/template/{templateId}:
+    delete:
+      tags:
+      - Roster
+      summary: DELETE Roster / :templateId
+      operationId: supervise_roster__template_templateid_delete
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      parameters:
+      - name: templateId
+        in: path
+        required: true
+        schema:
+          type: integer
+          pattern: \d+
+      security:
+      - BearerAuth: []
+    servers:
+    - url: https://{subdomain}.{region}.deputy.com/api/v1
+      description: Deputy tenant
+      variables:
+        subdomain:
+          default: your-subdomain
+        region:
+          default: deputy
+          enum:
+          - au
+          - eu
+          - na
+          - deputy
+  /supervise/roster/{date}:
+    get:
+      tags:
+      - Roster
+      summary: GET Roster / (:date)?
+      operationId: supervise_roster__date__get
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      parameters:
+      - name: date
+        in: path
+        required: true
+        schema:
+          type: string
+      security:
+      - BearerAuth: []
+    servers:
+    - url: https://{subdomain}.{region}.deputy.com/api/v1
+      description: Deputy tenant
+      variables:
+        subdomain:
+          default: your-subdomain
+        region:
+          default: deputy
+          enum:
+          - au
+          - eu
+          - na
+          - deputy
+  /supervise/roster/{date}/{intCompanyId}:
+    get:
+      tags:
+      - Roster
+      summary: GET Roster / :intCompanyId
+      operationId: supervise_roster__date_intcompanyid_get
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      parameters:
+      - name: date
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: intCompanyId
+        in: path
+        required: true
+        schema:
+          type: string
+      security:
+      - BearerAuth: []
+    servers:
+    - url: https://{subdomain}.{region}.deputy.com/api/v1
+      description: Deputy tenant
+      variables:
+        subdomain:
+          default: your-subdomain
+        region:
+          default: deputy
+          enum:
+          - au
+          - eu
+          - na
+          - deputy
+  /supervise/roster/{date}/{intCompanyId}/{limit}/{offset}/{fetchOpen}:
+    get:
+      tags:
+      - Roster
+      summary: GET Roster / :fetchOpen)?
+      operationId: supervise_roster__date_intcompanyid_limit_offset_fetchopen__get
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      parameters:
+      - name: date
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: intCompanyId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: limit
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: offset
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: fetchOpen
+        in: path
+        required: true
+        schema:
+          type: string
+      security:
+      - BearerAuth: []
+    servers:
+    - url: https://{subdomain}.{region}.deputy.com/api/v1
+      description: Deputy tenant
+      variables:
+        subdomain:
+          default: your-subdomain
+        region:
+          default: deputy
+          enum:
+          - au
+          - eu
+          - na
+          - deputy
+  /supervise/roster/{id}:
+    get:
+      tags:
+      - Roster
+      summary: GET Roster / :id
+      operationId: supervise_roster__id_get
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          pattern: \d+
+      security:
+      - BearerAuth: []
+    servers:
+    - url: https://{subdomain}.{region}.deputy.com/api/v1
+      description: Deputy tenant
+      variables:
+        subdomain:
+          default: your-subdomain
+        region:
+          default: deputy
+          enum:
+          - au
+          - eu
+          - na
+          - deputy
+  /supervise/roster/{id}/bids:
+    get:
+      tags:
+      - Roster
+      summary: GET Roster / bids
+      operationId: supervise_roster__id_bids_get
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          pattern: \d+
+      security:
+      - BearerAuth: []
+    servers:
+    - url: https://{subdomain}.{region}.deputy.com/api/v1
+      description: Deputy tenant
+      variables:
+        subdomain:
+          default: your-subdomain
+        region:
+          default: deputy
+          enum:
+          - au
+          - eu
+          - na
+          - deputy
+  /supervise/roster/{id}/swapdetails:
+    get:
+      tags:
+      - Roster
+      summary: GET Roster / swapdetails
+      operationId: supervise_roster__id_swapdetails_get
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          pattern: \d+
+      security:
+      - BearerAuth: []
+    servers:
+    - url: https://{subdomain}.{region}.deputy.com/api/v1
+      description: Deputy tenant
+      variables:
+        subdomain:
+          default: your-subdomain
+        region:
+          default: deputy
+          enum:
+          - au
+          - eu
+          - na
+          - deputy
+  /supervise/roster/{strStartYMD}/{intCompanyId}/{strEndYMD}:
+    get:
+      tags:
+      - Roster
+      summary: GET Roster / :strEndYMD
+      operationId: supervise_roster__strstartymd_intcompanyid_strendymd_get
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      parameters:
+      - name: strStartYMD
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: intCompanyId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: strEndYMD
+        in: path
+        required: true
+        schema:
+          type: string
+      security:
+      - BearerAuth: []
+    servers:
+    - url: https://{subdomain}.{region}.deputy.com/api/v1
+      description: Deputy tenant
+      variables:
+        subdomain:
+          default: your-subdomain
+        region:
+          default: deputy
+          enum:
+          - au
+          - eu
+          - na
+          - deputy
+  /tsa/v2/rosters/{rosterId}:
+    get:
+      summary: Get Roster
+      description: Fetch a roster by ID with detailed information including child rosters and area details.
+      operationId: TimesheetRosterController_getRoster
+      responses:
+        '200':
+          description: A successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TsaGetRosterResponse'
+      parameters:
+      - name: rosterId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      tags:
+      - Roster
+      security:
+      - ApiToken: []
+    servers:
+    - url: https://{subdomain}.{region}.deputy.com/api
+      description: Deputy tenant
+      variables:
+        subdomain:
+          default: your-subdomain
+          description: Your Deputy tenant subdomain
+        region:
+          default: deputy
+          enum:
+          - au
+          - eu
+          - na
+          - deputy
+          description: 'Deputy region: au, eu, na, or deputy (AU default)'
+components:
+  schemas:
+    QueryRequest:
+      type: object
+      description: V1 Resource search payload. All fields optional; an empty body returns the first page of results.
+      properties:
+        search:
+          type: object
+          description: Map of search clauses keyed by an arbitrary id (e.g. `s1`, `s2`). Each clause filters one field.
+          additionalProperties:
+            type: object
+            required:
+            - field
+            - data
+            - type
+            properties:
+              field:
+                type: string
+                description: Field name to filter on (e.g. `Id`, `Employee`).
+              data:
+                description: Comparison value. Type depends on the field.
+              type:
+                type: string
+                description: Comparison operator.
+                enum:
+                - eq
+                - ne
+                - gt
+                - lt
+                - ge
+                - le
+                - is
+                - is not
+                - in
+                - not in
+                - starts
+                - contains
+        sort:
+          type: object
+          description: Map of field name → `asc` or `desc`.
+          additionalProperties:
+            type: string
+            enum:
+            - asc
+            - desc
+        start:
+          type: integer
+          minimum: 0
+          default: 0
+          description: Pagination offset (0-indexed).
+        max:
+          type: integer
+          minimum: 1
+          maximum: 500
+          default: 100
+          description: Max records per page (server caps at 500).
+        join:
+          type: array
+          items:
+            type: string
+          description: Related ORMs to expand inline (e.g. `["EmployeeObject"]`).
+      example:
+        search:
+          s1:
+            field: Id
+            data: 1
+            type: ge
+        max: 100
+    Roster:
+      type: object
+      properties:
+        Id:
+          type: integer
+        Date:
+          type: string
+          format: date-time
+        StartTime:
+          type: integer
+        EndTime:
+          type: integer
+        Mealbreak:
+          type: string
+          format: date-time
+        Slots:
+          type: string
+          maxLength: 255
+        TotalTime:
+          type: number
+          format: double
+        Cost:
+          type: number
+          format: double
+        OperationalUnit:
+          type: integer
+        Employee:
+          type: integer
+        Comment:
+          type: string
+        Warning:
+          type: string
+          maxLength: 255
+        WarningOverrideComment:
+          type: string
+          maxLength: 255
+        Published:
+          type: boolean
+        MatchedByTimesheet:
+          type: integer
+        CustomFieldData:
+          type: integer
+        Open:
+          type: boolean
+        ApprovalRequired:
+          type: boolean
+        ConfirmStatus:
+          type: integer
+        ConfirmComment:
+          type: string
+          maxLength: 255
+        ConfirmBy:
+          type: integer
+        ConfirmTime:
+          type: integer
+        SwapStatus:
+          type: integer
+        SwapManageBy:
+          type: integer
+        ShiftTemplate:
+          type: integer
+        ConnectStatus:
+          type: integer
+        ParentId:
+          type: integer
+        Creator:
+          type: integer
+        Created:
+          type: string
+          format: date-time
+        Modified:
+          type: string
+        OperationalUnitObject:
+          type: object
+        EmployeeObject:
+          type: object
+        MatchedByTimesheetObject:
+          type: object
+        CustomFieldDataObject:
+          type: object
+        ConfirmByObject:
+          type: object
+        SwapManageByObject:
+          type: object
+        ShiftTemplateObject:
+          type: object
+        Parent:
+          type: object
+        DirtyDeputecRosterLiveStateAsRoster:
+          type: boolean
+      required:
+      - Id
+      - StartTime
+      - EndTime
+      - Modified
+    TsaGetRosterResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        roster:
+          $ref: '#/components/schemas/modelRoster'
+    v2modelLocation:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        name:
+          type: string
+    tenanttsav2modelArea:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        name:
+          type: string
+        color:
+          type: string
+        location:
+          $ref: '#/components/schemas/v2modelLocation'
+        timezone:
+          type: string
+          description: IANA timezone identifier (e.g., "America/New_York"). Do not use offset strings.
+    RosterChildRoster:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        date:
+          type: string
+          title: Date in YYYY-MM-DD format e.g. "2025-10-31"
+        startTime:
+          type: string
+          format: int64
+          title: unix timestamp
+        endTime:
+          type: string
+          format: int64
+          title: unix timestamp
+        area:
+          $ref: '#/components/schemas/tenanttsav2modelArea'
+    modelRoster:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        date:
+          type: string
+          title: Date in YYYY-MM-DD format e.g. "2025-10-31"
+        startTime:
+          type: string
+          format: int64
+          title: unix timestamp
+        endTime:
+          type: string
+          format: int64
+          title: unix timestamp
+        mealbreakDuration:
+          type: string
+        mealbreakSlots:
+          type: string
+        note:
+          type: string
+        children:
+          type: array
+          items:
+            $ref: '#/components/schemas/RosterChildRoster'
+        area:
+          $ref: '#/components/schemas/tenanttsav2modelArea'
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      description: OAuth 2.0 access token or Deputy Permanent Token.
+    OAuth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://once.deputy.com/my/oauth/login
+          tokenUrl: https://once.deputy.com/my/oauth/access_token
+          scopes:
+            longlife_refresh_token: Extended session
+    ApiToken:
+      type: apiKey
+      in: header
+      name: OAuth
+x-refined-from:
+- deputy-v1-my-api-openapi.yml
+- deputy-v1-resource-api-openapi.yml
+- deputy-v1-supervise-api-openapi.yml
+- deputy-v2-api-openapi.yml
+x-provenance:
+  method: searched
+  source: https://developer.deputy.com/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://developer.deputy.com/reference/addalocation.md
+  - https://developer.deputy.com/reference/addalocationagainstanemployee.md
+  - https://developer.deputy.com/reference/addanemployee.md
+  - https://developer.deputy.com/reference/addasaletosalesmetrics.md
+  - https://developer.deputy.com/reference/addawebhookurl.md
+  - https://developer.deputy.com/reference/addleaveforaemployee.md
+  - https://developer.deputy.com/reference/addnewworkplace.md
+  - https://developer.deputy.com/reference/addunavailabilitydetailsforaemployee.md
+  - https://developer.deputy.com/reference/archivealocation.md
+  - https://developer.deputy.com/reference/copyaroster.md
+  - https://developer.deputy.com/reference/create-a-memo.md
+  - https://developer.deputy.com/reference/createadepartment.md
+  - https://developer.deputy.com/reference/createmultipledepartments.md
+  - https://developer.deputy.com/reference/deletealocation.md
+  - https://developer.deputy.com/reference/deleteanemployeesaccountindeputy.md
+  - https://developer.deputy.com/reference/deleteasingleoperationalunit.md
+  - https://developer.deputy.com/reference/discardaroster.md
+  - https://developer.deputy.com/reference/doatask.md
+  - https://developer.deputy.com/reference/example-searchforemployeesfromalocation.md
+  - https://developer.deputy.com/reference/findanemployeesleave.md
+  - https://developer.deputy.com/reference/findoutanemployeesstatus.md
+  - https://developer.deputy.com/reference/getagreedhoursbyemployeeid.md
+  - https://developer.deputy.com/reference/getalistofrostersfromlast12hoursandforward36hours.md
+  - https://developer.deputy.com/reference/getalocationssettings.md
+  - https://developer.deputy.com/reference/getawardslibrarylist.md
+  - https://developer.deputy.com/reference/getdetailsforaemployeebyid.md
+  - https://developer.deputy.com/reference/getdetailsforallemployees.md
+  - https://developer.deputy.com/reference/getlocationbyid.md
+  - https://developer.deputy.com/reference/getlocations.md
+  - https://developer.deputy.com/reference/getmyindividualtimesheet.md
+  - https://developer.deputy.com/reference/getmynewsfeed.md
+  - https://developer.deputy.com/reference/getmynotifications.md
+  - https://developer.deputy.com/reference/getmysubordinatecontactdetails.md
+  - https://developer.deputy.com/reference/getmytasks.md
+  - https://developer.deputy.com/reference/getmytimesheets.md
+  - https://developer.deputy.com/reference/getmytraining.md
+  - https://developer.deputy.com/reference/getoperationalunits.md
+  - https://developer.deputy.com/reference/getrostersavailableforswap.md
+  - https://developer.deputy.com/reference/getsimplifiedlocationlist.md
+  - https://developer.deputy.com/reference/getsuggestionsforrosterbyid.md
+  - https://developer.deputy.com/reference/getunavailabilitydetailsforaemployee.md
+  - https://developer.deputy.com/reference/inviteemployeetodeputy.md
+  - https://developer.deputy.com/reference/modifysettingsinalllocations.md
+  - https://developer.deputy.com/reference/modifysettingsinasinglelocation.md
+  - https://developer.deputy.com/reference/myaddressonfile.md
+  - https://developer.deputy.com/reference/myaddressonfileincludingemergency.md
+  - https://developer.deputy.com/reference/myleaverequests.md
+  - https://developer.deputy.com/reference/pauseorunpauseemployeestimesheettakeabreakfinishbreak.md
+  - https://developer.deputy.com/reference/postajournal.md
+  - https://developer.deputy.com/reference/publisharoster.md
+  - https://developer.deputy.com/reference/re-activateaterminatedemployee.md
+  - https://developer.deputy.com/reference/removealocationfromanemployee.md
+  - https://developer.deputy.com/reference/retrievecurrentsystemtime.md
+  - https://developer.deputy.com/reference/retrievecurrentsystemtimeofalocation.md
+  - https://developer.deputy.com/reference/retrievesalesdata.md
+  - https://developer.deputy.com/reference/setawardforemployee.md
+  - https://developer.deputy.com/reference/startanemployeestimesheetclockon.md
+  - https://developer.deputy.com/reference/stopanemployeestimesheetclockoff.md
+  - https://developer.deputy.com/reference/terminateanemployee.md
+  - https://developer.deputy.com/reference/updatealocation.md
+  - https://developer.deputy.com/reference/updateanexistingemployee.md
+  - https://developer.deputy.com/reference/updateasingleoperationalunit.md
+  - https://developer.deputy.com/reference/updatemyaddress.md
+  - https://developer.deputy.com/reference/viewatimesheetbyid.md
+  - https://developer.deputy.com/reference/whatlocationscaniworkin.md
+  - https://developer.deputy.com/reference/whenaminextworking.md
+  - https://developer.deputy.com/reference/whenamiunavailable.md
+  - https://developer.deputy.com/reference/wherecaniworkwhatdoido.md
+  - https://developer.deputy.com/reference/whodoiworkwith.md
+  merge:
+    pages: 69
+    deduped: 70
+    conflicts_kept_first: 0

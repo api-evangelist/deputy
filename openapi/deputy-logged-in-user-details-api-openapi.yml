@@ -1,0 +1,412 @@
+openapi: 3.2.0
+info:
+  title: Deputy Logged in User Details API
+  contact: {}
+  version: '1.0'
+  description: '# All about "Me"
+
+
+    This set of API endpoints allow you to retrieve data about the authenticated user the API token relates too. You can find information out such as locations the user is able to work, their contact details, current rosters and timesheets just to name a few options.
+
+
+    In many cases you can also provide updates to this profile via the API. For example there are endpoints which allow you to update a contact address or photo.'
+servers:
+- url: https://{install}.{geo}.deputy.com/api
+  variables:
+    install:
+      default: ''
+    geo:
+      default: ''
+security:
+- httpBearer: []
+tags:
+- name: Logged in User Details
+  description: '# All about "Me"
+
+
+    This set of API endpoints allow you to retrieve data about the authenticated user the API token relates too. You can find information out such as locations the user is able to work, their contact details, current rosters and timesheets just to name a few options.
+
+
+    In many cases you can also provide updates to this profile via the API. For example there are endpoints which allow you to update a contact address or photo.'
+paths:
+  /v1/my/colleague:
+    get:
+      tags:
+      - Logged in User Details
+      summary: Who do I work with?
+      operationId: WhodoIworkwith?
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content: {}
+      deprecated: false
+  /v1/my/contactaddress:
+    get:
+      tags:
+      - Logged in User Details
+      summary: My address on file
+      operationId: Myaddressonfile
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content: {}
+      deprecated: false
+    post:
+      tags:
+      - Logged in User Details
+      summary: Update my address
+      operationId: Updatemyaddress
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/UpdatemyaddressRequest'
+              - example:
+                  ContactName: A Person
+                  UnitNo: '2'
+                  Street1: 580 George Street
+                  City: Sydney
+                  State: '150'
+                  Postcode: '2000'
+                  Country: 13
+                  Notes: A note
+            example:
+              ContactName: A Person
+              UnitNo: '2'
+              Street1: 580 George Street
+              City: Sydney
+              State: '150'
+              Postcode: '2000'
+              Country: 13
+              Notes: A note
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content: {}
+      deprecated: false
+  /v1/my/contactaddress/all:
+    get:
+      tags:
+      - Logged in User Details
+      summary: Myaddressonfileincludingemergency
+      description: My address on file including emergency
+      operationId: Myaddressonfileincludingemergency
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content: {}
+      deprecated: false
+  /v1/my/contactaddress/subordinate:
+    get:
+      tags:
+      - Logged in User Details
+      summary: Get my subordinate contact details
+      operationId: Getmysubordinatecontactdetails
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content: {}
+      deprecated: false
+  /v1/my/leave:
+    get:
+      tags:
+      - Logged in User Details
+      summary: My Leave Requests
+      operationId: MyLeaveRequests
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content: {}
+      deprecated: false
+  /v1/my/location:
+    get:
+      tags:
+      - Logged in User Details
+      summary: What locations can I work in
+      description: What locations can i work in
+      operationId: Whatlocationscaniworkin
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content: {}
+      deprecated: false
+  /v1/my/memo:
+    get:
+      tags:
+      - Logged in User Details
+      summary: Get my news feed
+      description: Get my newsfeed
+      operationId: Getmynewsfeed
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content: {}
+      deprecated: false
+  /v1/my/notification:
+    get:
+      tags:
+      - Logged in User Details
+      summary: Get My Notifications
+      operationId: GetMyNotifications
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content: {}
+      deprecated: false
+  /v1/my/roster:
+    get:
+      tags:
+      - Logged in User Details
+      summary: When Am I Next Working
+      operationId: WhenAmINextWorking
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content: {}
+      deprecated: false
+  /v1/my/setup:
+    get:
+      tags:
+      - Logged in User Details
+      summary: Where can I work /What do I do
+      description: Where can I work/What do I do
+      operationId: WherecanIwork/WhatdoIdo
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content: {}
+      deprecated: false
+  /v1/my/tasks:
+    get:
+      tags:
+      - Logged in User Details
+      summary: Get my tasks
+      operationId: Getmytasks
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content: {}
+      deprecated: false
+  /v1/my/tasks/{taskid}/do:
+    get:
+      tags:
+      - Logged in User Details
+      summary: Do a task
+      operationId: Doatask
+      parameters:
+      - name: taskid
+        in: path
+        description: The task id record
+        required: true
+        style: simple
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content: {}
+      deprecated: false
+  /v1/my/timesheets:
+    get:
+      tags:
+      - Logged in User Details
+      summary: Get my timesheets
+      operationId: Getmytimesheets
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content: {}
+      deprecated: false
+  /v1/my/timesheets/{timesheetid}/detail:
+    get:
+      tags:
+      - Logged in User Details
+      summary: Get my individual timesheet
+      operationId: Getmyindividualtimesheet
+      parameters:
+      - name: timesheetid
+        in: path
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content: {}
+      deprecated: false
+  /v1/my/training:
+    get:
+      tags:
+      - Logged in User Details
+      summary: Get my training
+      operationId: Getmytraining
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content: {}
+      deprecated: false
+  /v1/my/unavail:
+    get:
+      tags:
+      - Logged in User Details
+      summary: When Am I Unavailable
+      operationId: WhenAmIUnavailable
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content: {}
+      deprecated: false
+components:
+  schemas:
+    UpdatemyaddressRequest:
+      title: UpdatemyaddressRequest
+      required:
+      - ContactName
+      - UnitNo
+      - Street1
+      - City
+      - State
+      - Postcode
+      - Country
+      - Notes
+      type: object
+      properties:
+        ContactName:
+          type: string
+        UnitNo:
+          type: string
+        Street1:
+          type: string
+        City:
+          type: string
+        State:
+          type: string
+        Postcode:
+          type: string
+        Country:
+          type: integer
+          format: int32
+        Notes:
+          type: string
+  securitySchemes:
+    httpBearer:
+      type: http
+      scheme: bearer
+x-provenance:
+  method: searched
+  source: https://developer.deputy.com/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://developer.deputy.com/reference/addalocation.md
+  - https://developer.deputy.com/reference/addalocationagainstanemployee.md
+  - https://developer.deputy.com/reference/addanemployee.md
+  - https://developer.deputy.com/reference/addasaletosalesmetrics.md
+  - https://developer.deputy.com/reference/addawebhookurl.md
+  - https://developer.deputy.com/reference/addleaveforaemployee.md
+  - https://developer.deputy.com/reference/addnewworkplace.md
+  - https://developer.deputy.com/reference/addunavailabilitydetailsforaemployee.md
+  - https://developer.deputy.com/reference/archivealocation.md
+  - https://developer.deputy.com/reference/copyaroster.md
+  - https://developer.deputy.com/reference/create-a-memo.md
+  - https://developer.deputy.com/reference/createadepartment.md
+  - https://developer.deputy.com/reference/createmultipledepartments.md
+  - https://developer.deputy.com/reference/deletealocation.md
+  - https://developer.deputy.com/reference/deleteanemployeesaccountindeputy.md
+  - https://developer.deputy.com/reference/deleteasingleoperationalunit.md
+  - https://developer.deputy.com/reference/discardaroster.md
+  - https://developer.deputy.com/reference/doatask.md
+  - https://developer.deputy.com/reference/example-searchforemployeesfromalocation.md
+  - https://developer.deputy.com/reference/findanemployeesleave.md
+  - https://developer.deputy.com/reference/findoutanemployeesstatus.md
+  - https://developer.deputy.com/reference/getagreedhoursbyemployeeid.md
+  - https://developer.deputy.com/reference/getalistofrostersfromlast12hoursandforward36hours.md
+  - https://developer.deputy.com/reference/getalocationssettings.md
+  - https://developer.deputy.com/reference/getawardslibrarylist.md
+  - https://developer.deputy.com/reference/getdetailsforaemployeebyid.md
+  - https://developer.deputy.com/reference/getdetailsforallemployees.md
+  - https://developer.deputy.com/reference/getlocationbyid.md
+  - https://developer.deputy.com/reference/getlocations.md
+  - https://developer.deputy.com/reference/getmyindividualtimesheet.md
+  - https://developer.deputy.com/reference/getmynewsfeed.md
+  - https://developer.deputy.com/reference/getmynotifications.md
+  - https://developer.deputy.com/reference/getmysubordinatecontactdetails.md
+  - https://developer.deputy.com/reference/getmytasks.md
+  - https://developer.deputy.com/reference/getmytimesheets.md
+  - https://developer.deputy.com/reference/getmytraining.md
+  - https://developer.deputy.com/reference/getoperationalunits.md
+  - https://developer.deputy.com/reference/getrostersavailableforswap.md
+  - https://developer.deputy.com/reference/getsimplifiedlocationlist.md
+  - https://developer.deputy.com/reference/getsuggestionsforrosterbyid.md
+  - https://developer.deputy.com/reference/getunavailabilitydetailsforaemployee.md
+  - https://developer.deputy.com/reference/inviteemployeetodeputy.md
+  - https://developer.deputy.com/reference/modifysettingsinalllocations.md
+  - https://developer.deputy.com/reference/modifysettingsinasinglelocation.md
+  - https://developer.deputy.com/reference/myaddressonfile.md
+  - https://developer.deputy.com/reference/myaddressonfileincludingemergency.md
+  - https://developer.deputy.com/reference/myleaverequests.md
+  - https://developer.deputy.com/reference/pauseorunpauseemployeestimesheettakeabreakfinishbreak.md
+  - https://developer.deputy.com/reference/postajournal.md
+  - https://developer.deputy.com/reference/publisharoster.md
+  - https://developer.deputy.com/reference/re-activateaterminatedemployee.md
+  - https://developer.deputy.com/reference/removealocationfromanemployee.md
+  - https://developer.deputy.com/reference/retrievecurrentsystemtime.md
+  - https://developer.deputy.com/reference/retrievecurrentsystemtimeofalocation.md
+  - https://developer.deputy.com/reference/retrievesalesdata.md
+  - https://developer.deputy.com/reference/setawardforemployee.md
+  - https://developer.deputy.com/reference/startanemployeestimesheetclockon.md
+  - https://developer.deputy.com/reference/stopanemployeestimesheetclockoff.md
+  - https://developer.deputy.com/reference/terminateanemployee.md
+  - https://developer.deputy.com/reference/updatealocation.md
+  - https://developer.deputy.com/reference/updateanexistingemployee.md
+  - https://developer.deputy.com/reference/updateasingleoperationalunit.md
+  - https://developer.deputy.com/reference/updatemyaddress.md
+  - https://developer.deputy.com/reference/viewatimesheetbyid.md
+  - https://developer.deputy.com/reference/whatlocationscaniworkin.md
+  - https://developer.deputy.com/reference/whenaminextworking.md
+  - https://developer.deputy.com/reference/whenamiunavailable.md
+  - https://developer.deputy.com/reference/wherecaniworkwhatdoido.md
+  - https://developer.deputy.com/reference/whodoiworkwith.md
+  merge:
+    pages: 69
+    deduped: 70
+    conflicts_kept_first: 0

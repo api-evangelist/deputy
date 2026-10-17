@@ -1,0 +1,1214 @@
+openapi: 3.2.0
+info:
+  title: Deputy Leave API
+  version: 1.0.0
+  description: 'Operations tagged Leave across 3 of this provider''s published API definitions: deputy-v1-my-api-openapi.yml, deputy-v1-resource-api-openapi.yml, deputy-v1-supervise-api-openapi.yml. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://{subdomain}.{region}.deputy.com/api/v1
+  description: Deputy tenant
+  variables:
+    subdomain:
+      default: your-subdomain
+    region:
+      default: deputy
+      enum:
+      - au
+      - eu
+      - na
+      - deputy
+tags:
+- name: Leave
+  description: V1 /my/leave/* endpoints
+paths:
+  /my/leave:
+    post:
+      tags:
+      - Leave
+      summary: Create or update Leave
+      operationId: my_leave__post
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      security:
+      - BearerAuth: []
+    put:
+      tags:
+      - Leave
+      summary: Create Leave
+      operationId: my_leave__put
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      security:
+      - BearerAuth: []
+    servers:
+    - url: https://{subdomain}.{region}.deputy.com/api/v1
+      description: Deputy tenant
+      variables:
+        subdomain:
+          default: your-subdomain
+        region:
+          default: deputy
+          enum:
+          - au
+          - eu
+          - na
+          - deputy
+  /my/leave/{strSetup}:
+    get:
+      tags:
+      - Leave
+      summary: GET Leave / (:strSetup)?
+      operationId: my_leave__strsetup__get
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      parameters:
+      - name: strSetup
+        in: path
+        required: true
+        schema:
+          type: string
+          pattern: ^setup$
+      security:
+      - BearerAuth: []
+    servers:
+    - url: https://{subdomain}.{region}.deputy.com/api/v1
+      description: Deputy tenant
+      variables:
+        subdomain:
+          default: your-subdomain
+        region:
+          default: deputy
+          enum:
+          - au
+          - eu
+          - na
+          - deputy
+  /resource/Leave:
+    get:
+      tags:
+      - Leave
+      summary: List Leave records
+      description: Returns Leave records the authenticated caller is permitted to see. For large tables prefer POST /QUERY with pagination.
+      operationId: listLeave
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Leave'
+        '400':
+          description: Bad request
+        '401':
+          description: Authentication required or invalid token
+        '403':
+          description: Forbidden — token lacks access to this resource
+        '404':
+          description: Resource not found
+      security:
+      - BearerAuth: []
+      - OAuth2: []
+    post:
+      tags:
+      - Leave
+      summary: Create a Leave
+      operationId: createLeave
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Leave'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Leave'
+        '400':
+          description: Bad request
+        '401':
+          description: Authentication required or invalid token
+        '403':
+          description: Forbidden — token lacks access to this resource
+        '404':
+          description: Resource not found
+      security:
+      - BearerAuth: []
+      - OAuth2: []
+    put:
+      tags:
+      - Leave
+      summary: Create a Leave
+      operationId: createOrReplaceLeave
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Leave'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Leave'
+        '400':
+          description: Bad request
+        '401':
+          description: Authentication required or invalid token
+        '403':
+          description: Forbidden — token lacks access to this resource
+        '404':
+          description: Resource not found
+      security:
+      - BearerAuth: []
+      - OAuth2: []
+    servers:
+    - url: https://{subdomain}.{region}.deputy.com/api/v1
+      description: Deputy tenant
+      variables:
+        subdomain:
+          default: your-subdomain
+        region:
+          default: deputy
+          enum:
+          - au
+          - eu
+          - na
+          - deputy
+  /resource/Leave/BULK:
+    post:
+      tags:
+      - Leave
+      summary: Bulk create/update Leave
+      description: Accepts an array of records. Each record is processed independently.
+      operationId: bulkLeave
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/Leave'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Leave'
+        '400':
+          description: Bad request
+        '401':
+          description: Authentication required or invalid token
+        '403':
+          description: Forbidden — token lacks access to this resource
+        '404':
+          description: Resource not found
+      security:
+      - BearerAuth: []
+      - OAuth2: []
+    servers:
+    - url: https://{subdomain}.{region}.deputy.com/api/v1
+      description: Deputy tenant
+      variables:
+        subdomain:
+          default: your-subdomain
+        region:
+          default: deputy
+          enum:
+          - au
+          - eu
+          - na
+          - deputy
+  /resource/Leave/INFO:
+    get:
+      tags:
+      - Leave
+      summary: Get field metadata for Leave
+      description: Returns the field list, types, and associations for this resource. Useful when building integrations that need to know which fields are queryable.
+      operationId: infoLeave
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Authentication required or invalid token
+        '403':
+          description: Forbidden — token lacks access to this resource
+        '404':
+          description: Resource not found
+      security:
+      - BearerAuth: []
+      - OAuth2: []
+    servers:
+    - url: https://{subdomain}.{region}.deputy.com/api/v1
+      description: Deputy tenant
+      variables:
+        subdomain:
+          default: your-subdomain
+        region:
+          default: deputy
+          enum:
+          - au
+          - eu
+          - na
+          - deputy
+  /resource/Leave/PREDICT:
+    post:
+      tags:
+      - Leave
+      summary: Predict-match a Leave record
+      description: Returns the closest matching existing record for a partial payload. Used by upsert-style integrations to find an existing row before creating.
+      operationId: predictLeave
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Leave'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Leave'
+        '400':
+          description: Bad request
+        '401':
+          description: Authentication required or invalid token
+        '403':
+          description: Forbidden — token lacks access to this resource
+        '404':
+          description: Resource not found
+      security:
+      - BearerAuth: []
+      - OAuth2: []
+    servers:
+    - url: https://{subdomain}.{region}.deputy.com/api/v1
+      description: Deputy tenant
+      variables:
+        subdomain:
+          default: your-subdomain
+        region:
+          default: deputy
+          enum:
+          - au
+          - eu
+          - na
+          - deputy
+  /resource/Leave/QUERY:
+    post:
+      tags:
+      - Leave
+      summary: Search Leave
+      description: 'Flexible search endpoint. Body supports `search`, `sort`, `start`, `max`, and `join` clauses. Example: `{"search": {"s1": {"field": "Id", "data": 1, "type": "eq"}}}`.'
+      operationId: searchLeave
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/QueryRequest'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Leave'
+        '400':
+          description: Bad request
+        '401':
+          description: Authentication required or invalid token
+        '403':
+          description: Forbidden — token lacks access to this resource
+        '404':
+          description: Resource not found
+      security:
+      - BearerAuth: []
+      - OAuth2: []
+    servers:
+    - url: https://{subdomain}.{region}.deputy.com/api/v1
+      description: Deputy tenant
+      variables:
+        subdomain:
+          default: your-subdomain
+        region:
+          default: deputy
+          enum:
+          - au
+          - eu
+          - na
+          - deputy
+  /resource/Leave/{id}:
+    get:
+      tags:
+      - Leave
+      summary: Get a Leave by id
+      operationId: getLeaveById
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: Numeric id of the resource
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Leave'
+        '400':
+          description: Bad request
+        '401':
+          description: Authentication required or invalid token
+        '403':
+          description: Forbidden — token lacks access to this resource
+        '404':
+          description: Resource not found
+      security:
+      - BearerAuth: []
+      - OAuth2: []
+    post:
+      tags:
+      - Leave
+      summary: Update a Leave
+      operationId: updateLeave
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: Numeric id of the resource
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Leave'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Leave'
+        '400':
+          description: Bad request
+        '401':
+          description: Authentication required or invalid token
+        '403':
+          description: Forbidden — token lacks access to this resource
+        '404':
+          description: Resource not found
+      security:
+      - BearerAuth: []
+      - OAuth2: []
+    put:
+      tags:
+      - Leave
+      summary: Update a Leave
+      operationId: replaceLeave
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: Numeric id of the resource
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Leave'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Leave'
+        '400':
+          description: Bad request
+        '401':
+          description: Authentication required or invalid token
+        '403':
+          description: Forbidden — token lacks access to this resource
+        '404':
+          description: Resource not found
+      security:
+      - BearerAuth: []
+      - OAuth2: []
+    delete:
+      tags:
+      - Leave
+      summary: Delete a Leave
+      operationId: deleteLeave
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: Numeric id of the resource
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+        '400':
+          description: Bad request
+        '401':
+          description: Authentication required or invalid token
+        '403':
+          description: Forbidden — token lacks access to this resource
+        '404':
+          description: Resource not found
+      security:
+      - BearerAuth: []
+      - OAuth2: []
+    servers:
+    - url: https://{subdomain}.{region}.deputy.com/api/v1
+      description: Deputy tenant
+      variables:
+        subdomain:
+          default: your-subdomain
+        region:
+          default: deputy
+          enum:
+          - au
+          - eu
+          - na
+          - deputy
+  /resource/Leave/{id}/COMMENTS:
+    get:
+      tags:
+      - Leave
+      summary: List comments on a Leave
+      operationId: getCommentsLeave
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: Numeric id of the resource
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    Id:
+                      type: integer
+                    Comment:
+                      type: string
+                    Creator:
+                      type: integer
+                    Created:
+                      type: string
+                      format: date-time
+        '400':
+          description: Bad request
+        '401':
+          description: Authentication required or invalid token
+        '403':
+          description: Forbidden — token lacks access to this resource
+        '404':
+          description: Resource not found
+      security:
+      - BearerAuth: []
+      - OAuth2: []
+    post:
+      tags:
+      - Leave
+      summary: Add a comment to a Leave
+      operationId: addCommentLeave
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: Numeric id of the resource
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                Comment:
+                  type: string
+              required:
+              - Comment
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Authentication required or invalid token
+        '403':
+          description: Forbidden — token lacks access to this resource
+        '404':
+          description: Resource not found
+      security:
+      - BearerAuth: []
+      - OAuth2: []
+    servers:
+    - url: https://{subdomain}.{region}.deputy.com/api/v1
+      description: Deputy tenant
+      variables:
+        subdomain:
+          default: your-subdomain
+        region:
+          default: deputy
+          enum:
+          - au
+          - eu
+          - na
+          - deputy
+  /resource/Leave/{id}/COMMENTS/{commentId}:
+    delete:
+      tags:
+      - Leave
+      summary: Delete a comment on a Leave
+      operationId: deleteCommentLeave
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: Numeric id of the resource
+      - name: commentId
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+        '400':
+          description: Bad request
+        '401':
+          description: Authentication required or invalid token
+        '403':
+          description: Forbidden — token lacks access to this resource
+        '404':
+          description: Resource not found
+      security:
+      - BearerAuth: []
+      - OAuth2: []
+    servers:
+    - url: https://{subdomain}.{region}.deputy.com/api/v1
+      description: Deputy tenant
+      variables:
+        subdomain:
+          default: your-subdomain
+        region:
+          default: deputy
+          enum:
+          - au
+          - eu
+          - na
+          - deputy
+  /resource/Leave/{id}/HISTORY:
+    get:
+      tags:
+      - Leave
+      summary: Get change history for a Leave
+      operationId: historyLeave
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: Numeric id of the resource
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Leave'
+        '400':
+          description: Bad request
+        '401':
+          description: Authentication required or invalid token
+        '403':
+          description: Forbidden — token lacks access to this resource
+        '404':
+          description: Resource not found
+      security:
+      - BearerAuth: []
+      - OAuth2: []
+    servers:
+    - url: https://{subdomain}.{region}.deputy.com/api/v1
+      description: Deputy tenant
+      variables:
+        subdomain:
+          default: your-subdomain
+        region:
+          default: deputy
+          enum:
+          - au
+          - eu
+          - na
+          - deputy
+  /resource/Leave/{id}/HISTORY/travel/{timestamp}:
+    get:
+      tags:
+      - Leave
+      summary: Get a Leave as it existed at a prior time
+      operationId: historyLeaveTravel
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: Numeric id of the resource
+      - name: timestamp
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+        description: Unix epoch seconds
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Leave'
+        '400':
+          description: Bad request
+        '401':
+          description: Authentication required or invalid token
+        '403':
+          description: Forbidden — token lacks access to this resource
+        '404':
+          description: Resource not found
+      security:
+      - BearerAuth: []
+      - OAuth2: []
+    servers:
+    - url: https://{subdomain}.{region}.deputy.com/api/v1
+      description: Deputy tenant
+      variables:
+        subdomain:
+          default: your-subdomain
+        region:
+          default: deputy
+          enum:
+          - au
+          - eu
+          - na
+          - deputy
+  /supervise/leave:
+    post:
+      tags:
+      - Leave
+      summary: Create or update Leave
+      operationId: supervise_leave__post
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      security:
+      - BearerAuth: []
+    servers:
+    - url: https://{subdomain}.{region}.deputy.com/api/v1
+      description: Deputy tenant
+      variables:
+        subdomain:
+          default: your-subdomain
+        region:
+          default: deputy
+          enum:
+          - au
+          - eu
+          - na
+          - deputy
+  /supervise/leave/leaveManagement:
+    post:
+      tags:
+      - Leave
+      summary: POST Leave / leaveManagement
+      operationId: supervise_leave__leavemanagement_post
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      security:
+      - BearerAuth: []
+    servers:
+    - url: https://{subdomain}.{region}.deputy.com/api/v1
+      description: Deputy tenant
+      variables:
+        subdomain:
+          default: your-subdomain
+        region:
+          default: deputy
+          enum:
+          - au
+          - eu
+          - na
+          - deputy
+  /supervise/leave/{intEmployeeId}:
+    get:
+      tags:
+      - Leave
+      summary: GET Leave / (:intEmployeeId)?
+      operationId: supervise_leave__intemployeeid__get
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      parameters:
+      - name: intEmployeeId
+        in: path
+        required: true
+        schema:
+          type: integer
+          pattern: \d+
+      security:
+      - BearerAuth: []
+    servers:
+    - url: https://{subdomain}.{region}.deputy.com/api/v1
+      description: Deputy tenant
+      variables:
+        subdomain:
+          default: your-subdomain
+        region:
+          default: deputy
+          enum:
+          - au
+          - eu
+          - na
+          - deputy
+  /supervise/leave/{intEmployeeId}/{strSetup}:
+    get:
+      tags:
+      - Leave
+      summary: GET Leave / :strSetup
+      operationId: supervise_leave__intemployeeid_strsetup_get
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      parameters:
+      - name: intEmployeeId
+        in: path
+        required: true
+        schema:
+          type: integer
+          pattern: \d+
+      - name: strSetup
+        in: path
+        required: true
+        schema:
+          type: string
+          pattern: setup
+      security:
+      - BearerAuth: []
+    servers:
+    - url: https://{subdomain}.{region}.deputy.com/api/v1
+      description: Deputy tenant
+      variables:
+        subdomain:
+          default: your-subdomain
+        region:
+          default: deputy
+          enum:
+          - au
+          - eu
+          - na
+          - deputy
+components:
+  schemas:
+    Leave:
+      type: object
+      properties:
+        Id:
+          type: integer
+        Employee:
+          type: integer
+        EmployeeHistory:
+          type: integer
+        Company:
+          type: integer
+        LeaveRule:
+          type: integer
+        Start:
+          type: integer
+        DateStart:
+          type: string
+          format: date-time
+        End:
+          type: integer
+        DateEnd:
+          type: string
+          format: date-time
+        Days:
+          type: number
+          format: double
+        ApproverTime:
+          type: integer
+        ApproverPay:
+          type: integer
+        Comment:
+          type: string
+        Status:
+          type: integer
+        ApprovalComment:
+          type: string
+        TotalHours:
+          type: number
+          format: double
+        ExternalId:
+          type: string
+          maxLength: 64
+        AllDay:
+          type: boolean
+        Creator:
+          type: integer
+        Created:
+          type: string
+          format: date-time
+        Modified:
+          type: string
+        EmployeeObject:
+          type: object
+        EmployeeHistoryObject:
+          type: object
+        CompanyObject:
+          type: object
+        LeaveRuleObject:
+          type: object
+      required:
+      - Id
+      - Employee
+      - EmployeeHistory
+      - Company
+      - Start
+      - End
+      - Status
+      - AllDay
+      - Modified
+    QueryRequest:
+      type: object
+      description: V1 Resource search payload. All fields optional; an empty body returns the first page of results.
+      properties:
+        search:
+          type: object
+          description: Map of search clauses keyed by an arbitrary id (e.g. `s1`, `s2`). Each clause filters one field.
+          additionalProperties:
+            type: object
+            required:
+            - field
+            - data
+            - type
+            properties:
+              field:
+                type: string
+                description: Field name to filter on (e.g. `Id`, `Employee`).
+              data:
+                description: Comparison value. Type depends on the field.
+              type:
+                type: string
+                description: Comparison operator.
+                enum:
+                - eq
+                - ne
+                - gt
+                - lt
+                - ge
+                - le
+                - is
+                - is not
+                - in
+                - not in
+                - starts
+                - contains
+        sort:
+          type: object
+          description: Map of field name → `asc` or `desc`.
+          additionalProperties:
+            type: string
+            enum:
+            - asc
+            - desc
+        start:
+          type: integer
+          minimum: 0
+          default: 0
+          description: Pagination offset (0-indexed).
+        max:
+          type: integer
+          minimum: 1
+          maximum: 500
+          default: 100
+          description: Max records per page (server caps at 500).
+        join:
+          type: array
+          items:
+            type: string
+          description: Related ORMs to expand inline (e.g. `["EmployeeObject"]`).
+      example:
+        search:
+          s1:
+            field: Id
+            data: 1
+            type: ge
+        max: 100
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      description: OAuth 2.0 access token or Deputy Permanent Token.
+    OAuth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://once.deputy.com/my/oauth/login
+          tokenUrl: https://once.deputy.com/my/oauth/access_token
+          scopes:
+            longlife_refresh_token: Extended session
+x-refined-from:
+- deputy-v1-my-api-openapi.yml
+- deputy-v1-resource-api-openapi.yml
+- deputy-v1-supervise-api-openapi.yml
+x-provenance:
+  method: searched
+  source: https://developer.deputy.com/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://developer.deputy.com/reference/addalocation.md
+  - https://developer.deputy.com/reference/addalocationagainstanemployee.md
+  - https://developer.deputy.com/reference/addanemployee.md
+  - https://developer.deputy.com/reference/addasaletosalesmetrics.md
+  - https://developer.deputy.com/reference/addawebhookurl.md
+  - https://developer.deputy.com/reference/addleaveforaemployee.md
+  - https://developer.deputy.com/reference/addnewworkplace.md
+  - https://developer.deputy.com/reference/addunavailabilitydetailsforaemployee.md
+  - https://developer.deputy.com/reference/archivealocation.md
+  - https://developer.deputy.com/reference/copyaroster.md
+  - https://developer.deputy.com/reference/create-a-memo.md
+  - https://developer.deputy.com/reference/createadepartment.md
+  - https://developer.deputy.com/reference/createmultipledepartments.md
+  - https://developer.deputy.com/reference/deletealocation.md
+  - https://developer.deputy.com/reference/deleteanemployeesaccountindeputy.md
+  - https://developer.deputy.com/reference/deleteasingleoperationalunit.md
+  - https://developer.deputy.com/reference/discardaroster.md
+  - https://developer.deputy.com/reference/doatask.md
+  - https://developer.deputy.com/reference/example-searchforemployeesfromalocation.md
+  - https://developer.deputy.com/reference/findanemployeesleave.md
+  - https://developer.deputy.com/reference/findoutanemployeesstatus.md
+  - https://developer.deputy.com/reference/getagreedhoursbyemployeeid.md
+  - https://developer.deputy.com/reference/getalistofrostersfromlast12hoursandforward36hours.md
+  - https://developer.deputy.com/reference/getalocationssettings.md
+  - https://developer.deputy.com/reference/getawardslibrarylist.md
+  - https://developer.deputy.com/reference/getdetailsforaemployeebyid.md
+  - https://developer.deputy.com/reference/getdetailsforallemployees.md
+  - https://developer.deputy.com/reference/getlocationbyid.md
+  - https://developer.deputy.com/reference/getlocations.md
+  - https://developer.deputy.com/reference/getmyindividualtimesheet.md
+  - https://developer.deputy.com/reference/getmynewsfeed.md
+  - https://developer.deputy.com/reference/getmynotifications.md
+  - https://developer.deputy.com/reference/getmysubordinatecontactdetails.md
+  - https://developer.deputy.com/reference/getmytasks.md
+  - https://developer.deputy.com/reference/getmytimesheets.md
+  - https://developer.deputy.com/reference/getmytraining.md
+  - https://developer.deputy.com/reference/getoperationalunits.md
+  - https://developer.deputy.com/reference/getrostersavailableforswap.md
+  - https://developer.deputy.com/reference/getsimplifiedlocationlist.md
+  - https://developer.deputy.com/reference/getsuggestionsforrosterbyid.md
+  - https://developer.deputy.com/reference/getunavailabilitydetailsforaemployee.md
+  - https://developer.deputy.com/reference/inviteemployeetodeputy.md
+  - https://developer.deputy.com/reference/modifysettingsinalllocations.md
+  - https://developer.deputy.com/reference/modifysettingsinasinglelocation.md
+  - https://developer.deputy.com/reference/myaddressonfile.md
+  - https://developer.deputy.com/reference/myaddressonfileincludingemergency.md
+  - https://developer.deputy.com/reference/myleaverequests.md
+  - https://developer.deputy.com/reference/pauseorunpauseemployeestimesheettakeabreakfinishbreak.md
+  - https://developer.deputy.com/reference/postajournal.md
+  - https://developer.deputy.com/reference/publisharoster.md
+  - https://developer.deputy.com/reference/re-activateaterminatedemployee.md
+  - https://developer.deputy.com/reference/removealocationfromanemployee.md
+  - https://developer.deputy.com/reference/retrievecurrentsystemtime.md
+  - https://developer.deputy.com/reference/retrievecurrentsystemtimeofalocation.md
+  - https://developer.deputy.com/reference/retrievesalesdata.md
+  - https://developer.deputy.com/reference/setawardforemployee.md
+  - https://developer.deputy.com/reference/startanemployeestimesheetclockon.md
+  - https://developer.deputy.com/reference/stopanemployeestimesheetclockoff.md
+  - https://developer.deputy.com/reference/terminateanemployee.md
+  - https://developer.deputy.com/reference/updatealocation.md
+  - https://developer.deputy.com/reference/updateanexistingemployee.md
+  - https://developer.deputy.com/reference/updateasingleoperationalunit.md
+  - https://developer.deputy.com/reference/updatemyaddress.md
+  - https://developer.deputy.com/reference/viewatimesheetbyid.md
+  - https://developer.deputy.com/reference/whatlocationscaniworkin.md
+  - https://developer.deputy.com/reference/whenaminextworking.md
+  - https://developer.deputy.com/reference/whenamiunavailable.md
+  - https://developer.deputy.com/reference/wherecaniworkwhatdoido.md
+  - https://developer.deputy.com/reference/whodoiworkwith.md
+  merge:
+    pages: 69
+    deduped: 70
+    conflicts_kept_first: 0

@@ -1,0 +1,265 @@
+openapi: 3.2.0
+info:
+  title: Deputy V1 My Feed API
+  version: 1.0.0
+  description: 'Generated reference for Deputy''s legacy V1 `/supervise/` (supervisor-level operations) and `/my/` (authenticated-employee operations) endpoints.
+
+
+    Enumerated statically from router classes under `deputy-webapp/app/api/v1/routers/Super*Router.php` and `My*Router.php`. V1 is in maintenance mode — new integrations should prefer V2.
+
+
+    This spec covers only the `/my/*` routes. The sibling family is in a separate ReadMe spec.'
+servers:
+- url: https://{subdomain}.{region}.deputy.com/api/v1
+  description: Deputy tenant
+  variables:
+    subdomain:
+      default: your-subdomain
+    region:
+      default: deputy
+      enum:
+      - au
+      - eu
+      - na
+      - deputy
+security:
+- BearerAuth: []
+tags:
+- name: Feed
+  description: V1 /my/feed/* endpoints
+paths:
+  /my/feed/range/{start}/to/{end}:
+    get:
+      tags:
+      - Feed
+      summary: GET Feed / :end
+      operationId: my_feed__range_start_to_end_get
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      parameters:
+      - name: start
+        in: path
+        required: true
+        schema:
+          type: string
+          pattern: '[0-9]{2,4}\-[0-9]{1,2}\-[0-9]{1,2}'
+      - name: end
+        in: path
+        required: true
+        schema:
+          type: string
+          pattern: '[0-9]{2,4}\-[0-9]{1,2}\-[0-9]{1,2}'
+  /my/feed/single/{date}:
+    get:
+      tags:
+      - Feed
+      summary: GET Feed / :date)?
+      operationId: my_feed__single_date__get
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      parameters:
+      - name: date
+        in: path
+        required: true
+        schema:
+          type: string
+          pattern: '[0-9]{2,4}\-[0-9]{1,2}\-[0-9]{1,2}'
+  /my/feed/summary/{start}/to/{end}:
+    get:
+      tags:
+      - Feed
+      summary: GET Feed / :end
+      operationId: my_feed__summary_start_to_end_get
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      parameters:
+      - name: start
+        in: path
+        required: true
+        schema:
+          type: string
+          pattern: '[0-9]{2,4}\-[0-9]{1,2}\-[0-9]{1,2}'
+      - name: end
+        in: path
+        required: true
+        schema:
+          type: string
+          pattern: '[0-9]{2,4}\-[0-9]{1,2}\-[0-9]{1,2}'
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      description: OAuth 2.0 access token or Deputy Permanent Token.
+x-provenance:
+  method: searched
+  source: https://developer.deputy.com/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://developer.deputy.com/reference/my_colleague__count_get.md
+  - https://developer.deputy.com/reference/my_colleague__get.md
+  - https://developer.deputy.com/reference/my_colleague__query_post.md
+  - https://developer.deputy.com/reference/my_contactaddress__all_get.md
+  - https://developer.deputy.com/reference/my_contactaddress__emergency_get.md
+  - https://developer.deputy.com/reference/my_contactaddress__emergency_post.md
+  - https://developer.deputy.com/reference/my_contactaddress__get.md
+  - https://developer.deputy.com/reference/my_contactaddress__post.md
+  - https://developer.deputy.com/reference/my_contactaddress__subordinate_get.md
+  - https://developer.deputy.com/reference/my_contactaddress__subordinate_intcompanyid_get.md
+  - https://developer.deputy.com/reference/my_department__intdeptid__get.md
+  - https://developer.deputy.com/reference/my_department__intdeptid_weather_date_get.md
+  - https://developer.deputy.com/reference/my_department__intdeptid_weather_get.md
+  - https://developer.deputy.com/reference/my_feed__range_start_to_end_get.md
+  - https://developer.deputy.com/reference/my_feed__single_date__get.md
+  - https://developer.deputy.com/reference/my_feed__summary_start_to_end_get.md
+  - https://developer.deputy.com/reference/my_getrecommendation__introsterid_get.md
+  - https://developer.deputy.com/reference/my_leave__post.md
+  - https://developer.deputy.com/reference/my_leave__put.md
+  - https://developer.deputy.com/reference/my_leave__strsetup__get.md
+  - https://developer.deputy.com/reference/my_location__all_get.md
+  - https://developer.deputy.com/reference/my_location__geo_latitude_longitude_flag_flag_get.md
+  - https://developer.deputy.com/reference/my_location__geo_latitude_longitude_get.md
+  - https://developer.deputy.com/reference/my_location__intcompanyid__get.md
+  - https://developer.deputy.com/reference/my_location__intcompanyid_allowed_kiosk_auth_modes_get.md
+  - https://developer.deputy.com/reference/my_location__intcompanyid_weather_date_get.md
+  - https://developer.deputy.com/reference/my_location__intcompanyid_weather_get.md
+  - https://developer.deputy.com/reference/my_location__pending_approval_query_post.md
+  - https://developer.deputy.com/reference/my_memo__company_id_get.md
+  - https://developer.deputy.com/reference/my_memo__company_id_post.md
+  - https://developer.deputy.com/reference/my_memo__get.md
+  - https://developer.deputy.com/reference/my_memo__id_comment_commentid_delete.md
+  - https://developer.deputy.com/reference/my_memo__id_comment_post.md
+  - https://developer.deputy.com/reference/my_memo__id_get.md
+  - https://developer.deputy.com/reference/my_memo__memoid_mark_read_memologid_post.md
+  - https://developer.deputy.com/reference/my_memo__memoid_mark_unread_memologid_post.md
+  - https://developer.deputy.com/reference/my_memo__post.md
+  - https://developer.deputy.com/reference/my_memo__reactions_orm_recid_get.md
+  - https://developer.deputy.com/reference/my_memo__read_get.md
+  - https://developer.deputy.com/reference/my_memo__summary_get.md
+  - https://developer.deputy.com/reference/my_memo__summary_post.md
+  - https://developer.deputy.com/reference/my_memo__team_id_get.md
+  - https://developer.deputy.com/reference/my_memo__team_id_post.md
+  - https://developer.deputy.com/reference/my_memo__unread_get.md
+  - https://developer.deputy.com/reference/my_memo__user_id_get.md
+  - https://developer.deputy.com/reference/my_memo__user_id_post.md
+  - https://developer.deputy.com/reference/my_notification__get.md
+  - https://developer.deputy.com/reference/my_nps__cannps_get.md
+  - https://developer.deputy.com/reference/my_nps__later_post.md
+  - https://developer.deputy.com/reference/my_nps__post.md
+  - https://developer.deputy.com/reference/my_nps__put.md
+  - https://developer.deputy.com/reference/my_photo__get.md
+  - https://developer.deputy.com/reference/my_photo__name_post.md
+  - https://developer.deputy.com/reference/my_pref__prefkey_delete.md
+  - https://developer.deputy.com/reference/my_pref__prefkey_get.md
+  - https://developer.deputy.com/reference/my_pref__prefkey_post.md
+  - https://developer.deputy.com/reference/my_pref__prefkey_put.md
+  - https://developer.deputy.com/reference/my_pref__update_support_access_post.md
+  - https://developer.deputy.com/reference/my_roster__bids_get.md
+  - https://developer.deputy.com/reference/my_roster__bids_request_post.md
+  - https://developer.deputy.com/reference/my_roster__bids_withdraw_post.md
+  - https://developer.deputy.com/reference/my_roster__confirm_post.md
+  - https://developer.deputy.com/reference/my_roster__id_get.md
+  - https://developer.deputy.com/reference/my_roster__id_offer_cancel_post.md
+  - https://developer.deputy.com/reference/my_roster__id_offer_getrecommendation_get.md
+  - https://developer.deputy.com/reference/my_roster__id_offer_post.md
+  - https://developer.deputy.com/reference/my_roster__id_offer_status_get.md
+  - https://developer.deputy.com/reference/my_roster__id_swap_action_post.md
+  - https://developer.deputy.com/reference/my_roster__id_swapdetails_get.md
+  - https://developer.deputy.com/reference/my_roster__open_get.md
+  - https://developer.deputy.com/reference/my_roster__open_post.md
+  - https://developer.deputy.com/reference/my_roster__open_startdate_enddate_maxwaittime__get.md
+  - https://developer.deputy.com/reference/my_roster__publish_allow_numofrosterstopublish__get.md
+  - https://developer.deputy.com/reference/my_roster__publish_count_get.md
+  - https://developer.deputy.com/reference/my_roster__startdate_enddate__get.md
+  - https://developer.deputy.com/reference/my_roster__starttimestamp_starttimestamp_reverse_reverse_limit_limit_get.md
+  - https://developer.deputy.com/reference/my_roster__swap_startdate_enddate__get.md
+  - https://developer.deputy.com/reference/my_setup__addnewworkplace_post.md
+  - https://developer.deputy.com/reference/my_setup__apps_get.md
+  - https://developer.deputy.com/reference/my_setup__gamingfy_action_get.md
+  - https://developer.deputy.com/reference/my_setup__gamingfy_action_post.md
+  - https://developer.deputy.com/reference/my_setup__get.md
+  - https://developer.deputy.com/reference/my_setup__getaddresstimezonefromgeo_post.md
+  - https://developer.deputy.com/reference/my_setup__getgeotimezonefromaddress_post.md
+  - https://developer.deputy.com/reference/my_setup__getstatecountrylist_get.md
+  - https://developer.deputy.com/reference/my_setup__sendemailtocx_post.md
+  - https://developer.deputy.com/reference/my_setup__sf_post.md
+  - https://developer.deputy.com/reference/my_setup__supportaccess_get.md
+  - https://developer.deputy.com/reference/my_setup__validateworkplace_post.md
+  - https://developer.deputy.com/reference/my_task__completed_get.md
+  - https://developer.deputy.com/reference/my_task__completed_post.md
+  - https://developer.deputy.com/reference/my_task__department_date_get.md
+  - https://developer.deputy.com/reference/my_task__department_date_post.md
+  - https://developer.deputy.com/reference/my_task__department_get.md
+  - https://developer.deputy.com/reference/my_task__department_post.md
+  - https://developer.deputy.com/reference/my_task__get.md
+  - https://developer.deputy.com/reference/my_task__id_do_post.md
+  - https://developer.deputy.com/reference/my_task__id_post.md
+  - https://developer.deputy.com/reference/my_task__id_undo_post.md
+  - https://developer.deputy.com/reference/my_task__post.md
+  - https://developer.deputy.com/reference/my_timesheet__approve_allow_numoftimesheetstoapprove__get.md
+  - https://developer.deputy.com/reference/my_timesheet__id_details_get.md
+  - https://developer.deputy.com/reference/my_timesheet__id_history_get.md
+  - https://developer.deputy.com/reference/my_timesheet__id_setup_get.md
+  - https://developer.deputy.com/reference/my_timesheet__setup_post.md
+  - https://developer.deputy.com/reference/my_timesheet__start_end__get.md
+  - https://developer.deputy.com/reference/my_timesheet__startorend_post.md
+  - https://developer.deputy.com/reference/my_timesheet__starttimestamp_starttimestamp_get.md
+  - https://developer.deputy.com/reference/my_timesheet__starttimestamp_starttimestamp_reverse_reverse_limit_limit_get.md
+  - https://developer.deputy.com/reference/my_todo__get.md
+  - https://developer.deputy.com/reference/my_todo__post.md
+  - https://developer.deputy.com/reference/my_todo__todoid_delete.md
+  - https://developer.deputy.com/reference/my_token__get.md
+  - https://developer.deputy.com/reference/my_token__stridortoken_delete.md
+  - https://developer.deputy.com/reference/my_training__get.md
+  - https://developer.deputy.com/reference/my_unavail__post.md
+  - https://developer.deputy.com/reference/my_unavail__startdate_enddate__get.md
+  - https://developer.deputy.com/reference/my_unavail__unavailid_delete.md
+  - https://developer.deputy.com/reference/my_unavail__unavailid_put.md
+  - https://developer.deputy.com/reference/my_widget__info_get.md
+  - https://developer.deputy.com/reference/my_widget__run_get.md
+  - https://developer.deputy.com/reference/my_widget__run_widgetid_get.md
+  merge:
+    pages: 122
+    deduped: 121
+    conflicts_kept_first: 0

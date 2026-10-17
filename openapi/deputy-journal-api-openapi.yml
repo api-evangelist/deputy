@@ -1,0 +1,967 @@
+openapi: 3.2.0
+info:
+  title: Deputy Journal API
+  version: 1.0.0
+  description: 'Operations tagged Journal across 2 of this provider''s published API definitions: deputy-v1-resource-api-openapi.yml, deputy-v1-supervise-api-openapi.yml. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://{subdomain}.{region}.deputy.com/api/v1
+  description: Deputy tenant
+  variables:
+    subdomain:
+      default: your-subdomain
+    region:
+      default: deputy
+      enum:
+      - au
+      - eu
+      - na
+      - deputy
+tags:
+- name: Journal
+  description: Operations on the Journal resource
+paths:
+  /resource/Journal:
+    get:
+      tags:
+      - Journal
+      summary: List Journal records
+      description: Returns Journal records the authenticated caller is permitted to see. For large tables prefer POST /QUERY with pagination.
+      operationId: listJournal
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Journal'
+        '400':
+          description: Bad request
+        '401':
+          description: Authentication required or invalid token
+        '403':
+          description: Forbidden — token lacks access to this resource
+        '404':
+          description: Resource not found
+      security:
+      - BearerAuth: []
+      - OAuth2: []
+    post:
+      tags:
+      - Journal
+      summary: Create a Journal
+      operationId: createJournal
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Journal'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Journal'
+        '400':
+          description: Bad request
+        '401':
+          description: Authentication required or invalid token
+        '403':
+          description: Forbidden — token lacks access to this resource
+        '404':
+          description: Resource not found
+      security:
+      - BearerAuth: []
+      - OAuth2: []
+    put:
+      tags:
+      - Journal
+      summary: Create a Journal
+      operationId: createOrReplaceJournal
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Journal'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Journal'
+        '400':
+          description: Bad request
+        '401':
+          description: Authentication required or invalid token
+        '403':
+          description: Forbidden — token lacks access to this resource
+        '404':
+          description: Resource not found
+      security:
+      - BearerAuth: []
+      - OAuth2: []
+    servers:
+    - url: https://{subdomain}.{region}.deputy.com/api/v1
+      description: Deputy tenant
+      variables:
+        subdomain:
+          default: your-subdomain
+        region:
+          default: deputy
+          enum:
+          - au
+          - eu
+          - na
+          - deputy
+  /resource/Journal/BULK:
+    post:
+      tags:
+      - Journal
+      summary: Bulk create/update Journal
+      description: Accepts an array of records. Each record is processed independently.
+      operationId: bulkJournal
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/Journal'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Journal'
+        '400':
+          description: Bad request
+        '401':
+          description: Authentication required or invalid token
+        '403':
+          description: Forbidden — token lacks access to this resource
+        '404':
+          description: Resource not found
+      security:
+      - BearerAuth: []
+      - OAuth2: []
+    servers:
+    - url: https://{subdomain}.{region}.deputy.com/api/v1
+      description: Deputy tenant
+      variables:
+        subdomain:
+          default: your-subdomain
+        region:
+          default: deputy
+          enum:
+          - au
+          - eu
+          - na
+          - deputy
+  /resource/Journal/INFO:
+    get:
+      tags:
+      - Journal
+      summary: Get field metadata for Journal
+      description: Returns the field list, types, and associations for this resource. Useful when building integrations that need to know which fields are queryable.
+      operationId: infoJournal
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Authentication required or invalid token
+        '403':
+          description: Forbidden — token lacks access to this resource
+        '404':
+          description: Resource not found
+      security:
+      - BearerAuth: []
+      - OAuth2: []
+    servers:
+    - url: https://{subdomain}.{region}.deputy.com/api/v1
+      description: Deputy tenant
+      variables:
+        subdomain:
+          default: your-subdomain
+        region:
+          default: deputy
+          enum:
+          - au
+          - eu
+          - na
+          - deputy
+  /resource/Journal/PREDICT:
+    post:
+      tags:
+      - Journal
+      summary: Predict-match a Journal record
+      description: Returns the closest matching existing record for a partial payload. Used by upsert-style integrations to find an existing row before creating.
+      operationId: predictJournal
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Journal'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Journal'
+        '400':
+          description: Bad request
+        '401':
+          description: Authentication required or invalid token
+        '403':
+          description: Forbidden — token lacks access to this resource
+        '404':
+          description: Resource not found
+      security:
+      - BearerAuth: []
+      - OAuth2: []
+    servers:
+    - url: https://{subdomain}.{region}.deputy.com/api/v1
+      description: Deputy tenant
+      variables:
+        subdomain:
+          default: your-subdomain
+        region:
+          default: deputy
+          enum:
+          - au
+          - eu
+          - na
+          - deputy
+  /resource/Journal/QUERY:
+    post:
+      tags:
+      - Journal
+      summary: Search Journal
+      description: 'Flexible search endpoint. Body supports `search`, `sort`, `start`, `max`, and `join` clauses. Example: `{"search": {"s1": {"field": "Id", "data": 1, "type": "eq"}}}`.'
+      operationId: searchJournal
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/QueryRequest'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Journal'
+        '400':
+          description: Bad request
+        '401':
+          description: Authentication required or invalid token
+        '403':
+          description: Forbidden — token lacks access to this resource
+        '404':
+          description: Resource not found
+      security:
+      - BearerAuth: []
+      - OAuth2: []
+    servers:
+    - url: https://{subdomain}.{region}.deputy.com/api/v1
+      description: Deputy tenant
+      variables:
+        subdomain:
+          default: your-subdomain
+        region:
+          default: deputy
+          enum:
+          - au
+          - eu
+          - na
+          - deputy
+  /resource/Journal/{id}:
+    get:
+      tags:
+      - Journal
+      summary: Get a Journal by id
+      operationId: getJournalById
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: Numeric id of the resource
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Journal'
+        '400':
+          description: Bad request
+        '401':
+          description: Authentication required or invalid token
+        '403':
+          description: Forbidden — token lacks access to this resource
+        '404':
+          description: Resource not found
+      security:
+      - BearerAuth: []
+      - OAuth2: []
+    post:
+      tags:
+      - Journal
+      summary: Update a Journal
+      operationId: updateJournal
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: Numeric id of the resource
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Journal'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Journal'
+        '400':
+          description: Bad request
+        '401':
+          description: Authentication required or invalid token
+        '403':
+          description: Forbidden — token lacks access to this resource
+        '404':
+          description: Resource not found
+      security:
+      - BearerAuth: []
+      - OAuth2: []
+    put:
+      tags:
+      - Journal
+      summary: Update a Journal
+      operationId: replaceJournal
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: Numeric id of the resource
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Journal'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Journal'
+        '400':
+          description: Bad request
+        '401':
+          description: Authentication required or invalid token
+        '403':
+          description: Forbidden — token lacks access to this resource
+        '404':
+          description: Resource not found
+      security:
+      - BearerAuth: []
+      - OAuth2: []
+    delete:
+      tags:
+      - Journal
+      summary: Delete a Journal
+      operationId: deleteJournal
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: Numeric id of the resource
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+        '400':
+          description: Bad request
+        '401':
+          description: Authentication required or invalid token
+        '403':
+          description: Forbidden — token lacks access to this resource
+        '404':
+          description: Resource not found
+      security:
+      - BearerAuth: []
+      - OAuth2: []
+    servers:
+    - url: https://{subdomain}.{region}.deputy.com/api/v1
+      description: Deputy tenant
+      variables:
+        subdomain:
+          default: your-subdomain
+        region:
+          default: deputy
+          enum:
+          - au
+          - eu
+          - na
+          - deputy
+  /resource/Journal/{id}/COMMENTS:
+    get:
+      tags:
+      - Journal
+      summary: List comments on a Journal
+      operationId: getCommentsJournal
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: Numeric id of the resource
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    Id:
+                      type: integer
+                    Comment:
+                      type: string
+                    Creator:
+                      type: integer
+                    Created:
+                      type: string
+                      format: date-time
+        '400':
+          description: Bad request
+        '401':
+          description: Authentication required or invalid token
+        '403':
+          description: Forbidden — token lacks access to this resource
+        '404':
+          description: Resource not found
+      security:
+      - BearerAuth: []
+      - OAuth2: []
+    post:
+      tags:
+      - Journal
+      summary: Add a comment to a Journal
+      operationId: addCommentJournal
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: Numeric id of the resource
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                Comment:
+                  type: string
+              required:
+              - Comment
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Authentication required or invalid token
+        '403':
+          description: Forbidden — token lacks access to this resource
+        '404':
+          description: Resource not found
+      security:
+      - BearerAuth: []
+      - OAuth2: []
+    servers:
+    - url: https://{subdomain}.{region}.deputy.com/api/v1
+      description: Deputy tenant
+      variables:
+        subdomain:
+          default: your-subdomain
+        region:
+          default: deputy
+          enum:
+          - au
+          - eu
+          - na
+          - deputy
+  /resource/Journal/{id}/COMMENTS/{commentId}:
+    delete:
+      tags:
+      - Journal
+      summary: Delete a comment on a Journal
+      operationId: deleteCommentJournal
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: Numeric id of the resource
+      - name: commentId
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+        '400':
+          description: Bad request
+        '401':
+          description: Authentication required or invalid token
+        '403':
+          description: Forbidden — token lacks access to this resource
+        '404':
+          description: Resource not found
+      security:
+      - BearerAuth: []
+      - OAuth2: []
+    servers:
+    - url: https://{subdomain}.{region}.deputy.com/api/v1
+      description: Deputy tenant
+      variables:
+        subdomain:
+          default: your-subdomain
+        region:
+          default: deputy
+          enum:
+          - au
+          - eu
+          - na
+          - deputy
+  /resource/Journal/{id}/HISTORY:
+    get:
+      tags:
+      - Journal
+      summary: Get change history for a Journal
+      operationId: historyJournal
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: Numeric id of the resource
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Journal'
+        '400':
+          description: Bad request
+        '401':
+          description: Authentication required or invalid token
+        '403':
+          description: Forbidden — token lacks access to this resource
+        '404':
+          description: Resource not found
+      security:
+      - BearerAuth: []
+      - OAuth2: []
+    servers:
+    - url: https://{subdomain}.{region}.deputy.com/api/v1
+      description: Deputy tenant
+      variables:
+        subdomain:
+          default: your-subdomain
+        region:
+          default: deputy
+          enum:
+          - au
+          - eu
+          - na
+          - deputy
+  /resource/Journal/{id}/HISTORY/travel/{timestamp}:
+    get:
+      tags:
+      - Journal
+      summary: Get a Journal as it existed at a prior time
+      operationId: historyJournalTravel
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: Numeric id of the resource
+      - name: timestamp
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+        description: Unix epoch seconds
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Journal'
+        '400':
+          description: Bad request
+        '401':
+          description: Authentication required or invalid token
+        '403':
+          description: Forbidden — token lacks access to this resource
+        '404':
+          description: Resource not found
+      security:
+      - BearerAuth: []
+      - OAuth2: []
+    servers:
+    - url: https://{subdomain}.{region}.deputy.com/api/v1
+      description: Deputy tenant
+      variables:
+        subdomain:
+          default: your-subdomain
+        region:
+          default: deputy
+          enum:
+          - au
+          - eu
+          - na
+          - deputy
+  /supervise/journal:
+    post:
+      tags:
+      - Journal
+      summary: Create or update Journal
+      operationId: supervise_journal__post
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      security:
+      - BearerAuth: []
+    servers:
+    - url: https://{subdomain}.{region}.deputy.com/api/v1
+      description: Deputy tenant
+      variables:
+        subdomain:
+          default: your-subdomain
+        region:
+          default: deputy
+          enum:
+          - au
+          - eu
+          - na
+          - deputy
+  /supervise/journal/{date}:
+    get:
+      tags:
+      - Journal
+      summary: GET Journal / (:date)?
+      operationId: supervise_journal__date__get
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Not authenticated
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Not found
+      parameters:
+      - name: date
+        in: path
+        required: true
+        schema:
+          type: string
+      security:
+      - BearerAuth: []
+    servers:
+    - url: https://{subdomain}.{region}.deputy.com/api/v1
+      description: Deputy tenant
+      variables:
+        subdomain:
+          default: your-subdomain
+        region:
+          default: deputy
+          enum:
+          - au
+          - eu
+          - na
+          - deputy
+components:
+  schemas:
+    QueryRequest:
+      type: object
+      description: V1 Resource search payload. All fields optional; an empty body returns the first page of results.
+      properties:
+        search:
+          type: object
+          description: Map of search clauses keyed by an arbitrary id (e.g. `s1`, `s2`). Each clause filters one field.
+          additionalProperties:
+            type: object
+            required:
+            - field
+            - data
+            - type
+            properties:
+              field:
+                type: string
+                description: Field name to filter on (e.g. `Id`, `Employee`).
+              data:
+                description: Comparison value. Type depends on the field.
+              type:
+                type: string
+                description: Comparison operator.
+                enum:
+                - eq
+                - ne
+                - gt
+                - lt
+                - ge
+                - le
+                - is
+                - is not
+                - in
+                - not in
+                - starts
+                - contains
+        sort:
+          type: object
+          description: Map of field name → `asc` or `desc`.
+          additionalProperties:
+            type: string
+            enum:
+            - asc
+            - desc
+        start:
+          type: integer
+          minimum: 0
+          default: 0
+          description: Pagination offset (0-indexed).
+        max:
+          type: integer
+          minimum: 1
+          maximum: 500
+          default: 100
+          description: Max records per page (server caps at 500).
+        join:
+          type: array
+          items:
+            type: string
+          description: Related ORMs to expand inline (e.g. `["EmployeeObject"]`).
+      example:
+        search:
+          s1:
+            field: Id
+            data: 1
+            type: ge
+        max: 100
+    Journal:
+      type: object
+      properties:
+        Id:
+          type: integer
+        Date:
+          type: string
+          format: date-time
+        EmployeeId:
+          type: integer
+        Comment:
+          type: string
+        Creator:
+          type: integer
+        Created:
+          type: string
+          format: date-time
+        Modified:
+          type: string
+        Employee:
+          type: object
+        CreatorObject:
+          type: object
+      required:
+      - Id
+      - Date
+      - Comment
+      - Modified
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      description: OAuth 2.0 access token or Deputy Permanent Token.
+    OAuth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://once.deputy.com/my/oauth/login
+          tokenUrl: https://once.deputy.com/my/oauth/access_token
+          scopes:
+            longlife_refresh_token: Extended session
+x-refined-from:
+- deputy-v1-resource-api-openapi.yml
+- deputy-v1-supervise-api-openapi.yml
+x-provenance:
+  method: searched
+  source: https://developer.deputy.com/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://developer.deputy.com/reference/addalocation.md
+  - https://developer.deputy.com/reference/addalocationagainstanemployee.md
+  - https://developer.deputy.com/reference/addanemployee.md
+  - https://developer.deputy.com/reference/addasaletosalesmetrics.md
+  - https://developer.deputy.com/reference/addawebhookurl.md
+  - https://developer.deputy.com/reference/addleaveforaemployee.md
+  - https://developer.deputy.com/reference/addnewworkplace.md
+  - https://developer.deputy.com/reference/addunavailabilitydetailsforaemployee.md
+  - https://developer.deputy.com/reference/archivealocation.md
+  - https://developer.deputy.com/reference/copyaroster.md
+  - https://developer.deputy.com/reference/create-a-memo.md
+  - https://developer.deputy.com/reference/createadepartment.md
+  - https://developer.deputy.com/reference/createmultipledepartments.md
+  - https://developer.deputy.com/reference/deletealocation.md
+  - https://developer.deputy.com/reference/deleteanemployeesaccountindeputy.md
+  - https://developer.deputy.com/reference/deleteasingleoperationalunit.md
+  - https://developer.deputy.com/reference/discardaroster.md
+  - https://developer.deputy.com/reference/doatask.md
+  - https://developer.deputy.com/reference/example-searchforemployeesfromalocation.md
+  - https://developer.deputy.com/reference/findanemployeesleave.md
+  - https://developer.deputy.com/reference/findoutanemployeesstatus.md
+  - https://developer.deputy.com/reference/getagreedhoursbyemployeeid.md
+  - https://developer.deputy.com/reference/getalistofrostersfromlast12hoursandforward36hours.md
+  - https://developer.deputy.com/reference/getalocationssettings.md
+  - https://developer.deputy.com/reference/getawardslibrarylist.md
+  - https://developer.deputy.com/reference/getdetailsforaemployeebyid.md
+  - https://developer.deputy.com/reference/getdetailsforallemployees.md
+  - https://developer.deputy.com/reference/getlocationbyid.md
+  - https://developer.deputy.com/reference/getlocations.md
+  - https://developer.deputy.com/reference/getmyindividualtimesheet.md
+  - https://developer.deputy.com/reference/getmynewsfeed.md
+  - https://developer.deputy.com/reference/getmynotifications.md
+  - https://developer.deputy.com/reference/getmysubordinatecontactdetails.md
+  - https://developer.deputy.com/reference/getmytasks.md
+  - https://developer.deputy.com/reference/getmytimesheets.md
+  - https://developer.deputy.com/reference/getmytraining.md
+  - https://developer.deputy.com/reference/getoperationalunits.md
+  - https://developer.deputy.com/reference/getrostersavailableforswap.md
+  - https://developer.deputy.com/reference/getsimplifiedlocationlist.md
+  - https://developer.deputy.com/reference/getsuggestionsforrosterbyid.md
+  - https://developer.deputy.com/reference/getunavailabilitydetailsforaemployee.md
+  - https://developer.deputy.com/reference/inviteemployeetodeputy.md
+  - https://developer.deputy.com/reference/modifysettingsinalllocations.md
+  - https://developer.deputy.com/reference/modifysettingsinasinglelocation.md
+  - https://developer.deputy.com/reference/myaddressonfile.md
+  - https://developer.deputy.com/reference/myaddressonfileincludingemergency.md
+  - https://developer.deputy.com/reference/myleaverequests.md
+  - https://developer.deputy.com/reference/pauseorunpauseemployeestimesheettakeabreakfinishbreak.md
+  - https://developer.deputy.com/reference/postajournal.md
+  - https://developer.deputy.com/reference/publisharoster.md
+  - https://developer.deputy.com/reference/re-activateaterminatedemployee.md
+  - https://developer.deputy.com/reference/removealocationfromanemployee.md
+  - https://developer.deputy.com/reference/retrievecurrentsystemtime.md
+  - https://developer.deputy.com/reference/retrievecurrentsystemtimeofalocation.md
+  - https://developer.deputy.com/reference/retrievesalesdata.md
+  - https://developer.deputy.com/reference/setawardforemployee.md
+  - https://developer.deputy.com/reference/startanemployeestimesheetclockon.md
+  - https://developer.deputy.com/reference/stopanemployeestimesheetclockoff.md
+  - https://developer.deputy.com/reference/terminateanemployee.md
+  - https://developer.deputy.com/reference/updatealocation.md
+  - https://developer.deputy.com/reference/updateanexistingemployee.md
+  - https://developer.deputy.com/reference/updateasingleoperationalunit.md
+  - https://developer.deputy.com/reference/updatemyaddress.md
+  - https://developer.deputy.com/reference/viewatimesheetbyid.md
+  - https://developer.deputy.com/reference/whatlocationscaniworkin.md
+  - https://developer.deputy.com/reference/whenaminextworking.md
+  - https://developer.deputy.com/reference/whenamiunavailable.md
+  - https://developer.deputy.com/reference/wherecaniworkwhatdoido.md
+  - https://developer.deputy.com/reference/whodoiworkwith.md
+  merge:
+    pages: 69
+    deduped: 70
+    conflicts_kept_first: 0
