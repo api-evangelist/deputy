@@ -1488,6 +1488,8 @@ apis:
   humanURL: https://developer.deputy.com/deputy-docs
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
+  - Communications
+  tags_raw:
   - Communication
   properties:
   - type: OpenAPI
@@ -1951,6 +1953,8 @@ apis:
   humanURL: https://developer.deputy.com/deputy-docs
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
+  - ContactAddress
+  tags_raw:
   - Contactaddress
   properties:
   - type: OpenAPI
@@ -3339,6 +3343,8 @@ apis:
   humanURL: https://developer.deputy.com/deputy-docs
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
+  - Employee Agreement
+  tags_raw:
   - EmployeeAgreement
   properties:
   - type: OpenAPI
@@ -3999,6 +4005,8 @@ apis:
   humanURL: https://developer.deputy.com/deputy-docs
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
+  - Employee Role
+  tags_raw:
   - EmployeeRole
   properties:
   - type: OpenAPI
@@ -4462,6 +4470,8 @@ apis:
   humanURL: https://developer.deputy.com/deputy-docs
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
+  - Employment Condition
+  tags_raw:
   - EmploymentCondition
   properties:
   - type: OpenAPI
@@ -5257,7 +5267,8 @@ apis:
     employee roles include advisor.
   humanURL: https://developer.deputy.com/deputy-docs
   baseURL: https://{install}.{geo}.deputy.com/api/v1
-  tags:
+  tags: []
+  tags_raw:
   - Get all visible employee roles include advisor
   properties:
   - type: OpenAPI
@@ -5458,7 +5469,8 @@ apis:
     ids for privilege names.
   humanURL: https://developer.deputy.com/deputy-docs
   baseURL: https://{install}.{geo}.deputy.com/api/v1
-  tags:
+  tags: []
+  tags_raw:
   - Get Employee Role Ids For Privilege Names
   properties:
   - type: OpenAPI
@@ -5526,7 +5538,8 @@ apis:
     ids with 2fa enforced.
   humanURL: https://developer.deputy.com/deputy-docs
   baseURL: https://{install}.{geo}.deputy.com/api/v1
-  tags:
+  tags: []
+  tags_raw:
   - Get Employee Role Ids with 2FA Enforced
   properties:
   - type: OpenAPI
@@ -5793,6 +5806,8 @@ apis:
   humanURL: https://developer.deputy.com/deputy-docs
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
+  - Human Resources
+  tags_raw:
   - Hr
   properties:
   - type: OpenAPI
@@ -5925,6 +5940,8 @@ apis:
   humanURL: https://developer.deputy.com/deputy-docs
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
+  - Journals
+  tags_raw:
   - Journal
   properties:
   - type: OpenAPI
@@ -7180,6 +7197,8 @@ apis:
   humanURL: https://developer.deputy.com/deputy-docs
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
+  - Leave Accrual
+  tags_raw:
   - LeaveAccrual
   properties:
   - type: OpenAPI
@@ -7312,6 +7331,8 @@ apis:
   humanURL: https://developer.deputy.com/deputy-docs
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
+  - Leave Rules
+  tags_raw:
   - LeaveRules
   properties:
   - type: OpenAPI
@@ -7642,6 +7663,8 @@ apis:
   humanURL: https://developer.deputy.com/deputy-docs
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
+  - Location
+  tags_raw:
   - Locations
   properties:
   - type: OpenAPI
@@ -7982,6 +8005,8 @@ apis:
   humanURL: https://developer.deputy.com/deputy-docs
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
+  - metric
+  tags_raw:
   - Metric
   properties:
   - type: OpenAPI
@@ -8247,6 +8272,8 @@ apis:
   humanURL: https://developer.deputy.com/deputy-docs
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
+  - NPS
+  tags_raw:
   - Nps
   properties:
   - type: OpenAPI
@@ -9373,6 +9400,8 @@ apis:
   humanURL: https://developer.deputy.com/deputy-docs
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
+  - Photos
+  tags_raw:
   - Photo
   properties:
   - type: OpenAPI
@@ -10429,6 +10458,8 @@ apis:
   humanURL: https://developer.deputy.com/deputy-docs
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
+  - Sales Data
+  tags_raw:
   - SalesData
   properties:
   - type: OpenAPI
@@ -10958,6 +10989,8 @@ apis:
   humanURL: https://developer.deputy.com/deputy-docs
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
+  - Send SMS
+  tags_raw:
   - Sendsms
   properties:
   - type: OpenAPI
@@ -11024,6 +11057,8 @@ apis:
   humanURL: https://developer.deputy.com/deputy-docs
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
+  - Sessions
+  tags_raw:
   - Session
   properties:
   - type: OpenAPI
@@ -11552,6 +11587,8 @@ apis:
   humanURL: https://developer.deputy.com/deputy-docs
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
+  - States
+  tags_raw:
   - State
   properties:
   - type: OpenAPI
@@ -11684,6 +11721,8 @@ apis:
   humanURL: https://developer.deputy.com/deputy-docs
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
+  - Swap
+  tags_raw:
   - Swaps
   properties:
   - type: OpenAPI
@@ -12877,6 +12916,8 @@ apis:
   humanURL: https://developer.deputy.com/deputy-docs
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
+  - Timesheet Export
+  tags_raw:
   - TimesheetExport
   properties:
   - type: OpenAPI
@@ -13340,6 +13381,8 @@ apis:
   humanURL: https://developer.deputy.com/deputy-docs
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
+  - To-Do
+  tags_raw:
   - Todo
   properties:
   - type: OpenAPI
@@ -13406,6 +13449,8 @@ apis:
   humanURL: https://developer.deputy.com/deputy-docs
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
+  - Tokens
+  tags_raw:
   - Token
   properties:
   - type: OpenAPI
@@ -13868,6 +13913,8 @@ apis:
   humanURL: https://developer.deputy.com/deputy-docs
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
+  - UserInfo
+  tags_raw:
   - User info
   properties:
   - type: OpenAPI
@@ -14264,6 +14311,8 @@ apis:
   humanURL: https://developer.deputy.com/deputy-docs
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
+  - Webhook
+  tags_raw:
   - Webhooks
   properties:
   - type: OpenAPI
@@ -14330,6 +14379,8 @@ apis:
   humanURL: https://developer.deputy.com/deputy-docs
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
+  - Widgets
+  tags_raw:
   - Widget
   properties:
   - type: OpenAPI
