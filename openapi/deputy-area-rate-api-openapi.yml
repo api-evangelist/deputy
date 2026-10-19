@@ -71,6 +71,26 @@ paths:
               $ref: '#/components/schemas/AreaRateBatchSaveRequest'
 components:
   schemas:
+    tenantarea_ratev2modelContract:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+          title: Contract id
+        name:
+          type: string
+          title: Contract name
+        payRules:
+          type: array
+          items:
+            $ref: '#/components/schemas/tenantarea_ratev2modelPayRule'
+          title: Contract pay rules
+        levels:
+          type: array
+          items:
+            $ref: '#/components/schemas/tenantarea_ratev2modelLevel'
+          title: Contract levels
     AreaRateAreaRateData:
       type: object
       properties:
@@ -92,6 +112,61 @@ components:
           title: 'Level id or level code
 
             Level id should be numeric, level code should include alphabetic and numeric characters only'
+    tenantarea_ratev2modelLevel:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+          title: Level id
+        title:
+          type: string
+          title: Level title
+        baseRate:
+          type: number
+          format: double
+          title: Level base rate
+        levelKsuid:
+          type: string
+          title: levelKsuid
+    modelPayRuleOverride:
+      type: object
+      properties:
+        payRuleId:
+          type: integer
+          format: int32
+        value:
+          type: number
+          format: double
+    v2modelAreaRate:
+      type: object
+      properties:
+        areaIds:
+          type: array
+          items:
+            type: integer
+            format: int32
+          title: Array of area ids
+        baseRate:
+          type: number
+          format: double
+          title: Base rate
+        contractId:
+          type: integer
+          format: int32
+          title: Contract id
+        payRuleOverrides:
+          type: array
+          items:
+            $ref: '#/components/schemas/modelPayRuleOverride'
+          title: Pay Rule Overrides, i.e. <payRuleId, overrideValue>
+        levelId:
+          type: integer
+          format: int32
+          title: Level Id
+        effectiveDate:
+          type: string
+          title: Effective date (YYYY-MM-DD format)
     AreaRateBatchSaveResponse:
       type: object
       properties:
@@ -102,6 +177,20 @@ components:
           items:
             $ref: '#/components/schemas/AreaRateSaveError'
       title: Batch Save Area Rate response
+    AreaRateSaveRequest:
+      type: object
+      properties:
+        employeeId:
+          type: integer
+          format: int32
+          title: Employee ID
+        areaRateId:
+          type: integer
+          format: int32
+          title: Area Rate ID
+        areaRate:
+          $ref: '#/components/schemas/AreaRateAreaRateData'
+      title: Save Area Rate request
     tenantarea_ratev2modelPayRule:
       type: object
       properties:
@@ -148,55 +237,28 @@ components:
         config:
           type: string
           title: Pay rule Config
-    v2modelAreaRate:
+    AreaRateBatchSaveRequest:
       type: object
       properties:
-        areaIds:
+        requests:
           type: array
           items:
-            type: integer
-            format: int32
-          title: Array of area ids
-        baseRate:
-          type: number
-          format: double
-          title: Base rate
-        contractId:
-          type: integer
-          format: int32
-          title: Contract id
-        payRuleOverrides:
-          type: array
-          items:
-            $ref: '#/components/schemas/modelPayRuleOverride'
-          title: Pay Rule Overrides, i.e. <payRuleId, overrideValue>
-        levelId:
-          type: integer
-          format: int32
-          title: Level Id
-        effectiveDate:
-          type: string
-          title: Effective date (YYYY-MM-DD format)
-    tenantarea_ratev2modelContract:
+            $ref: '#/components/schemas/AreaRateSaveRequest'
+      title: Batch Save Area Rate request
+    AreaRateGetResponse:
       type: object
       properties:
-        id:
-          type: integer
-          format: int32
-          title: Contract id
-        name:
-          type: string
-          title: Contract name
-        payRules:
+        success:
+          type: boolean
+        areaRates:
           type: array
           items:
-            $ref: '#/components/schemas/tenantarea_ratev2modelPayRule'
-          title: Contract pay rules
-        levels:
+            $ref: '#/components/schemas/v2modelAreaRate'
+        contracts:
           type: array
           items:
-            $ref: '#/components/schemas/tenantarea_ratev2modelLevel'
-          title: Contract levels
+            $ref: '#/components/schemas/tenantarea_ratev2modelContract'
+      title: Get Area Rate response
     AreaRateSaveError:
       type: object
       properties:
@@ -214,68 +276,6 @@ components:
         message:
           type: string
       title: Save Area Rate error details
-    modelPayRuleOverride:
-      type: object
-      properties:
-        payRuleId:
-          type: integer
-          format: int32
-        value:
-          type: number
-          format: double
-    AreaRateSaveRequest:
-      type: object
-      properties:
-        employeeId:
-          type: integer
-          format: int32
-          title: Employee ID
-        areaRateId:
-          type: integer
-          format: int32
-          title: Area Rate ID
-        areaRate:
-          $ref: '#/components/schemas/AreaRateAreaRateData'
-      title: Save Area Rate request
-    AreaRateGetResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        areaRates:
-          type: array
-          items:
-            $ref: '#/components/schemas/v2modelAreaRate'
-        contracts:
-          type: array
-          items:
-            $ref: '#/components/schemas/tenantarea_ratev2modelContract'
-      title: Get Area Rate response
-    AreaRateBatchSaveRequest:
-      type: object
-      properties:
-        requests:
-          type: array
-          items:
-            $ref: '#/components/schemas/AreaRateSaveRequest'
-      title: Batch Save Area Rate request
-    tenantarea_ratev2modelLevel:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int32
-          title: Level id
-        title:
-          type: string
-          title: Level title
-        baseRate:
-          type: number
-          format: double
-          title: Level base rate
-        levelKsuid:
-          type: string
-          title: levelKsuid
   securitySchemes:
     ApiToken:
       type: apiKey

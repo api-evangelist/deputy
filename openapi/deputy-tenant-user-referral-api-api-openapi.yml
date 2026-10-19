@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: Deputy V2 Tenant User Referral API
+  title: Deputy V2 Tenant User Referral Tenant User Referral API
   version: '1.0'
   description: Filtered to publicly-authenticated routes only (APIAuthenticator). Scoped-OAuth routes and internal JWT routes are excluded — see the separate "Deputy V2 Scoped API" spec for scoped endpoints.
 servers:
@@ -39,13 +39,6 @@ paths:
       description: Returns referral urls.
 components:
   schemas:
-    modelReferralResponse:
-      type: object
-      properties:
-        urls:
-          type: object
-          additionalProperties:
-            type: string
     ReferralGetResponse:
       type: object
       properties:
@@ -53,6 +46,13 @@ components:
           type: boolean
         data:
           $ref: '#/components/schemas/modelReferralResponse'
+    modelReferralResponse:
+      type: object
+      properties:
+        urls:
+          type: object
+          additionalProperties:
+            type: string
   securitySchemes:
     ApiToken:
       type: apiKey

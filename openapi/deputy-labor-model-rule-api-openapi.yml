@@ -232,100 +232,6 @@ paths:
               $ref: '#/components/schemas/LaborModelRunRequest'
 components:
   schemas:
-    LaborModelRuleBulkDeleteRequest:
-      type: object
-      properties:
-        locationId:
-          type: integer
-          format: int32
-        laborModelIds:
-          type: array
-          items:
-            type: integer
-            format: int32
-    modelTaskResponse:
-      type: object
-      properties:
-        taskId:
-          type: integer
-          format: int32
-        taskGroupType:
-          type: string
-        taskGroupName:
-          type: string
-        start:
-          type: string
-        end:
-          type: string
-        repeat:
-          $ref: '#/components/schemas/modelTaskRepeat'
-        estimatedHours:
-          type: integer
-          format: int32
-        estimatedMinutes:
-          type: integer
-          format: int32
-    modelLaborModelRuleRequest:
-      type: object
-      properties:
-        id:
-          type: string
-        area:
-          type: integer
-          format: int32
-        metric:
-          type: string
-        metricValueType:
-          type: string
-        metricAmount:
-          type: number
-          format: double
-        laborAmount:
-          type: integer
-          format: int32
-        minLabor:
-          type: integer
-          format: int32
-        maxLabor:
-          type: integer
-          format: int32
-        coverage:
-          type: integer
-          format: int32
-        steps:
-          type: array
-          items:
-            $ref: '#/components/schemas/modelStep'
-        maxMetricAmount:
-          type: number
-          format: double
-        timeframe:
-          type: integer
-          format: int32
-        useBuffers:
-          type: boolean
-        buffers:
-          $ref: '#/components/schemas/modelBuffer'
-        subMetric:
-          type: string
-        task:
-          $ref: '#/components/schemas/modelTaskRequest'
-    LaborModelRuleDeleteResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-    modelBufferDetail:
-      type: object
-      properties:
-        hours:
-          type: integer
-          format: int32
-        minutes:
-          type: integer
-          format: int32
-        direction:
-          type: string
     LaborModelRunJobJob:
       type: object
       properties:
@@ -338,84 +244,6 @@ components:
         metric:
           type: string
           title: metric param for the job
-    LaborModelRunJobResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        data:
-          $ref: '#/components/schemas/LaborModelRunJobJobs'
-    modelStaffByDay:
-      type: object
-      properties:
-        date:
-          type: string
-          format: date-time
-          title: Date for the day
-        staffByArea:
-          type: array
-          items:
-            $ref: '#/components/schemas/modelStaffByArea'
-          title: Staff By Area
-      title: Staff By Date
-    modelBuffer:
-      type: object
-      properties:
-        open:
-          $ref: '#/components/schemas/modelBufferDetail'
-        close:
-          $ref: '#/components/schemas/modelBufferDetail'
-    LaborModelRuleCopyToLocationsResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-    modelStep:
-      type: object
-      properties:
-        from:
-          type: number
-          format: double
-        to:
-          type: number
-          format: double
-        laborAmount:
-          type: integer
-          format: int32
-    modelLaborModelResult:
-      type: object
-      properties:
-        hours:
-          type: integer
-          format: int32
-          title: Total hours across all areas
-        minutes:
-          type: integer
-          format: int32
-          title: Total minutes in addition to the hours
-        start:
-          type: string
-          format: int64
-          title: Time from which the requirements start
-        end:
-          type: string
-          format: int64
-          title: Time at which the requirements end
-        staffByDay:
-          type: array
-          items:
-            $ref: '#/components/schemas/modelStaffByDay'
-          title: Breakdown of Staff requirements by day during the time-period
-      title: Labor Model Result
-    LaborModelRuleCreateResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/modelLaborModelRuleResponse'
     LaborModelRunResponse:
       type: object
       properties:
@@ -423,60 +251,6 @@ components:
           type: boolean
         data:
           $ref: '#/components/schemas/modelLaborModelResult'
-    LaborModelRuleBulkDeleteResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-    LaborModelRuleEditRequest:
-      type: object
-      properties:
-        laborModelId:
-          type: string
-        locationId:
-          type: integer
-          format: int32
-        data:
-          $ref: '#/components/schemas/modelLaborModelRuleRequest'
-    LaborModelRunRequest:
-      type: object
-      properties:
-        start:
-          type: string
-          format: int64
-        end:
-          type: string
-          format: int64
-        locationId:
-          type: integer
-          format: int32
-    LaborModelRuleGetResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/modelLaborModelRuleResponse'
-    modelTaskRequest:
-      type: object
-      properties:
-        taskId:
-          type: integer
-          format: int32
-        taskGroupType:
-          type: string
-    LaborModelRuleCreateRequest:
-      type: object
-      properties:
-        locationId:
-          type: integer
-          format: int32
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/modelLaborModelRuleRequest'
     LaborModelRuleCopyToLocationsRequest:
       type: object
       properties:
@@ -495,46 +269,6 @@ components:
           items:
             type: integer
             format: int32
-    modelStaffByArea:
-      type: object
-      properties:
-        area:
-          type: integer
-          format: int32
-          title: Area staff is added to
-        hours:
-          type: integer
-          format: int32
-          title: Number of staff hours
-        minutes:
-          type: integer
-          format: int32
-          title: Number of staff minutes
-      title: Staff By Area
-    LaborModelRuleEditResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        data:
-          $ref: '#/components/schemas/modelLaborModelRuleResponse'
-    modelTaskRepeat:
-      type: object
-      properties:
-        frequency:
-          type: string
-        days:
-          type: array
-          items:
-            type: string
-    LaborModelRunJobJobs:
-      type: object
-      properties:
-        jobs:
-          type: array
-          items:
-            $ref: '#/components/schemas/LaborModelRunJobJob'
-          title: list of jobs
     modelLaborModelRuleResponse:
       type: object
       properties:
@@ -580,6 +314,272 @@ components:
           type: string
         task:
           $ref: '#/components/schemas/modelTaskResponse'
+    LaborModelRuleCreateRequest:
+      type: object
+      properties:
+        locationId:
+          type: integer
+          format: int32
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/modelLaborModelRuleRequest'
+    modelTaskResponse:
+      type: object
+      properties:
+        taskId:
+          type: integer
+          format: int32
+        taskGroupType:
+          type: string
+        taskGroupName:
+          type: string
+        start:
+          type: string
+        end:
+          type: string
+        repeat:
+          $ref: '#/components/schemas/modelTaskRepeat'
+        estimatedHours:
+          type: integer
+          format: int32
+        estimatedMinutes:
+          type: integer
+          format: int32
+    modelBuffer:
+      type: object
+      properties:
+        open:
+          $ref: '#/components/schemas/modelBufferDetail'
+        close:
+          $ref: '#/components/schemas/modelBufferDetail'
+    LaborModelRuleEditRequest:
+      type: object
+      properties:
+        laborModelId:
+          type: string
+        locationId:
+          type: integer
+          format: int32
+        data:
+          $ref: '#/components/schemas/modelLaborModelRuleRequest'
+    LaborModelRuleCopyToLocationsResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+    LaborModelRuleEditResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          $ref: '#/components/schemas/modelLaborModelRuleResponse'
+    modelStaffByArea:
+      type: object
+      properties:
+        area:
+          type: integer
+          format: int32
+          title: Area staff is added to
+        hours:
+          type: integer
+          format: int32
+          title: Number of staff hours
+        minutes:
+          type: integer
+          format: int32
+          title: Number of staff minutes
+      title: Staff By Area
+    LaborModelRuleBulkDeleteRequest:
+      type: object
+      properties:
+        locationId:
+          type: integer
+          format: int32
+        laborModelIds:
+          type: array
+          items:
+            type: integer
+            format: int32
+    LaborModelRuleBulkDeleteResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+    modelLaborModelRuleRequest:
+      type: object
+      properties:
+        id:
+          type: string
+        area:
+          type: integer
+          format: int32
+        metric:
+          type: string
+        metricValueType:
+          type: string
+        metricAmount:
+          type: number
+          format: double
+        laborAmount:
+          type: integer
+          format: int32
+        minLabor:
+          type: integer
+          format: int32
+        maxLabor:
+          type: integer
+          format: int32
+        coverage:
+          type: integer
+          format: int32
+        steps:
+          type: array
+          items:
+            $ref: '#/components/schemas/modelStep'
+        maxMetricAmount:
+          type: number
+          format: double
+        timeframe:
+          type: integer
+          format: int32
+        useBuffers:
+          type: boolean
+        buffers:
+          $ref: '#/components/schemas/modelBuffer'
+        subMetric:
+          type: string
+        task:
+          $ref: '#/components/schemas/modelTaskRequest'
+    modelTaskRepeat:
+      type: object
+      properties:
+        frequency:
+          type: string
+        days:
+          type: array
+          items:
+            type: string
+    modelLaborModelResult:
+      type: object
+      properties:
+        hours:
+          type: integer
+          format: int32
+          title: Total hours across all areas
+        minutes:
+          type: integer
+          format: int32
+          title: Total minutes in addition to the hours
+        start:
+          type: string
+          format: int64
+          title: Time from which the requirements start
+        end:
+          type: string
+          format: int64
+          title: Time at which the requirements end
+        staffByDay:
+          type: array
+          items:
+            $ref: '#/components/schemas/modelStaffByDay'
+          title: Breakdown of Staff requirements by day during the time-period
+      title: Labor Model Result
+    modelStep:
+      type: object
+      properties:
+        from:
+          type: number
+          format: double
+        to:
+          type: number
+          format: double
+        laborAmount:
+          type: integer
+          format: int32
+    modelTaskRequest:
+      type: object
+      properties:
+        taskId:
+          type: integer
+          format: int32
+        taskGroupType:
+          type: string
+    LaborModelRuleCreateResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/modelLaborModelRuleResponse'
+    modelStaffByDay:
+      type: object
+      properties:
+        date:
+          type: string
+          format: date-time
+          title: Date for the day
+        staffByArea:
+          type: array
+          items:
+            $ref: '#/components/schemas/modelStaffByArea'
+          title: Staff By Area
+      title: Staff By Date
+    modelBufferDetail:
+      type: object
+      properties:
+        hours:
+          type: integer
+          format: int32
+        minutes:
+          type: integer
+          format: int32
+        direction:
+          type: string
+    LaborModelRunJobJobs:
+      type: object
+      properties:
+        jobs:
+          type: array
+          items:
+            $ref: '#/components/schemas/LaborModelRunJobJob'
+          title: list of jobs
+    LaborModelRuleDeleteResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+    LaborModelRunJobResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          $ref: '#/components/schemas/LaborModelRunJobJobs'
+    LaborModelRunRequest:
+      type: object
+      properties:
+        start:
+          type: string
+          format: int64
+        end:
+          type: string
+          format: int64
+        locationId:
+          type: integer
+          format: int32
+    LaborModelRuleGetResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/modelLaborModelRuleResponse'
   securitySchemes:
     ApiToken:
       type: apiKey

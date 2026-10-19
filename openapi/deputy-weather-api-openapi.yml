@@ -69,6 +69,34 @@ paths:
       description: Retrieve daily aggregated weather data.
 components:
   schemas:
+    WeatherGetLocationDailyWeatherResponseData:
+      type: object
+      properties:
+        locationId:
+          type: integer
+          format: int32
+          title: location id of the weather data
+        fromDate:
+          type: string
+          title: from date of the weather data
+        toDate:
+          type: string
+          title: to date of the weather data
+        unit:
+          $ref: '#/components/schemas/WeatherUnit'
+          title: measurement units E.g. Celcius or Farenheit
+        weatherByDate:
+          type: array
+          items:
+            $ref: '#/components/schemas/v2modelWeather'
+          title: list of weather records by each day of requested date range
+    WeatherUnit:
+      type: string
+      enum:
+      - DEFAULT_UNIT
+      - METRIC
+      - IMPERIAL
+      default: DEFAULT_UNIT
     WeatherGetLocationDailyWeatherResponse:
       type: object
       properties:
@@ -105,34 +133,6 @@ components:
         summary:
           type: string
           title: overall summary of the day's temperature
-    WeatherUnit:
-      type: string
-      enum:
-      - DEFAULT_UNIT
-      - METRIC
-      - IMPERIAL
-      default: DEFAULT_UNIT
-    WeatherGetLocationDailyWeatherResponseData:
-      type: object
-      properties:
-        locationId:
-          type: integer
-          format: int32
-          title: location id of the weather data
-        fromDate:
-          type: string
-          title: from date of the weather data
-        toDate:
-          type: string
-          title: to date of the weather data
-        unit:
-          $ref: '#/components/schemas/WeatherUnit'
-          title: measurement units E.g. Celcius or Farenheit
-        weatherByDate:
-          type: array
-          items:
-            $ref: '#/components/schemas/v2modelWeather'
-          title: list of weather records by each day of requested date range
   securitySchemes:
     ApiToken:
       type: apiKey

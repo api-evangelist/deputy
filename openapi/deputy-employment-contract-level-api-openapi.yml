@@ -127,28 +127,13 @@ paths:
               $ref: '#/components/schemas/LevelBatchSaveRequest'
 components:
   schemas:
-    modelGenderType:
-      type: string
-      enum:
-      - DEFAULT_GENDER
-      - PREFER_NOT_TO_SAY
-      - MALE
-      - FEMALE
-      - NON_BINARY
-      default: DEFAULT_GENDER
-    LevelBatchSaveRequest:
+    LevelGetByIdResponse:
       type: object
       properties:
-        contractId:
-          type: integer
-          format: int64
-        levels:
-          type: array
-          items:
-            $ref: '#/components/schemas/LevelUpdateDetail'
-        confirmCustomisation:
+        success:
           type: boolean
-      title: Endpoint responsible for updating a list of Levels, including creating/editing/deleting levels
+        data:
+          $ref: '#/components/schemas/modelContractLevel'
     LevelUpdateDetail:
       type: object
       properties:
@@ -162,55 +147,6 @@ components:
           format: float
         exportCode:
           type: string
-    LevelUpdateResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-    LevelCreateResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        data:
-          $ref: '#/components/schemas/modelContractLevel'
-    LevelGetEmployeesByLevelIdResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/v2modelEmployeeProfile'
-    modelContractLevel:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int64
-        name:
-          type: string
-        levelKsuid:
-          type: string
-        contractId:
-          type: integer
-          format: int64
-        baseRate:
-          type: string
-        crIds:
-          type: array
-          items:
-            type: string
-        exportCode:
-          type: string
-    LevelBatchSaveResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        requiresConfirmation:
-          type: boolean
     v2modelEmployeeProfile:
       type: object
       properties:
@@ -281,13 +217,77 @@ components:
           type: string
           title: Employee photo url
       title: Employee Profile
-    LevelGetByIdResponse:
+    LevelBatchSaveResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        requiresConfirmation:
+          type: boolean
+    LevelUpdateResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+    LevelCreateResponse:
       type: object
       properties:
         success:
           type: boolean
         data:
           $ref: '#/components/schemas/modelContractLevel'
+    LevelBatchSaveRequest:
+      type: object
+      properties:
+        contractId:
+          type: integer
+          format: int64
+        levels:
+          type: array
+          items:
+            $ref: '#/components/schemas/LevelUpdateDetail'
+        confirmCustomisation:
+          type: boolean
+      title: Endpoint responsible for updating a list of Levels, including creating/editing/deleting levels
+    LevelGetEmployeesByLevelIdResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/v2modelEmployeeProfile'
+    modelContractLevel:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        levelKsuid:
+          type: string
+        contractId:
+          type: integer
+          format: int64
+        baseRate:
+          type: string
+        crIds:
+          type: array
+          items:
+            type: string
+        exportCode:
+          type: string
+    modelGenderType:
+      type: string
+      enum:
+      - DEFAULT_GENDER
+      - PREFER_NOT_TO_SAY
+      - MALE
+      - FEMALE
+      - NON_BINARY
+      default: DEFAULT_GENDER
   securitySchemes:
     ApiToken:
       type: apiKey

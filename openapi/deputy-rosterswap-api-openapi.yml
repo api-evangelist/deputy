@@ -336,6 +336,45 @@ paths:
           description: Resource not found
 components:
   schemas:
+    RosterSwap:
+      type: object
+      properties:
+        Id:
+          type: integer
+        SourceRoster:
+          type: integer
+        TargetRoster:
+          type: integer
+        Employee:
+          type: integer
+        Status:
+          type: integer
+        RequestMessage:
+          type: string
+          maxLength: 255
+        ResponseMessage:
+          type: string
+          maxLength: 255
+        Creator:
+          type: integer
+        Created:
+          type: string
+          format: date-time
+        Modified:
+          type: string
+        SourceRosterObject:
+          type: object
+        TargetRosterObject:
+          type: object
+        EmployeeObject:
+          type: object
+      required:
+      - Id
+      - SourceRoster
+      - TargetRoster
+      - Employee
+      - Status
+      - Modified
     QueryRequest:
       type: object
       description: V1 Resource search payload. All fields optional; an empty body returns the first page of results.
@@ -402,45 +441,6 @@ components:
             data: 1
             type: ge
         max: 100
-    RosterSwap:
-      type: object
-      properties:
-        Id:
-          type: integer
-        SourceRoster:
-          type: integer
-        TargetRoster:
-          type: integer
-        Employee:
-          type: integer
-        Status:
-          type: integer
-        RequestMessage:
-          type: string
-          maxLength: 255
-        ResponseMessage:
-          type: string
-          maxLength: 255
-        Creator:
-          type: integer
-        Created:
-          type: string
-          format: date-time
-        Modified:
-          type: string
-        SourceRosterObject:
-          type: object
-        TargetRosterObject:
-          type: object
-        EmployeeObject:
-          type: object
-      required:
-      - Id
-      - SourceRoster
-      - TargetRoster
-      - Employee
-      - Status
-      - Modified
   securitySchemes:
     BearerAuth:
       type: http

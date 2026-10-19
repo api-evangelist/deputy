@@ -109,26 +109,13 @@ paths:
               $ref: '#/components/schemas/ScheduleAgentUpsertShiftsRequestUpsertData'
 components:
   schemas:
-    ScheduleAgentUpsertShiftsRequestUpsertData:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/ScheduleAgentUpsertShiftsRequestUpsertItem'
-          description: Array of shifts to create or update. Maximum 500 items.
-        override:
-          type: boolean
-          description: 'When true, bypasses soft validation warnings (untrained, on leave, unavailable).
-
-            Hard validation errors (overlapping shifts, permission denied) are NOT overridable.'
-    modelMultiListField:
-      type: object
-      properties:
-        value:
-          type: array
-          items:
-            type: string
+    ScheduleAgentLateStatus:
+      type: string
+      enum:
+      - UNKNOWN
+      - CURRENTLY_LATE
+      - LATE
+      default: UNKNOWN
     ScheduleAgentUpsertShiftBreak:
       type: object
       properties:
@@ -145,146 +132,6 @@ components:
           type: string
           title: Break type label/name from config
       title: Break slot within a shift
-    ScheduleAgentUpsertShiftsResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-          title: Overall success - true if at least one item succeeded
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/UpsertShiftsResponseUpsertResult'
-          title: Per-item results in same order as request
-        metadata:
-          $ref: '#/components/schemas/ScheduleAgentUpsertShiftsResponseMetadata'
-          title: Metadata about the upsert operation
-      description: Response from upsert shifts. Synchronous and asynchronous modes.
-    ScheduleAgentLateEntry:
-      type: object
-      properties:
-        employeeId:
-          type: integer
-          format: int32
-        employeeName:
-          type: string
-        shift:
-          $ref: '#/components/schemas/ScheduleAgentShiftInfo'
-        timesheet:
-          $ref: '#/components/schemas/ScheduleAgentTimesheetInfo'
-        minutesLate:
-          type: integer
-          format: int32
-        status:
-          $ref: '#/components/schemas/ScheduleAgentLateStatus'
-    ScheduleAgentMetadata:
-      type: object
-      properties:
-        nextCursor:
-          type: string
-      title: Metadata for pagination
-    modelFileField:
-      type: object
-      properties:
-        value:
-          type: integer
-          format: int32
-    UpsertShiftsResponseUpsertResult:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int32
-          title: The shift ID (new for creates, existing for updates)
-        success:
-          type: boolean
-          title: Whether this item succeeded
-        errorCode:
-          type: string
-          title: Error code if failed (empty if succeeded)
-        errorMessage:
-          type: string
-          title: Error message if failed (empty if succeeded)
-        index:
-          type: integer
-          format: int32
-          title: Index of the item in the request (for correlation)
-        created:
-          type: boolean
-          title: Whether this was a create (true) or update (false)
-    UpsertShiftsRequestChildItem:
-      type: object
-      properties:
-        areaId:
-          type: integer
-          format: int32
-          title: Area ID where child shift is allocated (required)
-        start:
-          type: string
-          title: Child shift start time (HH:MM format, e.g., "13:00") (required)
-        end:
-          type: string
-          title: Child shift end time (HH:MM format, e.g., "17:00") (required)
-      title: Child shift for split shift scenarios
-    tenantsharedv2modelCustomField:
-      type: object
-      properties:
-        id:
-          type: string
-          format: int64
-        booleanField:
-          $ref: '#/components/schemas/modelBooleanField'
-        stringField:
-          $ref: '#/components/schemas/modelStringField'
-        listField:
-          $ref: '#/components/schemas/modelListField'
-        multiListField:
-          $ref: '#/components/schemas/modelMultiListField'
-        fileField:
-          $ref: '#/components/schemas/modelFileField'
-          title: file id
-        employeeVisible:
-          type: boolean
-    ScheduleAgentGetLateResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/ScheduleAgentLateEntry'
-        metadata:
-          $ref: '#/components/schemas/ScheduleAgentMetadata'
-      title: Response for getLate endpoint
-    ScheduleAgentTimesheetInfo:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int32
-        startTime:
-          type: string
-        endTime:
-          type: string
-    ScheduleAgentLateStatus:
-      type: string
-      enum:
-      - UNKNOWN
-      - CURRENTLY_LATE
-      - LATE
-      default: UNKNOWN
-    modelStringField:
-      type: object
-      properties:
-        value:
-          type: string
-    modelBooleanField:
-      type: object
-      properties:
-        value:
-          type: boolean
-          default: 'false'
     ScheduleAgentUpsertShiftsRequestUpsertItem:
       type: object
       properties:
@@ -357,6 +204,26 @@ components:
         publish:
           type: boolean
           title: 'Whether shift should be published (default: false)'
+    UpsertShiftsRequestChildItem:
+      type: object
+      properties:
+        areaId:
+          type: integer
+          format: int32
+          title: Area ID where child shift is allocated (required)
+        start:
+          type: string
+          title: Child shift start time (HH:MM format, e.g., "13:00") (required)
+        end:
+          type: string
+          title: Child shift end time (HH:MM format, e.g., "17:00") (required)
+      title: Child shift for split shift scenarios
+    modelBooleanField:
+      type: object
+      properties:
+        value:
+          type: boolean
+          default: 'false'
     ScheduleAgentUpsertShiftsResponseMetadata:
       type: object
       properties:
@@ -368,6 +235,52 @@ components:
           description: 'Operation ID for async requests. Use /api/operations/v2/operations/{id} to poll for results.
 
             Empty for synchronous requests.'
+    ScheduleAgentGetLateResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/ScheduleAgentLateEntry'
+        metadata:
+          $ref: '#/components/schemas/ScheduleAgentMetadata'
+      title: Response for getLate endpoint
+    modelFileField:
+      type: object
+      properties:
+        value:
+          type: integer
+          format: int32
+    ScheduleAgentUpsertShiftsRequestUpsertData:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/ScheduleAgentUpsertShiftsRequestUpsertItem'
+          description: Array of shifts to create or update. Maximum 500 items.
+        override:
+          type: boolean
+          description: 'When true, bypasses soft validation warnings (untrained, on leave, unavailable).
+
+            Hard validation errors (overlapping shifts, permission denied) are NOT overridable.'
+    ScheduleAgentUpsertShiftsResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          title: Overall success - true if at least one item succeeded
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/UpsertShiftsResponseUpsertResult'
+          title: Per-item results in same order as request
+        metadata:
+          $ref: '#/components/schemas/ScheduleAgentUpsertShiftsResponseMetadata'
+          title: Metadata about the upsert operation
+      description: Response from upsert shifts. Synchronous and asynchronous modes.
     ScheduleAgentShiftInfo:
       type: object
       properties:
@@ -388,18 +301,21 @@ components:
           format: int32
         locationName:
           type: string
-    ScheduleAgentUpsertShiftBreakType:
-      type: string
-      enum:
-      - UNKNOWN_BREAK_TYPE
-      - MEAL
-      - REST
-      default: UNKNOWN_BREAK_TYPE
-      title: Type of break
-    modelListField:
+    ScheduleAgentMetadata:
       type: object
       properties:
-        value:
+        nextCursor:
+          type: string
+      title: Metadata for pagination
+    ScheduleAgentTimesheetInfo:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        startTime:
+          type: string
+        endTime:
           type: string
     MetadataSummary:
       type: object
@@ -420,6 +336,90 @@ components:
           type: integer
           format: int32
           title: Number of items pending processing (async mode only, 0 for sync)
+    UpsertShiftsResponseUpsertResult:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+          title: The shift ID (new for creates, existing for updates)
+        success:
+          type: boolean
+          title: Whether this item succeeded
+        errorCode:
+          type: string
+          title: Error code if failed (empty if succeeded)
+        errorMessage:
+          type: string
+          title: Error message if failed (empty if succeeded)
+        index:
+          type: integer
+          format: int32
+          title: Index of the item in the request (for correlation)
+        created:
+          type: boolean
+          title: Whether this was a create (true) or update (false)
+    modelStringField:
+      type: object
+      properties:
+        value:
+          type: string
+    tenantsharedv2modelCustomField:
+      type: object
+      properties:
+        id:
+          type: string
+          format: int64
+        booleanField:
+          $ref: '#/components/schemas/modelBooleanField'
+        stringField:
+          $ref: '#/components/schemas/modelStringField'
+        listField:
+          $ref: '#/components/schemas/modelListField'
+        multiListField:
+          $ref: '#/components/schemas/modelMultiListField'
+        fileField:
+          $ref: '#/components/schemas/modelFileField'
+          title: file id
+        employeeVisible:
+          type: boolean
+    modelMultiListField:
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            type: string
+    ScheduleAgentUpsertShiftBreakType:
+      type: string
+      enum:
+      - UNKNOWN_BREAK_TYPE
+      - MEAL
+      - REST
+      default: UNKNOWN_BREAK_TYPE
+      title: Type of break
+    modelListField:
+      type: object
+      properties:
+        value:
+          type: string
+    ScheduleAgentLateEntry:
+      type: object
+      properties:
+        employeeId:
+          type: integer
+          format: int32
+        employeeName:
+          type: string
+        shift:
+          $ref: '#/components/schemas/ScheduleAgentShiftInfo'
+        timesheet:
+          $ref: '#/components/schemas/ScheduleAgentTimesheetInfo'
+        minutesLate:
+          type: integer
+          format: int32
+        status:
+          $ref: '#/components/schemas/ScheduleAgentLateStatus'
   securitySchemes:
     ApiToken:
       type: apiKey

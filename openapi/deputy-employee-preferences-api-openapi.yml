@@ -64,6 +64,18 @@ paths:
       description: List.
 components:
   schemas:
+    EmployeePreferencesListResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/v2modelEmployeePreferences'
+        nextCursor:
+          type: string
+      title: Get list of employee preferences response
     v2modelEmployeePreferences:
       type: object
       properties:
@@ -90,18 +102,6 @@ components:
           format: date-time
           title: Timestamp of when the Preferences was last modified
       title: Employee Preferences
-    EmployeePreferencesListResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/v2modelEmployeePreferences'
-        nextCursor:
-          type: string
-      title: Get list of employee preferences response
   securitySchemes:
     ApiToken:
       type: apiKey

@@ -45,16 +45,6 @@ paths:
               $ref: '#/components/schemas/LeaveAbsenceValidateLeaveAbsenceRequest'
 components:
   schemas:
-    LeaveAbsenceValidateLeaveAbsenceRequest:
-      type: object
-      properties:
-        employeeId:
-          type: integer
-          format: int32
-        absences:
-          type: array
-          items:
-            $ref: '#/components/schemas/v2modelLeaveAbsence'
     modelLeaveAbsenceWarnings:
       type: object
       properties:
@@ -64,20 +54,6 @@ components:
             $ref: '#/components/schemas/modelBalanceLimitWarning'
         concurrentLeaveCaps:
           $ref: '#/components/schemas/modelConcurrentLeaveCapWarning'
-    LeaveAbsenceValidateLeaveAbsenceResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        warnings:
-          $ref: '#/components/schemas/modelLeaveAbsenceWarnings'
-    v2modelUnit:
-      type: string
-      enum:
-      - UNIT_UNKNOWN
-      - UNIT_HOUR
-      - UNIT_DAY
-      default: UNIT_UNKNOWN
     modelConcurrentLeaveCapWarning:
       type: object
       properties:
@@ -108,6 +84,40 @@ components:
         exceededAmount:
           type: number
           format: double
+    v2modelUnit:
+      type: string
+      enum:
+      - UNIT_UNKNOWN
+      - UNIT_HOUR
+      - UNIT_DAY
+      default: UNIT_UNKNOWN
+    LeaveAbsenceValidateLeaveAbsenceRequest:
+      type: object
+      properties:
+        employeeId:
+          type: integer
+          format: int32
+        absences:
+          type: array
+          items:
+            $ref: '#/components/schemas/v2modelLeaveAbsence'
+    LeaveAbsenceValidateLeaveAbsenceResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        warnings:
+          $ref: '#/components/schemas/modelLeaveAbsenceWarnings'
+    modelAffectedDate:
+      type: object
+      properties:
+        date:
+          type: string
+          title: yyyy-mm-dd
+        employeesOnLeaveCount:
+          type: integer
+          format: int32
+          title: people already on leave that day
     v2modelLeaveAbsence:
       type: object
       properties:
@@ -120,16 +130,6 @@ components:
         endTime:
           type: string
           format: date-time
-    modelAffectedDate:
-      type: object
-      properties:
-        date:
-          type: string
-          title: yyyy-mm-dd
-        employeesOnLeaveCount:
-          type: integer
-          format: int32
-          title: people already on leave that day
   securitySchemes:
     ApiToken:
       type: apiKey

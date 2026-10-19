@@ -165,6 +165,32 @@ paths:
               $ref: '#/components/schemas/PayComparisonSubmitReportRequest'
 components:
   schemas:
+    PayComparisonResubmitReportRequest:
+      type: object
+      properties:
+        reportIds:
+          type: array
+          items:
+            type: string
+        startDate:
+          type: string
+          description: '`yyyy-mm-dd` optional start date override for the re-run reports. If provided, `endDate` must also be provided, and `startDate` must be earlier than or equal to `endDate`.'
+        endDate:
+          type: string
+          description: '`yyyy-mm-dd` optional end date override for the re-run reports. If provided, `startDate` must also be provided, and `startDate` must be earlier than or equal to `endDate`.'
+    PayComparisonEmployeeQuery:
+      type: object
+      properties:
+        limit:
+          type: integer
+          format: int32
+          description: Limit the result set returned after applying filters.
+        offset:
+          type: integer
+          format: int32
+          description: Offset (from the first result) the result set returned after applying filters.
+        filter:
+          $ref: '#/components/schemas/PayComparisonEmployeeQueryFilter'
     PayComparisonReportStatus:
       type: string
       enum:
@@ -174,14 +200,36 @@ components:
       - FAILED
       - CANCELLED
       default: NO_STATUS
-    PayComparisonCancelReportsRequest:
+    PayComparisonGetEmployeesResponse:
       type: object
       properties:
-        reportIds:
+        employees:
           type: array
           items:
-            type: string
-    PayComparisonDownloadReportRequest:
+            $ref: '#/components/schemas/PayComparisonEmployee'
+        totalCount:
+          type: integer
+          format: int32
+    PayComparisonReportWorkPeriodCycle:
+      type: object
+      properties:
+        cycleStart:
+          type: string
+          description: '`yyyy-mm-dd` date to specify the start of the cycle.'
+        daysInCycle:
+          type: integer
+          format: int32
+          description: Number of days in each cycle, e.g. Weekly = 7, Fortnightly = 14, 4-Weekly = 28.
+    PayComparisonResubmitReportResponse:
+      type: object
+      properties:
+        reports:
+          type: array
+          items:
+            $ref: '#/components/schemas/PayComparisonReport'
+        error:
+          type: string
+    PayComparisonCancelReportsRequest:
       type: object
       properties:
         reportIds:
@@ -195,106 +243,53 @@ components:
           $ref: '#/components/schemas/PayComparisonReport'
         error:
           type: string
-    PayComparisonEmployeeQueryFilter:
+    PayComparisonSubmitReportRequest:
       type: object
       properties:
-        contractIds:
-          type: array
-          items:
-            type: integer
-            format: int32
-          description: Used to match employees by their contract linked by the agreement on their main location.
-        includeEmployeeIds:
-          type: array
-          items:
-            type: integer
-            format: int32
-          description: Employees with IDs matching this field will be added to the set of results, if they are not matched already.
-        includeCompanyIds:
-          type: array
-          items:
-            type: integer
-            format: int32
-          description: Employees that are associated with the Company matching any of the IDs will be added to the set of results.
-        includeTrainingModuleIds:
-          type: array
-          items:
-            type: integer
-            format: int32
-          description: Employees that have any of the matching TrainingModule IDs.
-        includeJobPositions:
-          type: array
-          items:
-            type: string
-          description: Employees based on the given Job Positions. (Will be set to empty if install is not Enterprise).
-        includeEmployeesWithNameLike:
-          type: string
-          description: Employees will be added to the results if they have Name matching this value. `%` can be used as a wildcard.
-    PayComparisonDownloadReportResponse:
-      type: object
-      properties:
-        downloadURLs:
-          type: array
-          items:
-            type: string
-    PayComparisonGetEmployeesResponse:
-      type: object
-      properties:
-        employees:
-          type: array
-          items:
-            $ref: '#/components/schemas/PayComparisonEmployee'
-        totalCount:
-          type: integer
-          format: int32
-    PayComparisonGetReportResponse:
-      type: object
-      properties:
-        reports:
-          type: array
-          items:
-            $ref: '#/components/schemas/PayComparisonReport'
-        totalCount:
-          type: integer
-          format: int32
-    PayComparisonEmployee:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int32
         name:
           type: string
-        profilePictureURL:
+          description: A user-defined name for the report.
+        creatorEmail:
           type: string
-        contractId:
+          description: The email address of the report creator. This email address will receive an email notification when the report has completed.
+        start:
+          type: string
+          description: '`yyyy-mm-dd` start date of the report time period.'
+        end:
+          type: string
+          description: '`yyyy-mm-dd` end date of the report time period.'
+        comparisonContractId:
           type: integer
           format: int32
-        payrollId:
+          description: ID of the EmploymentContract to use for comparison. Set this to empty string if using awardOverride.
+        awardOverride:
           type: string
-        mainLocation:
-          type: string
-        contractName:
-          type: string
-        basePayRate:
-          type: string
-    PayComparisonEmployeeFilter:
-      type: object
-      properties:
-        limit:
-          type: integer
-          format: int32
-          description: Limit the result set returned after applying filters.
-        offset:
-          type: integer
-          format: int32
-          description: Offset (from the first result) the result set returned after applying filters.
-        contractIds:
-          type: array
-          items:
-            type: integer
-            format: int32
-          description: Filter the employees based on main contract.
+          description: Name of the award to use for comparison, e.g. `au/casual-2022-01-01-teachersa-earlychildhood-1`
+        awardBaseRateOverride:
+          type: number
+          format: float
+          description: The base hourly rate to use for comparison with an award.
+        outerLimitOvertime:
+          type: number
+          format: float
+          description: Outer limit value for overtime pay, in hours. Optional, default 0.
+        outerLimitPenalty:
+          type: number
+          format: float
+          description: Outer limit value for penalty pay, in hours. Optional, default 0.
+        includeOuterLimitOvertime:
+          type: boolean
+          description: Whether outer limit should be used for overtime. Optional, default false.
+        includeOuterLimitPenalty:
+          type: boolean
+          description: Whether outer limit should be used for penalty. Optional, default false.
+        workPeriodCycle:
+          $ref: '#/components/schemas/PayComparisonReportWorkPeriodCycle'
+        employeeFilter:
+          $ref: '#/components/schemas/PayComparisonEmployeeFilter'
+          description: Deprecated, please use `employeeQuery`.
+        employeeQuery:
+          $ref: '#/components/schemas/PayComparisonEmployeeQuery'
     PayComparisonReport:
       type: object
       properties:
@@ -349,108 +344,14 @@ components:
           $ref: '#/components/schemas/PayComparisonReportWorkPeriodCycle'
         employeeQuery:
           $ref: '#/components/schemas/PayComparisonEmployeeQuery'
-    PayComparisonSubmitReportRequest:
+    PayComparisonDownloadReportResponse:
       type: object
       properties:
-        name:
-          type: string
-          description: A user-defined name for the report.
-        creatorEmail:
-          type: string
-          description: The email address of the report creator. This email address will receive an email notification when the report has completed.
-        start:
-          type: string
-          description: '`yyyy-mm-dd` start date of the report time period.'
-        end:
-          type: string
-          description: '`yyyy-mm-dd` end date of the report time period.'
-        comparisonContractId:
-          type: integer
-          format: int32
-          description: ID of the EmploymentContract to use for comparison. Set this to empty string if using awardOverride.
-        awardOverride:
-          type: string
-          description: Name of the award to use for comparison, e.g. `au/casual-2022-01-01-teachersa-earlychildhood-1`
-        awardBaseRateOverride:
-          type: number
-          format: float
-          description: The base hourly rate to use for comparison with an award.
-        outerLimitOvertime:
-          type: number
-          format: float
-          description: Outer limit value for overtime pay, in hours. Optional, default 0.
-        outerLimitPenalty:
-          type: number
-          format: float
-          description: Outer limit value for penalty pay, in hours. Optional, default 0.
-        includeOuterLimitOvertime:
-          type: boolean
-          description: Whether outer limit should be used for overtime. Optional, default false.
-        includeOuterLimitPenalty:
-          type: boolean
-          description: Whether outer limit should be used for penalty. Optional, default false.
-        workPeriodCycle:
-          $ref: '#/components/schemas/PayComparisonReportWorkPeriodCycle'
-        employeeFilter:
-          $ref: '#/components/schemas/PayComparisonEmployeeFilter'
-          description: Deprecated, please use `employeeQuery`.
-        employeeQuery:
-          $ref: '#/components/schemas/PayComparisonEmployeeQuery'
-    PayComparisonResubmitReportRequest:
-      type: object
-      properties:
-        reportIds:
+        downloadURLs:
           type: array
           items:
             type: string
-        startDate:
-          type: string
-          description: '`yyyy-mm-dd` optional start date override for the re-run reports. If provided, `endDate` must also be provided, and `startDate` must be earlier than or equal to `endDate`.'
-        endDate:
-          type: string
-          description: '`yyyy-mm-dd` optional end date override for the re-run reports. If provided, `startDate` must also be provided, and `startDate` must be earlier than or equal to `endDate`.'
-    PayComparisonGetEmployeesRequest:
-      type: object
-      properties:
-        limit:
-          type: integer
-          format: int32
-          description: Deprecated. Limit the result set returned after applying filters. Ignored when using `employeeQuery`.
-        offset:
-          type: integer
-          format: int32
-          description: Deprecated. Offset (from the first result) the result set returned after applying filters. Ignored when using `employeeQuery`.
-        contractIds:
-          type: array
-          items:
-            type: integer
-            format: int32
-          description: Deprecated. Filter the employees based on main contract. Ignored when using `employeeQuery`.
-        employeeQuery:
-          $ref: '#/components/schemas/PayComparisonEmployeeQuery'
-    PayComparisonResubmitReportResponse:
-      type: object
-      properties:
-        reports:
-          type: array
-          items:
-            $ref: '#/components/schemas/PayComparisonReport'
-        error:
-          type: string
-    PayComparisonEmployeeQuery:
-      type: object
-      properties:
-        limit:
-          type: integer
-          format: int32
-          description: Limit the result set returned after applying filters.
-        offset:
-          type: integer
-          format: int32
-          description: Offset (from the first result) the result set returned after applying filters.
-        filter:
-          $ref: '#/components/schemas/PayComparisonEmployeeQueryFilter'
-    PayComparisonDeleteReportsRequest:
+    PayComparisonDownloadReportRequest:
       type: object
       properties:
         reportIds:
@@ -477,16 +378,16 @@ components:
         createdBefore:
           type: string
           description: '`yyyy-mm-dd` date to return only reports created before.'
-    PayComparisonReportWorkPeriodCycle:
+    PayComparisonGetReportResponse:
       type: object
       properties:
-        cycleStart:
-          type: string
-          description: '`yyyy-mm-dd` date to specify the start of the cycle.'
-        daysInCycle:
+        reports:
+          type: array
+          items:
+            $ref: '#/components/schemas/PayComparisonReport'
+        totalCount:
           type: integer
           format: int32
-          description: Number of days in each cycle, e.g. Weekly = 7, Fortnightly = 14, 4-Weekly = 28.
     PayComparisonGenericReportResponse:
       type: object
       properties:
@@ -494,6 +395,105 @@ components:
           type: boolean
         error:
           type: string
+    PayComparisonDeleteReportsRequest:
+      type: object
+      properties:
+        reportIds:
+          type: array
+          items:
+            type: string
+    PayComparisonEmployee:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        name:
+          type: string
+        profilePictureURL:
+          type: string
+        contractId:
+          type: integer
+          format: int32
+        payrollId:
+          type: string
+        mainLocation:
+          type: string
+        contractName:
+          type: string
+        basePayRate:
+          type: string
+    PayComparisonEmployeeFilter:
+      type: object
+      properties:
+        limit:
+          type: integer
+          format: int32
+          description: Limit the result set returned after applying filters.
+        offset:
+          type: integer
+          format: int32
+          description: Offset (from the first result) the result set returned after applying filters.
+        contractIds:
+          type: array
+          items:
+            type: integer
+            format: int32
+          description: Filter the employees based on main contract.
+    PayComparisonEmployeeQueryFilter:
+      type: object
+      properties:
+        contractIds:
+          type: array
+          items:
+            type: integer
+            format: int32
+          description: Used to match employees by their contract linked by the agreement on their main location.
+        includeEmployeeIds:
+          type: array
+          items:
+            type: integer
+            format: int32
+          description: Employees with IDs matching this field will be added to the set of results, if they are not matched already.
+        includeCompanyIds:
+          type: array
+          items:
+            type: integer
+            format: int32
+          description: Employees that are associated with the Company matching any of the IDs will be added to the set of results.
+        includeTrainingModuleIds:
+          type: array
+          items:
+            type: integer
+            format: int32
+          description: Employees that have any of the matching TrainingModule IDs.
+        includeJobPositions:
+          type: array
+          items:
+            type: string
+          description: Employees based on the given Job Positions. (Will be set to empty if install is not Enterprise).
+        includeEmployeesWithNameLike:
+          type: string
+          description: Employees will be added to the results if they have Name matching this value. `%` can be used as a wildcard.
+    PayComparisonGetEmployeesRequest:
+      type: object
+      properties:
+        limit:
+          type: integer
+          format: int32
+          description: Deprecated. Limit the result set returned after applying filters. Ignored when using `employeeQuery`.
+        offset:
+          type: integer
+          format: int32
+          description: Deprecated. Offset (from the first result) the result set returned after applying filters. Ignored when using `employeeQuery`.
+        contractIds:
+          type: array
+          items:
+            type: integer
+            format: int32
+          description: Deprecated. Filter the employees based on main contract. Ignored when using `employeeQuery`.
+        employeeQuery:
+          $ref: '#/components/schemas/PayComparisonEmployeeQuery'
   securitySchemes:
     ApiToken:
       type: apiKey

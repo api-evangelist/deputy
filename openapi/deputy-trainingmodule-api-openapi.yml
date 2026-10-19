@@ -516,6 +516,42 @@ paths:
           description: Resource not found
 components:
   schemas:
+    TrainingModule:
+      type: object
+      properties:
+        Id:
+          type: integer
+        Title:
+          type: string
+          maxLength: 255
+        Provider:
+          type: string
+          maxLength: 255
+        ProviderAddress:
+          type: integer
+        Cost:
+          type: number
+          format: double
+        TimeRequiredDays:
+          type: integer
+        RenewalPeriodMonths:
+          type: integer
+        Comment:
+          type: string
+        Creator:
+          type: integer
+        Created:
+          type: string
+          format: date-time
+        Modified:
+          type: string
+      required:
+      - Id
+      - Title
+      - Provider
+      - TimeRequiredDays
+      - Comment
+      - Modified
     QueryRequest:
       type: object
       description: V1 Resource search payload. All fields optional; an empty body returns the first page of results.
@@ -582,42 +618,6 @@ components:
             data: 1
             type: ge
         max: 100
-    TrainingModule:
-      type: object
-      properties:
-        Id:
-          type: integer
-        Title:
-          type: string
-          maxLength: 255
-        Provider:
-          type: string
-          maxLength: 255
-        ProviderAddress:
-          type: integer
-        Cost:
-          type: number
-          format: double
-        TimeRequiredDays:
-          type: integer
-        RenewalPeriodMonths:
-          type: integer
-        Comment:
-          type: string
-        Creator:
-          type: integer
-        Created:
-          type: string
-          format: date-time
-        Modified:
-          type: string
-      required:
-      - Id
-      - Title
-      - Provider
-      - TimeRequiredDays
-      - Comment
-      - Modified
   securitySchemes:
     BearerAuth:
       type: http

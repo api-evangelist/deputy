@@ -136,6 +136,22 @@ paths:
       description: List.
 components:
   schemas:
+    ReportExportScheduleTimesheetSalesResponseData:
+      type: object
+      properties:
+        jobId:
+          type: string
+    GenericReportListResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        reports:
+          type: array
+          items:
+            $ref: '#/components/schemas/GenericReportListResponseReport'
+        nextCursor:
+          type: string
     GenericReportListResponseReport:
       type: object
       properties:
@@ -159,25 +175,7 @@ components:
           $ref: '#/components/schemas/modelFwwPayPremiumsItem'
         fwwShiftChangeConsent:
           $ref: '#/components/schemas/modelFwwShiftChangeConsentItem'
-    GenericReportCreateResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-    modelFwwShiftChangeConsentItem:
-      type: object
-      properties:
-        locationIds:
-          type: array
-          items:
-            type: integer
-            format: int32
-        employeeIds:
-          type: array
-          items:
-            type: integer
-            format: int32
-    modelFwwPayPremiumsCreateRequest:
+    modelFwwPayPremiumsItem:
       type: object
       properties:
         locationIds:
@@ -198,7 +196,25 @@ components:
         data:
           $ref: '#/components/schemas/ReportExportScheduleTimesheetSalesResponseData'
       title: Export ScheduleTimesheetSales report response
-    modelFwwPayPremiumsItem:
+    ReportExportScheduleTimesheetSalesRequest:
+      type: object
+      properties:
+        locationIds:
+          type: array
+          items:
+            type: integer
+            format: int32
+        areaIds:
+          type: array
+          items:
+            type: integer
+            format: int32
+        startDate:
+          type: string
+        endDate:
+          type: string
+      title: Export ScheduleTimesheetSales report request
+    modelFwwShiftChangeConsentItem:
       type: object
       properties:
         locationIds:
@@ -211,17 +227,6 @@ components:
           items:
             type: integer
             format: int32
-    GenericReportListResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        reports:
-          type: array
-          items:
-            $ref: '#/components/schemas/GenericReportListResponseReport'
-        nextCursor:
-          type: string
     modelFwwShiftChangeConsentCreateRequest:
       type: object
       properties:
@@ -250,11 +255,6 @@ components:
           $ref: '#/components/schemas/modelFwwPayPremiumsCreateRequest'
         fwwShiftChangeConsent:
           $ref: '#/components/schemas/modelFwwShiftChangeConsentCreateRequest'
-    ReportExportScheduleTimesheetSalesResponseData:
-      type: object
-      properties:
-        jobId:
-          type: string
     GenericReportUrlResponse:
       type: object
       properties:
@@ -270,7 +270,12 @@ components:
       - COMPLETED
       - FAILED
       default: UNDEFINED_REPORT_STATUS
-    ReportExportScheduleTimesheetSalesRequest:
+    GenericReportCreateResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+    modelFwwPayPremiumsCreateRequest:
       type: object
       properties:
         locationIds:
@@ -278,16 +283,11 @@ components:
           items:
             type: integer
             format: int32
-        areaIds:
+        employeeIds:
           type: array
           items:
             type: integer
             format: int32
-        startDate:
-          type: string
-        endDate:
-          type: string
-      title: Export ScheduleTimesheetSales report request
   securitySchemes:
     ApiToken:
       type: apiKey

@@ -2,7 +2,7 @@ openapi: 3.2.0
 info:
   title: Deputy Timesheet API
   version: 1.0.0
-  description: 'Operations tagged Timesheet across 3 of this provider''s published API definitions: deputy-v1-my-api-openapi.yml, deputy-v1-resource-api-openapi.yml, deputy-v1-supervise-api-openapi.yml. Each path carries the servers of the definition it was published in.'
+  description: 'Operations tagged Timesheet across 2 of this provider''s published API definitions: deputy-openapi.json, deputy-timesheet-api-openapi.yml. Each path carries the servers of the definition it was published in.'
 servers:
 - url: https://{subdomain}.{region}.deputy.com/api/v1
   description: Deputy tenant
@@ -427,6 +427,19 @@ paths:
           - na
           - deputy
   /resource/Timesheet:
+    servers:
+    - url: https://{subdomain}.{region}.deputy.com/api/v1
+      description: Deputy tenant
+      variables:
+        subdomain:
+          default: your-subdomain
+        region:
+          default: deputy
+          enum:
+          - au
+          - eu
+          - na
+          - deputy
     get:
       tags:
       - Timesheet
@@ -511,6 +524,7 @@ paths:
       security:
       - BearerAuth: []
       - OAuth2: []
+  /resource/Timesheet/BULK:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -524,7 +538,6 @@ paths:
           - eu
           - na
           - deputy
-  /resource/Timesheet/BULK:
     post:
       tags:
       - Timesheet
@@ -559,6 +572,7 @@ paths:
       security:
       - BearerAuth: []
       - OAuth2: []
+  /resource/Timesheet/INFO:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -572,7 +586,6 @@ paths:
           - eu
           - na
           - deputy
-  /resource/Timesheet/INFO:
     get:
       tags:
       - Timesheet
@@ -597,6 +610,7 @@ paths:
       security:
       - BearerAuth: []
       - OAuth2: []
+  /resource/Timesheet/PREDICT:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -610,7 +624,6 @@ paths:
           - eu
           - na
           - deputy
-  /resource/Timesheet/PREDICT:
     post:
       tags:
       - Timesheet
@@ -641,6 +654,7 @@ paths:
       security:
       - BearerAuth: []
       - OAuth2: []
+  /resource/Timesheet/QUERY:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -654,7 +668,6 @@ paths:
           - eu
           - na
           - deputy
-  /resource/Timesheet/QUERY:
     post:
       tags:
       - Timesheet
@@ -687,6 +700,7 @@ paths:
       security:
       - BearerAuth: []
       - OAuth2: []
+  /resource/Timesheet/{id}:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -700,7 +714,6 @@ paths:
           - eu
           - na
           - deputy
-  /resource/Timesheet/{id}:
     get:
       tags:
       - Timesheet
@@ -836,6 +849,7 @@ paths:
       security:
       - BearerAuth: []
       - OAuth2: []
+  /resource/Timesheet/{id}/COMMENTS:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -849,7 +863,6 @@ paths:
           - eu
           - na
           - deputy
-  /resource/Timesheet/{id}/COMMENTS:
     get:
       tags:
       - Timesheet
@@ -933,6 +946,7 @@ paths:
       security:
       - BearerAuth: []
       - OAuth2: []
+  /resource/Timesheet/{id}/COMMENTS/{commentId}:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -946,7 +960,6 @@ paths:
           - eu
           - na
           - deputy
-  /resource/Timesheet/{id}/COMMENTS/{commentId}:
     delete:
       tags:
       - Timesheet
@@ -985,6 +998,7 @@ paths:
       security:
       - BearerAuth: []
       - OAuth2: []
+  /resource/Timesheet/{id}/HISTORY:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -998,7 +1012,6 @@ paths:
           - eu
           - na
           - deputy
-  /resource/Timesheet/{id}/HISTORY:
     get:
       tags:
       - Timesheet
@@ -1031,6 +1044,7 @@ paths:
       security:
       - BearerAuth: []
       - OAuth2: []
+  /resource/Timesheet/{id}/HISTORY/travel/{timestamp}:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -1044,7 +1058,6 @@ paths:
           - eu
           - na
           - deputy
-  /resource/Timesheet/{id}/HISTORY/travel/{timestamp}:
     get:
       tags:
       - Timesheet
@@ -1082,6 +1095,7 @@ paths:
       security:
       - BearerAuth: []
       - OAuth2: []
+  /supervise/timesheet/bulk/check/{jobId}:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -1095,7 +1109,6 @@ paths:
           - eu
           - na
           - deputy
-  /supervise/timesheet/bulk/check/{jobId}:
     get:
       tags:
       - Timesheet
@@ -1124,6 +1137,7 @@ paths:
           type: string
       security:
       - BearerAuth: []
+  /supervise/timesheet/bulk/recalculate:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -1137,7 +1151,6 @@ paths:
           - eu
           - na
           - deputy
-  /supervise/timesheet/bulk/recalculate:
     post:
       tags:
       - Timesheet
@@ -1166,6 +1179,7 @@ paths:
               type: object
       security:
       - BearerAuth: []
+  /supervise/timesheet/{employeeId}/{date}:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -1179,7 +1193,6 @@ paths:
           - eu
           - na
           - deputy
-  /supervise/timesheet/{employeeId}/{date}:
     get:
       tags:
       - Timesheet
@@ -1213,6 +1226,7 @@ paths:
           type: string
       security:
       - BearerAuth: []
+  /supervise/timesheet/{id}/details:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -1226,7 +1240,6 @@ paths:
           - eu
           - na
           - deputy
-  /supervise/timesheet/{id}/details:
     get:
       tags:
       - Timesheet
@@ -1256,6 +1269,7 @@ paths:
           pattern: \d+
       security:
       - BearerAuth: []
+  /supervise/timesheet/{id}/history:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -1269,7 +1283,6 @@ paths:
           - eu
           - na
           - deputy
-  /supervise/timesheet/{id}/history:
     get:
       tags:
       - Timesheet
@@ -1299,6 +1312,7 @@ paths:
           pattern: \d+
       security:
       - BearerAuth: []
+  /supervise/timesheet/{id}/setup:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -1312,7 +1326,6 @@ paths:
           - eu
           - na
           - deputy
-  /supervise/timesheet/{id}/setup:
     get:
       tags:
       - Timesheet
@@ -1342,6 +1355,7 @@ paths:
           pattern: \d+
       security:
       - BearerAuth: []
+  /supervise/timesheet/{startOrEnd}:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -1355,7 +1369,6 @@ paths:
           - eu
           - na
           - deputy
-  /supervise/timesheet/{startOrEnd}:
     post:
       tags:
       - Timesheet
@@ -1391,87 +1404,8 @@ paths:
               type: object
       security:
       - BearerAuth: []
-    servers:
-    - url: https://{subdomain}.{region}.deputy.com/api/v1
-      description: Deputy tenant
-      variables:
-        subdomain:
-          default: your-subdomain
-        region:
-          default: deputy
-          enum:
-          - au
-          - eu
-          - na
-          - deputy
 components:
   schemas:
-    QueryRequest:
-      type: object
-      description: V1 Resource search payload. All fields optional; an empty body returns the first page of results.
-      properties:
-        search:
-          type: object
-          description: Map of search clauses keyed by an arbitrary id (e.g. `s1`, `s2`). Each clause filters one field.
-          additionalProperties:
-            type: object
-            required:
-            - field
-            - data
-            - type
-            properties:
-              field:
-                type: string
-                description: Field name to filter on (e.g. `Id`, `Employee`).
-              data:
-                description: Comparison value. Type depends on the field.
-              type:
-                type: string
-                description: Comparison operator.
-                enum:
-                - eq
-                - ne
-                - gt
-                - lt
-                - ge
-                - le
-                - is
-                - is not
-                - in
-                - not in
-                - starts
-                - contains
-        sort:
-          type: object
-          description: Map of field name → `asc` or `desc`.
-          additionalProperties:
-            type: string
-            enum:
-            - asc
-            - desc
-        start:
-          type: integer
-          minimum: 0
-          default: 0
-          description: Pagination offset (0-indexed).
-        max:
-          type: integer
-          minimum: 1
-          maximum: 500
-          default: 100
-          description: Max records per page (server caps at 500).
-        join:
-          type: array
-          items:
-            type: string
-          description: Related ORMs to expand inline (e.g. `["EmployeeObject"]`).
-      example:
-        search:
-          s1:
-            field: Id
-            data: 1
-            type: ge
-        max: 100
     Timesheet:
       type: object
       properties:
@@ -1629,6 +1563,72 @@ components:
       - PaycycleId
       - Modified
       - ReviewState
+    QueryRequest:
+      type: object
+      description: V1 Resource search payload. All fields optional; an empty body returns the first page of results.
+      properties:
+        search:
+          type: object
+          description: Map of search clauses keyed by an arbitrary id (e.g. `s1`, `s2`). Each clause filters one field.
+          additionalProperties:
+            type: object
+            required:
+            - field
+            - data
+            - type
+            properties:
+              field:
+                type: string
+                description: Field name to filter on (e.g. `Id`, `Employee`).
+              data:
+                description: Comparison value. Type depends on the field.
+              type:
+                type: string
+                description: Comparison operator.
+                enum:
+                - eq
+                - ne
+                - gt
+                - lt
+                - ge
+                - le
+                - is
+                - is not
+                - in
+                - not in
+                - starts
+                - contains
+        sort:
+          type: object
+          description: Map of field name → `asc` or `desc`.
+          additionalProperties:
+            type: string
+            enum:
+            - asc
+            - desc
+        start:
+          type: integer
+          minimum: 0
+          default: 0
+          description: Pagination offset (0-indexed).
+        max:
+          type: integer
+          minimum: 1
+          maximum: 500
+          default: 100
+          description: Max records per page (server caps at 500).
+        join:
+          type: array
+          items:
+            type: string
+          description: Related ORMs to expand inline (e.g. `["EmployeeObject"]`).
+      example:
+        search:
+          s1:
+            field: Id
+            data: 1
+            type: ge
+        max: 100
   securitySchemes:
     BearerAuth:
       type: http
@@ -1643,86 +1643,5 @@ components:
           scopes:
             longlife_refresh_token: Extended session
 x-refined-from:
-- deputy-v1-my-api-openapi.yml
-- deputy-v1-resource-api-openapi.yml
-- deputy-v1-supervise-api-openapi.yml
-x-provenance:
-  method: searched
-  source: https://developer.deputy.com/reference
-  harvested: '2026-10-14'
-  tool: harvest-readme-openapi.py
-  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
-  assembled_from:
-  - https://developer.deputy.com/reference/addalocation.md
-  - https://developer.deputy.com/reference/addalocationagainstanemployee.md
-  - https://developer.deputy.com/reference/addanemployee.md
-  - https://developer.deputy.com/reference/addasaletosalesmetrics.md
-  - https://developer.deputy.com/reference/addawebhookurl.md
-  - https://developer.deputy.com/reference/addleaveforaemployee.md
-  - https://developer.deputy.com/reference/addnewworkplace.md
-  - https://developer.deputy.com/reference/addunavailabilitydetailsforaemployee.md
-  - https://developer.deputy.com/reference/archivealocation.md
-  - https://developer.deputy.com/reference/copyaroster.md
-  - https://developer.deputy.com/reference/create-a-memo.md
-  - https://developer.deputy.com/reference/createadepartment.md
-  - https://developer.deputy.com/reference/createmultipledepartments.md
-  - https://developer.deputy.com/reference/deletealocation.md
-  - https://developer.deputy.com/reference/deleteanemployeesaccountindeputy.md
-  - https://developer.deputy.com/reference/deleteasingleoperationalunit.md
-  - https://developer.deputy.com/reference/discardaroster.md
-  - https://developer.deputy.com/reference/doatask.md
-  - https://developer.deputy.com/reference/example-searchforemployeesfromalocation.md
-  - https://developer.deputy.com/reference/findanemployeesleave.md
-  - https://developer.deputy.com/reference/findoutanemployeesstatus.md
-  - https://developer.deputy.com/reference/getagreedhoursbyemployeeid.md
-  - https://developer.deputy.com/reference/getalistofrostersfromlast12hoursandforward36hours.md
-  - https://developer.deputy.com/reference/getalocationssettings.md
-  - https://developer.deputy.com/reference/getawardslibrarylist.md
-  - https://developer.deputy.com/reference/getdetailsforaemployeebyid.md
-  - https://developer.deputy.com/reference/getdetailsforallemployees.md
-  - https://developer.deputy.com/reference/getlocationbyid.md
-  - https://developer.deputy.com/reference/getlocations.md
-  - https://developer.deputy.com/reference/getmyindividualtimesheet.md
-  - https://developer.deputy.com/reference/getmynewsfeed.md
-  - https://developer.deputy.com/reference/getmynotifications.md
-  - https://developer.deputy.com/reference/getmysubordinatecontactdetails.md
-  - https://developer.deputy.com/reference/getmytasks.md
-  - https://developer.deputy.com/reference/getmytimesheets.md
-  - https://developer.deputy.com/reference/getmytraining.md
-  - https://developer.deputy.com/reference/getoperationalunits.md
-  - https://developer.deputy.com/reference/getrostersavailableforswap.md
-  - https://developer.deputy.com/reference/getsimplifiedlocationlist.md
-  - https://developer.deputy.com/reference/getsuggestionsforrosterbyid.md
-  - https://developer.deputy.com/reference/getunavailabilitydetailsforaemployee.md
-  - https://developer.deputy.com/reference/inviteemployeetodeputy.md
-  - https://developer.deputy.com/reference/modifysettingsinalllocations.md
-  - https://developer.deputy.com/reference/modifysettingsinasinglelocation.md
-  - https://developer.deputy.com/reference/myaddressonfile.md
-  - https://developer.deputy.com/reference/myaddressonfileincludingemergency.md
-  - https://developer.deputy.com/reference/myleaverequests.md
-  - https://developer.deputy.com/reference/pauseorunpauseemployeestimesheettakeabreakfinishbreak.md
-  - https://developer.deputy.com/reference/postajournal.md
-  - https://developer.deputy.com/reference/publisharoster.md
-  - https://developer.deputy.com/reference/re-activateaterminatedemployee.md
-  - https://developer.deputy.com/reference/removealocationfromanemployee.md
-  - https://developer.deputy.com/reference/retrievecurrentsystemtime.md
-  - https://developer.deputy.com/reference/retrievecurrentsystemtimeofalocation.md
-  - https://developer.deputy.com/reference/retrievesalesdata.md
-  - https://developer.deputy.com/reference/setawardforemployee.md
-  - https://developer.deputy.com/reference/startanemployeestimesheetclockon.md
-  - https://developer.deputy.com/reference/stopanemployeestimesheetclockoff.md
-  - https://developer.deputy.com/reference/terminateanemployee.md
-  - https://developer.deputy.com/reference/updatealocation.md
-  - https://developer.deputy.com/reference/updateanexistingemployee.md
-  - https://developer.deputy.com/reference/updateasingleoperationalunit.md
-  - https://developer.deputy.com/reference/updatemyaddress.md
-  - https://developer.deputy.com/reference/viewatimesheetbyid.md
-  - https://developer.deputy.com/reference/whatlocationscaniworkin.md
-  - https://developer.deputy.com/reference/whenaminextworking.md
-  - https://developer.deputy.com/reference/whenamiunavailable.md
-  - https://developer.deputy.com/reference/wherecaniworkwhatdoido.md
-  - https://developer.deputy.com/reference/whodoiworkwith.md
-  merge:
-    pages: 69
-    deduped: 70
-    conflicts_kept_first: 0
+- deputy-openapi.json
+- deputy-timesheet-api-openapi.yml

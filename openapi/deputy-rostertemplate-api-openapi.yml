@@ -516,6 +516,48 @@ paths:
           description: Resource not found
 components:
   schemas:
+    RosterTemplate:
+      type: object
+      properties:
+        Id:
+          type: integer
+        Name:
+          type: string
+          maxLength: 64
+        Company:
+          type: integer
+        Type:
+          type: integer
+        Description:
+          type: string
+          maxLength: 255
+        Shifts:
+          type: string
+        TotalCount:
+          type: integer
+        StartFrom:
+          type: string
+          format: date-time
+        EndTo:
+          type: string
+          format: date-time
+        Creator:
+          type: integer
+        Created:
+          type: string
+          format: date-time
+        Modified:
+          type: string
+      required:
+      - Id
+      - Name
+      - Company
+      - Type
+      - Shifts
+      - TotalCount
+      - StartFrom
+      - EndTo
+      - Modified
     QueryRequest:
       type: object
       description: V1 Resource search payload. All fields optional; an empty body returns the first page of results.
@@ -582,48 +624,6 @@ components:
             data: 1
             type: ge
         max: 100
-    RosterTemplate:
-      type: object
-      properties:
-        Id:
-          type: integer
-        Name:
-          type: string
-          maxLength: 64
-        Company:
-          type: integer
-        Type:
-          type: integer
-        Description:
-          type: string
-          maxLength: 255
-        Shifts:
-          type: string
-        TotalCount:
-          type: integer
-        StartFrom:
-          type: string
-          format: date-time
-        EndTo:
-          type: string
-          format: date-time
-        Creator:
-          type: integer
-        Created:
-          type: string
-          format: date-time
-        Modified:
-          type: string
-      required:
-      - Id
-      - Name
-      - Company
-      - Type
-      - Shifts
-      - TotalCount
-      - StartFrom
-      - EndTo
-      - Modified
   securitySchemes:
     BearerAuth:
       type: http

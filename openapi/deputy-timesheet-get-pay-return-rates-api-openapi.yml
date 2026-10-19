@@ -52,6 +52,13 @@ paths:
               $ref: '#/components/schemas/GetPayReturnRatesRequestPayReturnRatesRequestBody'
 components:
   schemas:
+    TsaGetPayReturnRatesResponse:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/GetPayReturnRatesResponsePayReturnRatesResponseBody'
+        success:
+          type: boolean
     GetPayReturnRatesRequestPayReturnRatesRequestBody:
       type: object
       properties:
@@ -59,13 +66,6 @@ components:
           $ref: '#/components/schemas/TsaTimesheetPropertyRequest'
         setPayReturns:
           $ref: '#/components/schemas/TsaTimesheetPayReturnOverrideRequest'
-    tenanttsav2modelBreakType:
-      type: string
-      enum:
-      - NO_TYPE
-      - MEAL_BREAK
-      - REST_BREAK
-      default: NO_TYPE
     modelTimesheetBreak:
       type: object
       properties:
@@ -77,6 +77,14 @@ components:
           format: int32
         breakType:
           $ref: '#/components/schemas/tenanttsav2modelBreakType'
+    GetPayReturnRatesResponsePayReturnRatesResponseBody:
+      type: object
+      properties:
+        rateByPayRuleId:
+          type: object
+          additionalProperties:
+            type: number
+            format: float
     TsaTimesheetBreaksRequest:
       type: object
       properties:
@@ -116,6 +124,13 @@ components:
         employeeComment:
           type: string
           description: employee comment for the timesheet
+    tenanttsav2modelBreakType:
+      type: string
+      enum:
+      - NO_TYPE
+      - MEAL_BREAK
+      - REST_BREAK
+      default: NO_TYPE
     modelPayReturnOverride:
       type: object
       properties:
@@ -125,14 +140,6 @@ components:
         value:
           type: number
           format: float
-    GetPayReturnRatesResponsePayReturnRatesResponseBody:
-      type: object
-      properties:
-        rateByPayRuleId:
-          type: object
-          additionalProperties:
-            type: number
-            format: float
     TsaTimesheetPayReturnOverrideRequest:
       type: object
       properties:
@@ -141,13 +148,6 @@ components:
           items:
             $ref: '#/components/schemas/modelPayReturnOverride'
           description: passing an empty array here will cause an approval with no pay returns.
-    TsaGetPayReturnRatesResponse:
-      type: object
-      properties:
-        data:
-          $ref: '#/components/schemas/GetPayReturnRatesResponsePayReturnRatesResponseBody'
-        success:
-          type: boolean
   securitySchemes:
     ApiToken:
       type: apiKey

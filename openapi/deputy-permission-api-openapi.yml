@@ -79,6 +79,16 @@ paths:
       description: Get user IDs with privilege.
 components:
   schemas:
+    GetEmployeeIdsWithPrivilegeResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        ids:
+          type: array
+          items:
+            type: string
+            format: int64
     GetUserIdsWithPrivilegeResponse:
       type: object
       properties:
@@ -98,16 +108,6 @@ components:
           type: array
           items:
             type: string
-    GetEmployeeIdsWithPrivilegeResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        ids:
-          type: array
-          items:
-            type: string
-            format: int64
   securitySchemes:
     ApiToken:
       type: apiKey

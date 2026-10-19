@@ -336,52 +336,6 @@ paths:
           description: Resource not found
 components:
   schemas:
-    TaskOpunitConfig:
-      type: object
-      properties:
-        Id:
-          type: integer
-        TaskSetupId:
-          type: integer
-        TaskGroupId:
-          type: integer
-        Active:
-          type: boolean
-        SortOrder:
-          type: integer
-        OpUnitId:
-          type: integer
-        Schedule:
-          type: integer
-        Type:
-          type: integer
-        AvailableAfter:
-          type: string
-        Creator:
-          type: integer
-        Created:
-          type: string
-          format: date-time
-        Modified:
-          type: string
-        TaskSetup:
-          type: object
-        TaskGroup:
-          type: object
-        OpUnit:
-          type: object
-        ScheduleObject:
-          type: object
-      required:
-      - Id
-      - TaskSetupId
-      - TaskGroupId
-      - Active
-      - SortOrder
-      - OpUnitId
-      - Schedule
-      - Type
-      - Modified
     QueryRequest:
       type: object
       description: V1 Resource search payload. All fields optional; an empty body returns the first page of results.
@@ -448,6 +402,52 @@ components:
             data: 1
             type: ge
         max: 100
+    TaskOpunitConfig:
+      type: object
+      properties:
+        Id:
+          type: integer
+        TaskSetupId:
+          type: integer
+        TaskGroupId:
+          type: integer
+        Active:
+          type: boolean
+        SortOrder:
+          type: integer
+        OpUnitId:
+          type: integer
+        Schedule:
+          type: integer
+        Type:
+          type: integer
+        AvailableAfter:
+          type: string
+        Creator:
+          type: integer
+        Created:
+          type: string
+          format: date-time
+        Modified:
+          type: string
+        TaskSetup:
+          type: object
+        TaskGroup:
+          type: object
+        OpUnit:
+          type: object
+        ScheduleObject:
+          type: object
+      required:
+      - Id
+      - TaskSetupId
+      - TaskGroupId
+      - Active
+      - SortOrder
+      - OpUnitId
+      - Schedule
+      - Type
+      - Modified
   securitySchemes:
     BearerAuth:
       type: http

@@ -39,6 +39,14 @@ paths:
       description: List toil leave rules.
 components:
   schemas:
+    LeaveRulesTOILLeaveRuleData:
+      type: object
+      properties:
+        name:
+          type: string
+        id:
+          type: integer
+          format: int32
     LeaveRulesListToilLeaveRulesResponse:
       type: object
       properties:
@@ -48,14 +56,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/LeaveRulesTOILLeaveRuleData'
-    LeaveRulesTOILLeaveRuleData:
-      type: object
-      properties:
-        name:
-          type: string
-        id:
-          type: integer
-          format: int32
   securitySchemes:
     ApiToken:
       type: apiKey

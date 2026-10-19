@@ -516,6 +516,60 @@ paths:
           description: Resource not found
 components:
   schemas:
+    LeavePayLine:
+      type: object
+      properties:
+        Id:
+          type: integer
+        LeaveId:
+          type: integer
+        LeaveRule:
+          type: integer
+        EmployeeAgreement:
+          type: integer
+        Date:
+          type: string
+          format: date-time
+        StartTime:
+          type: string
+          format: date-time
+        EndTime:
+          type: string
+          format: date-time
+        Hours:
+          type: string
+        Comment:
+          type: string
+          maxLength: 255
+        TimesheetId:
+          type: integer
+        Cost:
+          type: number
+          format: double
+        RecalculateWithReferencePeriod:
+          type: boolean
+        Creator:
+          type: integer
+        Created:
+          type: string
+          format: date-time
+        Modified:
+          type: string
+        Leave:
+          type: object
+        LeaveRuleObject:
+          type: object
+        EmployeeAgreementObject:
+          type: object
+        Timesheet:
+          type: object
+      required:
+      - Id
+      - LeaveId
+      - Date
+      - Hours
+      - Comment
+      - Modified
     QueryRequest:
       type: object
       description: V1 Resource search payload. All fields optional; an empty body returns the first page of results.
@@ -582,60 +636,6 @@ components:
             data: 1
             type: ge
         max: 100
-    LeavePayLine:
-      type: object
-      properties:
-        Id:
-          type: integer
-        LeaveId:
-          type: integer
-        LeaveRule:
-          type: integer
-        EmployeeAgreement:
-          type: integer
-        Date:
-          type: string
-          format: date-time
-        StartTime:
-          type: string
-          format: date-time
-        EndTime:
-          type: string
-          format: date-time
-        Hours:
-          type: string
-        Comment:
-          type: string
-          maxLength: 255
-        TimesheetId:
-          type: integer
-        Cost:
-          type: number
-          format: double
-        RecalculateWithReferencePeriod:
-          type: boolean
-        Creator:
-          type: integer
-        Created:
-          type: string
-          format: date-time
-        Modified:
-          type: string
-        Leave:
-          type: object
-        LeaveRuleObject:
-          type: object
-        EmployeeAgreementObject:
-          type: object
-        Timesheet:
-          type: object
-      required:
-      - Id
-      - LeaveId
-      - Date
-      - Hours
-      - Comment
-      - Modified
   securitySchemes:
     BearerAuth:
       type: http

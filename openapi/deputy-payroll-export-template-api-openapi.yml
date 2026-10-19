@@ -146,6 +146,55 @@ paths:
               $ref: '#/components/schemas/v2modelPayrollExportTemplates'
 components:
   schemas:
+    PayrollExportTemplatesUpdateResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          $ref: '#/components/schemas/v2modelPayrollExportTemplates'
+      title: Update Template response
+    PayrollExportTemplatesCreateResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          $ref: '#/components/schemas/v2modelPayrollExportTemplates'
+      title: Create Template response
+    modelTemplateType:
+      type: string
+      enum:
+      - TYPE_UNKNOWN
+      - DEPUTY_TEMPLATE
+      - CUSTOMER_TEMPLATE
+      default: TYPE_UNKNOWN
+    PayrollExportTemplatesGetResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          $ref: '#/components/schemas/v2modelPayrollExportTemplates'
+      title: Get Template response
+    PayrollExportTemplatesListResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/v2modelPayrollExportTemplates'
+        nextCursor:
+          type: string
+      title: Get all Templates response
+    PayrollExportTemplatesDeleteResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+      title: Delete Template response
     v2modelPayrollExportTemplates:
       type: object
       properties:
@@ -179,55 +228,6 @@ components:
           format: date-time
           title: Timestamp when the Template was modified
       title: Payroll Export Templates
-    PayrollExportTemplatesCreateResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        data:
-          $ref: '#/components/schemas/v2modelPayrollExportTemplates'
-      title: Create Template response
-    PayrollExportTemplatesListResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/v2modelPayrollExportTemplates'
-        nextCursor:
-          type: string
-      title: Get all Templates response
-    PayrollExportTemplatesDeleteResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-      title: Delete Template response
-    PayrollExportTemplatesGetResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        data:
-          $ref: '#/components/schemas/v2modelPayrollExportTemplates'
-      title: Get Template response
-    PayrollExportTemplatesUpdateResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        data:
-          $ref: '#/components/schemas/v2modelPayrollExportTemplates'
-      title: Update Template response
-    modelTemplateType:
-      type: string
-      enum:
-      - TYPE_UNKNOWN
-      - DEPUTY_TEMPLATE
-      - CUSTOMER_TEMPLATE
-      default: TYPE_UNKNOWN
   securitySchemes:
     ApiToken:
       type: apiKey

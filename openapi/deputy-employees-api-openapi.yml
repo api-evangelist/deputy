@@ -28,6 +28,13 @@ tags:
 - name: Employees
 paths:
   /v1/supervise/employee:
+    servers:
+    - url: https://{install}.{geo}.deputy.com/api
+      variables:
+        install:
+          default: ''
+        geo:
+          default: ''
     get:
       tags:
       - Employees
@@ -86,6 +93,7 @@ paths:
       deprecated: false
       security:
       - httpBearer: []
+  /v1/supervise/employee/{employeeid}:
     servers:
     - url: https://{install}.{geo}.deputy.com/api
       variables:
@@ -93,7 +101,6 @@ paths:
           default: ''
         geo:
           default: ''
-  /v1/supervise/employee/{employeeid}:
     get:
       tags:
       - Employees
@@ -116,6 +123,7 @@ paths:
       deprecated: false
       security:
       - httpBearer: []
+  /v1/supervise/employee/{employeeid}/activate:
     servers:
     - url: https://{install}.{geo}.deputy.com/api
       variables:
@@ -123,7 +131,6 @@ paths:
           default: ''
         geo:
           default: ''
-  /v1/supervise/employee/{employeeid}/activate:
     post:
       tags:
       - Employees
@@ -146,6 +153,7 @@ paths:
       deprecated: false
       security:
       - httpBearer: []
+  /v1/supervise/employee/{employeeid}/assoc/{locationid}:
     servers:
     - url: https://{install}.{geo}.deputy.com/api
       variables:
@@ -153,7 +161,6 @@ paths:
           default: ''
         geo:
           default: ''
-  /v1/supervise/employee/{employeeid}/assoc/{locationid}:
     post:
       tags:
       - Employees
@@ -198,6 +205,7 @@ paths:
       deprecated: false
       security:
       - httpBearer: []
+  /v1/supervise/employee/{employeeid}/delete:
     servers:
     - url: https://{install}.{geo}.deputy.com/api
       variables:
@@ -205,7 +213,6 @@ paths:
           default: ''
         geo:
           default: ''
-  /v1/supervise/employee/{employeeid}/delete:
     post:
       tags:
       - Employees
@@ -228,6 +235,7 @@ paths:
       deprecated: false
       security:
       - httpBearer: []
+  /v1/supervise/employee/{employeeid}/invite:
     servers:
     - url: https://{install}.{geo}.deputy.com/api
       variables:
@@ -235,7 +243,6 @@ paths:
           default: ''
         geo:
           default: ''
-  /v1/supervise/employee/{employeeid}/invite:
     post:
       tags:
       - Employees
@@ -258,6 +265,7 @@ paths:
       deprecated: false
       security:
       - httpBearer: []
+  /v1/supervise/employee/{employeeid}/setAwardFromLibrary:
     servers:
     - url: https://{install}.{geo}.deputy.com/api
       variables:
@@ -265,7 +273,6 @@ paths:
           default: ''
         geo:
           default: ''
-  /v1/supervise/employee/{employeeid}/setAwardFromLibrary:
     post:
       tags:
       - Employees
@@ -302,6 +309,7 @@ paths:
       deprecated: false
       security:
       - httpBearer: []
+  /v1/supervise/employee/{employeeid}/terminate:
     servers:
     - url: https://{install}.{geo}.deputy.com/api
       variables:
@@ -309,7 +317,6 @@ paths:
           default: ''
         geo:
           default: ''
-  /v1/supervise/employee/{employeeid}/terminate:
     post:
       tags:
       - Employees
@@ -332,6 +339,7 @@ paths:
       deprecated: false
       security:
       - httpBearer: []
+  /v1/supervise/employee/{employeeid}/unassoc/{locationid}:
     servers:
     - url: https://{install}.{geo}.deputy.com/api
       variables:
@@ -339,7 +347,6 @@ paths:
           default: ''
         geo:
           default: ''
-  /v1/supervise/employee/{employeeid}/unassoc/{locationid}:
     post:
       tags:
       - Employees
@@ -370,6 +377,7 @@ paths:
       deprecated: false
       security:
       - httpBearer: []
+  /v1/supervise/employee/{id}:
     servers:
     - url: https://{install}.{geo}.deputy.com/api
       variables:
@@ -377,7 +385,6 @@ paths:
           default: ''
         geo:
           default: ''
-  /v1/supervise/employee/{id}:
     post:
       tags:
       - Employees
@@ -412,14 +419,22 @@ paths:
       deprecated: false
       security:
       - httpBearer: []
-    servers:
-    - url: https://{install}.{geo}.deputy.com/api
-      variables:
-        install:
-          default: ''
-        geo:
-          default: ''
   /management/v2/employees:
+    servers:
+    - url: https://{subdomain}.{region}.deputy.com/api
+      description: Deputy tenant
+      variables:
+        subdomain:
+          default: your-subdomain
+          description: Your Deputy tenant subdomain
+        region:
+          default: deputy
+          enum:
+          - au
+          - eu
+          - na
+          - deputy
+          description: 'Deputy region: au, eu, na, or deputy (AU default)'
     get:
       summary: Retrieve list of employees
       operationId: EmployeesV2Controller_list
@@ -498,6 +513,7 @@ paths:
               $ref: '#/components/schemas/EmployeesCreateRequest'
       security:
       - ApiToken: []
+  /management/v2/employees/{id}:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api
       description: Deputy tenant
@@ -513,7 +529,6 @@ paths:
           - na
           - deputy
           description: 'Deputy region: au, eu, na, or deputy (AU default)'
-  /management/v2/employees/{id}:
     get:
       summary: Retrieve employee by given Id
       operationId: EmployeesV2Controller_get
@@ -568,6 +583,7 @@ paths:
               $ref: '#/components/schemas/EmployeesPatchRequest'
       security:
       - ApiToken: []
+  /management/v2/employees:bulk:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api
       description: Deputy tenant
@@ -583,7 +599,6 @@ paths:
           - na
           - deputy
           description: 'Deputy region: au, eu, na, or deputy (AU default)'
-  /management/v2/employees:bulk:
     post:
       summary: Create a bunch of employee setups
       operationId: EmployeesV2Controller_createBulk
@@ -626,6 +641,7 @@ paths:
               $ref: '#/components/schemas/EmployeesPatchBulkRequest'
       security:
       - ApiToken: []
+  /management/v2/employees:validate-emails:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api
       description: Deputy tenant
@@ -641,7 +657,6 @@ paths:
           - na
           - deputy
           description: 'Deputy region: au, eu, na, or deputy (AU default)'
-  /management/v2/employees:validate-emails:
     post:
       summary: Validate emails
       operationId: EmployeesV2Controller_validateEmails
@@ -663,31 +678,87 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/EmployeesValidateEmailsRequest'
-    servers:
-    - url: https://{subdomain}.{region}.deputy.com/api
-      description: Deputy tenant
-      variables:
-        subdomain:
-          default: your-subdomain
-          description: Your Deputy tenant subdomain
-        region:
-          default: deputy
-          enum:
-          - au
-          - eu
-          - na
-          - deputy
-          description: 'Deputy region: au, eu, na, or deputy (AU default)'
 components:
   schemas:
-    UpdateanexistingemployeeRequest:
-      title: UpdateanexistingemployeeRequest
-      required:
-      - Phone
+    rpcDebugInfo:
       type: object
       properties:
-        Phone:
+        stackEntries:
+          type: array
+          items:
+            type: string
+          description: The stack trace entries indicating where the error occurred.
+        detail:
           type: string
+          description: Additional debugging information provided by the server.
+      description: Describes additional debugging info.
+    EmployeesRequestOutcome:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/tenantemployeev2modelEmployee'
+        error:
+          $ref: '#/components/schemas/errorsError'
+        externalId:
+          type: string
+    rpcErrorInfo:
+      type: object
+      properties:
+        reason:
+          type: string
+          description: 'The reason of the error. This is a constant value that identifies the
+
+            proximate cause of the error. Error reasons are unique within a particular
+
+            domain of errors. This should be at most 63 characters and match a
+
+            regular expression of `[A-Z][A-Z0-9_]+[A-Z0-9]`, which represents
+
+            UPPER_SNAKE_CASE.'
+        domain:
+          type: string
+          description: 'The logical grouping to which the "reason" belongs. The error domain
+
+            is typically the registered service name of the tool or product that
+
+            generates the error. Example: "pubsub.googleapis.com". If the error is
+
+            generated by some common infrastructure, the error domain must be a
+
+            globally unique value that identifies the infrastructure. For Google API
+
+            infrastructure, the error domain is "googleapis.com".'
+        metadata:
+          type: object
+          additionalProperties:
+            type: string
+          description: 'Additional structured details about this error.
+
+
+            Keys must match a regular expression of `[a-z][a-zA-Z0-9-_]+` but should
+
+            ideally be lowerCamelCase. Also, they must be limited to 64 characters in
+
+            length. When identifying the current value of an exceeded limit, the units
+
+            should be contained in the key, not the value.  For example, rather than
+
+            `{"instanceLimit": "100/request"}`, should be returned as,
+
+            `{"instanceLimitPerRequest": "100"}`, if the client exceeds the number of
+
+            instances that can be created in a single (batch) request.'
+      description: "Describes the cause of the error with structured details.\n\nExample of an error when contacting the \"pubsub.googleapis.com\" API when it\nis not enabled:\n\n    { \"reason\": \"API_DISABLED\"\n      \"domain\": \"googleapis.com\"\n      \"metadata\": {\n        \"resource\": \"projects/123\",\n        \"service\": \"pubsub.googleapis.com\"\n      }\n    }\n\nThis response indicates that the pubsub.googleapis.com API is not enabled.\n\nExample of an error that is returned when attempting to create a Spanner\ninstance in a region that is out of stock:\n\n    { \"reason\": \"STOCKOUT\"\n      \"domain\": \"spanner.googleapis.com\",\n      \"metadata\": {\n        \"availableRegions\": \"us-central1,us-east2\"\n      }\n    }"
+    HelpLink:
+      type: object
+      properties:
+        description:
+          type: string
+          description: Describes what the link offers.
+        url:
+          type: string
+          description: The URL of the link.
+      description: Describes a URL link.
     SetawardforemployeeRequest:
       title: SetawardforemployeeRequest
       required:
@@ -706,72 +777,6 @@ components:
           items:
             type: integer
             description: All record ids of employment agreements to be updated with this request. If not included all agreements for the employee will be updated.
-    AddlocationagainstemployeeRequest:
-      title: AddlocationagainstemployeeRequest
-      type: object
-      properties:
-        intAgreementId:
-          type: integer
-          format: int32
-          description: Identifier of an EmployeeAgreement to assign if it exists for the given Employee. Omit this to create a new agreement
-        blnSetPrimary:
-          type: boolean
-          description: Sets the Employees Primary Location & Employee Workplace to that of the provided Company Id. Omit this to keep existing allocations
-    AddanemployeeRequest:
-      title: AddanemployeeRequest
-      required:
-      - strFirstName
-      - strLastName
-      - intCompanyId
-      type: object
-      properties:
-        strFirstName:
-          type: string
-          description: First name of employee
-        strLastName:
-          type: string
-          description: Last name of employee
-        intCompanyId:
-          type: integer
-          format: int32
-          description: Record id of location to add employee to
-        intGender:
-          type: integer
-          format: int32
-          description: 0 - Prefer not to say, 1 - Male, 2 - Female, 3 - Non-Binary
-        strCountryCode:
-          type: string
-          description: The country code for the employees address. This can be found in country resource API
-        strDob:
-          type: string
-        strStartDate:
-          type: string
-          description: Employee start date. YYYY-MM-DD
-        strMobilePhone:
-          type: string
-          description: Employee mobile phone number
-        strPayrollId:
-          type: string
-          description: Payroll id to set for the employee
-        fltWeekDayRate:
-          type: integer
-          format: int32
-    rpcLocalizedMessage:
-      type: object
-      properties:
-        locale:
-          type: string
-          title: 'The locale used following the specification defined at
-
-            https://www.rfc-editor.org/rfc/bcp/bcp47.txt.
-
-            Examples are: "en-US", "fr-CH", "es-MX"'
-        message:
-          type: string
-          description: The localized error message in the above locale.
-      description: 'Provides a localized error message that is safe to return to the user
-
-        which can be attached to an RPC error.'
     modelWorkplaceLocationOptions:
       type: object
       properties:
@@ -783,712 +788,6 @@ components:
           type: string
           title: Location of employee
       title: LocationOptions is a wrapper to implement optional oneof
-    tenantemployeev2modelContact:
-      type: object
-      properties:
-        id:
-          type: string
-          format: int64
-          title: '[read-only] Contact Id'
-        phone1:
-          type: string
-          title: Phone Number
-        phone2:
-          type: string
-          title: Phone Number
-        phone3:
-          type: string
-          title: Phone Number
-        fax:
-          type: string
-          title: Fax Number
-        phone1Type:
-          type: string
-          title: Phone Number Type
-        phone2Type:
-          type: string
-          title: Phone Number Type
-        phone3Type:
-          type: string
-          title: Phone Number Type
-        primaryPhone:
-          type: string
-          format: int64
-          title: Set if the phone details is primary
-        email1:
-          type: string
-          title: Email Address
-        email1Type:
-          type: string
-          title: Email Address
-        email2Type:
-          type: string
-          title: Email Address
-        email2:
-          type: string
-          title: Email Address
-        primaryEmail:
-          type: string
-          format: int64
-          title: Set if the email is primary
-        im1:
-          type: string
-          title: Instant messenger ID
-        im2:
-          type: string
-          title: Instant messenger ID
-        im1Type:
-          type: string
-          title: Instant messenger ID
-        im2Type:
-          type: string
-          title: Instant messenger ID
-        web:
-          type: string
-          title: Website
-        notes:
-          type: string
-          title: Notes
-        saved:
-          type: boolean
-          title: Set if it is saved
-        createdAt:
-          type: string
-          format: date-time
-          title: '[read-only] Timestamp when the contact was created'
-        modifiedAt:
-          type: string
-          format: date-time
-          title: '[read-only] Timestamp when the contact was modified'
-      title: Employee Contact
-    rpcResourceInfo:
-      type: object
-      properties:
-        resourceType:
-          type: string
-          description: 'A name for the type of resource being accessed, e.g. "sql table",
-
-            "cloud storage bucket", "file", "Google calendar"; or the type URL
-
-            of the resource: e.g. "type.googleapis.com/google.pubsub.v1.Topic".'
-        resourceName:
-          type: string
-          description: 'The name of the resource being accessed.  For example, a shared calendar
-
-            name: "example.com_4fghdhgsrgh@group.calendar.google.com", if the current
-
-            error is
-
-            [google.rpc.Code.PERMISSION_DENIED][google.rpc.Code.PERMISSION_DENIED].'
-        owner:
-          type: string
-          description: 'The owner of the resource (optional).
-
-            For example, "user:<owner email>" or "project:<Google developer project
-
-            id>".'
-        description:
-          type: string
-          description: 'Describes what error is encountered when accessing this resource.
-
-            For example, updating a cloud project may require the `writer` permission
-
-            on the developer console project.'
-      description: Describes the resource that is being accessed.
-    errorsError:
-      type: object
-      properties:
-        code:
-          type: integer
-          format: int32
-          description: The status code, which should be an enum value of [google.rpc.Code].
-        message:
-          type: string
-          description: 'A developer-facing error message, which should be in English. Any
-
-            user-facing error message should be localized and sent in the
-
-            [google.rpc.Status.details][google.rpc.Status.details] field, or localized by the client.'
-        details:
-          type: array
-          items:
-            $ref: '#/components/schemas/errorsErrorDetail'
-          description: 'A list of messages that carry the error details.  There is a common set of
-
-            message types for APIs to use.'
-    EmployeesCreateBulkResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        result:
-          type: array
-          items:
-            $ref: '#/components/schemas/EmployeesRequestOutcome'
-      title: Create an employee setup response
-    EmployeesListResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        result:
-          type: array
-          items:
-            $ref: '#/components/schemas/EmployeesRequestOutcome'
-        nextCursor:
-          type: string
-      title: Get list of employees response
-    modelPronounsType:
-      type: string
-      enum:
-      - NOT_SPECIFIED
-      - HE_HIM
-      - SHE_HER
-      - THEY_THEM
-      - CUSTOM
-      default: NOT_SPECIFIED
-    EmployeeRolePrivilege:
-      type: object
-      properties:
-        name:
-          type: string
-    modelTrainingRecord:
-      type: object
-      properties:
-        id:
-          type: string
-          format: int64
-          title: Training ID
-        module:
-          type: string
-          format: int64
-          title: Training module ID
-        trainingDate:
-          type: string
-          title: Training date
-        expiryDate:
-          type: string
-          title: Training expiry date
-        isActive:
-          type: boolean
-          title: Training status (active/inactive)
-        comment:
-          type: string
-          title: Training comment
-        createdAt:
-          type: string
-          format: date-time
-          title: Timestamp when the Training record was created
-        modifiedAt:
-          type: string
-          format: date-time
-          title: Timestamp when the Training record was modified
-      title: Training profile
-    FieldDataFileFieldData:
-      type: object
-      properties:
-        value:
-          type: integer
-          format: int32
-    AgreementOverridePayRules:
-      type: object
-      properties:
-        payRuleId:
-          type: string
-        hourlyRate:
-          type: number
-          format: double
-      title: OverridePayRules that applied to contract
-    modelCustomFieldData:
-      type: object
-      properties:
-        apiName:
-          type: string
-        data:
-          $ref: '#/components/schemas/CustomFieldDataFieldData'
-      title: Workplace
-    AgreementContractOptions:
-      type: object
-      properties:
-        id:
-          type: string
-          format: int64
-        name:
-          type: string
-        contractEmploymentType:
-          type: string
-          format: int64
-        countryCode:
-          type: string
-          title: Country code of Contract
-        awardCode:
-          type: string
-          title: Award code of Contract
-        overridePayRules:
-          type: array
-          items:
-            $ref: '#/components/schemas/AgreementOverridePayRules'
-          title: PayRuleOverrides applied to contract
-      title: ContractOptions is a wrapper to implement optional oneof
-    rpcQuotaFailureViolation:
-      type: object
-      properties:
-        subject:
-          type: string
-          description: 'The subject on which the quota check failed.
-
-            For example, "clientip:<ip address of client>" or "project:<Google
-
-            developer project id>".'
-        description:
-          type: string
-          description: 'A description of how the quota check failed. Clients can use this
-
-            description to find more about the quota configuration in the service''s
-
-            public documentation, or find the relevant quota limit to adjust through
-
-            developer console.
-
-
-            For example: "Service disabled" or "Daily Limit for read operations
-
-            exceeded".'
-        apiService:
-          type: string
-          description: 'The API Service from which the `QuotaFailure.Violation` orginates. In
-
-            some cases, Quota issues originate from an API Service other than the one
-
-            that was called. In other words, a dependency of the called API Service
-
-            could be the cause of the `QuotaFailure`, and this field would have the
-
-            dependency API service name.
-
-
-            For example, if the called API is Kubernetes Engine API
-
-            (container.googleapis.com), and a quota violation occurs in the
-
-            Kubernetes Engine API itself, this field would be
-
-            "container.googleapis.com". On the other hand, if the quota violation
-
-            occurs when the Kubernetes Engine API creates VMs in the Compute Engine
-
-            API (compute.googleapis.com), this field would be
-
-            "compute.googleapis.com".'
-        quotaMetric:
-          type: string
-          description: 'The metric of the violated quota. A quota metric is a named counter to
-
-            measure usage, such as API requests or CPUs. When an activity occurs in a
-
-            service, such as Virtual Machine allocation, one or more quota metrics
-
-            may be affected.
-
-
-            For example, "compute.googleapis.com/cpus_per_vm_family",
-
-            "storage.googleapis.com/internet_egress_bandwidth".'
-        quotaId:
-          type: string
-          description: 'The id of the violated quota. Also know as "limit name", this is the
-
-            unique identifier of a quota in the context of an API service.
-
-
-            For example, "CPUS-PER-VM-FAMILY-per-project-region".'
-        quotaDimensions:
-          type: object
-          additionalProperties:
-            type: string
-          description: "The dimensions of the violated quota. Every non-global quota is enforced\non a set of dimensions. While quota metric defines what to count, the\ndimensions specify for what aspects the counter should be increased.\n\nFor example, the quota \"CPUs per region per VM family\" enforces a limit\non the metric \"compute.googleapis.com/cpus_per_vm_family\" on dimensions\n\"region\" and \"vm_family\". And if the violation occurred in region\n\"us-central1\" and for VM family \"n1\", the quota_dimensions would be,\n\n{\n  \"region\": \"us-central1\",\n  \"vm_family\": \"n1\",\n}\n\nWhen a quota is enforced globally, the quota_dimensions would always be\nempty."
-        quotaValue:
-          type: string
-          format: int64
-          description: 'The enforced quota value at the time of the `QuotaFailure`.
-
-
-            For example, if the enforced quota value at the time of the
-
-            `QuotaFailure` on the number of CPUs is "10", then the value of this
-
-            field would reflect this quantity.'
-        futureQuotaValue:
-          type: string
-          format: int64
-          description: 'The new quota value being rolled out at the time of the violation. At the
-
-            completion of the rollout, this value will be enforced in place of
-
-            quota_value. If no rollout is in progress at the time of the violation,
-
-            this field is not set.
-
-
-            For example, if at the time of the violation a rollout is in progress
-
-            changing the number of CPUs quota from 10 to 20, 20 would be the value of
-
-            this field.'
-      description: 'A message type used to describe a single quota violation.  For example, a
-
-        daily quota or a custom quota that was exceeded.'
-    EmployeesCreateResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        result:
-          $ref: '#/components/schemas/EmployeesRequestOutcome'
-      title: Create an employee setup response
-    modelAddressState:
-      type: object
-      properties:
-        id:
-          type: string
-          format: int64
-        name:
-          type: string
-      title: State component of a location address
-    EmployeesPatchBulkResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        result:
-          type: array
-          items:
-            $ref: '#/components/schemas/EmployeesRequestOutcome'
-      title: Patch an employee setup response
-    modelGenderType:
-      type: string
-      enum:
-      - DEFAULT_GENDER
-      - PREFER_NOT_TO_SAY
-      - MALE
-      - FEMALE
-      - NON_BINARY
-      default: DEFAULT_GENDER
-    modelAgreementEmploymentType:
-      type: string
-      enum:
-      - NONE
-      - EMPLOYEE
-      - CONTRACTOR
-      default: NONE
-      title: EmploymentType is an enum for employmentType value options
-    tenantemployeev2modelEmployeeLocation:
-      type: object
-      properties:
-        id:
-          type: string
-          format: int64
-          title: Primary location ID of employee
-        name:
-          type: string
-          title: Primary location of employee
-    EmployeePronounsOptions:
-      type: object
-      properties:
-        pronounsId:
-          $ref: '#/components/schemas/modelPronounsType'
-          title: Pronouns (eg. He, She, They)
-        pronouns:
-          type: string
-          title: Pronouns (eg. He, She, They)
-      title: PronounsOptions is a wrapper to implement optional oneof
-    FieldDataStringFieldData:
-      type: object
-      properties:
-        value:
-          type: string
-    rpcBadRequest:
-      type: object
-      properties:
-        fieldViolations:
-          type: array
-          items:
-            $ref: '#/components/schemas/BadRequestFieldViolation'
-          description: Describes all violations in a client request.
-      description: 'Describes violations in a client request. This error type focuses on the
-
-        syntactic aspects of the request.'
-    CustomFieldDataFieldData:
-      type: object
-      properties:
-        stringField:
-          $ref: '#/components/schemas/FieldDataStringFieldData'
-        numberField:
-          $ref: '#/components/schemas/FieldDataNumberFieldData'
-        booleanField:
-          $ref: '#/components/schemas/FieldDataBooleanFieldData'
-        listField:
-          $ref: '#/components/schemas/FieldDataListFieldData'
-        multiListField:
-          $ref: '#/components/schemas/FieldDataMultiListFieldData'
-        fileField:
-          $ref: '#/components/schemas/FieldDataFileFieldData'
-        booleanWithCommentField:
-          $ref: '#/components/schemas/FieldDataBooleanWithCommentFieldData'
-    modelAgreement:
-      type: object
-      properties:
-        id:
-          type: string
-          format: int64
-          title: '[read-only] Unique ID of Agreement'
-        payCenter:
-          $ref: '#/components/schemas/modelAgreementLocationOptions'
-          title: Location associated with employee
-        locationName:
-          type: string
-          title: In Enterprise, it is possible to set the EmployeeAgreement Type as Contract. This field then is a free field text field to say the name of the contracting agency, contractor, etc
-        active:
-          type: boolean
-          title: False if archive, true if active
-        startDate:
-          type: string
-          format: date-time
-          title: Date that this agreement is active from - usually coincides with created date. Cannot be set
-        endDate:
-          type: string
-          format: date-time
-          title: Date employee was archived
-        contract:
-          $ref: '#/components/schemas/AgreementContractOptions'
-          title: Contract
-        payrollId:
-          type: string
-          title: Payroll ID associated with the contract/employee
-        payPeriod:
-          type: string
-          format: int64
-          title: Pay Period associated with the contract (eg. Weekly, Monthly)
-        history:
-          type: string
-          format: int64
-          title: '[read-only] ID used to track changes to agreement'
-        employmentType:
-          $ref: '#/components/schemas/modelAgreementEmploymentType'
-          title: Employee type of agreement
-        payCalendar:
-          $ref: '#/components/schemas/AgreementPayCalendarOptions'
-          title: Pay Calendar associated with the contract
-        DPHourlyRate:
-          type: number
-          format: double
-          title: '[read-only] Deputy Payroll hourly rate'
-        DPAnnualSalary:
-          type: number
-          format: double
-          title: '[read-only] Deputy Payroll annual salary'
-        effectiveDate:
-          type: string
-          format: date-time
-          title: Effective date of the employee agreement
-        createdAt:
-          type: string
-          format: date-time
-          title: '[read-only] Timestamp when the Agreement was created'
-        modifiedAt:
-          type: string
-          format: date-time
-          title: '[read-only] Timestamp when the Agreement was modified'
-        levelDetail:
-          $ref: '#/components/schemas/AgreementLevelDetail'
-          title: Details of the Level including the identifier (ID or Ksuid), Name and associated Contract ID
-      title: Employee Agreement
-    errorsErrorDetail:
-      type: object
-      properties:
-        type:
-          $ref: '#/components/schemas/errorsErrorType'
-        retryInfo:
-          $ref: '#/components/schemas/rpcRetryInfo'
-        debugInfo:
-          $ref: '#/components/schemas/rpcDebugInfo'
-        quotaFailure:
-          $ref: '#/components/schemas/rpcQuotaFailure'
-        preconditionFailure:
-          $ref: '#/components/schemas/rpcPreconditionFailure'
-        badRequest:
-          $ref: '#/components/schemas/rpcBadRequest'
-        requestInfo:
-          $ref: '#/components/schemas/rpcRequestInfo'
-        resourceInfo:
-          $ref: '#/components/schemas/rpcResourceInfo'
-        help:
-          $ref: '#/components/schemas/rpcHelp'
-        localizedMessage:
-          $ref: '#/components/schemas/rpcLocalizedMessage'
-        errorInfo:
-          $ref: '#/components/schemas/rpcErrorInfo'
-    v2modelStressProfile:
-      type: object
-      properties:
-        id:
-          type: string
-          format: int64
-          title: '[read-only] Stress Profile Id'
-        name:
-          type: string
-          title: Name to best describe the ruleset
-        maxHoursPerShift:
-          type: number
-          format: double
-          title: '[read-only] Hours in a shift that can''t be exceeded'
-        maxHoursPerPeriod:
-          type: number
-          format: double
-          title: '[read-only] Total hours able to be worked in a week'
-        maxDaysPerPeriod:
-          type: number
-          format: double
-          title: '[read-only] Max days able to be worked by a staff member in a week'
-        maxHoursPerDay:
-          type: number
-          format: double
-          title: '[read-only] Hours that can''t be exceeded in a single day by an employee'
-        gapHoursBetweenShifts:
-          type: number
-          format: double
-          title: '[read-only] Minimum time off between two shifts'
-        customRules:
-          type: string
-          title: '[read-only] A field to hold custom script ID''s to be factored into stress, or currently can also be used for an overnight shift gap'
-        createdAt:
-          type: string
-          format: date-time
-          title: '[read-only] Timestamp when the stress profile was created'
-        modifiedAt:
-          type: string
-          format: date-time
-          title: '[read-only] Timestamp when the stress profile was modified'
-      title: Employee Stress Profile
-    EmployeesPatchResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        result:
-          $ref: '#/components/schemas/EmployeesRequestOutcome'
-      title: Patch an employee setup response
-    HelpLink:
-      type: object
-      properties:
-        description:
-          type: string
-          description: Describes what the link offers.
-        url:
-          type: string
-          description: The URL of the link.
-      description: Describes a URL link.
-    v2modelUser:
-      type: object
-      properties:
-        login:
-          type: string
-          title: Username
-        pin:
-          type: integer
-          format: int32
-          title: Pin
-        sendInvite:
-          type: boolean
-          title: If true, sends an invite to the employee
-        sendOnlyKioskInfo:
-          type: boolean
-          title: If true, sends only kiosk information email (no password) when creating or updating employee
-        partnerUserId:
-          type: string
-          title: External user id from partner for mapping connection
-      title: Employee User
-    FieldDataBooleanFieldData:
-      type: object
-      properties:
-        value:
-          type: boolean
-    modelAgreementLocationOptions:
-      type: object
-      properties:
-        id:
-          type: string
-          format: int64
-          title: Location Id
-        name:
-          type: string
-          title: Location name
-      title: LocationOptions is a wrapper to implement optional oneof
-    RoleRolePrivileges:
-      type: object
-      properties:
-        privileges:
-          type: array
-          items:
-            $ref: '#/components/schemas/EmployeeRolePrivilege'
-      title: Use a wrapper for privileges to exclude it when empty or not set
-    rpcRetryInfo:
-      type: object
-      properties:
-        retryDelay:
-          type: string
-          description: Clients should wait at least this long between retrying the same request.
-      description: 'Describes when the clients can retry a failed request. Clients could ignore
-
-        the recommendation here or retry when this information is missing from error
-
-        responses.
-
-
-        It''s always recommended that clients should use exponential backoff when
-
-        retrying.
-
-
-        Clients should wait until `retry_delay` amount of time has passed since
-
-        receiving the error response before retrying.  If retrying requests also
-
-        fail, clients should use an exponential backoff scheme to gradually increase
-
-        the delay between retries based on `retry_delay`, until either a maximum
-
-        number of retries have been reached or a maximum retry delay cap has been
-
-        reached.'
-    modelEmployeeRole:
-      type: object
-      properties:
-        id:
-          type: string
-          format: int64
-          title: role Id
-        name:
-          type: string
-          title: Role
-        rolePrivileges:
-          $ref: '#/components/schemas/RoleRolePrivileges'
-      title: RoleOptions is a wrapper to implement optional oneof
-    EmployeesValidateEmailsResponse:
-      type: object
-      properties:
-        results:
-          type: array
-          items:
-            $ref: '#/components/schemas/ValidateEmailsResponseEmailValidation'
-      title: Validate emails response
-    ValidateEmailsResponseEmailValidation:
-      type: object
-      properties:
-        email:
-          type: string
-        valid:
-          type: boolean
     rpcPreconditionFailure:
       type: object
       properties:
@@ -1505,256 +804,6 @@ components:
         acknowledged, it could list the terms of service violation in the
 
         PreconditionFailure message.'
-    EmployeesValidateEmailsRequest:
-      type: object
-      properties:
-        emails:
-          type: array
-          items:
-            type: string
-      title: Validate emails request
-    EmployeesRequestOutcome:
-      type: object
-      properties:
-        data:
-          $ref: '#/components/schemas/tenantemployeev2modelEmployee'
-        error:
-          $ref: '#/components/schemas/errorsError'
-        externalId:
-          type: string
-    EmployeesPatchRequest:
-      type: object
-      properties:
-        id:
-          type: string
-        data:
-          $ref: '#/components/schemas/tenantemployeev2modelEmployee'
-        fieldMask:
-          type: string
-          title: Fields to fetch in the response
-        patchMask:
-          type: string
-          title: Fields to patch
-      title: Patch an employee setup request
-    EmployeesCreateRequest:
-      type: object
-      properties:
-        data:
-          $ref: '#/components/schemas/tenantemployeev2modelEmployee'
-        fieldMask:
-          type: string
-          title: Fields to fetch in the response
-        forceActivate:
-          type: boolean
-          title: Optional param for force activating an archived Employee
-      title: Create an employee setup request
-    tenantemployeev2modelAddress:
-      type: object
-      properties:
-        id:
-          type: string
-          format: int64
-          title: '[read-only] Address ID'
-        contactName:
-          type: string
-          title: Name of the contact person for this address
-        unitNo:
-          type: string
-          title: Unit number component of a location address
-        streetNo:
-          type: string
-          title: Street number component of a location address
-        suiteNo:
-          type: string
-          title: Suite number component of a location address
-        poBox:
-          type: string
-          title: PO box component of a location address
-        street:
-          type: string
-          title: Street component of a location address
-        street2:
-          type: string
-          title: Street component of a location address
-        suburb:
-          type: string
-          title: City component of a location address
-        state:
-          $ref: '#/components/schemas/modelAddressState'
-        postcode:
-          type: string
-          title: Post code component of a location address
-        country:
-          type: string
-          title: Country component of a location address
-        phone:
-          type: string
-          title: Phone number of business
-        notes:
-          type: string
-          title: Any notes associated with business
-        format:
-          type: string
-          format: int64
-          title: Format of the address type
-        createdAt:
-          type: string
-          format: date-time
-          title: '[read-only] Timestamp when the address was created'
-        modifiedAt:
-          type: string
-          format: date-time
-          title: '[read-only] Timestamp when the address was modified'
-      title: Employee Address
-    EmployeesCreateBulkRequest:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/tenantemployeev2modelEmployee'
-        fieldMask:
-          type: string
-          title: Fields to fetch in the response
-        forceActivate:
-          type: boolean
-          title: Optional param for force activating an archived Employee
-      title: Create an employee setup request
-    AgreementLevelDetail:
-      type: object
-      properties:
-        levelId:
-          type: string
-        levelName:
-          type: string
-        levelContractId:
-          type: string
-      title: Details of the Level including the identifier (ID or Ksuid), Name and associated Contract ID
-    rpcHelp:
-      type: object
-      properties:
-        links:
-          type: array
-          items:
-            $ref: '#/components/schemas/HelpLink'
-          description: URL(s) pointing to additional information on handling the current error.
-      description: 'Provides links to documentation or for performing an out of band action.
-
-
-        For example, if a quota check failed with an error indicating the calling
-
-        project hasn''t enabled the accessed service, this can contain a URL pointing
-
-        directly to the right place in the developer console to flip the bit.'
-    EmployeeGenderOptions:
-      type: object
-      properties:
-        genderId:
-          $ref: '#/components/schemas/modelGenderType'
-          title: Gender Id
-        gender:
-          type: string
-          title: Gender
-      title: GenderOptions is a wrapper to implement optional oneof
-    BadRequestFieldViolation:
-      type: object
-      properties:
-        field:
-          type: string
-          description: "A path that leads to a field in the request body. The value will be a\nsequence of dot-separated identifiers that identify a protocol buffer\nfield.\n\nConsider the following:\n\n    message CreateContactRequest {\n      message EmailAddress {\n        enum Type {\n          TYPE_UNSPECIFIED = 0;\n          HOME = 1;\n          WORK = 2;\n        }\n\n        optional string email = 1;\n        repeated EmailType type = 2;\n      }\n\n      string full_name = 1;\n      repeated EmailAddress email_addresses = 2;\n    }\n\nIn this example, in proto `field` could take one of the following values:\n\n* `full_name` for a violation in the `full_name` value\n* `email_addresses[1].email` for a violation in the `email` field of the\n  first `email_addresses` message\n* `email_addresses[3].type[2]` for a violation in the second `type`\n  value in the third `email_addresses` message.\n\nIn JSON, the same values are represented as:\n\n* `fullName` for a violation in the `fullName` value\n* `emailAddresses[1].email` for a violation in the `email` field of the\n  first `emailAddresses` message\n* `emailAddresses[3].type[2]` for a violation in the second `type`\n  value in the third `emailAddresses` message."
-        description:
-          type: string
-          description: A description of why the request element is bad.
-        reason:
-          type: string
-          description: 'The reason of the field-level error. This is a constant value that
-
-            identifies the proximate cause of the field-level error. It should
-
-            uniquely identify the type of the FieldViolation within the scope of the
-
-            google.rpc.ErrorInfo.domain. This should be at most 63
-
-            characters and match a regular expression of `[A-Z][A-Z0-9_]+[A-Z0-9]`,
-
-            which represents UPPER_SNAKE_CASE.'
-        localizedMessage:
-          $ref: '#/components/schemas/rpcLocalizedMessage'
-          description: 'Provides a localized error message for field-level errors that is safe to
-
-            return to the API consumer.'
-      description: A message type used to describe a single bad request field.
-    FieldDataBooleanWithCommentFieldData:
-      type: object
-      properties:
-        value:
-          type: boolean
-        comment:
-          type: string
-    rpcQuotaFailure:
-      type: object
-      properties:
-        violations:
-          type: array
-          items:
-            $ref: '#/components/schemas/rpcQuotaFailureViolation'
-          description: Describes all quota violations.
-      description: 'Describes how a quota check failed.
-
-
-        For example if a daily limit was exceeded for the calling project,
-
-        a service could respond with a QuotaFailure detail containing the project
-
-        id and the description of the quota limit that was exceeded.  If the
-
-        calling project hasn''t enabled the service in the developer console, then
-
-        a service could respond with the project id and set `service_disabled`
-
-        to true.
-
-
-        Also see RetryInfo and Help types for other details about handling a
-
-        quota failure.'
-    rpcPreconditionFailureViolation:
-      type: object
-      properties:
-        type:
-          type: string
-          description: 'The type of PreconditionFailure. We recommend using a service-specific
-
-            enum type to define the supported precondition violation subjects. For
-
-            example, "TOS" for "Terms of Service violation".'
-        subject:
-          type: string
-          description: 'The subject, relative to the type, that failed.
-
-            For example, "google.com/cloud" relative to the "TOS" type would indicate
-
-            which terms of service is being referenced.'
-        description:
-          type: string
-          description: 'A description of how the precondition failed. Developers can use this
-
-            description to understand how to fix the failure.
-
-
-            For example: "Terms of service not accepted".'
-      description: A message type used to describe a single precondition failure.
-    FieldDataNumberFieldData:
-      type: object
-      properties:
-        value:
-          type: number
-          format: double
-    FieldDataListFieldData:
-      type: object
-      properties:
-        value:
-          type: string
     tenantemployeev2modelEmployee:
       type: object
       properties:
@@ -1888,6 +937,522 @@ components:
           format: date-time
           title: '[read-only] Timestamp when the employee was modified'
       title: Employee
+    rpcHelp:
+      type: object
+      properties:
+        links:
+          type: array
+          items:
+            $ref: '#/components/schemas/HelpLink'
+          description: URL(s) pointing to additional information on handling the current error.
+      description: 'Provides links to documentation or for performing an out of band action.
+
+
+        For example, if a quota check failed with an error indicating the calling
+
+        project hasn''t enabled the accessed service, this can contain a URL pointing
+
+        directly to the right place in the developer console to flip the bit.'
+    UpdateanexistingemployeeRequest:
+      title: UpdateanexistingemployeeRequest
+      required:
+      - Phone
+      type: object
+      properties:
+        Phone:
+          type: string
+    modelTrainingRecord:
+      type: object
+      properties:
+        id:
+          type: string
+          format: int64
+          title: Training ID
+        module:
+          type: string
+          format: int64
+          title: Training module ID
+        trainingDate:
+          type: string
+          title: Training date
+        expiryDate:
+          type: string
+          title: Training expiry date
+        isActive:
+          type: boolean
+          title: Training status (active/inactive)
+        comment:
+          type: string
+          title: Training comment
+        createdAt:
+          type: string
+          format: date-time
+          title: Timestamp when the Training record was created
+        modifiedAt:
+          type: string
+          format: date-time
+          title: Timestamp when the Training record was modified
+      title: Training profile
+    EmployeesPatchBulkRequest:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/tenantemployeev2modelEmployee'
+        fieldMask:
+          type: string
+          title: Fields to fetch in the response
+        patchMask:
+          type: string
+          title: Fields to patch
+      title: Patch an employee setup request
+    errorsError:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+          description: The status code, which should be an enum value of [google.rpc.Code].
+        message:
+          type: string
+          description: 'A developer-facing error message, which should be in English. Any
+
+            user-facing error message should be localized and sent in the
+
+            [google.rpc.Status.details][google.rpc.Status.details] field, or localized by the client.'
+        details:
+          type: array
+          items:
+            $ref: '#/components/schemas/errorsErrorDetail'
+          description: 'A list of messages that carry the error details.  There is a common set of
+
+            message types for APIs to use.'
+    modelAgreementEmploymentType:
+      type: string
+      enum:
+      - NONE
+      - EMPLOYEE
+      - CONTRACTOR
+      default: NONE
+      title: EmploymentType is an enum for employmentType value options
+    rpcQuotaFailure:
+      type: object
+      properties:
+        violations:
+          type: array
+          items:
+            $ref: '#/components/schemas/rpcQuotaFailureViolation'
+          description: Describes all quota violations.
+      description: 'Describes how a quota check failed.
+
+
+        For example if a daily limit was exceeded for the calling project,
+
+        a service could respond with a QuotaFailure detail containing the project
+
+        id and the description of the quota limit that was exceeded.  If the
+
+        calling project hasn''t enabled the service in the developer console, then
+
+        a service could respond with the project id and set `service_disabled`
+
+        to true.
+
+
+        Also see RetryInfo and Help types for other details about handling a
+
+        quota failure.'
+    modelGenderType:
+      type: string
+      enum:
+      - DEFAULT_GENDER
+      - PREFER_NOT_TO_SAY
+      - MALE
+      - FEMALE
+      - NON_BINARY
+      default: DEFAULT_GENDER
+    EmployeesValidateEmailsResponse:
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/ValidateEmailsResponseEmailValidation'
+      title: Validate emails response
+    rpcQuotaFailureViolation:
+      type: object
+      properties:
+        subject:
+          type: string
+          description: 'The subject on which the quota check failed.
+
+            For example, "clientip:<ip address of client>" or "project:<Google
+
+            developer project id>".'
+        description:
+          type: string
+          description: 'A description of how the quota check failed. Clients can use this
+
+            description to find more about the quota configuration in the service''s
+
+            public documentation, or find the relevant quota limit to adjust through
+
+            developer console.
+
+
+            For example: "Service disabled" or "Daily Limit for read operations
+
+            exceeded".'
+        apiService:
+          type: string
+          description: 'The API Service from which the `QuotaFailure.Violation` orginates. In
+
+            some cases, Quota issues originate from an API Service other than the one
+
+            that was called. In other words, a dependency of the called API Service
+
+            could be the cause of the `QuotaFailure`, and this field would have the
+
+            dependency API service name.
+
+
+            For example, if the called API is Kubernetes Engine API
+
+            (container.googleapis.com), and a quota violation occurs in the
+
+            Kubernetes Engine API itself, this field would be
+
+            "container.googleapis.com". On the other hand, if the quota violation
+
+            occurs when the Kubernetes Engine API creates VMs in the Compute Engine
+
+            API (compute.googleapis.com), this field would be
+
+            "compute.googleapis.com".'
+        quotaMetric:
+          type: string
+          description: 'The metric of the violated quota. A quota metric is a named counter to
+
+            measure usage, such as API requests or CPUs. When an activity occurs in a
+
+            service, such as Virtual Machine allocation, one or more quota metrics
+
+            may be affected.
+
+
+            For example, "compute.googleapis.com/cpus_per_vm_family",
+
+            "storage.googleapis.com/internet_egress_bandwidth".'
+        quotaId:
+          type: string
+          description: 'The id of the violated quota. Also know as "limit name", this is the
+
+            unique identifier of a quota in the context of an API service.
+
+
+            For example, "CPUS-PER-VM-FAMILY-per-project-region".'
+        quotaDimensions:
+          type: object
+          additionalProperties:
+            type: string
+          description: "The dimensions of the violated quota. Every non-global quota is enforced\non a set of dimensions. While quota metric defines what to count, the\ndimensions specify for what aspects the counter should be increased.\n\nFor example, the quota \"CPUs per region per VM family\" enforces a limit\non the metric \"compute.googleapis.com/cpus_per_vm_family\" on dimensions\n\"region\" and \"vm_family\". And if the violation occurred in region\n\"us-central1\" and for VM family \"n1\", the quota_dimensions would be,\n\n{\n  \"region\": \"us-central1\",\n  \"vm_family\": \"n1\",\n}\n\nWhen a quota is enforced globally, the quota_dimensions would always be\nempty."
+        quotaValue:
+          type: string
+          format: int64
+          description: 'The enforced quota value at the time of the `QuotaFailure`.
+
+
+            For example, if the enforced quota value at the time of the
+
+            `QuotaFailure` on the number of CPUs is "10", then the value of this
+
+            field would reflect this quantity.'
+        futureQuotaValue:
+          type: string
+          format: int64
+          description: 'The new quota value being rolled out at the time of the violation. At the
+
+            completion of the rollout, this value will be enforced in place of
+
+            quota_value. If no rollout is in progress at the time of the violation,
+
+            this field is not set.
+
+
+            For example, if at the time of the violation a rollout is in progress
+
+            changing the number of CPUs quota from 10 to 20, 20 would be the value of
+
+            this field.'
+      description: 'A message type used to describe a single quota violation.  For example, a
+
+        daily quota or a custom quota that was exceeded.'
+    v2modelStressProfile:
+      type: object
+      properties:
+        id:
+          type: string
+          format: int64
+          title: '[read-only] Stress Profile Id'
+        name:
+          type: string
+          title: Name to best describe the ruleset
+        maxHoursPerShift:
+          type: number
+          format: double
+          title: '[read-only] Hours in a shift that can''t be exceeded'
+        maxHoursPerPeriod:
+          type: number
+          format: double
+          title: '[read-only] Total hours able to be worked in a week'
+        maxDaysPerPeriod:
+          type: number
+          format: double
+          title: '[read-only] Max days able to be worked by a staff member in a week'
+        maxHoursPerDay:
+          type: number
+          format: double
+          title: '[read-only] Hours that can''t be exceeded in a single day by an employee'
+        gapHoursBetweenShifts:
+          type: number
+          format: double
+          title: '[read-only] Minimum time off between two shifts'
+        customRules:
+          type: string
+          title: '[read-only] A field to hold custom script ID''s to be factored into stress, or currently can also be used for an overnight shift gap'
+        createdAt:
+          type: string
+          format: date-time
+          title: '[read-only] Timestamp when the stress profile was created'
+        modifiedAt:
+          type: string
+          format: date-time
+          title: '[read-only] Timestamp when the stress profile was modified'
+      title: Employee Stress Profile
+    EmployeesPatchRequest:
+      type: object
+      properties:
+        id:
+          type: string
+        data:
+          $ref: '#/components/schemas/tenantemployeev2modelEmployee'
+        fieldMask:
+          type: string
+          title: Fields to fetch in the response
+        patchMask:
+          type: string
+          title: Fields to patch
+      title: Patch an employee setup request
+    rpcPreconditionFailureViolation:
+      type: object
+      properties:
+        type:
+          type: string
+          description: 'The type of PreconditionFailure. We recommend using a service-specific
+
+            enum type to define the supported precondition violation subjects. For
+
+            example, "TOS" for "Terms of Service violation".'
+        subject:
+          type: string
+          description: 'The subject, relative to the type, that failed.
+
+            For example, "google.com/cloud" relative to the "TOS" type would indicate
+
+            which terms of service is being referenced.'
+        description:
+          type: string
+          description: 'A description of how the precondition failed. Developers can use this
+
+            description to understand how to fix the failure.
+
+
+            For example: "Terms of service not accepted".'
+      description: A message type used to describe a single precondition failure.
+    CustomFieldDataFieldData:
+      type: object
+      properties:
+        stringField:
+          $ref: '#/components/schemas/FieldDataStringFieldData'
+        numberField:
+          $ref: '#/components/schemas/FieldDataNumberFieldData'
+        booleanField:
+          $ref: '#/components/schemas/FieldDataBooleanFieldData'
+        listField:
+          $ref: '#/components/schemas/FieldDataListFieldData'
+        multiListField:
+          $ref: '#/components/schemas/FieldDataMultiListFieldData'
+        fileField:
+          $ref: '#/components/schemas/FieldDataFileFieldData'
+        booleanWithCommentField:
+          $ref: '#/components/schemas/FieldDataBooleanWithCommentFieldData'
+    modelAgreementLocationOptions:
+      type: object
+      properties:
+        id:
+          type: string
+          format: int64
+          title: Location Id
+        name:
+          type: string
+          title: Location name
+      title: LocationOptions is a wrapper to implement optional oneof
+    v2modelUser:
+      type: object
+      properties:
+        login:
+          type: string
+          title: Username
+        pin:
+          type: integer
+          format: int32
+          title: Pin
+        sendInvite:
+          type: boolean
+          title: If true, sends an invite to the employee
+        sendOnlyKioskInfo:
+          type: boolean
+          title: If true, sends only kiosk information email (no password) when creating or updating employee
+        partnerUserId:
+          type: string
+          title: External user id from partner for mapping connection
+      title: Employee User
+    errorsErrorDetail:
+      type: object
+      properties:
+        type:
+          $ref: '#/components/schemas/errorsErrorType'
+        retryInfo:
+          $ref: '#/components/schemas/rpcRetryInfo'
+        debugInfo:
+          $ref: '#/components/schemas/rpcDebugInfo'
+        quotaFailure:
+          $ref: '#/components/schemas/rpcQuotaFailure'
+        preconditionFailure:
+          $ref: '#/components/schemas/rpcPreconditionFailure'
+        badRequest:
+          $ref: '#/components/schemas/rpcBadRequest'
+        requestInfo:
+          $ref: '#/components/schemas/rpcRequestInfo'
+        resourceInfo:
+          $ref: '#/components/schemas/rpcResourceInfo'
+        help:
+          $ref: '#/components/schemas/rpcHelp'
+        localizedMessage:
+          $ref: '#/components/schemas/rpcLocalizedMessage'
+        errorInfo:
+          $ref: '#/components/schemas/rpcErrorInfo'
+    rpcRequestInfo:
+      type: object
+      properties:
+        requestId:
+          type: string
+          description: 'An opaque string that should only be interpreted by the service generating
+
+            it. For example, it can be used to identify requests in the service''s logs.'
+        servingData:
+          type: string
+          description: 'Any data that was used to serve this request. For example, an encrypted
+
+            stack trace that can be sent back to the service provider for debugging.'
+      description: 'Contains metadata about the request that clients can attach when filing a bug
+
+        or providing other forms of feedback.'
+    FieldDataBooleanFieldData:
+      type: object
+      properties:
+        value:
+          type: boolean
+    RoleRolePrivileges:
+      type: object
+      properties:
+        privileges:
+          type: array
+          items:
+            $ref: '#/components/schemas/EmployeeRolePrivilege'
+      title: Use a wrapper for privileges to exclude it when empty or not set
+    rpcResourceInfo:
+      type: object
+      properties:
+        resourceType:
+          type: string
+          description: 'A name for the type of resource being accessed, e.g. "sql table",
+
+            "cloud storage bucket", "file", "Google calendar"; or the type URL
+
+            of the resource: e.g. "type.googleapis.com/google.pubsub.v1.Topic".'
+        resourceName:
+          type: string
+          description: 'The name of the resource being accessed.  For example, a shared calendar
+
+            name: "example.com_4fghdhgsrgh@group.calendar.google.com", if the current
+
+            error is
+
+            [google.rpc.Code.PERMISSION_DENIED][google.rpc.Code.PERMISSION_DENIED].'
+        owner:
+          type: string
+          description: 'The owner of the resource (optional).
+
+            For example, "user:<owner email>" or "project:<Google developer project
+
+            id>".'
+        description:
+          type: string
+          description: 'Describes what error is encountered when accessing this resource.
+
+            For example, updating a cloud project may require the `writer` permission
+
+            on the developer console project.'
+      description: Describes the resource that is being accessed.
+    EmployeeGenderOptions:
+      type: object
+      properties:
+        genderId:
+          $ref: '#/components/schemas/modelGenderType'
+          title: Gender Id
+        gender:
+          type: string
+          title: Gender
+      title: GenderOptions is a wrapper to implement optional oneof
+    FieldDataFileFieldData:
+      type: object
+      properties:
+        value:
+          type: integer
+          format: int32
+    EmployeesCreateResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        result:
+          $ref: '#/components/schemas/EmployeesRequestOutcome'
+      title: Create an employee setup response
+    EmployeeRolePrivilege:
+      type: object
+      properties:
+        name:
+          type: string
+    AddlocationagainstemployeeRequest:
+      title: AddlocationagainstemployeeRequest
+      type: object
+      properties:
+        intAgreementId:
+          type: integer
+          format: int32
+          description: Identifier of an EmployeeAgreement to assign if it exists for the given Employee. Omit this to create a new agreement
+        blnSetPrimary:
+          type: boolean
+          description: Sets the Employees Primary Location & Employee Workplace to that of the provided Company Id. Omit this to keep existing allocations
+    AgreementPayCalendarOptions:
+      type: object
+      properties:
+        id:
+          type: string
+          format: int64
+      title: PayCalendarOptions is a wrapper to implement optional oneof
     modelWorkplace:
       type: object
       properties:
@@ -1914,6 +1479,85 @@ components:
           format: date-time
           title: '[read-only] Timestamp when the workplace was modified'
       title: Workplace
+    tenantemployeev2modelAddress:
+      type: object
+      properties:
+        id:
+          type: string
+          format: int64
+          title: '[read-only] Address ID'
+        contactName:
+          type: string
+          title: Name of the contact person for this address
+        unitNo:
+          type: string
+          title: Unit number component of a location address
+        streetNo:
+          type: string
+          title: Street number component of a location address
+        suiteNo:
+          type: string
+          title: Suite number component of a location address
+        poBox:
+          type: string
+          title: PO box component of a location address
+        street:
+          type: string
+          title: Street component of a location address
+        street2:
+          type: string
+          title: Street component of a location address
+        suburb:
+          type: string
+          title: City component of a location address
+        state:
+          $ref: '#/components/schemas/modelAddressState'
+        postcode:
+          type: string
+          title: Post code component of a location address
+        country:
+          type: string
+          title: Country component of a location address
+        phone:
+          type: string
+          title: Phone number of business
+        notes:
+          type: string
+          title: Any notes associated with business
+        format:
+          type: string
+          format: int64
+          title: Format of the address type
+        createdAt:
+          type: string
+          format: date-time
+          title: '[read-only] Timestamp when the address was created'
+        modifiedAt:
+          type: string
+          format: date-time
+          title: '[read-only] Timestamp when the address was modified'
+      title: Employee Address
+    FieldDataListFieldData:
+      type: object
+      properties:
+        value:
+          type: string
+    AgreementLevelDetail:
+      type: object
+      properties:
+        levelId:
+          type: string
+        levelName:
+          type: string
+        levelContractId:
+          type: string
+      title: Details of the Level including the identifier (ID or Ksuid), Name and associated Contract ID
+    FieldDataNumberFieldData:
+      type: object
+      properties:
+        value:
+          type: number
+          format: double
     FieldDataMultiListFieldData:
       type: object
       properties:
@@ -1921,42 +1565,30 @@ components:
           type: array
           items:
             type: string
-    EmployeesGetResponse:
+    ValidateEmailsResponseEmailValidation:
+      type: object
+      properties:
+        email:
+          type: string
+        valid:
+          type: boolean
+    EmployeesPatchResponse:
       type: object
       properties:
         success:
           type: boolean
         result:
           $ref: '#/components/schemas/EmployeesRequestOutcome'
-      title: Get employee response
-    rpcRequestInfo:
+      title: Patch an employee setup response
+    AgreementOverridePayRules:
       type: object
       properties:
-        requestId:
+        payRuleId:
           type: string
-          description: 'An opaque string that should only be interpreted by the service generating
-
-            it. For example, it can be used to identify requests in the service''s logs.'
-        servingData:
-          type: string
-          description: 'Any data that was used to serve this request. For example, an encrypted
-
-            stack trace that can be sent back to the service provider for debugging.'
-      description: 'Contains metadata about the request that clients can attach when filing a bug
-
-        or providing other forms of feedback.'
-    rpcDebugInfo:
-      type: object
-      properties:
-        stackEntries:
-          type: array
-          items:
-            type: string
-          description: The stack trace entries indicating where the error occurred.
-        detail:
-          type: string
-          description: Additional debugging information provided by the server.
-      description: Describes additional debugging info.
+        hourlyRate:
+          type: number
+          format: double
+      title: OverridePayRules that applied to contract
     errorsErrorType:
       type: string
       enum:
@@ -1972,62 +1604,422 @@ components:
       - LOCALIZED_MESSAGE
       - ERROR_INFO
       default: UNKNOWN
-    rpcErrorInfo:
+    BadRequestFieldViolation:
       type: object
       properties:
+        field:
+          type: string
+          description: "A path that leads to a field in the request body. The value will be a\nsequence of dot-separated identifiers that identify a protocol buffer\nfield.\n\nConsider the following:\n\n    message CreateContactRequest {\n      message EmailAddress {\n        enum Type {\n          TYPE_UNSPECIFIED = 0;\n          HOME = 1;\n          WORK = 2;\n        }\n\n        optional string email = 1;\n        repeated EmailType type = 2;\n      }\n\n      string full_name = 1;\n      repeated EmailAddress email_addresses = 2;\n    }\n\nIn this example, in proto `field` could take one of the following values:\n\n* `full_name` for a violation in the `full_name` value\n* `email_addresses[1].email` for a violation in the `email` field of the\n  first `email_addresses` message\n* `email_addresses[3].type[2]` for a violation in the second `type`\n  value in the third `email_addresses` message.\n\nIn JSON, the same values are represented as:\n\n* `fullName` for a violation in the `fullName` value\n* `emailAddresses[1].email` for a violation in the `email` field of the\n  first `emailAddresses` message\n* `emailAddresses[3].type[2]` for a violation in the second `type`\n  value in the third `emailAddresses` message."
+        description:
+          type: string
+          description: A description of why the request element is bad.
         reason:
           type: string
-          description: 'The reason of the error. This is a constant value that identifies the
+          description: 'The reason of the field-level error. This is a constant value that
 
-            proximate cause of the error. Error reasons are unique within a particular
+            identifies the proximate cause of the field-level error. It should
 
-            domain of errors. This should be at most 63 characters and match a
+            uniquely identify the type of the FieldViolation within the scope of the
 
-            regular expression of `[A-Z][A-Z0-9_]+[A-Z0-9]`, which represents
+            google.rpc.ErrorInfo.domain. This should be at most 63
 
-            UPPER_SNAKE_CASE.'
-        domain:
+            characters and match a regular expression of `[A-Z][A-Z0-9_]+[A-Z0-9]`,
+
+            which represents UPPER_SNAKE_CASE.'
+        localizedMessage:
+          $ref: '#/components/schemas/rpcLocalizedMessage'
+          description: 'Provides a localized error message for field-level errors that is safe to
+
+            return to the API consumer.'
+      description: A message type used to describe a single bad request field.
+    modelPronounsType:
+      type: string
+      enum:
+      - NOT_SPECIFIED
+      - HE_HIM
+      - SHE_HER
+      - THEY_THEM
+      - CUSTOM
+      default: NOT_SPECIFIED
+    EmployeesGetResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        result:
+          $ref: '#/components/schemas/EmployeesRequestOutcome'
+      title: Get employee response
+    FieldDataBooleanWithCommentFieldData:
+      type: object
+      properties:
+        value:
+          type: boolean
+        comment:
           type: string
-          description: 'The logical grouping to which the "reason" belongs. The error domain
-
-            is typically the registered service name of the tool or product that
-
-            generates the error. Example: "pubsub.googleapis.com". If the error is
-
-            generated by some common infrastructure, the error domain must be a
-
-            globally unique value that identifies the infrastructure. For Google API
-
-            infrastructure, the error domain is "googleapis.com".'
-        metadata:
-          type: object
-          additionalProperties:
-            type: string
-          description: 'Additional structured details about this error.
-
-
-            Keys must match a regular expression of `[a-z][a-zA-Z0-9-_]+` but should
-
-            ideally be lowerCamelCase. Also, they must be limited to 64 characters in
-
-            length. When identifying the current value of an exceeded limit, the units
-
-            should be contained in the key, not the value.  For example, rather than
-
-            `{"instanceLimit": "100/request"}`, should be returned as,
-
-            `{"instanceLimitPerRequest": "100"}`, if the client exceeds the number of
-
-            instances that can be created in a single (batch) request.'
-      description: "Describes the cause of the error with structured details.\n\nExample of an error when contacting the \"pubsub.googleapis.com\" API when it\nis not enabled:\n\n    { \"reason\": \"API_DISABLED\"\n      \"domain\": \"googleapis.com\"\n      \"metadata\": {\n        \"resource\": \"projects/123\",\n        \"service\": \"pubsub.googleapis.com\"\n      }\n    }\n\nThis response indicates that the pubsub.googleapis.com API is not enabled.\n\nExample of an error that is returned when attempting to create a Spanner\ninstance in a region that is out of stock:\n\n    { \"reason\": \"STOCKOUT\"\n      \"domain\": \"spanner.googleapis.com\",\n      \"metadata\": {\n        \"availableRegions\": \"us-central1,us-east2\"\n      }\n    }"
-    AgreementPayCalendarOptions:
+    tenantemployeev2modelEmployeeLocation:
       type: object
       properties:
         id:
           type: string
           format: int64
-      title: PayCalendarOptions is a wrapper to implement optional oneof
-    EmployeesPatchBulkRequest:
+          title: Primary location ID of employee
+        name:
+          type: string
+          title: Primary location of employee
+    modelAgreement:
+      type: object
+      properties:
+        id:
+          type: string
+          format: int64
+          title: '[read-only] Unique ID of Agreement'
+        payCenter:
+          $ref: '#/components/schemas/modelAgreementLocationOptions'
+          title: Location associated with employee
+        locationName:
+          type: string
+          title: In Enterprise, it is possible to set the EmployeeAgreement Type as Contract. This field then is a free field text field to say the name of the contracting agency, contractor, etc
+        active:
+          type: boolean
+          title: False if archive, true if active
+        startDate:
+          type: string
+          format: date-time
+          title: Date that this agreement is active from - usually coincides with created date. Cannot be set
+        endDate:
+          type: string
+          format: date-time
+          title: Date employee was archived
+        contract:
+          $ref: '#/components/schemas/AgreementContractOptions'
+          title: Contract
+        payrollId:
+          type: string
+          title: Payroll ID associated with the contract/employee
+        payPeriod:
+          type: string
+          format: int64
+          title: Pay Period associated with the contract (eg. Weekly, Monthly)
+        history:
+          type: string
+          format: int64
+          title: '[read-only] ID used to track changes to agreement'
+        employmentType:
+          $ref: '#/components/schemas/modelAgreementEmploymentType'
+          title: Employee type of agreement
+        payCalendar:
+          $ref: '#/components/schemas/AgreementPayCalendarOptions'
+          title: Pay Calendar associated with the contract
+        DPHourlyRate:
+          type: number
+          format: double
+          title: '[read-only] Deputy Payroll hourly rate'
+        DPAnnualSalary:
+          type: number
+          format: double
+          title: '[read-only] Deputy Payroll annual salary'
+        effectiveDate:
+          type: string
+          format: date-time
+          title: Effective date of the employee agreement
+        createdAt:
+          type: string
+          format: date-time
+          title: '[read-only] Timestamp when the Agreement was created'
+        modifiedAt:
+          type: string
+          format: date-time
+          title: '[read-only] Timestamp when the Agreement was modified'
+        levelDetail:
+          $ref: '#/components/schemas/AgreementLevelDetail'
+          title: Details of the Level including the identifier (ID or Ksuid), Name and associated Contract ID
+      title: Employee Agreement
+    EmployeesCreateBulkResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/EmployeesRequestOutcome'
+      title: Create an employee setup response
+    EmployeesCreateRequest:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/tenantemployeev2modelEmployee'
+        fieldMask:
+          type: string
+          title: Fields to fetch in the response
+        forceActivate:
+          type: boolean
+          title: Optional param for force activating an archived Employee
+      title: Create an employee setup request
+    AgreementContractOptions:
+      type: object
+      properties:
+        id:
+          type: string
+          format: int64
+        name:
+          type: string
+        contractEmploymentType:
+          type: string
+          format: int64
+        countryCode:
+          type: string
+          title: Country code of Contract
+        awardCode:
+          type: string
+          title: Award code of Contract
+        overridePayRules:
+          type: array
+          items:
+            $ref: '#/components/schemas/AgreementOverridePayRules'
+          title: PayRuleOverrides applied to contract
+      title: ContractOptions is a wrapper to implement optional oneof
+    tenantemployeev2modelContact:
+      type: object
+      properties:
+        id:
+          type: string
+          format: int64
+          title: '[read-only] Contact Id'
+        phone1:
+          type: string
+          title: Phone Number
+        phone2:
+          type: string
+          title: Phone Number
+        phone3:
+          type: string
+          title: Phone Number
+        fax:
+          type: string
+          title: Fax Number
+        phone1Type:
+          type: string
+          title: Phone Number Type
+        phone2Type:
+          type: string
+          title: Phone Number Type
+        phone3Type:
+          type: string
+          title: Phone Number Type
+        primaryPhone:
+          type: string
+          format: int64
+          title: Set if the phone details is primary
+        email1:
+          type: string
+          title: Email Address
+        email1Type:
+          type: string
+          title: Email Address
+        email2Type:
+          type: string
+          title: Email Address
+        email2:
+          type: string
+          title: Email Address
+        primaryEmail:
+          type: string
+          format: int64
+          title: Set if the email is primary
+        im1:
+          type: string
+          title: Instant messenger ID
+        im2:
+          type: string
+          title: Instant messenger ID
+        im1Type:
+          type: string
+          title: Instant messenger ID
+        im2Type:
+          type: string
+          title: Instant messenger ID
+        web:
+          type: string
+          title: Website
+        notes:
+          type: string
+          title: Notes
+        saved:
+          type: boolean
+          title: Set if it is saved
+        createdAt:
+          type: string
+          format: date-time
+          title: '[read-only] Timestamp when the contact was created'
+        modifiedAt:
+          type: string
+          format: date-time
+          title: '[read-only] Timestamp when the contact was modified'
+      title: Employee Contact
+    rpcLocalizedMessage:
+      type: object
+      properties:
+        locale:
+          type: string
+          title: 'The locale used following the specification defined at
+
+            https://www.rfc-editor.org/rfc/bcp/bcp47.txt.
+
+            Examples are: "en-US", "fr-CH", "es-MX"'
+        message:
+          type: string
+          description: The localized error message in the above locale.
+      description: 'Provides a localized error message that is safe to return to the user
+
+        which can be attached to an RPC error.'
+    AddanemployeeRequest:
+      title: AddanemployeeRequest
+      required:
+      - strFirstName
+      - strLastName
+      - intCompanyId
+      type: object
+      properties:
+        strFirstName:
+          type: string
+          description: First name of employee
+        strLastName:
+          type: string
+          description: Last name of employee
+        intCompanyId:
+          type: integer
+          format: int32
+          description: Record id of location to add employee to
+        intGender:
+          type: integer
+          format: int32
+          description: 0 - Prefer not to say, 1 - Male, 2 - Female, 3 - Non-Binary
+        strCountryCode:
+          type: string
+          description: The country code for the employees address. This can be found in country resource API
+        strDob:
+          type: string
+        strStartDate:
+          type: string
+          description: Employee start date. YYYY-MM-DD
+        strMobilePhone:
+          type: string
+          description: Employee mobile phone number
+        strPayrollId:
+          type: string
+          description: Payroll id to set for the employee
+        fltWeekDayRate:
+          type: integer
+          format: int32
+    EmployeesListResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/EmployeesRequestOutcome'
+        nextCursor:
+          type: string
+      title: Get list of employees response
+    rpcBadRequest:
+      type: object
+      properties:
+        fieldViolations:
+          type: array
+          items:
+            $ref: '#/components/schemas/BadRequestFieldViolation'
+          description: Describes all violations in a client request.
+      description: 'Describes violations in a client request. This error type focuses on the
+
+        syntactic aspects of the request.'
+    modelAddressState:
+      type: object
+      properties:
+        id:
+          type: string
+          format: int64
+        name:
+          type: string
+      title: State component of a location address
+    modelEmployeeRole:
+      type: object
+      properties:
+        id:
+          type: string
+          format: int64
+          title: role Id
+        name:
+          type: string
+          title: Role
+        rolePrivileges:
+          $ref: '#/components/schemas/RoleRolePrivileges'
+      title: RoleOptions is a wrapper to implement optional oneof
+    rpcRetryInfo:
+      type: object
+      properties:
+        retryDelay:
+          type: string
+          description: Clients should wait at least this long between retrying the same request.
+      description: 'Describes when the clients can retry a failed request. Clients could ignore
+
+        the recommendation here or retry when this information is missing from error
+
+        responses.
+
+
+        It''s always recommended that clients should use exponential backoff when
+
+        retrying.
+
+
+        Clients should wait until `retry_delay` amount of time has passed since
+
+        receiving the error response before retrying.  If retrying requests also
+
+        fail, clients should use an exponential backoff scheme to gradually increase
+
+        the delay between retries based on `retry_delay`, until either a maximum
+
+        number of retries have been reached or a maximum retry delay cap has been
+
+        reached.'
+    FieldDataStringFieldData:
+      type: object
+      properties:
+        value:
+          type: string
+    modelCustomFieldData:
+      type: object
+      properties:
+        apiName:
+          type: string
+        data:
+          $ref: '#/components/schemas/CustomFieldDataFieldData'
+      title: Workplace
+    EmployeesPatchBulkResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/EmployeesRequestOutcome'
+      title: Patch an employee setup response
+    EmployeePronounsOptions:
+      type: object
+      properties:
+        pronounsId:
+          $ref: '#/components/schemas/modelPronounsType'
+          title: Pronouns (eg. He, She, They)
+        pronouns:
+          type: string
+          title: Pronouns (eg. He, She, They)
+      title: PronounsOptions is a wrapper to implement optional oneof
+    EmployeesCreateBulkRequest:
       type: object
       properties:
         data:
@@ -2037,10 +2029,18 @@ components:
         fieldMask:
           type: string
           title: Fields to fetch in the response
-        patchMask:
-          type: string
-          title: Fields to patch
-      title: Patch an employee setup request
+        forceActivate:
+          type: boolean
+          title: Optional param for force activating an archived Employee
+      title: Create an employee setup request
+    EmployeesValidateEmailsRequest:
+      type: object
+      properties:
+        emails:
+          type: array
+          items:
+            type: string
+      title: Validate emails request
   securitySchemes:
     httpBearer:
       type: http

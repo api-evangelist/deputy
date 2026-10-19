@@ -100,43 +100,6 @@ paths:
       description: Get leave balances.
 components:
   schemas:
-    LeaveBalanceForEmployeeAndLeaveRuleLeaveYearBalance:
-      type: object
-      properties:
-        yearName:
-          type: string
-          title: The name of the leave year
-        currentBalance:
-          $ref: '#/components/schemas/LeaveBalanceForEmployeeAndLeaveRuleBalanceValue'
-          title: The current balance value
-        upcomingLeave:
-          $ref: '#/components/schemas/LeaveBalanceForEmployeeAndLeaveRuleBalanceValue'
-          title: The amount of leave that has been requested and approved but not yet taken
-        availableBalance:
-          $ref: '#/components/schemas/LeaveBalanceForEmployeeAndLeaveRuleBalanceValue'
-          title: The amount of balance that is available to be requested (current balance - upcoming leave)
-      title: The balance for a given leave year
-    modelLeaveBalanceCreate:
-      type: object
-      properties:
-        employeeId:
-          type: integer
-          format: int32
-          title: Employee ID
-        leaveRuleId:
-          type: integer
-          format: int32
-          title: Leave rule ID
-        amount:
-          type: number
-          format: double
-          title: Balance amount (in hours or days according to unit)
-      title: Leave Balance Create
-    LeaveBalanceCreateLeaveBalanceResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
     modelEmployeeStandardDayStandardDayCalculationMethod:
       type: string
       enum:
@@ -149,92 +112,11 @@ components:
       - PER_EMPLOYEE_STANDARD_DAY
       default: UNKNOWN_METHOD
       title: Possible calculation methods
-    LeaveBalanceGetLeaveBalancesResponseUnit:
-      type: string
-      enum:
-      - UNIT_UNKNOWN
-      - UNIT_HOUR
-      - UNIT_DAY
-      default: UNIT_UNKNOWN
-    modelLeaveBalanceForEmployeeAndLeaveRule:
+    LeaveBalanceCreateLeaveBalanceRequest:
       type: object
       properties:
-        leaveRule:
-          $ref: '#/components/schemas/modelLeaveBalanceForEmployeeAndLeaveRuleLeaveRule'
-          title: The leave rule
-        standardDay:
-          $ref: '#/components/schemas/v2modelEmployeeStandardDay'
-          title: The standard day for the employee
-        isVisibleToEmployee:
-          type: boolean
-          title: Whether the leave balance is visible to the employee
-        lastCalculatedAt:
-          type: string
-          format: date-time
-          title: The last time the leave balance was calculated
-        currentYear:
-          $ref: '#/components/schemas/LeaveBalanceForEmployeeAndLeaveRuleLeaveYearBalance'
-          title: The current leave year balance
-        futureYears:
-          type: array
-          items:
-            $ref: '#/components/schemas/LeaveBalanceForEmployeeAndLeaveRuleLeaveYearBalance'
-          title: The leave year balances for future years
-      title: The leave balance information for an employee and leave rule
-    modelLeaveBalanceForEmployeeAndLeaveRuleUnit:
-      type: string
-      enum:
-      - HOURS
-      - DAYS
-      default: HOURS
-      title: Unit that the leave balance is measured in
-    LeaveBalanceListLeaveBalancesForEmployeeResponse:
-      type: object
-      properties:
-        balances:
-          type: array
-          items:
-            $ref: '#/components/schemas/modelLeaveBalanceForEmployeeAndLeaveRule'
-    LeaveBalanceForEmployeeAndLeaveRuleBalanceValue:
-      type: object
-      properties:
-        hours:
-          type: number
-          format: double
-          title: The balance value in hours
-        days:
-          type: number
-          format: double
-          title: The balance value in days
-      title: A balance value
-    v2modelEmployeeStandardDay:
-      type: object
-      properties:
-        standardDayHours:
-          type: number
-          format: float
-          title: Employee standard day hours
-        standardDayCalcMethod:
-          $ref: '#/components/schemas/modelEmployeeStandardDayStandardDayCalculationMethod'
-          title: Standard day hours calculation method
-        defaultStandardDayHours:
-          type: number
-          format: float
-          title: The default value for standard day hours
-    modelLeaveBalanceForEmployeeAndLeaveRuleLeaveRule:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int32
-          title: Leave rule id
-        name:
-          type: string
-          title: Leave rule name
-        unit:
-          $ref: '#/components/schemas/modelLeaveBalanceForEmployeeAndLeaveRuleUnit'
-          title: Leave rule unit
-      title: A leave rule
+        balance:
+          $ref: '#/components/schemas/modelLeaveBalanceCreate'
     LeaveBalanceGetLeaveBalancesResponse:
       type: object
       properties:
@@ -267,11 +149,129 @@ components:
         overriddenAt:
           type: string
           format: date-time
-    LeaveBalanceCreateLeaveBalanceRequest:
+    modelLeaveBalanceCreate:
       type: object
       properties:
-        balance:
-          $ref: '#/components/schemas/modelLeaveBalanceCreate'
+        employeeId:
+          type: integer
+          format: int32
+          title: Employee ID
+        leaveRuleId:
+          type: integer
+          format: int32
+          title: Leave rule ID
+        amount:
+          type: number
+          format: double
+          title: Balance amount (in hours or days according to unit)
+      title: Leave Balance Create
+    modelLeaveBalanceForEmployeeAndLeaveRuleUnit:
+      type: string
+      enum:
+      - HOURS
+      - DAYS
+      default: HOURS
+      title: Unit that the leave balance is measured in
+    LeaveBalanceCreateLeaveBalanceResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+    LeaveBalanceForEmployeeAndLeaveRuleBalanceValue:
+      type: object
+      properties:
+        hours:
+          type: number
+          format: double
+          title: The balance value in hours
+        days:
+          type: number
+          format: double
+          title: The balance value in days
+      title: A balance value
+    LeaveBalanceListLeaveBalancesForEmployeeResponse:
+      type: object
+      properties:
+        balances:
+          type: array
+          items:
+            $ref: '#/components/schemas/modelLeaveBalanceForEmployeeAndLeaveRule'
+    modelLeaveBalanceForEmployeeAndLeaveRule:
+      type: object
+      properties:
+        leaveRule:
+          $ref: '#/components/schemas/modelLeaveBalanceForEmployeeAndLeaveRuleLeaveRule'
+          title: The leave rule
+        standardDay:
+          $ref: '#/components/schemas/v2modelEmployeeStandardDay'
+          title: The standard day for the employee
+        isVisibleToEmployee:
+          type: boolean
+          title: Whether the leave balance is visible to the employee
+        lastCalculatedAt:
+          type: string
+          format: date-time
+          title: The last time the leave balance was calculated
+        currentYear:
+          $ref: '#/components/schemas/LeaveBalanceForEmployeeAndLeaveRuleLeaveYearBalance'
+          title: The current leave year balance
+        futureYears:
+          type: array
+          items:
+            $ref: '#/components/schemas/LeaveBalanceForEmployeeAndLeaveRuleLeaveYearBalance'
+          title: The leave year balances for future years
+      title: The leave balance information for an employee and leave rule
+    LeaveBalanceGetLeaveBalancesResponseUnit:
+      type: string
+      enum:
+      - UNIT_UNKNOWN
+      - UNIT_HOUR
+      - UNIT_DAY
+      default: UNIT_UNKNOWN
+    v2modelEmployeeStandardDay:
+      type: object
+      properties:
+        standardDayHours:
+          type: number
+          format: float
+          title: Employee standard day hours
+        standardDayCalcMethod:
+          $ref: '#/components/schemas/modelEmployeeStandardDayStandardDayCalculationMethod'
+          title: Standard day hours calculation method
+        defaultStandardDayHours:
+          type: number
+          format: float
+          title: The default value for standard day hours
+    LeaveBalanceForEmployeeAndLeaveRuleLeaveYearBalance:
+      type: object
+      properties:
+        yearName:
+          type: string
+          title: The name of the leave year
+        currentBalance:
+          $ref: '#/components/schemas/LeaveBalanceForEmployeeAndLeaveRuleBalanceValue'
+          title: The current balance value
+        upcomingLeave:
+          $ref: '#/components/schemas/LeaveBalanceForEmployeeAndLeaveRuleBalanceValue'
+          title: The amount of leave that has been requested and approved but not yet taken
+        availableBalance:
+          $ref: '#/components/schemas/LeaveBalanceForEmployeeAndLeaveRuleBalanceValue'
+          title: The amount of balance that is available to be requested (current balance - upcoming leave)
+      title: The balance for a given leave year
+    modelLeaveBalanceForEmployeeAndLeaveRuleLeaveRule:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+          title: Leave rule id
+        name:
+          type: string
+          title: Leave rule name
+        unit:
+          $ref: '#/components/schemas/modelLeaveBalanceForEmployeeAndLeaveRuleUnit'
+          title: Leave rule unit
+      title: A leave rule
   securitySchemes:
     ApiToken:
       type: apiKey

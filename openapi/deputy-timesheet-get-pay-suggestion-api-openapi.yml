@@ -52,20 +52,35 @@ paths:
               $ref: '#/components/schemas/GetPaySuggestionRequestPaySuggestionRequestBody'
 components:
   schemas:
-    tenanttsav2modelBreakType:
-      type: string
-      enum:
-      - NO_TYPE
-      - MEAL_BREAK
-      - REST_BREAK
-      default: NO_TYPE
-    GetPaySuggestionRequestPaySuggestionRequestBody:
+    GetPaySuggestionResponsePaySuggestionResponseBody:
       type: object
       properties:
-        setProperties:
-          $ref: '#/components/schemas/TsaTimesheetPropertyRequest'
-        setChildTimesheets:
-          $ref: '#/components/schemas/TsaTimesheetChildrenRequest'
+        payReturns:
+          type: array
+          items:
+            $ref: '#/components/schemas/tenanttsav2modelPayReturn'
+        cost:
+          type: number
+          format: float
+    TsaGetPaySuggestionResponse:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/GetPaySuggestionResponsePaySuggestionResponseBody'
+        success:
+          type: boolean
+    TsaChildTimesheetRequest:
+      type: object
+      properties:
+        operationalUnitId:
+          type: integer
+          format: int32
+        startTime:
+          type: string
+          format: int64
+        endTime:
+          type: string
+          format: int64
     modelTimesheetBreak:
       type: object
       properties:
@@ -77,6 +92,32 @@ components:
           format: int32
         breakType:
           $ref: '#/components/schemas/tenanttsav2modelBreakType'
+    TsaTimesheetChildrenRequest:
+      type: object
+      properties:
+        childTimesheets:
+          type: array
+          items:
+            $ref: '#/components/schemas/TsaChildTimesheetRequest'
+    GetPaySuggestionRequestPaySuggestionRequestBody:
+      type: object
+      properties:
+        setProperties:
+          $ref: '#/components/schemas/TsaTimesheetPropertyRequest'
+        setChildTimesheets:
+          $ref: '#/components/schemas/TsaTimesheetChildrenRequest'
+    tenanttsav2modelPayReturn:
+      type: object
+      properties:
+        payRuleId:
+          type: integer
+          format: int32
+        hours:
+          type: number
+          format: float
+        cost:
+          type: number
+          format: float
     TsaTimesheetBreaksRequest:
       type: object
       properties:
@@ -89,13 +130,6 @@ components:
           type: integer
           format: int32
           description: total duration of meal break in minutes
-    TsaTimesheetChildrenRequest:
-      type: object
-      properties:
-        childTimesheets:
-          type: array
-          items:
-            $ref: '#/components/schemas/TsaChildTimesheetRequest'
     TsaTimesheetPropertyRequest:
       type: object
       properties:
@@ -123,47 +157,13 @@ components:
         employeeComment:
           type: string
           description: employee comment for the timesheet
-    TsaGetPaySuggestionResponse:
-      type: object
-      properties:
-        data:
-          $ref: '#/components/schemas/GetPaySuggestionResponsePaySuggestionResponseBody'
-        success:
-          type: boolean
-    tenanttsav2modelPayReturn:
-      type: object
-      properties:
-        payRuleId:
-          type: integer
-          format: int32
-        hours:
-          type: number
-          format: float
-        cost:
-          type: number
-          format: float
-    GetPaySuggestionResponsePaySuggestionResponseBody:
-      type: object
-      properties:
-        payReturns:
-          type: array
-          items:
-            $ref: '#/components/schemas/tenanttsav2modelPayReturn'
-        cost:
-          type: number
-          format: float
-    TsaChildTimesheetRequest:
-      type: object
-      properties:
-        operationalUnitId:
-          type: integer
-          format: int32
-        startTime:
-          type: string
-          format: int64
-        endTime:
-          type: string
-          format: int64
+    tenanttsav2modelBreakType:
+      type: string
+      enum:
+      - NO_TYPE
+      - MEAL_BREAK
+      - REST_BREAK
+      default: NO_TYPE
   securitySchemes:
     ApiToken:
       type: apiKey

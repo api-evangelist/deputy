@@ -45,38 +45,6 @@ paths:
               $ref: '#/components/schemas/TsaTimesheetBatchRequest'
 components:
   schemas:
-    TimesheetBatchRequestApprovalStatus:
-      type: string
-      enum:
-      - ANY
-      - PENDING
-      - TIME_APPROVED
-      - PAY_APPROVED
-      default: ANY
-      title: the enum names must match TimesheetBatchQuery.php enums, e.g. ANY, PENDING, ISSUES_EXCLUDED etc
-    TsaAsyncResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        operationId:
-          type: string
-        locks:
-          type: array
-          items:
-            $ref: '#/components/schemas/OperationLock'
-    TimesheetBatchRequestIssueStatus:
-      type: string
-      enum:
-      - ISSUES_INCLUDED
-      - ISSUES_ONLY
-      - ISSUES_EXCLUDED
-      default: ISSUES_INCLUDED
-    TsaTimesheetBatchRequest:
-      type: object
-      properties:
-        query:
-          $ref: '#/components/schemas/TimesheetBatchRequestQuery'
     TimesheetBatchRequestQuery:
       type: object
       properties:
@@ -123,6 +91,38 @@ components:
           type: object
           additionalProperties:
             type: boolean
+    TimesheetBatchRequestApprovalStatus:
+      type: string
+      enum:
+      - ANY
+      - PENDING
+      - TIME_APPROVED
+      - PAY_APPROVED
+      default: ANY
+      title: the enum names must match TimesheetBatchQuery.php enums, e.g. ANY, PENDING, ISSUES_EXCLUDED etc
+    TsaTimesheetBatchRequest:
+      type: object
+      properties:
+        query:
+          $ref: '#/components/schemas/TimesheetBatchRequestQuery'
+    TimesheetBatchRequestIssueStatus:
+      type: string
+      enum:
+      - ISSUES_INCLUDED
+      - ISSUES_ONLY
+      - ISSUES_EXCLUDED
+      default: ISSUES_INCLUDED
+    TsaAsyncResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        operationId:
+          type: string
+        locks:
+          type: array
+          items:
+            $ref: '#/components/schemas/OperationLock'
   securitySchemes:
     ApiToken:
       type: apiKey

@@ -41,17 +41,6 @@ paths:
       description: Get privilege hierarchy.
 components:
   schemas:
-    modelPrivilegeCategory:
-      type: object
-      properties:
-        title:
-          type: string
-        description:
-          type: string
-        groups:
-          type: array
-          items:
-            $ref: '#/components/schemas/modelPrivilegeGroup'
     modelPrivilegeGroup:
       type: object
       properties:
@@ -63,6 +52,32 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/modelGenericPrivilege'
+    modelPrivilegeCategory:
+      type: object
+      properties:
+        title:
+          type: string
+        description:
+          type: string
+        groups:
+          type: array
+          items:
+            $ref: '#/components/schemas/modelPrivilegeGroup'
+    modelGenericPrivilege:
+      type: object
+      properties:
+        collection:
+          $ref: '#/components/schemas/modelPrivilegeCollection'
+        privilege:
+          $ref: '#/components/schemas/v2modelPrivilege'
+    modelPrivilegeDependencyCondition:
+      type: object
+      properties:
+        privilege:
+          type: string
+        is:
+          type: boolean
+          title: What the state of the condition privilege is required to be for the dependency to be required
     v2modelPrivilege:
       type: object
       properties:
@@ -90,21 +105,6 @@ components:
           items:
             $ref: '#/components/schemas/modelPrivilegeCategory'
       title: Response to get the privilege hierarchy
-    modelPrivilegeDependency:
-      type: object
-      properties:
-        privilege:
-          type: string
-        when:
-          $ref: '#/components/schemas/modelPrivilegeDependencyCondition'
-          title: If no when is provided, the dependency is always required
-    modelGenericPrivilege:
-      type: object
-      properties:
-        collection:
-          $ref: '#/components/schemas/modelPrivilegeCollection'
-        privilege:
-          $ref: '#/components/schemas/v2modelPrivilege'
     modelPrivilegeCollection:
       type: object
       properties:
@@ -114,14 +114,14 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/modelGenericPrivilege'
-    modelPrivilegeDependencyCondition:
+    modelPrivilegeDependency:
       type: object
       properties:
         privilege:
           type: string
-        is:
-          type: boolean
-          title: What the state of the condition privilege is required to be for the dependency to be required
+        when:
+          $ref: '#/components/schemas/modelPrivilegeDependencyCondition'
+          title: If no when is provided, the dependency is always required
   securitySchemes:
     ApiToken:
       type: apiKey

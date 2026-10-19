@@ -45,16 +45,6 @@ paths:
               $ref: '#/components/schemas/AuditPayRecalculationPayRecalculationRequest'
 components:
   schemas:
-    AuditPayRecalculationPayRecalculationResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/modelTimesheetDetails'
-      title: Audit pay recalculation response
     modelPayRecalculation:
       type: object
       properties:
@@ -84,12 +74,24 @@ components:
         awardSourceList:
           type: string
           title: award source list is either file or db
-    AuditPayRecalculationPayRecalculationRequest:
+    tenantauditv2modelPayReturn:
       type: object
       properties:
-        data:
-          $ref: '#/components/schemas/modelPayRecalculation'
-      title: Audit pay recalculation request
+        payRuleTitle:
+          type: string
+          title: Associated pay rule title
+        value:
+          type: string
+          title: Timesheet pay return value
+        cost:
+          type: string
+          title: Timesheet pay return cost
+        overridden:
+          type: boolean
+          title: Indicates whether the pay return was overridden
+        overrideComment:
+          type: string
+          title: Comment detailing reason for override
     modelTimesheetDetails:
       type: object
       properties:
@@ -126,24 +128,22 @@ components:
         payrollId:
           type: string
           title: Agreement payroll Id
-    tenantauditv2modelPayReturn:
+    AuditPayRecalculationPayRecalculationResponse:
       type: object
       properties:
-        payRuleTitle:
-          type: string
-          title: Associated pay rule title
-        value:
-          type: string
-          title: Timesheet pay return value
-        cost:
-          type: string
-          title: Timesheet pay return cost
-        overridden:
+        success:
           type: boolean
-          title: Indicates whether the pay return was overridden
-        overrideComment:
-          type: string
-          title: Comment detailing reason for override
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/modelTimesheetDetails'
+      title: Audit pay recalculation response
+    AuditPayRecalculationPayRecalculationRequest:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/modelPayRecalculation'
+      title: Audit pay recalculation request
   securitySchemes:
     ApiToken:
       type: apiKey

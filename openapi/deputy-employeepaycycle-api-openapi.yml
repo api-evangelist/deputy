@@ -336,6 +336,64 @@ paths:
           description: Resource not found
 components:
   schemas:
+    EmployeePaycycle:
+      type: object
+      properties:
+        Id:
+          type: integer
+        EmployeeId:
+          type: integer
+        EmployeeAgreementId:
+          type: integer
+        PeriodId:
+          type: integer
+        RecommendedLoadings:
+          type: boolean
+        Timesheets:
+          type: integer
+        TimesheetsTimeApproved:
+          type: integer
+        TimesheetsPayApproved:
+          type: integer
+        PaycycleRules:
+          type: integer
+        PaycycleRulesApproved:
+          type: integer
+        Exported:
+          type: boolean
+        ExportId:
+          type: integer
+        Paid:
+          type: boolean
+        TimeTotal:
+          type: number
+          format: double
+        CostTotal:
+          type: number
+          format: double
+        EmployeeAgreementHistoryId:
+          type: integer
+        Creator:
+          type: integer
+        Created:
+          type: string
+          format: date-time
+        Modified:
+          type: string
+        Employee:
+          type: object
+        EmployeeAgreement:
+          type: object
+        Period:
+          type: object
+      required:
+      - Id
+      - EmployeeId
+      - EmployeeAgreementId
+      - PeriodId
+      - TimesheetsPayApproved
+      - EmployeeAgreementHistoryId
+      - Modified
     QueryRequest:
       type: object
       description: V1 Resource search payload. All fields optional; an empty body returns the first page of results.
@@ -402,64 +460,6 @@ components:
             data: 1
             type: ge
         max: 100
-    EmployeePaycycle:
-      type: object
-      properties:
-        Id:
-          type: integer
-        EmployeeId:
-          type: integer
-        EmployeeAgreementId:
-          type: integer
-        PeriodId:
-          type: integer
-        RecommendedLoadings:
-          type: boolean
-        Timesheets:
-          type: integer
-        TimesheetsTimeApproved:
-          type: integer
-        TimesheetsPayApproved:
-          type: integer
-        PaycycleRules:
-          type: integer
-        PaycycleRulesApproved:
-          type: integer
-        Exported:
-          type: boolean
-        ExportId:
-          type: integer
-        Paid:
-          type: boolean
-        TimeTotal:
-          type: number
-          format: double
-        CostTotal:
-          type: number
-          format: double
-        EmployeeAgreementHistoryId:
-          type: integer
-        Creator:
-          type: integer
-        Created:
-          type: string
-          format: date-time
-        Modified:
-          type: string
-        Employee:
-          type: object
-        EmployeeAgreement:
-          type: object
-        Period:
-          type: object
-      required:
-      - Id
-      - EmployeeId
-      - EmployeeAgreementId
-      - PeriodId
-      - TimesheetsPayApproved
-      - EmployeeAgreementHistoryId
-      - Modified
   securitySchemes:
     BearerAuth:
       type: http

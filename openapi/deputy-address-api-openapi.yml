@@ -516,6 +516,64 @@ paths:
           description: Resource not found
 components:
   schemas:
+    Address:
+      type: object
+      properties:
+        Id:
+          type: integer
+        ContactName:
+          type: string
+          maxLength: 255
+        UnitNo:
+          type: string
+          maxLength: 16
+        StreetNo:
+          type: string
+          maxLength: 24
+        SuiteNo:
+          type: string
+          maxLength: 24
+        PoBox:
+          type: string
+          maxLength: 24
+        Street1:
+          type: string
+          maxLength: 255
+        Street2:
+          type: string
+          maxLength: 255
+        City:
+          type: string
+          maxLength: 64
+        State:
+          type: string
+          maxLength: 64
+        Postcode:
+          type: string
+          maxLength: 16
+        Country:
+          type: integer
+        Phone:
+          type: string
+          maxLength: 64
+        Notes:
+          type: string
+        Format:
+          type: integer
+        Saved:
+          type: boolean
+        Creator:
+          type: integer
+        Created:
+          type: string
+          format: date-time
+        Modified:
+          type: string
+        Verified:
+          type: string
+      required:
+      - Id
+      - Modified
     QueryRequest:
       type: object
       description: V1 Resource search payload. All fields optional; an empty body returns the first page of results.
@@ -582,64 +640,6 @@ components:
             data: 1
             type: ge
         max: 100
-    Address:
-      type: object
-      properties:
-        Id:
-          type: integer
-        ContactName:
-          type: string
-          maxLength: 255
-        UnitNo:
-          type: string
-          maxLength: 16
-        StreetNo:
-          type: string
-          maxLength: 24
-        SuiteNo:
-          type: string
-          maxLength: 24
-        PoBox:
-          type: string
-          maxLength: 24
-        Street1:
-          type: string
-          maxLength: 255
-        Street2:
-          type: string
-          maxLength: 255
-        City:
-          type: string
-          maxLength: 64
-        State:
-          type: string
-          maxLength: 64
-        Postcode:
-          type: string
-          maxLength: 16
-        Country:
-          type: integer
-        Phone:
-          type: string
-          maxLength: 64
-        Notes:
-          type: string
-        Format:
-          type: integer
-        Saved:
-          type: boolean
-        Creator:
-          type: integer
-        Created:
-          type: string
-          format: date-time
-        Modified:
-          type: string
-        Verified:
-          type: string
-      required:
-      - Id
-      - Modified
   securitySchemes:
     BearerAuth:
       type: http

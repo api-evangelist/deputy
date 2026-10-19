@@ -516,6 +516,56 @@ paths:
           description: Resource not found
 components:
   schemas:
+    LeaveAccrual:
+      type: object
+      properties:
+        Id:
+          type: integer
+        Employee:
+          type: integer
+        EmployeeHistory:
+          type: integer
+        TransactionDate:
+          type: string
+          format: date-time
+        Type:
+          type: integer
+        LeaveRule:
+          type: integer
+        Hours:
+          type: number
+          format: double
+        Days:
+          type: number
+          format: double
+        Comment:
+          type: string
+          maxLength: 255
+        FkId:
+          type: integer
+        BalanceCalculatedAt:
+          type: string
+          format: date-time
+        Creator:
+          type: integer
+        Created:
+          type: string
+          format: date-time
+        Modified:
+          type: string
+        EmployeeObject:
+          type: object
+        LeaveRuleObject:
+          type: object
+      required:
+      - Id
+      - Employee
+      - TransactionDate
+      - Type
+      - LeaveRule
+      - Hours
+      - Days
+      - Modified
     QueryRequest:
       type: object
       description: V1 Resource search payload. All fields optional; an empty body returns the first page of results.
@@ -582,56 +632,6 @@ components:
             data: 1
             type: ge
         max: 100
-    LeaveAccrual:
-      type: object
-      properties:
-        Id:
-          type: integer
-        Employee:
-          type: integer
-        EmployeeHistory:
-          type: integer
-        TransactionDate:
-          type: string
-          format: date-time
-        Type:
-          type: integer
-        LeaveRule:
-          type: integer
-        Hours:
-          type: number
-          format: double
-        Days:
-          type: number
-          format: double
-        Comment:
-          type: string
-          maxLength: 255
-        FkId:
-          type: integer
-        BalanceCalculatedAt:
-          type: string
-          format: date-time
-        Creator:
-          type: integer
-        Created:
-          type: string
-          format: date-time
-        Modified:
-          type: string
-        EmployeeObject:
-          type: object
-        LeaveRuleObject:
-          type: object
-      required:
-      - Id
-      - Employee
-      - TransactionDate
-      - Type
-      - LeaveRule
-      - Hours
-      - Days
-      - Modified
   securitySchemes:
     BearerAuth:
       type: http

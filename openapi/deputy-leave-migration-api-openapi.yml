@@ -122,6 +122,14 @@ paths:
       description: Set migration status (internal use only).
 components:
   schemas:
+    LeaveMigrationExportLeaveBalancesResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        url:
+          type: string
+      title: ExportLeaveBalances response
     v2modelLeaveExtension:
       type: object
       properties:
@@ -149,26 +157,6 @@ components:
         isOnForAllLocations:
           type: boolean
           title: indicates if this leave extension applies to all locations
-    LeaveMigrationExportLeaveRulesResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        url:
-          type: string
-      title: ExportLeaveRules response
-    LeaveExtensionAccrueMode:
-      type: string
-      enum:
-      - UNKNOWN_MODE
-      - ACCRUE_AND_DEDUCT
-      - DEDUCT_ONLY
-      default: UNKNOWN_MODE
-    LeaveMigrationBalanceOverrideToMigrationResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
     modelLeaveMigrationStatus:
       type: object
       properties:
@@ -179,6 +167,31 @@ components:
         isForceMigrated:
           type: boolean
       title: Leave Migration Status
+    LeaveExtensionAccrueMode:
+      type: string
+      enum:
+      - UNKNOWN_MODE
+      - ACCRUE_AND_DEDUCT
+      - DEDUCT_ONLY
+      default: UNKNOWN_MODE
+    LeaveMigrationGetStatusResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          $ref: '#/components/schemas/modelLeaveMigrationStatus'
+      title: GetStatus response
+    LeaveMigrationGetSoftDeletedLeaveExtensionsResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/v2modelLeaveExtension'
+      title: GetSoftDeletedLeaveExtension response
     modelMigrationStatus:
       type: string
       enum:
@@ -190,44 +203,31 @@ components:
       - COMPLETED
       - FAILED
       default: UNKNOWN
-    LeaveMigrationGetStatusResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        data:
-          $ref: '#/components/schemas/modelLeaveMigrationStatus'
-      title: GetStatus response
-    LeaveMigrationStartResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-      title: Start response
     LeaveMigrationSetStatusResponse:
       type: object
       properties:
         success:
           type: boolean
       title: SetStatus response
-    LeaveMigrationExportLeaveBalancesResponse:
+    LeaveMigrationStartResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+      title: Start response
+    LeaveMigrationExportLeaveRulesResponse:
       type: object
       properties:
         success:
           type: boolean
         url:
           type: string
-      title: ExportLeaveBalances response
-    LeaveMigrationGetSoftDeletedLeaveExtensionsResponse:
+      title: ExportLeaveRules response
+    LeaveMigrationBalanceOverrideToMigrationResponse:
       type: object
       properties:
         success:
           type: boolean
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/v2modelLeaveExtension'
-      title: GetSoftDeletedLeaveExtension response
   securitySchemes:
     ApiToken:
       type: apiKey

@@ -336,6 +336,37 @@ paths:
           description: Resource not found
 components:
   schemas:
+    Comment:
+      type: object
+      properties:
+        Id:
+          type: integer
+        Orm:
+          type: string
+          maxLength: 128
+        RecId:
+          type: integer
+        InFeed:
+          type: boolean
+        IgnorePermission:
+          type: boolean
+        Comment:
+          type: string
+        File:
+          type: integer
+        Creator:
+          type: integer
+        Created:
+          type: string
+          format: date-time
+        Modified:
+          type: string
+        FileObject:
+          type: object
+      required:
+      - Id
+      - Comment
+      - Modified
     QueryRequest:
       type: object
       description: V1 Resource search payload. All fields optional; an empty body returns the first page of results.
@@ -402,37 +433,6 @@ components:
             data: 1
             type: ge
         max: 100
-    Comment:
-      type: object
-      properties:
-        Id:
-          type: integer
-        Orm:
-          type: string
-          maxLength: 128
-        RecId:
-          type: integer
-        InFeed:
-          type: boolean
-        IgnorePermission:
-          type: boolean
-        Comment:
-          type: string
-        File:
-          type: integer
-        Creator:
-          type: integer
-        Created:
-          type: string
-          format: date-time
-        Modified:
-          type: string
-        FileObject:
-          type: object
-      required:
-      - Id
-      - Comment
-      - Modified
   securitySchemes:
     BearerAuth:
       type: http

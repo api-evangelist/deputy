@@ -65,62 +65,6 @@ paths:
               $ref: '#/components/schemas/LocationSettingKeyValueFetchRequestData'
 components:
   schemas:
-    LocationSettingKeyValueFetchRequestData:
-      type: object
-      properties:
-        ids:
-          type: array
-          items:
-            type: integer
-            format: int32
-        keys:
-          type: array
-          items:
-            type: string
-    v2modelLocationSettingKeyValue:
-      type: object
-      properties:
-        key:
-          type: string
-        value:
-          type: string
-    LocationSettingFetchResponseListSetting:
-      type: object
-      properties:
-        settings:
-          type: array
-          items:
-            $ref: '#/components/schemas/v2modelLocationSetting'
-    LocationSettingFetchRequestData:
-      type: object
-      properties:
-        ids:
-          type: array
-          items:
-            type: integer
-            format: int32
-        keys:
-          type: array
-          items:
-            type: string
-        shiftIds:
-          type: array
-          items:
-            type: integer
-            format: int32
-          description: 'Optional shift IDs for context-based filtering. When provided, can be used to apply
-
-            permission bypass logic for cross-location shifts or open shift invitations.'
-    LocationSettingKeyValueFetchResponse:
-      type: object
-      properties:
-        data:
-          type: object
-          additionalProperties:
-            $ref: '#/components/schemas/LocationSettingKeyValueFetchResponseListSetting'
-        success:
-          type: boolean
-      title: Get list of location setting response
     v2modelLocationSetting:
       type: object
       properties:
@@ -170,6 +114,62 @@ components:
         success:
           type: boolean
       title: Get list of location setting response
+    LocationSettingFetchResponseListSetting:
+      type: object
+      properties:
+        settings:
+          type: array
+          items:
+            $ref: '#/components/schemas/v2modelLocationSetting'
+    LocationSettingKeyValueFetchResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/LocationSettingKeyValueFetchResponseListSetting'
+        success:
+          type: boolean
+      title: Get list of location setting response
+    v2modelLocationSettingKeyValue:
+      type: object
+      properties:
+        key:
+          type: string
+        value:
+          type: string
+    LocationSettingKeyValueFetchRequestData:
+      type: object
+      properties:
+        ids:
+          type: array
+          items:
+            type: integer
+            format: int32
+        keys:
+          type: array
+          items:
+            type: string
+    LocationSettingFetchRequestData:
+      type: object
+      properties:
+        ids:
+          type: array
+          items:
+            type: integer
+            format: int32
+        keys:
+          type: array
+          items:
+            type: string
+        shiftIds:
+          type: array
+          items:
+            type: integer
+            format: int32
+          description: 'Optional shift IDs for context-based filtering. When provided, can be used to apply
+
+            permission bypass logic for cross-location shifts or open shift invitations.'
   securitySchemes:
     ApiToken:
       type: apiKey

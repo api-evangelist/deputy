@@ -59,27 +59,6 @@ paths:
       description: Update onboarding dashboard.
 components:
   schemas:
-    modelRoute:
-      type: object
-      properties:
-        key:
-          type: string
-        display:
-          $ref: '#/components/schemas/modelRouteDisplay'
-    modelRouteDisplay:
-      type: string
-      enum:
-      - EXPANDED
-      - COLLAPSED
-      - HIDDEN
-      default: EXPANDED
-    modelTaskStatus:
-      type: string
-      enum:
-      - ACTIVE
-      - DONE
-      - DISMISSED
-      default: ACTIVE
     modelOnboardingDashboardType:
       type: string
       enum:
@@ -99,6 +78,41 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/modelTask'
+    modelRoute:
+      type: object
+      properties:
+        key:
+          type: string
+        display:
+          $ref: '#/components/schemas/modelRouteDisplay'
+    modelRouteDisplay:
+      type: string
+      enum:
+      - EXPANDED
+      - COLLAPSED
+      - HIDDEN
+      default: EXPANDED
+    OnboardingDashboardUpdateOnboardingDashboardResponse:
+      type: object
+      properties:
+        key:
+          type: string
+        status:
+          $ref: '#/components/schemas/modelTaskStatus'
+    modelTask:
+      type: object
+      properties:
+        key:
+          type: string
+        status:
+          $ref: '#/components/schemas/modelTaskStatus'
+    modelTaskStatus:
+      type: string
+      enum:
+      - ACTIVE
+      - DONE
+      - DISMISSED
+      default: ACTIVE
     OnboardingDashboardGetOnboardingDashboardResponse:
       type: object
       properties:
@@ -112,20 +126,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/modelRoute'
-    modelTask:
-      type: object
-      properties:
-        key:
-          type: string
-        status:
-          $ref: '#/components/schemas/modelTaskStatus'
-    OnboardingDashboardUpdateOnboardingDashboardResponse:
-      type: object
-      properties:
-        key:
-          type: string
-        status:
-          $ref: '#/components/schemas/modelTaskStatus'
   securitySchemes:
     ApiToken:
       type: apiKey

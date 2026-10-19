@@ -516,6 +516,45 @@ paths:
           description: Resource not found
 components:
   schemas:
+    TrainingRecord:
+      type: object
+      properties:
+        Id:
+          type: integer
+        Employee:
+          type: integer
+        Module:
+          type: integer
+        TrainingDate:
+          type: string
+          format: date-time
+        ExpiryDate:
+          type: string
+          format: date-time
+        Active:
+          type: boolean
+        Comment:
+          type: string
+        File:
+          type: integer
+        Creator:
+          type: integer
+        Created:
+          type: string
+          format: date-time
+        Modified:
+          type: string
+        EmployeeObject:
+          type: object
+        ModuleObject:
+          type: object
+      required:
+      - Id
+      - Employee
+      - Module
+      - TrainingDate
+      - Active
+      - Modified
     QueryRequest:
       type: object
       description: V1 Resource search payload. All fields optional; an empty body returns the first page of results.
@@ -582,45 +621,6 @@ components:
             data: 1
             type: ge
         max: 100
-    TrainingRecord:
-      type: object
-      properties:
-        Id:
-          type: integer
-        Employee:
-          type: integer
-        Module:
-          type: integer
-        TrainingDate:
-          type: string
-          format: date-time
-        ExpiryDate:
-          type: string
-          format: date-time
-        Active:
-          type: boolean
-        Comment:
-          type: string
-        File:
-          type: integer
-        Creator:
-          type: integer
-        Created:
-          type: string
-          format: date-time
-        Modified:
-          type: string
-        EmployeeObject:
-          type: object
-        ModuleObject:
-          type: object
-      required:
-      - Id
-      - Employee
-      - Module
-      - TrainingDate
-      - Active
-      - Modified
   securitySchemes:
     BearerAuth:
       type: http

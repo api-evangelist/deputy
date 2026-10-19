@@ -35,6 +35,19 @@ tags:
   description: Operations on the TimesheetExport resource
 paths:
   /resource/TimesheetExport:
+    servers:
+    - url: https://{subdomain}.{region}.deputy.com/api/v1
+      description: Deputy tenant
+      variables:
+        subdomain:
+          default: your-subdomain
+        region:
+          default: deputy
+          enum:
+          - au
+          - eu
+          - na
+          - deputy
     get:
       tags:
       - TimesheetExport
@@ -61,6 +74,7 @@ paths:
       security:
       - BearerAuth: []
       - OAuth2: []
+  /resource/TimesheetExport/INFO:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -74,7 +88,6 @@ paths:
           - eu
           - na
           - deputy
-  /resource/TimesheetExport/INFO:
     get:
       tags:
       - TimesheetExport
@@ -99,6 +112,7 @@ paths:
       security:
       - BearerAuth: []
       - OAuth2: []
+  /resource/TimesheetExport/PREDICT:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -112,7 +126,6 @@ paths:
           - eu
           - na
           - deputy
-  /resource/TimesheetExport/PREDICT:
     post:
       tags:
       - TimesheetExport
@@ -143,6 +156,7 @@ paths:
       security:
       - BearerAuth: []
       - OAuth2: []
+  /resource/TimesheetExport/QUERY:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -156,7 +170,6 @@ paths:
           - eu
           - na
           - deputy
-  /resource/TimesheetExport/QUERY:
     post:
       tags:
       - TimesheetExport
@@ -189,6 +202,7 @@ paths:
       security:
       - BearerAuth: []
       - OAuth2: []
+  /resource/TimesheetExport/{id}:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -202,7 +216,6 @@ paths:
           - eu
           - na
           - deputy
-  /resource/TimesheetExport/{id}:
     get:
       tags:
       - TimesheetExport
@@ -233,6 +246,7 @@ paths:
       security:
       - BearerAuth: []
       - OAuth2: []
+  /resource/TimesheetExport/{id}/COMMENTS:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -246,7 +260,6 @@ paths:
           - eu
           - na
           - deputy
-  /resource/TimesheetExport/{id}/COMMENTS:
     get:
       tags:
       - TimesheetExport
@@ -330,6 +343,7 @@ paths:
       security:
       - BearerAuth: []
       - OAuth2: []
+  /resource/TimesheetExport/{id}/COMMENTS/{commentId}:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -343,7 +357,6 @@ paths:
           - eu
           - na
           - deputy
-  /resource/TimesheetExport/{id}/COMMENTS/{commentId}:
     delete:
       tags:
       - TimesheetExport
@@ -382,6 +395,7 @@ paths:
       security:
       - BearerAuth: []
       - OAuth2: []
+  /resource/TimesheetExport/{id}/HISTORY:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -395,7 +409,6 @@ paths:
           - eu
           - na
           - deputy
-  /resource/TimesheetExport/{id}/HISTORY:
     get:
       tags:
       - TimesheetExport
@@ -428,6 +441,7 @@ paths:
       security:
       - BearerAuth: []
       - OAuth2: []
+  /resource/TimesheetExport/{id}/HISTORY/travel/{timestamp}:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -441,7 +455,6 @@ paths:
           - eu
           - na
           - deputy
-  /resource/TimesheetExport/{id}/HISTORY/travel/{timestamp}:
     get:
       tags:
       - TimesheetExport
@@ -479,12 +492,14 @@ paths:
       security:
       - BearerAuth: []
       - OAuth2: []
+  /timesheet-export/v2/config:
     servers:
-    - url: https://{subdomain}.{region}.deputy.com/api/v1
+    - url: https://{subdomain}.{region}.deputy.com/api
       description: Deputy tenant
       variables:
         subdomain:
           default: your-subdomain
+          description: Your Deputy tenant subdomain
         region:
           default: deputy
           enum:
@@ -492,7 +507,7 @@ paths:
           - eu
           - na
           - deputy
-  /timesheet-export/v2/config:
+          description: 'Deputy region: au, eu, na, or deputy (AU default)'
     get:
       operationId: TimesheetExportV2Controller_getConfig
       responses:
@@ -508,6 +523,7 @@ paths:
       description: Get config.
       security:
       - ApiToken: []
+  /timesheet-export/v2/feature-status:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api
       description: Deputy tenant
@@ -523,7 +539,6 @@ paths:
           - na
           - deputy
           description: 'Deputy region: au, eu, na, or deputy (AU default)'
-  /timesheet-export/v2/feature-status:
     get:
       summary: Get status of the timesheet export feature (enabled/disabled)
       operationId: TimesheetExportV2Controller_getFeatureStatus
@@ -539,6 +554,7 @@ paths:
       description: Get status of the timesheet export feature (enabled/disabled).
       security:
       - ApiToken: []
+  /timesheet-export/v2/filters/employee:refresh:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api
       description: Deputy tenant
@@ -554,7 +570,6 @@ paths:
           - na
           - deputy
           description: 'Deputy region: au, eu, na, or deputy (AU default)'
-  /timesheet-export/v2/filters/employee:refresh:
     post:
       summary: Refresh the employee filter options
       operationId: TimesheetExportV2Controller_refreshEmployeeFilterOptions
@@ -570,6 +585,7 @@ paths:
       description: Refresh the employee filter options.
       security:
       - ApiToken: []
+  /timesheet-export/v2/filters/location:refresh:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api
       description: Deputy tenant
@@ -585,7 +601,6 @@ paths:
           - na
           - deputy
           description: 'Deputy region: au, eu, na, or deputy (AU default)'
-  /timesheet-export/v2/filters/location:refresh:
     post:
       summary: Refresh the location filter options
       operationId: TimesheetExportV2Controller_refreshLocationFilterOptions
@@ -601,6 +616,7 @@ paths:
       description: Refresh the location filter options.
       security:
       - ApiToken: []
+  /timesheet-export/v2/filters/pay-center:refresh:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api
       description: Deputy tenant
@@ -616,7 +632,6 @@ paths:
           - na
           - deputy
           description: 'Deputy region: au, eu, na, or deputy (AU default)'
-  /timesheet-export/v2/filters/pay-center:refresh:
     post:
       summary: Refresh the pay center filter options
       operationId: TimesheetExportV2Controller_refreshPayCenterFilter
@@ -638,6 +653,7 @@ paths:
               $ref: '#/components/schemas/TimesheetExportRefreshFilterOptionsRequest'
       security:
       - ApiToken: []
+  /timesheet-export/v2/filters/pay-period:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api
       description: Deputy tenant
@@ -653,7 +669,6 @@ paths:
           - na
           - deputy
           description: 'Deputy region: au, eu, na, or deputy (AU default)'
-  /timesheet-export/v2/filters/pay-period:
     get:
       summary: Get options to populate the pay period filters
       operationId: TimesheetExportV2Controller_getPayPeriodFilterOptions
@@ -669,23 +684,172 @@ paths:
       description: Get options to populate the pay period filters.
       security:
       - ApiToken: []
-    servers:
-    - url: https://{subdomain}.{region}.deputy.com/api
-      description: Deputy tenant
-      variables:
-        subdomain:
-          default: your-subdomain
-          description: Your Deputy tenant subdomain
-        region:
-          default: deputy
-          enum:
-          - au
-          - eu
-          - na
-          - deputy
-          description: 'Deputy region: au, eu, na, or deputy (AU default)'
 components:
   schemas:
+    TimesheetExportConfigFilters:
+      type: object
+      properties:
+        locationType:
+          $ref: '#/components/schemas/modelLocationTypeFilterOption'
+        dateRangeType:
+          $ref: '#/components/schemas/modelDateRangeTypeFilterOption'
+    modelLocationTypeFilterOption:
+      type: string
+      enum:
+      - LOCATION_TYPE_FILTER_OPTION_UNKNOWN
+      - NONE
+      - PAY_CENTER
+      - LOCATION
+      default: LOCATION_TYPE_FILTER_OPTION_UNKNOWN
+      title: Location Type Filter Option
+    TimesheetExportGetConfigResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        filters:
+          $ref: '#/components/schemas/TimesheetExportConfigFilters'
+    modelPayPeriodFilterOption:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+          title: Pay Period ID
+        name:
+          type: string
+          title: Pay Period Name
+        payCycles:
+          type: array
+          items:
+            $ref: '#/components/schemas/modelPayCycleFilterOption'
+          title: Pay Cycles
+    TimesheetExport:
+      type: object
+      properties:
+        Id:
+          type: integer
+        Label:
+          type: string
+          maxLength: 64
+        Company:
+          type: integer
+        CompanyPeriod:
+          type: integer
+        ExportData:
+          type: string
+        Creator:
+          type: integer
+        Created:
+          type: string
+          format: date-time
+        Modified:
+          type: string
+        CompanyObject:
+          type: object
+        CompanyPeriodObject:
+          type: object
+      required:
+      - Id
+      - Label
+      - Company
+      - Modified
+    tenanttimesheetv2modelEmployee:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        firstName:
+          type: string
+        lastName:
+          type: string
+        displayName:
+          type: string
+    modelPayCycleFilterOption:
+      type: object
+      properties:
+        startDate:
+          type: string
+          title: Pay Cycle Start Date as YYYY-MM-DD
+        endDate:
+          type: string
+          title: Pay Cycle End Date as YYYY-MM-DD
+        companyPeriodIds:
+          type: array
+          items:
+            type: integer
+            format: int32
+          title: Company Period IDs
+    modelDateRangeTypeFilterOption:
+      type: string
+      enum:
+      - DATE_RANGE_TYPE_FILTER_OPTION_UNKNOWN
+      - CUSTOM
+      - PAY_PERIOD_AND_CUSTOM
+      - PAY_CALENDAR_AND_CUSTOM
+      - PAY_CALENDAR
+      default: DATE_RANGE_TYPE_FILTER_OPTION_UNKNOWN
+      title: Date Range Filter Option
+    TimesheetExportRefreshEmployeeFilterOptionsResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        employeeIds:
+          type: array
+          items:
+            type: integer
+            format: int32
+        employees:
+          type: array
+          items:
+            $ref: '#/components/schemas/tenanttimesheetv2modelEmployee'
+        pagination:
+          $ref: '#/components/schemas/modelPaginationInfo'
+    TimesheetExportGetFeatureStatusResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        enabled:
+          type: boolean
+    modelDateRange:
+      type: object
+      properties:
+        startDate:
+          type: string
+          title: Start Date - YYYY-MM-DD
+        endDate:
+          type: string
+          title: End Date - YYYY-MM-DD
+    TimesheetExportRefreshFilterOptionsResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        locationIds:
+          type: array
+          items:
+            type: integer
+            format: int32
+    modelPaginationInfo:
+      type: object
+      properties:
+        nextCursor:
+          type: string
+        totalCount:
+          type: integer
+          format: int32
+    modelCompanyPeriods:
+      type: object
+      properties:
+        companyPeriodIds:
+          type: array
+          items:
+            type: integer
+            format: int32
+          title: Company Period IDs
     QueryRequest:
       type: object
       description: V1 Resource search payload. All fields optional; an empty body returns the first page of results.
@@ -752,97 +916,15 @@ components:
             data: 1
             type: ge
         max: 100
-    TimesheetExport:
-      type: object
-      properties:
-        Id:
-          type: integer
-        Label:
-          type: string
-          maxLength: 64
-        Company:
-          type: integer
-        CompanyPeriod:
-          type: integer
-        ExportData:
-          type: string
-        Creator:
-          type: integer
-        Created:
-          type: string
-          format: date-time
-        Modified:
-          type: string
-        CompanyObject:
-          type: object
-        CompanyPeriodObject:
-          type: object
-      required:
-      - Id
-      - Label
-      - Company
-      - Modified
-    modelLocationTypeFilterOption:
-      type: string
-      enum:
-      - LOCATION_TYPE_FILTER_OPTION_UNKNOWN
-      - NONE
-      - PAY_CENTER
-      - LOCATION
-      default: LOCATION_TYPE_FILTER_OPTION_UNKNOWN
-      title: Location Type Filter Option
-    TimesheetExportRefreshFilterOptionsResponse:
+    TimesheetExportGetPayPeriodFilterOptionsResponse:
       type: object
       properties:
         success:
           type: boolean
-        locationIds:
+        payPeriods:
           type: array
           items:
-            type: integer
-            format: int32
-    TimesheetExportRefreshEmployeeFilterOptionsResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        employeeIds:
-          type: array
-          items:
-            type: integer
-            format: int32
-        employees:
-          type: array
-          items:
-            $ref: '#/components/schemas/tenanttimesheetv2modelEmployee'
-        pagination:
-          $ref: '#/components/schemas/modelPaginationInfo'
-    modelCompanyPeriods:
-      type: object
-      properties:
-        companyPeriodIds:
-          type: array
-          items:
-            type: integer
-            format: int32
-          title: Company Period IDs
-    modelDateRangeTypeFilterOption:
-      type: string
-      enum:
-      - DATE_RANGE_TYPE_FILTER_OPTION_UNKNOWN
-      - CUSTOM
-      - PAY_PERIOD_AND_CUSTOM
-      - PAY_CALENDAR_AND_CUSTOM
-      - PAY_CALENDAR
-      default: DATE_RANGE_TYPE_FILTER_OPTION_UNKNOWN
-      title: Date Range Filter Option
-    TimesheetExportGetConfigResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        filters:
-          $ref: '#/components/schemas/TimesheetExportConfigFilters'
+            $ref: '#/components/schemas/modelPayPeriodFilterOption'
     TimesheetExportRefreshFilterOptionsRequest:
       type: object
       properties:
@@ -855,15 +937,6 @@ components:
         dateRange:
           $ref: '#/components/schemas/modelDateRange'
           title: Start & End Date
-    TimesheetExportGetPayPeriodFilterOptionsResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        payPeriods:
-          type: array
-          items:
-            $ref: '#/components/schemas/modelPayPeriodFilterOption'
     TimesheetExportRefreshPayCenterFilterResponse:
       type: object
       properties:
@@ -874,70 +947,6 @@ components:
           items:
             type: integer
             format: int32
-    TimesheetExportConfigFilters:
-      type: object
-      properties:
-        locationType:
-          $ref: '#/components/schemas/modelLocationTypeFilterOption'
-        dateRangeType:
-          $ref: '#/components/schemas/modelDateRangeTypeFilterOption'
-    TimesheetExportGetFeatureStatusResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        enabled:
-          type: boolean
-    modelPayCycleFilterOption:
-      type: object
-      properties:
-        startDate:
-          type: string
-          title: Pay Cycle Start Date as YYYY-MM-DD
-        endDate:
-          type: string
-          title: Pay Cycle End Date as YYYY-MM-DD
-        companyPeriodIds:
-          type: array
-          items:
-            type: integer
-            format: int32
-          title: Company Period IDs
-    tenanttimesheetv2modelEmployee:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int32
-        firstName:
-          type: string
-        lastName:
-          type: string
-        displayName:
-          type: string
-    modelPaginationInfo:
-      type: object
-      properties:
-        nextCursor:
-          type: string
-        totalCount:
-          type: integer
-          format: int32
-    modelPayPeriodFilterOption:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int32
-          title: Pay Period ID
-        name:
-          type: string
-          title: Pay Period Name
-        payCycles:
-          type: array
-          items:
-            $ref: '#/components/schemas/modelPayCycleFilterOption'
-          title: Pay Cycles
     modelPayCalendarOption:
       type: object
       properties:
@@ -945,15 +954,6 @@ components:
           type: integer
           format: int32
           title: Pay Calendar ID
-        startDate:
-          type: string
-          title: Start Date - YYYY-MM-DD
-        endDate:
-          type: string
-          title: End Date - YYYY-MM-DD
-    modelDateRange:
-      type: object
-      properties:
         startDate:
           type: string
           title: Start Date - YYYY-MM-DD

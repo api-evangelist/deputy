@@ -45,35 +45,6 @@ paths:
               $ref: '#/components/schemas/ScheduleFiltersRequest'
 components:
   schemas:
-    ScheduleFiltersResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        data:
-          $ref: '#/components/schemas/ScheduleFiltersData'
-    ScheduleFiltersRequest:
-      type: object
-      properties:
-        locationIds:
-          type: array
-          items:
-            type: integer
-            format: int32
-          description: Array of location IDs to filter by.
-        areaIds:
-          type: array
-          items:
-            type: integer
-            format: int32
-          description: Array of area IDs to filter by.
-    filtersPayRate:
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
     filtersTraining:
       type: object
       properties:
@@ -109,21 +80,13 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/filtersPrimaryLocation'
-    modelfiltersStressProfile:
+    filtersPayRate:
       type: object
       properties:
         id:
           type: string
         name:
           type: string
-    filtersAccessLevel:
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-      title: Role already defined in role.proto
     filtersPrimaryLocation:
       type: object
       properties:
@@ -139,6 +102,43 @@ components:
           type: string
         name:
           type: string
+    filtersAccessLevel:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+      title: Role already defined in role.proto
+    modelfiltersStressProfile:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+    ScheduleFiltersRequest:
+      type: object
+      properties:
+        locationIds:
+          type: array
+          items:
+            type: integer
+            format: int32
+          description: Array of location IDs to filter by.
+        areaIds:
+          type: array
+          items:
+            type: integer
+            format: int32
+          description: Array of area IDs to filter by.
+    ScheduleFiltersResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          $ref: '#/components/schemas/ScheduleFiltersData'
   securitySchemes:
     ApiToken:
       type: apiKey

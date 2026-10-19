@@ -24,6 +24,21 @@ tags:
 - name: Hr
 paths:
   /hr/v2/employees/{employeeId}/onboarding/{actionName}:
+    servers:
+    - url: https://{subdomain}.{region}.deputy.com/api
+      description: Deputy tenant
+      variables:
+        subdomain:
+          default: your-subdomain
+          description: Your Deputy tenant subdomain
+        region:
+          default: deputy
+          enum:
+          - au
+          - eu
+          - na
+          - deputy
+          description: 'Deputy region: au, eu, na, or deputy (AU default)'
     put:
       operationId: HrOnboardingActionV2Controller_perform
       responses:
@@ -51,6 +66,7 @@ paths:
       - APIToken: []
       summary: Perform
       description: Perform.
+  /hr/v2/employees/{employeeId}/onboarding/export:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api
       description: Deputy tenant
@@ -66,7 +82,6 @@ paths:
           - na
           - deputy
           description: 'Deputy region: au, eu, na, or deputy (AU default)'
-  /hr/v2/employees/{employeeId}/onboarding/export:
     get:
       operationId: HrExportV2Controller_exportHrData
       responses:
@@ -89,6 +104,7 @@ paths:
       - OAuth2ScopedAuthenticator: []
       summary: Export HR data
       description: Export HR data.
+  /hr/v2/employees/{employeeId}/pay-details/export:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api
       description: Deputy tenant
@@ -104,7 +120,6 @@ paths:
           - na
           - deputy
           description: 'Deputy region: au, eu, na, or deputy (AU default)'
-  /hr/v2/employees/{employeeId}/pay-details/export:
     get:
       operationId: HrExportV2Controller_exportHrPayDetailsData
       responses:
@@ -127,6 +142,7 @@ paths:
       - OAuth2ScopedAuthenticator: []
       summary: Export HR pay details data
       description: Export HR pay details data.
+  /hr/v2/onboarding/bulk-export:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api
       description: Deputy tenant
@@ -142,7 +158,6 @@ paths:
           - na
           - deputy
           description: 'Deputy region: au, eu, na, or deputy (AU default)'
-  /hr/v2/onboarding/bulk-export:
     get:
       operationId: HrExportV2Controller_exportHrBulkData
       responses:
@@ -171,21 +186,6 @@ paths:
       - OAuth2ScopedAuthenticator: []
       summary: Export HR bulk data
       description: Export HR bulk data.
-    servers:
-    - url: https://{subdomain}.{region}.deputy.com/api
-      description: Deputy tenant
-      variables:
-        subdomain:
-          default: your-subdomain
-          description: Your Deputy tenant subdomain
-        region:
-          default: deputy
-          enum:
-          - au
-          - eu
-          - na
-          - deputy
-          description: 'Deputy region: au, eu, na, or deputy (AU default)'
 components:
   schemas:
     HrOnboardingActionHrOnboardingActionResponse:

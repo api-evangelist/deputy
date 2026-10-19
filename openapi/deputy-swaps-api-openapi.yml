@@ -159,7 +159,74 @@ paths:
       description: Get pending swap shifts.
 components:
   schemas:
-    ShiftSwapSwapPendingResponseMetadataArea:
+    ShiftSwapSwapPendingResponseMetadataEmployeeProfile:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        displayName:
+          type: string
+        photoUrl:
+          type: string
+        userId:
+          type: integer
+          format: int32
+    ShiftSwapSwapRecommendationResponseData:
+      type: object
+      properties:
+        shifts:
+          type: array
+          items:
+            $ref: '#/components/schemas/tenantschedulev2modelShift'
+    ShiftSwapSwapPendingApprovalRequestData:
+      type: object
+      properties:
+        locationMode:
+          $ref: '#/components/schemas/LocationMode'
+        locationIds:
+          type: array
+          items:
+            type: integer
+            format: int32
+          title: this is required when locationMode is SELECTED
+        cursor:
+          type: string
+        limit:
+          type: integer
+          format: int32
+          title: default to 10
+    ConsentConsentStatus:
+      type: string
+      enum:
+      - PENDING
+      - ACCEPTED
+      - DECLINED
+      - CANCELLED
+      - OVERRIDDEN_ACCEPTED
+      default: PENDING
+    modelViolatedRulesWarning:
+      type: object
+      properties:
+        message:
+          type: string
+    modelSlotType:
+      type: string
+      enum:
+      - BREAK
+      - WORK
+      - CUSTOM
+      default: BREAK
+      title: Type of Slot
+    ShiftSwapSwapPendingResponseMetadataLocation:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        name:
+          type: string
+    ShiftSwapSwapRecommendationResponseMetadataArea:
       type: object
       properties:
         id:
@@ -170,68 +237,14 @@ components:
         locationId:
           type: integer
           format: int32
-    modelBreak:
-      type: object
-      properties:
-        slotType:
-          $ref: '#/components/schemas/modelSlotType'
-          title: type of slot
-        start:
-          type: integer
-          format: int32
-          title: can start break after seconds passed after shift start
-        end:
-          type: integer
-          format: int32
-          title: can end break after seconds passed after shift start
-        state:
-          $ref: '#/components/schemas/modelBreakState'
-          title: Break state
-        canStartEarly:
-          type: boolean
-          title: '[Deprecated] can employee start break early, override shift template'
-        canEndEarly:
-          type: boolean
-          title: '[Deprecated] can employee end break early, override shift template'
-        isMandatory:
-          type: boolean
-          title: '[Deprecated] is it mandatory to take this break, override shift template'
-        type:
-          $ref: '#/components/schemas/tenantsharedv2modelBreakType'
-          title: type of break
-        typeLabel:
-          type: string
-          title: break type name in config
-        startDateTime:
-          type: string
-          title: format ISO8601 eg 2024-06-25T13:45:00+01:00
-        endDateTime:
-          type: string
-          title: format ISO8601 eg 2024-06-25T13:45:00+01:00
-    modelBreakState:
+    modelConfirmationStatus:
       type: string
       enum:
-      - NOT_START
-      - IN_PROGRESS
-      - FINISHED
-      - DURATION_ONLY
-      - DURATION_FINISHED
-      default: NOT_START
-      title: Break States
-    ShiftSwapSwapConfirmResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        data:
-          $ref: '#/components/schemas/ShiftSwapSwapConfirmResponseData'
-    modelMultiListField:
-      type: object
-      properties:
-        value:
-          type: array
-          items:
-            type: string
+      - ROSTER_CONFIRMATION_NOT_REQUIRED
+      - ROSTER_CONFIRMATION_REQUIRED
+      - ROSTER_CONFIRMATION_DONE
+      - ROSTER_CONFIRMATION_DECLINED
+      default: ROSTER_CONFIRMATION_NOT_REQUIRED
     modelConsent:
       type: object
       properties:
@@ -258,48 +271,90 @@ components:
         createdAt:
           type: string
           format: date-time
-    modelShiftTypeConsentMetadata:
+    ShiftConsentChangesetShiftConsentChangesetData:
       type: object
       properties:
-        comment:
+        start:
           type: string
-        extras:
-          type: object
-          additionalProperties:
-            type: string
-    ShiftSwapSwapRecommendationResponseMetadataLocation:
+        end:
+          type: string
+        approvalRequired:
+          type: boolean
+        cost:
+          type: number
+          format: float
+        date:
+          type: string
+        employee:
+          type: integer
+          format: int32
+        mealbreakSlotsUnpaidMinutes:
+          type: number
+          format: float
+        mealbreakSlots:
+          type: array
+          items:
+            $ref: '#/components/schemas/modelBreak'
+        isOpen:
+          type: boolean
+        area:
+          type: integer
+          format: int32
+        duration:
+          type: number
+          format: float
+        location:
+          type: integer
+          format: int32
+    ShiftSwapSwapPendingResponseData:
       type: object
       properties:
         id:
           type: integer
           format: int32
-        name:
-          type: string
-    ShiftSwapSwapPendingApprovalRequestData:
-      type: object
-      properties:
-        locationMode:
-          $ref: '#/components/schemas/LocationMode'
-        locationIds:
-          type: array
-          items:
-            type: integer
-            format: int32
-          title: this is required when locationMode is SELECTED
-        cursor:
-          type: string
-        limit:
+        sourceShift:
+          $ref: '#/components/schemas/tenantschedulev2modelShift'
+        targetShift:
+          $ref: '#/components/schemas/tenantschedulev2modelShift'
+        creatorId:
           type: integer
           format: int32
-          title: default to 10
-    tenantsharedv2modelBreakType:
+        targetEmployeeId:
+          type: integer
+          format: int32
+        requestMessage:
+          type: string
+        responseMessage:
+          type: string
+        status:
+          type: string
+        createdAt:
+          type: string
+        modifiedAt:
+          type: string
+      title: data will be sorted by source shift start time and ID in ascending order
+    ShiftConsentChangesetShiftConsentAction:
       type: string
       enum:
-      - MEAL_BREAK
-      - REST_BREAK
-      default: MEAL_BREAK
-      title: Break Type
-    ShiftSwapSwapPendingResponseMetadataEmployeeProfile:
+      - CREATE
+      - MODIFY
+      - DELETE
+      default: CREATE
+    LocationMode:
+      type: string
+      enum:
+      - ALL
+      - SELECTED
+      default: ALL
+      description: "LocationMode specifies how location filtering should be applied.\n\n - ALL: Include all locations accessible by the current user (no filtering)\n - SELECTED: Filter to only selected locations (requires locationIds to be provided)"
+    ShiftConsentChangesetShiftConsentStatus:
+      type: string
+      enum:
+      - PENDING
+      - ACTIONED
+      - AUTO_ACTIONED
+      default: PENDING
+    ShiftSwapSwapRecommendationResponseMetadataEmployeeProfile:
       type: object
       properties:
         id:
@@ -309,9 +364,216 @@ components:
           type: string
         photoUrl:
           type: string
-        userId:
+    SwapConfirmResponseErrors:
+      type: object
+      properties:
+        shiftId:
           type: integer
           format: int32
+        messages:
+          type: array
+          items:
+            type: string
+        canOverride:
+          type: boolean
+    ShiftSwapSwapConfirmRequestData:
+      type: object
+      properties:
+        sourceShiftIds:
+          type: array
+          items:
+            type: integer
+            format: int32
+        targetShiftIds:
+          type: array
+          items:
+            type: integer
+            format: int32
+        role:
+          $ref: '#/components/schemas/v2modelRole'
+        trial:
+          type: boolean
+        override:
+          type: boolean
+    v2GetPendingSwapShiftsResponse:
+      type: object
+      properties:
+        shifts:
+          type: array
+          items:
+            $ref: '#/components/schemas/tenantschedulev2modelShift'
+    v2modelChildShift:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+          title: Shift ID
+        start:
+          type: string
+          title: Shift start time, format ISO8601 eg 2012-12-18T13:45:00+01:00
+        end:
+          type: string
+          title: Shift end time, format ISO8601 eg 2012-12-18T13:45:00+01:00
+        cost:
+          type: number
+          format: float
+          title: Shift total cost
+        area:
+          type: integer
+          format: int32
+          title: Area Id where shift is allocated
+        canEdit:
+          type: boolean
+          title: Can edit this shift
+        parentId:
+          type: integer
+          format: int32
+          title: Shift parent id
+        isOpen:
+          type: boolean
+          title: If shift is open or not
+        approvalRequired:
+          type: boolean
+          title: If approval is required or not
+        isPublished:
+          type: boolean
+          title: If shift is published or not
+        confirmationStatus:
+          $ref: '#/components/schemas/modelConfirmationStatus'
+          title: Child shift confirmation status
+        confirmedByWhom:
+          type: integer
+          format: int32
+          title: Employee who confirmed the child shift
+        confirmedAt:
+          type: string
+          title: Shift confirmation time, format ISO8601 eg 2012-12-18T13:45:00+01:00
+        creator:
+          type: integer
+          format: int32
+          title: Employee ID who created shift
+        createdAt:
+          type: string
+          title: When the shift was created, format ISO8601 eg 2012-12-18T13:45:00+01:00
+        modifiedAt:
+          type: string
+          title: When the shift was modified, format ISO8601 eg 2012-12-18T13:45:00+01:00
+        warning:
+          type: string
+        warningOverrideComment:
+          type: string
+        areaName:
+          type: string
+          title: Area name
+        location:
+          type: integer
+          format: int32
+          title: Location Id
+        locationName:
+          type: string
+          title: Location name
+      title: Child Shift
+    ShiftSwapSwapRecommendationRequestData:
+      type: object
+      properties:
+        shiftIds:
+          type: array
+          items:
+            type: integer
+            format: int32
+        employeeIds:
+          type: array
+          items:
+            type: integer
+            format: int32
+        limit:
+          type: integer
+          format: int32
+        cursor:
+          type: string
+        expandMetadata:
+          type: boolean
+          title: whether to expand metadata in response to include locations, areas, and employee profiles
+    modelBooleanField:
+      type: object
+      properties:
+        value:
+          type: boolean
+          default: 'false'
+    ShiftSwapSwapRecommendationResponseMetadata:
+      type: object
+      properties:
+        nextCursor:
+          type: string
+        locations:
+          type: array
+          items:
+            $ref: '#/components/schemas/ShiftSwapSwapRecommendationResponseMetadataLocation'
+        areas:
+          type: array
+          items:
+            $ref: '#/components/schemas/ShiftSwapSwapRecommendationResponseMetadataArea'
+        employeeProfiles:
+          type: array
+          items:
+            $ref: '#/components/schemas/ShiftSwapSwapRecommendationResponseMetadataEmployeeProfile'
+    modelSwapStatus:
+      type: string
+      enum:
+      - SWAP_STATUS_NOT_REQUIRED
+      - SWAP_STATUS_PENDING_OUT
+      - SWAP_STATUS_PENDING_IN
+      - SWAP_STATUS_PENDING_IN_OUT
+      - SWAP_STATUS_PENDING_APPROVAL
+      - SWAP_STATUS_APPROVED
+      - SWAP_STATUS_CANCELLED
+      - SWAP_STATUS_DECLINED
+      default: SWAP_STATUS_NOT_REQUIRED
+    modelViolatedRules:
+      type: object
+      properties:
+        ruleCode:
+          type: string
+        warning:
+          $ref: '#/components/schemas/modelViolatedRulesWarning'
+        ruleConfigs:
+          type: array
+          items:
+            $ref: '#/components/schemas/modelViolatedRulesRuleConfig'
+    ShiftSwapSwapConfirmResponseData:
+      type: object
+      properties:
+        shifts:
+          type: array
+          items:
+            $ref: '#/components/schemas/tenantschedulev2modelShift'
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/SwapConfirmResponseErrors'
+        swapCost:
+          type: number
+          format: float
+          title: swap cost after swap is greater than before, swapCost is negative
+    modelViolatedRulesOperation:
+      type: string
+      enum:
+      - NOT_SPECIFIED
+      - GREATER_THAN
+      - LESS_THAN
+      - GREATER_THAN_OR_EQUAL
+      - LESS_THAN_OR_EQUAL
+      - EQUAL
+      - NOT_EQUAL
+      default: NOT_SPECIFIED
+    tenantsharedv2modelBreakType:
+      type: string
+      enum:
+      - MEAL_BREAK
+      - REST_BREAK
+      default: MEAL_BREAK
+      title: Break Type
     tenantschedulev2modelShift:
       type: object
       properties:
@@ -439,86 +701,81 @@ components:
           type: string
           title: Location name
       title: Shift
-    ShiftConsentChangesetShiftConsentChangesetData:
-      type: object
-      properties:
-        start:
-          type: string
-        end:
-          type: string
-        approvalRequired:
-          type: boolean
-        cost:
-          type: number
-          format: float
-        date:
-          type: string
-        employee:
-          type: integer
-          format: int32
-        mealbreakSlotsUnpaidMinutes:
-          type: number
-          format: float
-        mealbreakSlots:
-          type: array
-          items:
-            $ref: '#/components/schemas/modelBreak'
-        isOpen:
-          type: boolean
-        area:
-          type: integer
-          format: int32
-        duration:
-          type: number
-          format: float
-        location:
-          type: integer
-          format: int32
-    ShiftSwapSwapConfirmResponseData:
-      type: object
-      properties:
-        shifts:
-          type: array
-          items:
-            $ref: '#/components/schemas/tenantschedulev2modelShift'
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/SwapConfirmResponseErrors'
-        swapCost:
-          type: number
-          format: float
-          title: swap cost after swap is greater than before, swapCost is negative
-    modelFileField:
-      type: object
-      properties:
-        value:
-          type: integer
-          format: int32
-    ShiftSwapSwapRecommendationResponseMetadataEmployeeProfile:
+    ShiftSwapSwapPendingResponseMetadataArea:
       type: object
       properties:
         id:
           type: integer
           format: int32
-        displayName:
+        name:
           type: string
-        photoUrl:
+        locationId:
+          type: integer
+          format: int32
+    ConsentConsentRecordType:
+      type: string
+      enum:
+      - SHIFT
+      - TIMESHEET
+      - REGULAR_SCHEDULE
+      default: SHIFT
+    ShiftSwapSwapDeclineRequestData:
+      type: object
+      properties:
+        sourceShiftIds:
+          type: array
+          items:
+            type: integer
+            format: int32
+        targetShiftIds:
+          type: array
+          items:
+            type: integer
+            format: int32
+        message:
           type: string
-    ShiftSwapSwapRecommendationResponseData:
+        role:
+          $ref: '#/components/schemas/v2modelRole'
+    ShiftSwapSwapPendingResponseMetadata:
+      type: object
+      properties:
+        nextCursor:
+          type: string
+        locations:
+          type: array
+          items:
+            $ref: '#/components/schemas/ShiftSwapSwapPendingResponseMetadataLocation'
+        areas:
+          type: array
+          items:
+            $ref: '#/components/schemas/ShiftSwapSwapPendingResponseMetadataArea'
+        employeeProfiles:
+          type: array
+          items:
+            $ref: '#/components/schemas/ShiftSwapSwapPendingResponseMetadataEmployeeProfile'
+        totalCount:
+          type: string
+    modelStringField:
+      type: object
+      properties:
+        value:
+          type: string
+    ShiftSwapSwapDeclineResponseData:
       type: object
       properties:
         shifts:
           type: array
           items:
             $ref: '#/components/schemas/tenantschedulev2modelShift'
-    ShiftConsentChangesetShiftConsentStatus:
-      type: string
-      enum:
-      - PENDING
-      - ACTIONED
-      - AUTO_ACTIONED
-      default: PENDING
+    ShiftSwapSwapRecommendationResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          $ref: '#/components/schemas/ShiftSwapSwapRecommendationResponseData'
+        metadata:
+          $ref: '#/components/schemas/ShiftSwapSwapRecommendationResponseMetadata'
     tenantsharedv2modelCustomField:
       type: object
       properties:
@@ -538,217 +795,44 @@ components:
           title: file id
         employeeVisible:
           type: boolean
-    ShiftSwapSwapRecommendationResponse:
+    ShiftSwapSwapDeclineResponse:
       type: object
       properties:
         success:
           type: boolean
         data:
-          $ref: '#/components/schemas/ShiftSwapSwapRecommendationResponseData'
+          $ref: '#/components/schemas/ShiftSwapSwapDeclineResponseData'
+    modelBreakState:
+      type: string
+      enum:
+      - NOT_START
+      - IN_PROGRESS
+      - FINISHED
+      - DURATION_ONLY
+      - DURATION_FINISHED
+      default: NOT_START
+      title: Break States
+    ShiftSwapSwapPendingResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/ShiftSwapSwapPendingResponseData'
         metadata:
-          $ref: '#/components/schemas/ShiftSwapSwapRecommendationResponseMetadata'
-    ShiftSwapSwapConfirmRequestData:
+          $ref: '#/components/schemas/ShiftSwapSwapPendingResponseMetadata'
+    modelShiftTypeConsentMetadata:
       type: object
       properties:
-        sourceShiftIds:
-          type: array
-          items:
-            type: integer
-            format: int32
-        targetShiftIds:
-          type: array
-          items:
-            type: integer
-            format: int32
-        role:
-          $ref: '#/components/schemas/v2modelRole'
-        trial:
-          type: boolean
-        override:
-          type: boolean
-    LocationMode:
-      type: string
-      enum:
-      - ALL
-      - SELECTED
-      default: ALL
-      description: "LocationMode specifies how location filtering should be applied.\n\n - ALL: Include all locations accessible by the current user (no filtering)\n - SELECTED: Filter to only selected locations (requires locationIds to be provided)"
-    modelViolatedRulesWarning:
-      type: object
-      properties:
-        message:
+        comment:
           type: string
-    ShiftSwapSwapDeclineRequestData:
-      type: object
-      properties:
-        sourceShiftIds:
-          type: array
-          items:
-            type: integer
-            format: int32
-        targetShiftIds:
-          type: array
-          items:
-            type: integer
-            format: int32
-        message:
-          type: string
-        role:
-          $ref: '#/components/schemas/v2modelRole'
-    ShiftSwapSwapRecommendationRequestData:
-      type: object
-      properties:
-        shiftIds:
-          type: array
-          items:
-            type: integer
-            format: int32
-        employeeIds:
-          type: array
-          items:
-            type: integer
-            format: int32
-        limit:
-          type: integer
-          format: int32
-        cursor:
-          type: string
-        expandMetadata:
-          type: boolean
-          title: whether to expand metadata in response to include locations, areas, and employee profiles
-    v2modelChildShift:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int32
-          title: Shift ID
-        start:
-          type: string
-          title: Shift start time, format ISO8601 eg 2012-12-18T13:45:00+01:00
-        end:
-          type: string
-          title: Shift end time, format ISO8601 eg 2012-12-18T13:45:00+01:00
-        cost:
-          type: number
-          format: float
-          title: Shift total cost
-        area:
-          type: integer
-          format: int32
-          title: Area Id where shift is allocated
-        canEdit:
-          type: boolean
-          title: Can edit this shift
-        parentId:
-          type: integer
-          format: int32
-          title: Shift parent id
-        isOpen:
-          type: boolean
-          title: If shift is open or not
-        approvalRequired:
-          type: boolean
-          title: If approval is required or not
-        isPublished:
-          type: boolean
-          title: If shift is published or not
-        confirmationStatus:
-          $ref: '#/components/schemas/modelConfirmationStatus'
-          title: Child shift confirmation status
-        confirmedByWhom:
-          type: integer
-          format: int32
-          title: Employee who confirmed the child shift
-        confirmedAt:
-          type: string
-          title: Shift confirmation time, format ISO8601 eg 2012-12-18T13:45:00+01:00
-        creator:
-          type: integer
-          format: int32
-          title: Employee ID who created shift
-        createdAt:
-          type: string
-          title: When the shift was created, format ISO8601 eg 2012-12-18T13:45:00+01:00
-        modifiedAt:
-          type: string
-          title: When the shift was modified, format ISO8601 eg 2012-12-18T13:45:00+01:00
-        warning:
-          type: string
-        warningOverrideComment:
-          type: string
-        areaName:
-          type: string
-          title: Area name
-        location:
-          type: integer
-          format: int32
-          title: Location Id
-        locationName:
-          type: string
-          title: Location name
-      title: Child Shift
-    ShiftSwapSwapPendingResponseData:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int32
-        sourceShift:
-          $ref: '#/components/schemas/tenantschedulev2modelShift'
-        targetShift:
-          $ref: '#/components/schemas/tenantschedulev2modelShift'
-        creatorId:
-          type: integer
-          format: int32
-        targetEmployeeId:
-          type: integer
-          format: int32
-        requestMessage:
-          type: string
-        responseMessage:
-          type: string
-        status:
-          type: string
-        createdAt:
-          type: string
-        modifiedAt:
-          type: string
-      title: data will be sorted by source shift start time and ID in ascending order
-    ShiftConsentChangesetShiftConsentAction:
-      type: string
-      enum:
-      - CREATE
-      - MODIFY
-      - DELETE
-      default: CREATE
-    v2GetPendingSwapShiftsResponse:
-      type: object
-      properties:
-        shifts:
-          type: array
-          items:
-            $ref: '#/components/schemas/tenantschedulev2modelShift'
-    modelConfirmationStatus:
-      type: string
-      enum:
-      - ROSTER_CONFIRMATION_NOT_REQUIRED
-      - ROSTER_CONFIRMATION_REQUIRED
-      - ROSTER_CONFIRMATION_DONE
-      - ROSTER_CONFIRMATION_DECLINED
-      default: ROSTER_CONFIRMATION_NOT_REQUIRED
-    modelStringField:
-      type: object
-      properties:
-        value:
-          type: string
-    modelBooleanField:
-      type: object
-      properties:
-        value:
-          type: boolean
-          default: 'false'
-    ShiftSwapSwapPendingResponseMetadataLocation:
+        extras:
+          type: object
+          additionalProperties:
+            type: string
+    ShiftSwapSwapRecommendationResponseMetadataLocation:
       type: object
       properties:
         id:
@@ -756,6 +840,13 @@ components:
           format: int32
         name:
           type: string
+    modelMultiListField:
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            type: string
     modelShiftConsentChangeset:
       type: object
       properties:
@@ -790,21 +881,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/modelConsent'
-    ShiftSwapSwapDeclineResponseData:
-      type: object
-      properties:
-        shifts:
-          type: array
-          items:
-            $ref: '#/components/schemas/tenantschedulev2modelShift'
-    modelSlotType:
-      type: string
-      enum:
-      - BREAK
-      - WORK
-      - CUSTOM
-      default: BREAK
-      title: Type of Slot
     modelViolatedRulesRuleConfig:
       type: object
       properties:
@@ -825,144 +901,68 @@ components:
           type: integer
           format: int32
           title: The duration from the next or previous shift to the current shift in seconds
-    SwapConfirmResponseErrors:
+    modelBreak:
       type: object
       properties:
-        shiftId:
+        slotType:
+          $ref: '#/components/schemas/modelSlotType'
+          title: type of slot
+        start:
           type: integer
           format: int32
-        messages:
-          type: array
-          items:
-            type: string
-        canOverride:
+          title: can start break after seconds passed after shift start
+        end:
+          type: integer
+          format: int32
+          title: can end break after seconds passed after shift start
+        state:
+          $ref: '#/components/schemas/modelBreakState'
+          title: Break state
+        canStartEarly:
           type: boolean
-    modelSwapStatus:
-      type: string
-      enum:
-      - SWAP_STATUS_NOT_REQUIRED
-      - SWAP_STATUS_PENDING_OUT
-      - SWAP_STATUS_PENDING_IN
-      - SWAP_STATUS_PENDING_IN_OUT
-      - SWAP_STATUS_PENDING_APPROVAL
-      - SWAP_STATUS_APPROVED
-      - SWAP_STATUS_CANCELLED
-      - SWAP_STATUS_DECLINED
-      default: SWAP_STATUS_NOT_REQUIRED
-    ShiftSwapSwapPendingResponse:
+          title: '[Deprecated] can employee start break early, override shift template'
+        canEndEarly:
+          type: boolean
+          title: '[Deprecated] can employee end break early, override shift template'
+        isMandatory:
+          type: boolean
+          title: '[Deprecated] is it mandatory to take this break, override shift template'
+        type:
+          $ref: '#/components/schemas/tenantsharedv2modelBreakType'
+          title: type of break
+        typeLabel:
+          type: string
+          title: break type name in config
+        startDateTime:
+          type: string
+          title: format ISO8601 eg 2024-06-25T13:45:00+01:00
+        endDateTime:
+          type: string
+          title: format ISO8601 eg 2024-06-25T13:45:00+01:00
+    modelListField:
+      type: object
+      properties:
+        value:
+          type: string
+    ShiftSwapSwapConfirmResponse:
       type: object
       properties:
         success:
           type: boolean
         data:
-          type: array
-          items:
-            $ref: '#/components/schemas/ShiftSwapSwapPendingResponseData'
-        metadata:
-          $ref: '#/components/schemas/ShiftSwapSwapPendingResponseMetadata'
-    ShiftSwapSwapDeclineResponse:
+          $ref: '#/components/schemas/ShiftSwapSwapConfirmResponseData'
+    modelFileField:
       type: object
       properties:
-        success:
-          type: boolean
-        data:
-          $ref: '#/components/schemas/ShiftSwapSwapDeclineResponseData'
-    modelViolatedRules:
-      type: object
-      properties:
-        ruleCode:
-          type: string
-        warning:
-          $ref: '#/components/schemas/modelViolatedRulesWarning'
-        ruleConfigs:
-          type: array
-          items:
-            $ref: '#/components/schemas/modelViolatedRulesRuleConfig'
-    ConsentConsentStatus:
-      type: string
-      enum:
-      - PENDING
-      - ACCEPTED
-      - DECLINED
-      - CANCELLED
-      - OVERRIDDEN_ACCEPTED
-      default: PENDING
-    ShiftSwapSwapPendingResponseMetadata:
-      type: object
-      properties:
-        nextCursor:
-          type: string
-        locations:
-          type: array
-          items:
-            $ref: '#/components/schemas/ShiftSwapSwapPendingResponseMetadataLocation'
-        areas:
-          type: array
-          items:
-            $ref: '#/components/schemas/ShiftSwapSwapPendingResponseMetadataArea'
-        employeeProfiles:
-          type: array
-          items:
-            $ref: '#/components/schemas/ShiftSwapSwapPendingResponseMetadataEmployeeProfile'
-        totalCount:
-          type: string
+        value:
+          type: integer
+          format: int32
     v2modelRole:
       type: string
       enum:
       - EMPLOYEE
       - MANAGER
       default: EMPLOYEE
-    modelListField:
-      type: object
-      properties:
-        value:
-          type: string
-    modelViolatedRulesOperation:
-      type: string
-      enum:
-      - NOT_SPECIFIED
-      - GREATER_THAN
-      - LESS_THAN
-      - GREATER_THAN_OR_EQUAL
-      - LESS_THAN_OR_EQUAL
-      - EQUAL
-      - NOT_EQUAL
-      default: NOT_SPECIFIED
-    ShiftSwapSwapRecommendationResponseMetadataArea:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int32
-        name:
-          type: string
-        locationId:
-          type: integer
-          format: int32
-    ConsentConsentRecordType:
-      type: string
-      enum:
-      - SHIFT
-      - TIMESHEET
-      - REGULAR_SCHEDULE
-      default: SHIFT
-    ShiftSwapSwapRecommendationResponseMetadata:
-      type: object
-      properties:
-        nextCursor:
-          type: string
-        locations:
-          type: array
-          items:
-            $ref: '#/components/schemas/ShiftSwapSwapRecommendationResponseMetadataLocation'
-        areas:
-          type: array
-          items:
-            $ref: '#/components/schemas/ShiftSwapSwapRecommendationResponseMetadataArea'
-        employeeProfiles:
-          type: array
-          items:
-            $ref: '#/components/schemas/ShiftSwapSwapRecommendationResponseMetadataEmployeeProfile'
   securitySchemes:
     ApiToken:
       type: apiKey

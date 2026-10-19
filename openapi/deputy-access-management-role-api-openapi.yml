@@ -114,6 +114,35 @@ paths:
               $ref: '#/components/schemas/v2AccessManagementUpdateRoleRequest'
 components:
   schemas:
+    v2AccessManagementUpdateRoleRequest:
+      type: object
+      properties:
+        roleId:
+          type: integer
+          format: int32
+          title: Role ID (required)
+        name:
+          type: string
+          title: Role name (required, must be unique)
+        reportsTo:
+          type: integer
+          format: int32
+          title: Reports To role ID (required, 0 for top-level)
+        alsoReportsTo:
+          type: array
+          items:
+            type: integer
+            format: int32
+          title: Also Reports To role IDs (optional)
+        require2fa:
+          type: boolean
+          title: Whether 2FA is required for this role
+        privileges:
+          type: array
+          items:
+            type: string
+          title: Privileges to assign to the role
+      title: Request to update an employee role
     modelEmployeeRoleOperations:
       type: object
       properties:
@@ -132,36 +161,6 @@ components:
         viewHistory:
           type: boolean
           title: Indicates if the History of the Role can be viewed
-    AccessManagementCreateRoleResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        role:
-          $ref: '#/components/schemas/tenantauthv2modelEmployeeRole'
-        error:
-          type: string
-      title: Response for creating a role
-    v2AccessManagementUpdateRoleResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        message:
-          type: string
-        role:
-          $ref: '#/components/schemas/tenantauthv2modelEmployeeRole'
-      title: Response for updating an employee role
-    AccessManagementListRoleResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        roles:
-          type: array
-          items:
-            $ref: '#/components/schemas/tenantauthv2modelEmployeeRole'
-      title: Response to list all available roles
     tenantauthv2modelEmployeeRole:
       type: object
       properties:
@@ -213,6 +212,22 @@ components:
           type: boolean
           title: Indicates if the Role can be included in another role's "report to" or "also reports to" list
       title: Role is assigned to employees and has permissions
+    AccessManagementCreateRoleResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        role:
+          $ref: '#/components/schemas/tenantauthv2modelEmployeeRole'
+        error:
+          type: string
+      title: Response for creating a role
+    AccessManagementDeleteRoleResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+      title: Response for deleting an employee role
     AccessManagementCreateRoleRequest:
       type: object
       properties:
@@ -237,41 +252,26 @@ components:
           format: int32
           title: 'Optional: Role ID to copy privileges from (for duplicating roles)'
       title: Request to create a new role
-    AccessManagementDeleteRoleResponse:
+    AccessManagementListRoleResponse:
       type: object
       properties:
         success:
           type: boolean
-      title: Response for deleting an employee role
-    v2AccessManagementUpdateRoleRequest:
+        roles:
+          type: array
+          items:
+            $ref: '#/components/schemas/tenantauthv2modelEmployeeRole'
+      title: Response to list all available roles
+    v2AccessManagementUpdateRoleResponse:
       type: object
       properties:
-        roleId:
-          type: integer
-          format: int32
-          title: Role ID (required)
-        name:
-          type: string
-          title: Role name (required, must be unique)
-        reportsTo:
-          type: integer
-          format: int32
-          title: Reports To role ID (required, 0 for top-level)
-        alsoReportsTo:
-          type: array
-          items:
-            type: integer
-            format: int32
-          title: Also Reports To role IDs (optional)
-        require2fa:
+        success:
           type: boolean
-          title: Whether 2FA is required for this role
-        privileges:
-          type: array
-          items:
-            type: string
-          title: Privileges to assign to the role
-      title: Request to update an employee role
+        message:
+          type: string
+        role:
+          $ref: '#/components/schemas/tenantauthv2modelEmployeeRole'
+      title: Response for updating an employee role
   securitySchemes:
     ApiToken:
       type: apiKey

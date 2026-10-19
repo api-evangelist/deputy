@@ -41,15 +41,6 @@ paths:
       description: Get setting.
 components:
   schemas:
-    BusinessSettingGetSettingResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        settings:
-          type: array
-          items:
-            $ref: '#/components/schemas/modelSetting'
     modelSetting:
       type: object
       properties:
@@ -61,6 +52,15 @@ components:
           type: string
         displayValue:
           type: string
+    BusinessSettingGetSettingResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        settings:
+          type: array
+          items:
+            $ref: '#/components/schemas/modelSetting'
   securitySchemes:
     ApiToken:
       type: apiKey

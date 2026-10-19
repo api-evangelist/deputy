@@ -105,48 +105,6 @@ paths:
               $ref: '#/components/schemas/EmployeeDataFixDataUpdateWorkplaceAgreementRequest'
 components:
   schemas:
-    EmployeeDataFixDataUpdateWorkplaceAgreementResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        updatedCount:
-          type: string
-          format: int64
-    EmployeeDataFixDataSyncEmployeeAgreementCompanyResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-    EmployeeDataFixDataSyncEmployeeAgreementCompanyRequest:
-      type: object
-      properties:
-        workplaceIds:
-          type: array
-          items:
-            type: string
-            format: int64
-    EmployeeDataFixDataUpdateWorkplaceAgreementRequest:
-      type: object
-      properties:
-        workplaces:
-          type: array
-          items:
-            $ref: '#/components/schemas/EmployeeDataFixDataUpdateWorkplaceAgreementWorkplace'
-    EmployeeDataFixDataSetEffectiveDateResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-    EmployeeDataFixDataSyncWorkplaceAgreementRequest:
-      type: object
-      properties:
-        employeeIds:
-          type: array
-          items:
-            type: string
-            format: int64
-      title: input/output messages for workplace agreement sync
     EmployeeDataFixDataSetEffectiveDateRequest:
       type: object
       properties:
@@ -160,6 +118,22 @@ components:
       properties:
         success:
           type: boolean
+    EmployeeDataFixDataSyncWorkplaceAgreementRequest:
+      type: object
+      properties:
+        employeeIds:
+          type: array
+          items:
+            type: string
+            format: int64
+      title: input/output messages for workplace agreement sync
+    EmployeeDataFixDataUpdateWorkplaceAgreementRequest:
+      type: object
+      properties:
+        workplaces:
+          type: array
+          items:
+            $ref: '#/components/schemas/EmployeeDataFixDataUpdateWorkplaceAgreementWorkplace'
     EmployeeDataFixDataUpdateWorkplaceAgreementWorkplace:
       type: object
       properties:
@@ -172,6 +146,32 @@ components:
         agreementId:
           type: string
           format: int64
+    EmployeeDataFixDataSetEffectiveDateResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+    EmployeeDataFixDataUpdateWorkplaceAgreementResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        updatedCount:
+          type: string
+          format: int64
+    EmployeeDataFixDataSyncEmployeeAgreementCompanyRequest:
+      type: object
+      properties:
+        workplaceIds:
+          type: array
+          items:
+            type: string
+            format: int64
+    EmployeeDataFixDataSyncEmployeeAgreementCompanyResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
   securitySchemes:
     ApiToken:
       type: apiKey

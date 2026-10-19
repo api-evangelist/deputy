@@ -45,16 +45,6 @@ paths:
               $ref: '#/components/schemas/EmployeesShiftStatusGetStatusesRequestData'
 components:
   schemas:
-    modelEmployeeShiftStatus:
-      type: object
-      properties:
-        employeeId:
-          type: string
-          title: Employee ID as string
-        status:
-          $ref: '#/components/schemas/EmployeeShiftStatusEmployeeShiftStatusValues'
-          title: Indicates if the employee is currently on shift
-      title: Represents the shift status of an employee
     EmployeeShiftStatusEmployeeShiftStatusValues:
       type: string
       enum:
@@ -84,6 +74,16 @@ components:
           items:
             type: string
       title: List of employee IDs to get shift statuses for
+    modelEmployeeShiftStatus:
+      type: object
+      properties:
+        employeeId:
+          type: string
+          title: Employee ID as string
+        status:
+          $ref: '#/components/schemas/EmployeeShiftStatusEmployeeShiftStatusValues'
+          title: Indicates if the employee is currently on shift
+      title: Represents the shift status of an employee
   securitySchemes:
     ApiToken:
       type: apiKey

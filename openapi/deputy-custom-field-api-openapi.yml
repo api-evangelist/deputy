@@ -516,70 +516,6 @@ paths:
           description: Resource not found
 components:
   schemas:
-    CustomField:
-      type: object
-      properties:
-        Id:
-          type: integer
-        System:
-          type: string
-          maxLength: 32
-        Name:
-          type: string
-          maxLength: 64
-        ApiName:
-          type: string
-          maxLength: 64
-        DeputyField:
-          type: string
-          maxLength: 16
-        SortOrder:
-          type: integer
-        Default:
-          type: string
-          maxLength: 255
-        Type:
-          type: integer
-        DisplayTiming:
-          type: integer
-        ConditionalRules:
-          type: string
-          maxLength: 255
-        Action:
-          type: integer
-        Published:
-          type: integer
-        Valuelist:
-          type: string
-        Visible:
-          type: boolean
-        EmployeeVisible:
-          type: boolean
-        TriggerScript:
-          type: integer
-        Validation:
-          type: string
-          maxLength: 255
-        Helptext:
-          type: string
-          maxLength: 255
-        Creator:
-          type: integer
-        Created:
-          type: string
-          format: date-time
-        Modified:
-          type: string
-        TriggerScriptObject:
-          type: object
-      required:
-      - Id
-      - System
-      - Name
-      - ApiName
-      - DeputyField
-      - Type
-      - Modified
     QueryRequest:
       type: object
       description: V1 Resource search payload. All fields optional; an empty body returns the first page of results.
@@ -646,6 +582,70 @@ components:
             data: 1
             type: ge
         max: 100
+    CustomField:
+      type: object
+      properties:
+        Id:
+          type: integer
+        System:
+          type: string
+          maxLength: 32
+        Name:
+          type: string
+          maxLength: 64
+        ApiName:
+          type: string
+          maxLength: 64
+        DeputyField:
+          type: string
+          maxLength: 16
+        SortOrder:
+          type: integer
+        Default:
+          type: string
+          maxLength: 255
+        Type:
+          type: integer
+        DisplayTiming:
+          type: integer
+        ConditionalRules:
+          type: string
+          maxLength: 255
+        Action:
+          type: integer
+        Published:
+          type: integer
+        Valuelist:
+          type: string
+        Visible:
+          type: boolean
+        EmployeeVisible:
+          type: boolean
+        TriggerScript:
+          type: integer
+        Validation:
+          type: string
+          maxLength: 255
+        Helptext:
+          type: string
+          maxLength: 255
+        Creator:
+          type: integer
+        Created:
+          type: string
+          format: date-time
+        Modified:
+          type: string
+        TriggerScriptObject:
+          type: object
+      required:
+      - Id
+      - System
+      - Name
+      - ApiName
+      - DeputyField
+      - Type
+      - Modified
   securitySchemes:
     BearerAuth:
       type: http

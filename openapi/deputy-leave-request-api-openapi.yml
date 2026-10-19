@@ -211,53 +211,6 @@ paths:
               $ref: '#/components/schemas/v2modelLeaveRequest'
 components:
   schemas:
-    LeaveRequestValidateLeaveRequestForApprovalResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        warnings:
-          $ref: '#/components/schemas/LeaveRequestApprovalValidationLeaveRequestWarnings'
-      title: Validate Leave Request For Approval Response
-    LeaveRequestDeleteResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-      title: Delete response
-    LeaveRequestGetUpcomingLeaveForEmployeeRequestData:
-      type: object
-      properties:
-        policyId:
-          type: string
-        startDate:
-          type: string
-        endDate:
-          type: string
-    LeaveRequestGetResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        data:
-          $ref: '#/components/schemas/v2modelLeaveRequest'
-      title: Get Leave response
-    LeaveRequestApprovalValidationLeaveRequestWarnings:
-      type: object
-      properties:
-        balanceLimits:
-          type: array
-          items:
-            $ref: '#/components/schemas/modelBalanceLimitWarning'
-        concurrentLeaveCaps:
-          $ref: '#/components/schemas/modelConcurrentLeaveCapWarning'
-    v2modelUnit:
-      type: string
-      enum:
-      - UNIT_UNKNOWN
-      - UNIT_HOUR
-      - UNIT_DAY
-      default: UNIT_UNKNOWN
     LeaveRequestGetUpcomingLeaveForEmployeeResponse:
       type: object
       properties:
@@ -278,36 +231,6 @@ components:
           items:
             $ref: '#/components/schemas/LeaveRequestGetUpcomingLeaveForEmployeeRequestData'
       title: Get Upcoming Leave For Employee Request
-    LeaveRequestCreateResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        data:
-          $ref: '#/components/schemas/v2modelLeaveRequest'
-      title: Create Leave response
-    modelAffectedDate:
-      type: object
-      properties:
-        date:
-          type: string
-          title: yyyy-mm-dd
-        employeesOnLeaveCount:
-          type: integer
-          format: int32
-          title: people already on leave that day
-    modelUpcomingLeave:
-      type: object
-      properties:
-        policyId:
-          type: string
-        days:
-          type: number
-          format: float
-        hours:
-          type: number
-          format: float
-      title: Upcoming Leave Data
     modelLeaveStatus:
       type: string
       enum:
@@ -318,6 +241,37 @@ components:
       - STATUS_DATE_APPROVED
       - STATUS_PAY_APPROVED
       default: STATUS_AWAITING
+    LeaveRequestApprovalValidationLeaveRequestWarnings:
+      type: object
+      properties:
+        balanceLimits:
+          type: array
+          items:
+            $ref: '#/components/schemas/modelBalanceLimitWarning'
+        concurrentLeaveCaps:
+          $ref: '#/components/schemas/modelConcurrentLeaveCapWarning'
+    modelBalanceLimitWarning:
+      type: object
+      properties:
+        leaveRuleId:
+          type: string
+        leaveRuleName:
+          type: string
+        leaveRuleUnit:
+          $ref: '#/components/schemas/v2modelUnit'
+        threshold:
+          type: number
+          format: double
+        exceededAmount:
+          type: number
+          format: double
+    v2modelUnit:
+      type: string
+      enum:
+      - UNIT_UNKNOWN
+      - UNIT_HOUR
+      - UNIT_DAY
+      default: UNIT_UNKNOWN
     modelConcurrentLeaveCapWarning:
       type: object
       properties:
@@ -333,6 +287,14 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/modelAffectedDate'
+    LeaveRequestGetResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          $ref: '#/components/schemas/v2modelLeaveRequest'
+      title: Get Leave response
     v2modelLeaveRequest:
       type: object
       properties:
@@ -410,21 +372,6 @@ components:
           type: boolean
           title: Indicates if the leave is the full day
       title: Leave Request
-    modelBalanceLimitWarning:
-      type: object
-      properties:
-        leaveRuleId:
-          type: string
-        leaveRuleName:
-          type: string
-        leaveRuleUnit:
-          $ref: '#/components/schemas/v2modelUnit'
-        threshold:
-          type: number
-          format: double
-        exceededAmount:
-          type: number
-          format: double
     LeaveRequestListResponse:
       type: object
       properties:
@@ -437,6 +384,41 @@ components:
         nextCursor:
           type: string
       title: Get Leave response
+    LeaveRequestDeleteResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+      title: Delete response
+    LeaveRequestCreateResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          $ref: '#/components/schemas/v2modelLeaveRequest'
+      title: Create Leave response
+    LeaveRequestGetUpcomingLeaveForEmployeeRequestData:
+      type: object
+      properties:
+        policyId:
+          type: string
+        startDate:
+          type: string
+        endDate:
+          type: string
+    modelUpcomingLeave:
+      type: object
+      properties:
+        policyId:
+          type: string
+        days:
+          type: number
+          format: float
+        hours:
+          type: number
+          format: float
+      title: Upcoming Leave Data
     LeaveRequestUpdateResponse:
       type: object
       properties:
@@ -445,6 +427,24 @@ components:
         data:
           $ref: '#/components/schemas/v2modelLeaveRequest'
       title: Update Leave response
+    modelAffectedDate:
+      type: object
+      properties:
+        date:
+          type: string
+          title: yyyy-mm-dd
+        employeesOnLeaveCount:
+          type: integer
+          format: int32
+          title: people already on leave that day
+    LeaveRequestValidateLeaveRequestForApprovalResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        warnings:
+          $ref: '#/components/schemas/LeaveRequestApprovalValidationLeaveRequestWarnings'
+      title: Validate Leave Request For Approval Response
   securitySchemes:
     ApiToken:
       type: apiKey

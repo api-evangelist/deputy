@@ -21,6 +21,19 @@ tags:
   description: Operations on the Journal resource
 paths:
   /resource/Journal:
+    servers:
+    - url: https://{subdomain}.{region}.deputy.com/api/v1
+      description: Deputy tenant
+      variables:
+        subdomain:
+          default: your-subdomain
+        region:
+          default: deputy
+          enum:
+          - au
+          - eu
+          - na
+          - deputy
     get:
       tags:
       - Journal
@@ -105,6 +118,7 @@ paths:
       security:
       - BearerAuth: []
       - OAuth2: []
+  /resource/Journal/BULK:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -118,7 +132,6 @@ paths:
           - eu
           - na
           - deputy
-  /resource/Journal/BULK:
     post:
       tags:
       - Journal
@@ -153,6 +166,7 @@ paths:
       security:
       - BearerAuth: []
       - OAuth2: []
+  /resource/Journal/INFO:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -166,7 +180,6 @@ paths:
           - eu
           - na
           - deputy
-  /resource/Journal/INFO:
     get:
       tags:
       - Journal
@@ -191,6 +204,7 @@ paths:
       security:
       - BearerAuth: []
       - OAuth2: []
+  /resource/Journal/PREDICT:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -204,7 +218,6 @@ paths:
           - eu
           - na
           - deputy
-  /resource/Journal/PREDICT:
     post:
       tags:
       - Journal
@@ -235,6 +248,7 @@ paths:
       security:
       - BearerAuth: []
       - OAuth2: []
+  /resource/Journal/QUERY:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -248,7 +262,6 @@ paths:
           - eu
           - na
           - deputy
-  /resource/Journal/QUERY:
     post:
       tags:
       - Journal
@@ -281,6 +294,7 @@ paths:
       security:
       - BearerAuth: []
       - OAuth2: []
+  /resource/Journal/{id}:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -294,7 +308,6 @@ paths:
           - eu
           - na
           - deputy
-  /resource/Journal/{id}:
     get:
       tags:
       - Journal
@@ -430,6 +443,7 @@ paths:
       security:
       - BearerAuth: []
       - OAuth2: []
+  /resource/Journal/{id}/COMMENTS:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -443,7 +457,6 @@ paths:
           - eu
           - na
           - deputy
-  /resource/Journal/{id}/COMMENTS:
     get:
       tags:
       - Journal
@@ -527,6 +540,7 @@ paths:
       security:
       - BearerAuth: []
       - OAuth2: []
+  /resource/Journal/{id}/COMMENTS/{commentId}:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -540,7 +554,6 @@ paths:
           - eu
           - na
           - deputy
-  /resource/Journal/{id}/COMMENTS/{commentId}:
     delete:
       tags:
       - Journal
@@ -579,6 +592,7 @@ paths:
       security:
       - BearerAuth: []
       - OAuth2: []
+  /resource/Journal/{id}/HISTORY:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -592,7 +606,6 @@ paths:
           - eu
           - na
           - deputy
-  /resource/Journal/{id}/HISTORY:
     get:
       tags:
       - Journal
@@ -625,6 +638,7 @@ paths:
       security:
       - BearerAuth: []
       - OAuth2: []
+  /resource/Journal/{id}/HISTORY/travel/{timestamp}:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -638,7 +652,6 @@ paths:
           - eu
           - na
           - deputy
-  /resource/Journal/{id}/HISTORY/travel/{timestamp}:
     get:
       tags:
       - Journal
@@ -676,6 +689,7 @@ paths:
       security:
       - BearerAuth: []
       - OAuth2: []
+  /supervise/journal:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -689,7 +703,6 @@ paths:
           - eu
           - na
           - deputy
-  /supervise/journal:
     post:
       tags:
       - Journal
@@ -718,6 +731,7 @@ paths:
               type: object
       security:
       - BearerAuth: []
+  /supervise/journal/{date}:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -731,7 +745,6 @@ paths:
           - eu
           - na
           - deputy
-  /supervise/journal/{date}:
     get:
       tags:
       - Journal
@@ -760,21 +773,36 @@ paths:
           type: string
       security:
       - BearerAuth: []
-    servers:
-    - url: https://{subdomain}.{region}.deputy.com/api/v1
-      description: Deputy tenant
-      variables:
-        subdomain:
-          default: your-subdomain
-        region:
-          default: deputy
-          enum:
-          - au
-          - eu
-          - na
-          - deputy
 components:
   schemas:
+    Journal:
+      type: object
+      properties:
+        Id:
+          type: integer
+        Date:
+          type: string
+          format: date-time
+        EmployeeId:
+          type: integer
+        Comment:
+          type: string
+        Creator:
+          type: integer
+        Created:
+          type: string
+          format: date-time
+        Modified:
+          type: string
+        Employee:
+          type: object
+        CreatorObject:
+          type: object
+      required:
+      - Id
+      - Date
+      - Comment
+      - Modified
     QueryRequest:
       type: object
       description: V1 Resource search payload. All fields optional; an empty body returns the first page of results.
@@ -841,34 +869,6 @@ components:
             data: 1
             type: ge
         max: 100
-    Journal:
-      type: object
-      properties:
-        Id:
-          type: integer
-        Date:
-          type: string
-          format: date-time
-        EmployeeId:
-          type: integer
-        Comment:
-          type: string
-        Creator:
-          type: integer
-        Created:
-          type: string
-          format: date-time
-        Modified:
-          type: string
-        Employee:
-          type: object
-        CreatorObject:
-          type: object
-      required:
-      - Id
-      - Date
-      - Comment
-      - Modified
   securitySchemes:
     BearerAuth:
       type: http

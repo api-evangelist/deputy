@@ -45,6 +45,197 @@ paths:
               $ref: '#/components/schemas/ScheduleShiftCheckConsentRequestData'
 components:
   schemas:
+    ScheduleShiftCheckConsentResponseOperation:
+      type: string
+      enum:
+      - NOT_SPECIFIED
+      - GREATER_THAN
+      - LESS_THAN
+      - GREATER_THAN_OR_EQUAL
+      - LESS_THAN_OR_EQUAL
+      - EQUAL
+      - NOT_EQUAL
+      default: NOT_SPECIFIED
+    modelSlotType:
+      type: string
+      enum:
+      - BREAK
+      - WORK
+      - CUSTOM
+      default: BREAK
+      title: Type of Slot
+    ScheduleShiftCheckConsentResponseAction:
+      type: string
+      enum:
+      - NOT_PROVIDED
+      - CREATE
+      - MODIFY
+      - DELETE
+      default: NOT_PROVIDED
+    ScheduleShiftCheckConsentResponseShift:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        isConsentRequired:
+          type: boolean
+        isPublishRequired:
+          type: boolean
+        violatedRules:
+          type: array
+          items:
+            $ref: '#/components/schemas/CheckConsentResponseViolatedRule'
+        action:
+          $ref: '#/components/schemas/ConsentConsentAction'
+    ScheduleShiftCheckConsentResponseData:
+      type: object
+      properties:
+        shifts:
+          type: array
+          items:
+            $ref: '#/components/schemas/ScheduleShiftCheckConsentResponseShift'
+        aggregated:
+          $ref: '#/components/schemas/CheckConsentResponseAggregated'
+    ScheduleShiftCheckConsentResponseWarning:
+      type: object
+      properties:
+        message:
+          type: string
+    ScheduleShiftCheckConsentRequestShift:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        changeset:
+          $ref: '#/components/schemas/modelChangeset'
+        action:
+          $ref: '#/components/schemas/ScheduleShiftCheckConsentRequestAction'
+    ScheduleShiftCheckConsentRequestConfig:
+      type: object
+      properties:
+        includeIsPublishRequired:
+          type: boolean
+    ConsentConsentAction:
+      type: string
+      enum:
+      - NOT_SPECIFIED
+      - DELETE
+      default: NOT_SPECIFIED
+    ScheduleShiftCheckConsentRequestAction:
+      type: string
+      enum:
+      - NOT_SPECIFIED
+      - DELETE
+      default: NOT_SPECIFIED
+    tenantsharedv2modelBreakType:
+      type: string
+      enum:
+      - MEAL_BREAK
+      - REST_BREAK
+      default: MEAL_BREAK
+      title: Break Type
+    CheckConsentResponseAggregated:
+      type: object
+      properties:
+        totalConsentRequired:
+          type: integer
+          format: int32
+    ChangesetShiftChangeset:
+      type: object
+      properties:
+        start:
+          type: string
+        end:
+          type: string
+        mealbreakSlots:
+          type: array
+          items:
+            $ref: '#/components/schemas/modelBreak'
+        employee:
+          type: integer
+          format: int32
+        area:
+          type: integer
+          format: int32
+        isOpen:
+          type: boolean
+        approvalRequired:
+          type: boolean
+    ScheduleShiftCheckConsentResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          $ref: '#/components/schemas/ScheduleShiftCheckConsentResponseData'
+    ScheduleShiftCheckConsentRequestData:
+      type: object
+      properties:
+        shifts:
+          type: array
+          items:
+            $ref: '#/components/schemas/ScheduleShiftCheckConsentRequestShift'
+        config:
+          $ref: '#/components/schemas/ScheduleShiftCheckConsentRequestConfig'
+    modelBreakState:
+      type: string
+      enum:
+      - NOT_START
+      - IN_PROGRESS
+      - FINISHED
+      - DURATION_ONLY
+      - DURATION_FINISHED
+      default: NOT_START
+      title: Break States
+    CheckConsentResponseViolatedRule:
+      type: object
+      properties:
+        ruleCode:
+          type: string
+        warning:
+          $ref: '#/components/schemas/ScheduleShiftCheckConsentResponseWarning'
+        ruleConfigs:
+          type: array
+          items:
+            $ref: '#/components/schemas/ScheduleShiftCheckConsentResponseRuleConfig'
+    ScheduleShiftCheckConsentResponseRuleConfig:
+      type: object
+      properties:
+        field:
+          type: string
+          title: What field of roster is triggering the consent
+        operation:
+          $ref: '#/components/schemas/ScheduleShiftCheckConsentResponseOperation'
+          title: What operation is used for the consent checking
+        value:
+          type: string
+          title: The value of what is compared
+        gap:
+          type: integer
+          format: int32
+          title: How many days different between the shifts
+        space:
+          type: integer
+          format: int32
+          title: The duration from the next or previous shift to the current shift in seconds
+        action:
+          $ref: '#/components/schemas/ScheduleShiftCheckConsentResponseAction'
+          title: The type of action performed on the shift, create/modify/delete
+        boundary:
+          type: string
+          title: The end boundary of consent window, i.e. either the shift start or the work period start
+        overnightGap:
+          type: integer
+          format: int32
+          title: The minimum gap in minutes from the end of the previous overnight shift to avoid triggering Clopening
+    modelChangeset:
+      type: object
+      properties:
+        newData:
+          $ref: '#/components/schemas/ChangesetShiftChangeset'
+      title: Change-set for shift
     modelBreak:
       type: object
       properties:
@@ -83,197 +274,6 @@ components:
         endDateTime:
           type: string
           title: format ISO8601 eg 2024-06-25T13:45:00+01:00
-    modelBreakState:
-      type: string
-      enum:
-      - NOT_START
-      - IN_PROGRESS
-      - FINISHED
-      - DURATION_ONLY
-      - DURATION_FINISHED
-      default: NOT_START
-      title: Break States
-    tenantsharedv2modelBreakType:
-      type: string
-      enum:
-      - MEAL_BREAK
-      - REST_BREAK
-      default: MEAL_BREAK
-      title: Break Type
-    ScheduleShiftCheckConsentResponseShift:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int32
-        isConsentRequired:
-          type: boolean
-        isPublishRequired:
-          type: boolean
-        violatedRules:
-          type: array
-          items:
-            $ref: '#/components/schemas/CheckConsentResponseViolatedRule'
-        action:
-          $ref: '#/components/schemas/ConsentConsentAction'
-    CheckConsentResponseAggregated:
-      type: object
-      properties:
-        totalConsentRequired:
-          type: integer
-          format: int32
-    ScheduleShiftCheckConsentRequestAction:
-      type: string
-      enum:
-      - NOT_SPECIFIED
-      - DELETE
-      default: NOT_SPECIFIED
-    ScheduleShiftCheckConsentRequestConfig:
-      type: object
-      properties:
-        includeIsPublishRequired:
-          type: boolean
-    ConsentConsentAction:
-      type: string
-      enum:
-      - NOT_SPECIFIED
-      - DELETE
-      default: NOT_SPECIFIED
-    ScheduleShiftCheckConsentResponseOperation:
-      type: string
-      enum:
-      - NOT_SPECIFIED
-      - GREATER_THAN
-      - LESS_THAN
-      - GREATER_THAN_OR_EQUAL
-      - LESS_THAN_OR_EQUAL
-      - EQUAL
-      - NOT_EQUAL
-      default: NOT_SPECIFIED
-    ScheduleShiftCheckConsentResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        data:
-          $ref: '#/components/schemas/ScheduleShiftCheckConsentResponseData'
-    ScheduleShiftCheckConsentResponseAction:
-      type: string
-      enum:
-      - NOT_PROVIDED
-      - CREATE
-      - MODIFY
-      - DELETE
-      default: NOT_PROVIDED
-    modelChangeset:
-      type: object
-      properties:
-        newData:
-          $ref: '#/components/schemas/ChangesetShiftChangeset'
-      title: Change-set for shift
-    modelSlotType:
-      type: string
-      enum:
-      - BREAK
-      - WORK
-      - CUSTOM
-      default: BREAK
-      title: Type of Slot
-    ScheduleShiftCheckConsentResponseRuleConfig:
-      type: object
-      properties:
-        field:
-          type: string
-          title: What field of roster is triggering the consent
-        operation:
-          $ref: '#/components/schemas/ScheduleShiftCheckConsentResponseOperation'
-          title: What operation is used for the consent checking
-        value:
-          type: string
-          title: The value of what is compared
-        gap:
-          type: integer
-          format: int32
-          title: How many days different between the shifts
-        space:
-          type: integer
-          format: int32
-          title: The duration from the next or previous shift to the current shift in seconds
-        action:
-          $ref: '#/components/schemas/ScheduleShiftCheckConsentResponseAction'
-          title: The type of action performed on the shift, create/modify/delete
-        boundary:
-          type: string
-          title: The end boundary of consent window, i.e. either the shift start or the work period start
-        overnightGap:
-          type: integer
-          format: int32
-          title: The minimum gap in minutes from the end of the previous overnight shift to avoid triggering Clopening
-    CheckConsentResponseViolatedRule:
-      type: object
-      properties:
-        ruleCode:
-          type: string
-        warning:
-          $ref: '#/components/schemas/ScheduleShiftCheckConsentResponseWarning'
-        ruleConfigs:
-          type: array
-          items:
-            $ref: '#/components/schemas/ScheduleShiftCheckConsentResponseRuleConfig'
-    ScheduleShiftCheckConsentRequestShift:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int32
-        changeset:
-          $ref: '#/components/schemas/modelChangeset'
-        action:
-          $ref: '#/components/schemas/ScheduleShiftCheckConsentRequestAction'
-    ChangesetShiftChangeset:
-      type: object
-      properties:
-        start:
-          type: string
-        end:
-          type: string
-        mealbreakSlots:
-          type: array
-          items:
-            $ref: '#/components/schemas/modelBreak'
-        employee:
-          type: integer
-          format: int32
-        area:
-          type: integer
-          format: int32
-        isOpen:
-          type: boolean
-        approvalRequired:
-          type: boolean
-    ScheduleShiftCheckConsentRequestData:
-      type: object
-      properties:
-        shifts:
-          type: array
-          items:
-            $ref: '#/components/schemas/ScheduleShiftCheckConsentRequestShift'
-        config:
-          $ref: '#/components/schemas/ScheduleShiftCheckConsentRequestConfig'
-    ScheduleShiftCheckConsentResponseWarning:
-      type: object
-      properties:
-        message:
-          type: string
-    ScheduleShiftCheckConsentResponseData:
-      type: object
-      properties:
-        shifts:
-          type: array
-          items:
-            $ref: '#/components/schemas/ScheduleShiftCheckConsentResponseShift'
-        aggregated:
-          $ref: '#/components/schemas/CheckConsentResponseAggregated'
   securitySchemes:
     ApiToken:
       type: apiKey

@@ -438,91 +438,6 @@ paths:
       description: Deletes/Archives Agreed Hours for an Employee.
 components:
   schemas:
-    WorkPeriodCycle:
-      type: string
-      enum:
-      - WEEKLY
-      - TWO_WEEK
-      - FOUR_WEEK
-      default: WEEKLY
-    modelConsent:
-      type: object
-      properties:
-        id:
-          type: string
-        recordId:
-          type: string
-        recordType:
-          $ref: '#/components/schemas/ConsentConsentRecordType'
-        transactionId:
-          type: string
-        employeeId:
-          type: integer
-          format: int32
-        status:
-          $ref: '#/components/schemas/ConsentConsentStatus'
-        description:
-          type: string
-        metadata:
-          $ref: '#/components/schemas/modelShiftTypeConsentMetadata'
-        creator:
-          type: integer
-          format: int32
-        createdAt:
-          type: string
-          format: date-time
-    modelShiftTypeConsentMetadata:
-      type: object
-      properties:
-        comment:
-          type: string
-        extras:
-          type: object
-          additionalProperties:
-            type: string
-    AgreedHourGetConfigurationResponse:
-      type: object
-      properties:
-        configuration:
-          $ref: '#/components/schemas/tenantagreed_hoursv2modelConfiguration'
-        error:
-          type: string
-    AgreedHourConsentRecordsResponse:
-      type: object
-      properties:
-        consentRecords:
-          type: array
-          items:
-            $ref: '#/components/schemas/modelConsent'
-        error:
-          type: string
-    AgreedHourBatchUpdateRequest:
-      type: object
-      properties:
-        employeeIds:
-          type: array
-          items:
-            type: integer
-            format: int32
-          description: One or more numeric employee IDs
-        agreedHour:
-          $ref: '#/components/schemas/v2modelAgreedHour'
-    AgreedHourPostRequest:
-      type: object
-      properties:
-        employeeId:
-          type: string
-        agreedHour:
-          $ref: '#/components/schemas/v2modelAgreedHour'
-    AgreedHourEmployeeApprovalConfigurationResponse:
-      type: object
-      properties:
-        needsApproval:
-          type: boolean
-        error:
-          type: string
-        details:
-          type: string
     v2modelAgreedHour:
       type: object
       properties:
@@ -591,206 +506,22 @@ components:
         effectiveDate:
           type: string
           title: ''
-    modelWorkPeriodDayOfWeek:
-      type: string
-      enum:
-      - SUNDAY
-      - MONDAY
-      - TUESDAY
-      - WEDNESDAY
-      - THURSDAY
-      - FRIDAY
-      - SATURDAY
-      default: SUNDAY
-    AgreedHourSearchResponse:
+    AgreedHourPostRequest:
       type: object
       properties:
-        agreedHour:
-          type: array
-          items:
-            $ref: '#/components/schemas/v2modelAgreedHour'
-        error:
+        employeeId:
           type: string
-        currentVersion:
-          type: string
-    modelAgreedHourShift:
-      type: object
-      properties:
-        startTime:
-          type: string
-          title: ''
-        endTime:
-          type: string
-          title: ''
-        breaks:
-          type: array
-          items:
-            $ref: '#/components/schemas/modelBreakTime'
-          title: ''
-        location:
-          type: integer
-          format: int32
-          title: ''
-        area:
-          type: integer
-          format: int32
-          title: ''
-        totalHours:
-          type: number
-          format: float
-          title: ''
-        changeDetails:
-          type: string
-          readOnly: true
-    AgreedHourConsentRequestData:
-      type: object
-      properties:
-        status:
-          $ref: '#/components/schemas/modelAgreedHourStatus'
-        comment:
-          type: string
-    AgreedHourPostResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
         agreedHour:
           $ref: '#/components/schemas/v2modelAgreedHour'
-        error:
-          type: string
-    AgreedHourDiffResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        agreedHour:
-          $ref: '#/components/schemas/v2modelAgreedHour'
-        error:
-          type: string
-    AgreedHourDeleteResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        error:
-          type: string
-    ConfigurationNeedsEmployeeApproval:
+    ConsentConsentStatus:
       type: string
       enum:
-      - NEVER
-      - ALWAYS
-      - CONDITIONAL
-      default: NEVER
-    ConfigurationBehaviour:
-      type: string
-      enum:
-      - AGREED_HOURS
-      - FWW_REGULAR_BASELINE
-      - FWW_MEDIAN_HOURS
-      - VERSIONED_AGREED_HOURS
-      default: AGREED_HOURS
-    modelAgreedHourStatus:
-      type: string
-      enum:
-      - UNKNOWN
       - PENDING
       - ACCEPTED
       - DECLINED
-      - FORCED
-      default: UNKNOWN
-    modelAgreedHourDay:
-      type: object
-      properties:
-        day:
-          type: integer
-          format: int32
-          title: ''
-        shifts:
-          type: array
-          items:
-            $ref: '#/components/schemas/modelAgreedHourShift'
-          title: ''
-    AgreedHourArea:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int32
-        operationalUnitName:
-          type: string
-        company:
-          type: integer
-          format: int32
-        companyName:
-          type: string
-        trainingModuleIds:
-          type: array
-          items:
-            type: integer
-            format: int32
-    AgreedHourArchiveResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        error:
-          type: string
-    modelAgreedHourWeek:
-      type: object
-      properties:
-        week:
-          $ref: '#/components/schemas/AgreedHourWeekWeekIndex'
-          title: ' `json:"week"`'
-        days:
-          type: array
-          items:
-            $ref: '#/components/schemas/modelAgreedHourDay'
-          title: ''
-    modelBreakTime:
-      type: object
-      properties:
-        breakType:
-          $ref: '#/components/schemas/modelBreakTimeBreakType'
-          title: ''
-        breakDuration:
-          type: string
-          description: e.g. `00:30` for a 30 minute break, `01:05` for a 1 hour 5 minute break.
-          title: ''
-        startBreakTime:
-          type: string
-          description: Formatted 24-hour time e.g. `10:00` or `14:30`
-          title: ''
-        endBreakTime:
-          type: string
-          description: Formatted 24-hour time e.g. `10:00` or `14:30`
-          title: ''
-        changeDetails:
-          type: string
-          readOnly: true
-    AgreedHourGetAreasRequest:
-      type: object
-      properties:
-        employeeIds:
-          type: array
-          items:
-            type: integer
-            format: int32
-    modelBreakTimeBreakType:
-      type: string
-      enum:
-      - NO_BREAK
-      - MEAL
-      - REST
-      default: NO_BREAK
-    AgreedHourWeekWeekIndex:
-      type: string
-      enum:
-      - UNSPECIFIED
-      - ONE
-      - TWO
-      - THREE
-      - FOUR
-      default: UNSPECIFIED
+      - CANCELLED
+      - OVERRIDDEN_ACCEPTED
+      default: PENDING
     modelWorkPeriod:
       type: object
       properties:
@@ -831,37 +562,62 @@ components:
           type: string
           title: ''
       title: WorkPeriod model
-    ConsentConsentRecordType:
-      type: string
-      enum:
-      - SHIFT
-      - TIMESHEET
-      - REGULAR_SCHEDULE
-      default: SHIFT
-    AgreedHourCurrentRequestData:
-      type: object
-      properties:
-        isBaseline:
-          type: boolean
-        date:
-          type: string
-          format: date-time
-    AuditResponseAgreedHourWithConsentRecords:
-      type: object
-      properties:
-        agreedHour:
-          $ref: '#/components/schemas/v2modelAgreedHour'
-        consentRecords:
-          type: array
-          items:
-            $ref: '#/components/schemas/modelConsent'
-    AgreedHourMigrateStepTwoResponse:
+    AgreedHourPostResponse:
       type: object
       properties:
         success:
           type: boolean
+        agreedHour:
+          $ref: '#/components/schemas/v2modelAgreedHour'
         error:
           type: string
+    modelConsent:
+      type: object
+      properties:
+        id:
+          type: string
+        recordId:
+          type: string
+        recordType:
+          $ref: '#/components/schemas/ConsentConsentRecordType'
+        transactionId:
+          type: string
+        employeeId:
+          type: integer
+          format: int32
+        status:
+          $ref: '#/components/schemas/ConsentConsentStatus'
+        description:
+          type: string
+        metadata:
+          $ref: '#/components/schemas/modelShiftTypeConsentMetadata'
+        creator:
+          type: integer
+          format: int32
+        createdAt:
+          type: string
+          format: date-time
+    AgreedHourGetConfigurationResponse:
+      type: object
+      properties:
+        configuration:
+          $ref: '#/components/schemas/tenantagreed_hoursv2modelConfiguration'
+        error:
+          type: string
+    AgreedHourArchiveWithReasonRequestData:
+      type: object
+      properties:
+        changesReason:
+          $ref: '#/components/schemas/WorkPeriodChangesReason'
+        comment:
+          type: string
+    ConfigurationNeedsEmployeeApproval:
+      type: string
+      enum:
+      - NEVER
+      - ALWAYS
+      - CONDITIONAL
+      default: NEVER
     AgreedHourGetAreasResponse:
       type: object
       properties:
@@ -871,6 +627,135 @@ components:
             $ref: '#/components/schemas/AgreedHourArea'
         error:
           type: string
+    modelAgreedHourStatus:
+      type: string
+      enum:
+      - UNKNOWN
+      - PENDING
+      - ACCEPTED
+      - DECLINED
+      - FORCED
+      default: UNKNOWN
+    AgreedHourConsentRequestData:
+      type: object
+      properties:
+        status:
+          $ref: '#/components/schemas/modelAgreedHourStatus'
+        comment:
+          type: string
+    AgreedHourDiffResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        agreedHour:
+          $ref: '#/components/schemas/v2modelAgreedHour'
+        error:
+          type: string
+    AgreedHourWeekWeekIndex:
+      type: string
+      enum:
+      - UNSPECIFIED
+      - ONE
+      - TWO
+      - THREE
+      - FOUR
+      default: UNSPECIFIED
+    modelAgreedHourDetails:
+      type: object
+      properties:
+        weeks:
+          type: array
+          items:
+            $ref: '#/components/schemas/modelAgreedHourWeek'
+          title: ''
+    AgreedHourArea:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        operationalUnitName:
+          type: string
+        company:
+          type: integer
+          format: int32
+        companyName:
+          type: string
+        trainingModuleIds:
+          type: array
+          items:
+            type: integer
+            format: int32
+    WorkPeriodChangesReason:
+      type: string
+      enum:
+      - UNDEFINED
+      - REQUESTED_BY_EMPLOYEE
+      - BONA_FIDE
+      - OTHER
+      default: UNDEFINED
+    ConsentConsentRecordType:
+      type: string
+      enum:
+      - SHIFT
+      - TIMESHEET
+      - REGULAR_SCHEDULE
+      default: SHIFT
+    AuditResponseAgreedHourWithConsentRecords:
+      type: object
+      properties:
+        agreedHour:
+          $ref: '#/components/schemas/v2modelAgreedHour'
+        consentRecords:
+          type: array
+          items:
+            $ref: '#/components/schemas/modelConsent'
+    AgreedHourEmployeeNotificationResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        error:
+          type: string
+    tenantagreed_hoursv2modelConfiguration:
+      type: object
+      properties:
+        behaviour:
+          $ref: '#/components/schemas/ConfigurationBehaviour'
+          title: Which legislation to use
+        needsEmployeeApproval:
+          $ref: '#/components/schemas/ConfigurationNeedsEmployeeApproval'
+          title: Do we need to send new Agreed Hours/Regular schedule for employees approval
+    modelBreakTime:
+      type: object
+      properties:
+        breakType:
+          $ref: '#/components/schemas/modelBreakTimeBreakType'
+          title: ''
+        breakDuration:
+          type: string
+          description: e.g. `00:30` for a 30 minute break, `01:05` for a 1 hour 5 minute break.
+          title: ''
+        startBreakTime:
+          type: string
+          description: Formatted 24-hour time e.g. `10:00` or `14:30`
+          title: ''
+        endBreakTime:
+          type: string
+          description: Formatted 24-hour time e.g. `10:00` or `14:30`
+          title: ''
+        changeDetails:
+          type: string
+          readOnly: true
+    ConfigurationBehaviour:
+      type: string
+      enum:
+      - AGREED_HOURS
+      - FWW_REGULAR_BASELINE
+      - FWW_MEDIAN_HOURS
+      - VERSIONED_AGREED_HOURS
+      default: AGREED_HOURS
     AgreedHourConsentResponse:
       type: object
       properties:
@@ -878,6 +763,173 @@ components:
           type: boolean
         error:
           type: string
+    modelWorkPeriodDayOfWeek:
+      type: string
+      enum:
+      - SUNDAY
+      - MONDAY
+      - TUESDAY
+      - WEDNESDAY
+      - THURSDAY
+      - FRIDAY
+      - SATURDAY
+      default: SUNDAY
+    AgreedHourArchiveResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        error:
+          type: string
+    AgreedHourEmployeeApprovalConfigurationResponse:
+      type: object
+      properties:
+        needsApproval:
+          type: boolean
+        error:
+          type: string
+        details:
+          type: string
+    modelAgreedHourWeek:
+      type: object
+      properties:
+        week:
+          $ref: '#/components/schemas/AgreedHourWeekWeekIndex'
+          title: ' `json:"week"`'
+        days:
+          type: array
+          items:
+            $ref: '#/components/schemas/modelAgreedHourDay'
+          title: ''
+    AgreedHourDeleteResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        error:
+          type: string
+    AgreedHourMigrateStepTwoResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        error:
+          type: string
+    AgreedHourCurrentRequestData:
+      type: object
+      properties:
+        isBaseline:
+          type: boolean
+        date:
+          type: string
+          format: date-time
+    modelBreakTimeBreakType:
+      type: string
+      enum:
+      - NO_BREAK
+      - MEAL
+      - REST
+      default: NO_BREAK
+    modelShiftTypeConsentMetadata:
+      type: object
+      properties:
+        comment:
+          type: string
+        extras:
+          type: object
+          additionalProperties:
+            type: string
+    modelAgreedHourShift:
+      type: object
+      properties:
+        startTime:
+          type: string
+          title: ''
+        endTime:
+          type: string
+          title: ''
+        breaks:
+          type: array
+          items:
+            $ref: '#/components/schemas/modelBreakTime'
+          title: ''
+        location:
+          type: integer
+          format: int32
+          title: ''
+        area:
+          type: integer
+          format: int32
+          title: ''
+        totalHours:
+          type: number
+          format: float
+          title: ''
+        changeDetails:
+          type: string
+          readOnly: true
+    AgreedHourAuditResponse:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/AuditResponseAgreedHourWithConsentRecords'
+        error:
+          type: string
+    AgreedHourBatchUpdateRequest:
+      type: object
+      properties:
+        employeeIds:
+          type: array
+          items:
+            type: integer
+            format: int32
+          description: One or more numeric employee IDs
+        agreedHour:
+          $ref: '#/components/schemas/v2modelAgreedHour'
+    AgreedHourGetResponse:
+      type: object
+      properties:
+        agreedHour:
+          $ref: '#/components/schemas/v2modelAgreedHour'
+        error:
+          type: string
+    WorkPeriodCycle:
+      type: string
+      enum:
+      - WEEKLY
+      - TWO_WEEK
+      - FOUR_WEEK
+      default: WEEKLY
+    AgreedHourConsentRecordsResponse:
+      type: object
+      properties:
+        consentRecords:
+          type: array
+          items:
+            $ref: '#/components/schemas/modelConsent'
+        error:
+          type: string
+    AgreedHourSearchResponse:
+      type: object
+      properties:
+        agreedHour:
+          type: array
+          items:
+            $ref: '#/components/schemas/v2modelAgreedHour'
+        error:
+          type: string
+        currentVersion:
+          type: string
+    AgreedHourGetAreasRequest:
+      type: object
+      properties:
+        employeeIds:
+          type: array
+          items:
+            type: integer
+            format: int32
     AgreedHourBatchUpdateResponse:
       type: object
       properties:
@@ -893,69 +945,17 @@ components:
           items:
             type: integer
             format: int64
-    AgreedHourAuditResponse:
+    modelAgreedHourDay:
       type: object
       properties:
-        items:
+        day:
+          type: integer
+          format: int32
+          title: ''
+        shifts:
           type: array
           items:
-            $ref: '#/components/schemas/AuditResponseAgreedHourWithConsentRecords'
-        error:
-          type: string
-    AgreedHourArchiveWithReasonRequestData:
-      type: object
-      properties:
-        changesReason:
-          $ref: '#/components/schemas/WorkPeriodChangesReason'
-        comment:
-          type: string
-    WorkPeriodChangesReason:
-      type: string
-      enum:
-      - UNDEFINED
-      - REQUESTED_BY_EMPLOYEE
-      - BONA_FIDE
-      - OTHER
-      default: UNDEFINED
-    AgreedHourEmployeeNotificationResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        error:
-          type: string
-    ConsentConsentStatus:
-      type: string
-      enum:
-      - PENDING
-      - ACCEPTED
-      - DECLINED
-      - CANCELLED
-      - OVERRIDDEN_ACCEPTED
-      default: PENDING
-    AgreedHourGetResponse:
-      type: object
-      properties:
-        agreedHour:
-          $ref: '#/components/schemas/v2modelAgreedHour'
-        error:
-          type: string
-    tenantagreed_hoursv2modelConfiguration:
-      type: object
-      properties:
-        behaviour:
-          $ref: '#/components/schemas/ConfigurationBehaviour'
-          title: Which legislation to use
-        needsEmployeeApproval:
-          $ref: '#/components/schemas/ConfigurationNeedsEmployeeApproval'
-          title: Do we need to send new Agreed Hours/Regular schedule for employees approval
-    modelAgreedHourDetails:
-      type: object
-      properties:
-        weeks:
-          type: array
-          items:
-            $ref: '#/components/schemas/modelAgreedHourWeek'
+            $ref: '#/components/schemas/modelAgreedHourShift'
           title: ''
   securitySchemes:
     ApiToken:

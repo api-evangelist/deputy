@@ -744,50 +744,61 @@ paths:
               $ref: '#/components/schemas/modelComment'
 components:
   schemas:
-    TimesheetBatchRequestApprovalStatus:
-      type: string
-      enum:
-      - ANY
-      - PENDING
-      - TIME_APPROVED
-      - PAY_APPROVED
-      default: ANY
-      title: the enum names must match TimesheetBatchQuery.php enums, e.g. ANY, PENDING, ISSUES_EXCLUDED etc
-    GetEmployeesForStatusGroupingResponseGetEmployeesForStatusGroupingResponseBody:
+    GetEmployeesForStatusGroupingRequestGetEmployeesForStatusGroupingRequestBody:
       type: object
       properties:
-        employeeIds:
+        dateFrom:
+          type: string
+          description: start of date range, inclusive, `Y-m-d`
+        dateTo:
+          type: string
+          description: end of date range, inclusive, `Y-m-d`
+        cursor:
+          type: string
+          description: pagination cursor for getting next page of results
+        limit:
+          type: integer
+          format: int32
+          description: maximum number of employee IDs to return (default 50)
+        areaIds:
           type: array
           items:
             type: integer
             format: int32
-          description: sorted list of unique employee IDs ordered by approval status and first name
-        nextCursor:
+          description: filter by operational unit area IDs
+        employeeNameQuery:
           type: string
-          description: cursor for next page of results, empty if no more results
-    TsaAsyncResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        operationId:
-          type: string
-        locks:
+          description: search employees by first name, last name, or display name
+        leaveLocationIds:
           type: array
           items:
-            $ref: '#/components/schemas/OperationLock'
-    modelTimesheetBreak:
+            type: integer
+            format: int32
+          description: filter by employee location IDs (employee.company)
+        reviewState:
+          type: string
+          description: filter by timesheet review state
+        subordinateEmployeeIds:
+          type: array
+          items:
+            type: integer
+            format: int32
+          description: restrict results to specific subordinate employee IDs
+    TsaConfigAndPermissionUserPermissions:
       type: object
       properties:
-        duration:
-          type: integer
-          format: int32
-        startTimeOffset:
-          type: integer
-          format: int32
-        breakType:
-          $ref: '#/components/schemas/tenanttsav2modelBreakType'
-    TsaTimesheetPayApproveRequestBody:
+        procedures:
+          type: array
+          items:
+            $ref: '#/components/schemas/Procedure'
+    Procedure:
+      type: object
+      properties:
+        name:
+          $ref: '#/components/schemas/ProcedureProcedureName'
+        allow:
+          type: boolean
+    TsaRosterPayApproveRequestBody:
       type: object
       properties:
         setPayReturns:
@@ -799,10 +810,19 @@ components:
           $ref: '#/components/schemas/TsaTimesheetQuestionSubmitAnswersRequest'
         setChildTimesheets:
           $ref: '#/components/schemas/TsaTimesheetChildrenRequest'
-    ApplicableRangeSummaryResponseApplicableRangeTimesheet:
+    TimesheetBatchRequestApprovalStatus:
+      type: string
+      enum:
+      - ANY
+      - PENDING
+      - TIME_APPROVED
+      - PAY_APPROVED
+      default: ANY
+      title: the enum names must match TimesheetBatchQuery.php enums, e.g. ANY, PENDING, ISSUES_EXCLUDED etc
+    TsaChildTimesheetRequest:
       type: object
       properties:
-        id:
+        operationalUnitId:
           type: integer
           format: int32
         startTime:
@@ -811,24 +831,42 @@ components:
         endTime:
           type: string
           format: int64
-        timeApproved:
-          type: boolean
-        payRuleApproved:
-          type: boolean
-        discarded:
-          type: boolean
-        employeeId:
-          type: integer
-          format: int32
-    TsaTimesheetTimeApproveRequestBody:
+    ApplicableRangeSummaryResponseApplicableRange:
       type: object
       properties:
-        setProperties:
-          $ref: '#/components/schemas/TsaTimesheetPropertyRequest'
-        setAnswers:
-          $ref: '#/components/schemas/TsaTimesheetQuestionSubmitAnswersRequest'
-        setChildTimesheets:
-          $ref: '#/components/schemas/TsaTimesheetChildrenRequest'
+        boundary:
+          type: string
+        payCycleId:
+          type: integer
+          format: int32
+        dateFrom:
+          type: string
+        dateTo:
+          type: string
+    TsaChildTimesheetResponse:
+      type: object
+      properties:
+        operationalUnitId:
+          type: integer
+          format: int32
+        startTime:
+          type: string
+          format: int64
+        endTime:
+          type: string
+          format: int64
+    tenanttsav2modelPayReturn:
+      type: object
+      properties:
+        payRuleId:
+          type: integer
+          format: int32
+        hours:
+          type: number
+          format: float
+        cost:
+          type: number
+          format: float
     TsaTimesheetPropertyRequest:
       type: object
       properties:
@@ -856,120 +894,39 @@ components:
         employeeComment:
           type: string
           description: employee comment for the timesheet
-    TimesheetBatchRequestQuery:
+    modelComment:
       type: object
       properties:
-        dateFrom:
+        content:
           type: string
-        dateTo:
-          type: string
-        operationalUnitIds:
-          type: array
-          items:
-            type: integer
-            format: int32
-        includeAllLocations:
-          type: boolean
-        approvalStatus:
-          $ref: '#/components/schemas/TimesheetBatchRequestApprovalStatus'
-        employeeIds:
-          type: array
-          items:
-            type: integer
-            format: int32
-        includeAllEmployees:
-          type: boolean
-        timesheetIds:
-          type: array
-          items:
-            type: integer
-            format: int32
-        includeAllTimesheets:
-          type: boolean
-        issueStatus:
-          $ref: '#/components/schemas/TimesheetBatchRequestIssueStatus'
-        rosterIds:
-          type: array
-          items:
-            type: integer
-            format: int32
-    SuggestTimesheetRoundingRequestSuggestTimesheetRoundingRequestBody:
-      type: object
-      properties:
-        operationalUnitId:
+        creator:
           type: integer
           format: int32
-        startTime:
-          type: string
-          format: int64
-        endTime:
-          type: string
-          format: int64
-        mealbreak:
-          type: string
-        childTimesheets:
-          type: array
-          items:
-            $ref: '#/components/schemas/TsaChildTimesheetRequest'
-    tenanttsav2modelPayReturn:
+    tenanttsav2modelBreakType:
+      type: string
+      enum:
+      - NO_TYPE
+      - MEAL_BREAK
+      - REST_BREAK
+      default: NO_TYPE
+    modelPayReturnOverride:
       type: object
       properties:
         payRuleId:
           type: integer
           format: int32
-        hours:
+        value:
           type: number
           format: float
-        cost:
-          type: number
-          format: float
-    modelTimesheetQuestion:
+    TimesheetUpdateRequestTimesheetUpdateRequestBody:
       type: object
       properties:
-        name:
-          type: string
-        label:
-          type: string
-        helptext:
-          type: string
-        sortOrder:
-          type: integer
-          format: int32
-        defaultAnswer:
-          type: string
-        answerType:
-          type: integer
-          format: int32
-        requireNotEmpty:
-          type: boolean
-        valueList:
-          type: array
-          items:
-            type: string
-    ApplicableRangeSummaryResponseApplicableRange:
-      type: object
-      properties:
-        boundary:
-          type: string
-        payCycleId:
-          type: integer
-          format: int32
-        dateFrom:
-          type: string
-        dateTo:
-          type: string
-    TsaChildTimesheetRequest:
-      type: object
-      properties:
-        operationalUnitId:
-          type: integer
-          format: int32
-        startTime:
-          type: string
-          format: int64
-        endTime:
-          type: string
-          format: int64
+        setProperties:
+          $ref: '#/components/schemas/TsaTimesheetPropertyRequest'
+        setAnswers:
+          $ref: '#/components/schemas/TsaTimesheetQuestionSubmitAnswersRequest'
+        setChildTimesheets:
+          $ref: '#/components/schemas/TsaTimesheetChildrenRequest'
     tenanttsav2modelTimesheet:
       type: object
       properties:
@@ -1013,184 +970,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/tenanttsav2modelPayReturn'
-    TsaTimesheetQuestionSubmitAnswersRequest:
-      type: object
-      properties:
-        answers:
-          type: array
-          items:
-            $ref: '#/components/schemas/TsaTimesheetQuestionAnswerSubmission'
-          description: omitted answers will be assumed null.
-    TsaChildTimesheetResponse:
-      type: object
-      properties:
-        operationalUnitId:
-          type: integer
-          format: int32
-        startTime:
-          type: string
-          format: int64
-        endTime:
-          type: string
-          format: int64
-    GetTimesheetQuestionsResponseTimesheetQuestionsResponseBody:
-      type: object
-      properties:
-        questions:
-          type: array
-          items:
-            $ref: '#/components/schemas/GetTimesheetQuestionsResponseTimesheetQuestionWithAnswer'
-        files:
-          type: object
-          additionalProperties:
-            $ref: '#/components/schemas/TimesheetQuestionFileForAnswer'
-    GetTimesheetQuestionsResponseTimesheetQuestionWithAnswer:
-      type: object
-      properties:
-        question:
-          $ref: '#/components/schemas/modelTimesheetQuestion'
-        employeeAnswer:
-          type: string
-    ProcedureProcedureName:
-      type: string
-      enum:
-      - NO_TYPE
-      - ALLOW_ACCESS_COST
-      - ALLOW_ACCESS_ALL_WORKPLACES
-      - ALLOW_APPROVE_TIME
-      - ALLOW_APPROVE_PAY
-      - ALLOW_APPROVE_ALL_DEPARTMENTS
-      - ALLOW_APPROVE_ALL_EMPLOYEE_ROLES
-      - ALLOW_APPROVE_OUTSIDE_PERIOD
-      - ALLOW_APPROVE_LEAVE
-      - ALLOW_MARK_PAID_UNPAID
-      - ALLOW_EXPORT
-      - ALLOW_VIEW_SENSITIVE_EMP_PAY_INFO
-      default: NO_TYPE
-    TsaGetTimesheetQuestionsResponse:
-      type: object
-      properties:
-        data:
-          $ref: '#/components/schemas/GetTimesheetQuestionsResponseTimesheetQuestionsResponseBody'
-        success:
-          type: boolean
-    TimesheetCreateRequestTimesheetCreateRequestBody:
-      type: object
-      properties:
-        setProperties:
-          $ref: '#/components/schemas/TsaTimesheetPropertyRequest'
-        setAnswers:
-          $ref: '#/components/schemas/TsaTimesheetQuestionSubmitAnswersRequest'
-        rosterId:
-          type: integer
-          format: int32
-        discarded:
-          type: boolean
-        payRuleApproved:
-          type: boolean
-        timeApproved:
-          type: boolean
-        setChildTimesheets:
-          $ref: '#/components/schemas/TsaTimesheetChildrenRequest'
-        inProgress:
-          type: boolean
-    TimesheetUpdateRequestTimesheetUpdateRequestBody:
-      type: object
-      properties:
-        setProperties:
-          $ref: '#/components/schemas/TsaTimesheetPropertyRequest'
-        setAnswers:
-          $ref: '#/components/schemas/TsaTimesheetQuestionSubmitAnswersRequest'
-        setChildTimesheets:
-          $ref: '#/components/schemas/TsaTimesheetChildrenRequest'
-    TsaTimesheetPayReturnOverrideRequest:
-      type: object
-      properties:
-        payReturnOverrides:
-          type: array
-          items:
-            $ref: '#/components/schemas/modelPayReturnOverride'
-          description: passing an empty array here will cause an approval with no pay returns.
-    modelComment:
-      type: object
-      properties:
-        content:
-          type: string
-        creator:
-          type: integer
-          format: int32
-    TsaSuggestTimesheetRoundingResponse:
-      type: object
-      properties:
-        startTime:
-          type: string
-          format: int64
-        endTime:
-          type: string
-          format: int64
-        mealbreak:
-          type: string
-        operationalUnitId:
-          type: integer
-          format: int32
-        childTimesheets:
-          type: array
-          items:
-            $ref: '#/components/schemas/TsaChildTimesheetResponse'
-    GetTimesheetQuestionsRequestTimesheetQuestionsRequestBody:
-      type: object
-      properties:
-        setProperties:
-          $ref: '#/components/schemas/TsaTimesheetPropertyRequest'
-    GetEmployeesForStatusGroupingRequestGetEmployeesForStatusGroupingRequestBody:
-      type: object
-      properties:
-        dateFrom:
-          type: string
-          description: start of date range, inclusive, `Y-m-d`
-        dateTo:
-          type: string
-          description: end of date range, inclusive, `Y-m-d`
-        cursor:
-          type: string
-          description: pagination cursor for getting next page of results
-        limit:
-          type: integer
-          format: int32
-          description: maximum number of employee IDs to return (default 50)
-        areaIds:
-          type: array
-          items:
-            type: integer
-            format: int32
-          description: filter by operational unit area IDs
-        employeeNameQuery:
-          type: string
-          description: search employees by first name, last name, or display name
-        leaveLocationIds:
-          type: array
-          items:
-            type: integer
-            format: int32
-          description: filter by employee location IDs (employee.company)
-        reviewState:
-          type: string
-          description: filter by timesheet review state
-        subordinateEmployeeIds:
-          type: array
-          items:
-            type: integer
-            format: int32
-          description: restrict results to specific subordinate employee IDs
-    TsaValidateCreateTimesheetResponse:
-      type: object
-      properties:
-        valid:
-          type: boolean
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/TsaValidationError'
     tenanttsav2modelProgress:
       type: string
       enum:
@@ -1208,55 +987,6 @@ components:
       - PROGRESS_PAID
       - PROGRESS_DISCARDED
       default: PROGRESS_UNSPECIFIED
-    TsaTimesheetQuestionAnswerSubmission:
-      type: object
-      properties:
-        name:
-          type: string
-        employeeAnswer:
-          type: string
-    TimesheetQuestionFileForAnswer:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int32
-        linkId:
-          type: string
-        name:
-          type: string
-        type:
-          type: string
-        preview500500Link:
-          type: string
-        downloadLink:
-          type: string
-    ReapproveRequestReapproveRequestBody:
-      type: object
-      properties:
-        setPayReturns:
-          $ref: '#/components/schemas/TsaTimesheetPayReturnOverrideRequest'
-          description: omit this value to fall back to pay calculation/forecast.
-        setProperties:
-          $ref: '#/components/schemas/TsaTimesheetPropertyRequest'
-        setAnswers:
-          $ref: '#/components/schemas/TsaTimesheetQuestionSubmitAnswersRequest'
-        setChildTimesheets:
-          $ref: '#/components/schemas/TsaTimesheetChildrenRequest'
-    TsaTimesheetChildrenRequest:
-      type: object
-      properties:
-        childTimesheets:
-          type: array
-          items:
-            $ref: '#/components/schemas/TsaChildTimesheetRequest'
-    TsaGetEmployeesForStatusGroupingResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        data:
-          $ref: '#/components/schemas/GetEmployeesForStatusGroupingResponseGetEmployeesForStatusGroupingResponseBody'
     ConfigConfigName:
       type: string
       enum:
@@ -1279,37 +1009,87 @@ components:
       - CONFIG_SHOW_LOC_TS_BORROWED_EMPLOYEES
       - CONFIG_SHOW_OTHER_LOCATIONS
       default: NO_TYPE
-    TsaValidationError:
+    TsaGetTimesheetQuestionsResponse:
       type: object
       properties:
-        type:
+        data:
+          $ref: '#/components/schemas/GetTimesheetQuestionsResponseTimesheetQuestionsResponseBody'
+        success:
+          type: boolean
+    GetTimesheetQuestionsResponseTimesheetQuestionsResponseBody:
+      type: object
+      properties:
+        questions:
+          type: array
+          items:
+            $ref: '#/components/schemas/GetTimesheetQuestionsResponseTimesheetQuestionWithAnswer'
+        files:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/TimesheetQuestionFileForAnswer'
+    TsaSynchronousResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        processedTimesheet:
+          $ref: '#/components/schemas/tenanttsav2modelTimesheet'
+        otherAffectedTimesheets:
+          type: array
+          items:
+            $ref: '#/components/schemas/tenanttsav2modelTimesheet'
+    SuggestTimesheetRoundingRequestSuggestTimesheetRoundingRequestBody:
+      type: object
+      properties:
+        operationalUnitId:
+          type: integer
+          format: int32
+        startTime:
           type: string
-        message:
+          format: int64
+        endTime:
           type: string
-    TimesheetBatchRequestIssueStatus:
-      type: string
-      enum:
-      - ISSUES_INCLUDED
-      - ISSUES_ONLY
-      - ISSUES_EXCLUDED
-      default: ISSUES_INCLUDED
-    TsaTimesheetBatchRequest:
+          format: int64
+        mealbreak:
+          type: string
+        childTimesheets:
+          type: array
+          items:
+            $ref: '#/components/schemas/TsaChildTimesheetRequest'
+    TsaSuggestTimesheetRoundingResponse:
       type: object
       properties:
-        query:
-          $ref: '#/components/schemas/TimesheetBatchRequestQuery'
-    TsaRosterPayApproveRequestBody:
+        startTime:
+          type: string
+          format: int64
+        endTime:
+          type: string
+          format: int64
+        mealbreak:
+          type: string
+        operationalUnitId:
+          type: integer
+          format: int32
+        childTimesheets:
+          type: array
+          items:
+            $ref: '#/components/schemas/TsaChildTimesheetResponse'
+    TsaApplicableRangeSummaryResponse:
       type: object
       properties:
-        setPayReturns:
-          $ref: '#/components/schemas/TsaTimesheetPayReturnOverrideRequest'
-          description: omit this value to fall back to pay calculation/forecast.
-        setProperties:
-          $ref: '#/components/schemas/TsaTimesheetPropertyRequest'
-        setAnswers:
-          $ref: '#/components/schemas/TsaTimesheetQuestionSubmitAnswersRequest'
-        setChildTimesheets:
-          $ref: '#/components/schemas/TsaTimesheetChildrenRequest'
+        timesheets:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApplicableRangeSummaryResponseApplicableRangeTimesheet'
+        applicableRange:
+          $ref: '#/components/schemas/ApplicableRangeSummaryResponseApplicableRange'
+    TsaGetEmployeesForStatusGroupingResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          $ref: '#/components/schemas/GetEmployeesForStatusGroupingResponseGetEmployeesForStatusGroupingResponseBody'
     modelIssueFlag:
       type: string
       enum:
@@ -1338,31 +1118,50 @@ components:
       - PENALTY
       - NON_PAYABLE
       default: ISSUE_UNKNOWN
-    TsaConfigAndPermissionResponse:
+    ApplicableRangeSummaryResponseApplicableRangeTimesheet:
       type: object
       properties:
-        success:
+        id:
+          type: integer
+          format: int32
+        startTime:
+          type: string
+          format: int64
+        endTime:
+          type: string
+          format: int64
+        timeApproved:
           type: boolean
-        data:
-          $ref: '#/components/schemas/TsaConfigAndPermission'
-    tenanttsav2modelBreakType:
+        payRuleApproved:
+          type: boolean
+        discarded:
+          type: boolean
+        employeeId:
+          type: integer
+          format: int32
+    ProcedureProcedureName:
       type: string
       enum:
       - NO_TYPE
-      - MEAL_BREAK
-      - REST_BREAK
+      - ALLOW_ACCESS_COST
+      - ALLOW_ACCESS_ALL_WORKPLACES
+      - ALLOW_APPROVE_TIME
+      - ALLOW_APPROVE_PAY
+      - ALLOW_APPROVE_ALL_DEPARTMENTS
+      - ALLOW_APPROVE_ALL_EMPLOYEE_ROLES
+      - ALLOW_APPROVE_OUTSIDE_PERIOD
+      - ALLOW_APPROVE_LEAVE
+      - ALLOW_MARK_PAID_UNPAID
+      - ALLOW_EXPORT
+      - ALLOW_VIEW_SENSITIVE_EMP_PAY_INFO
       default: NO_TYPE
-    TsaSynchronousResponse:
+    TsaValidationError:
       type: object
       properties:
-        success:
-          type: boolean
-        processedTimesheet:
-          $ref: '#/components/schemas/tenanttsav2modelTimesheet'
-        otherAffectedTimesheets:
-          type: array
-          items:
-            $ref: '#/components/schemas/tenanttsav2modelTimesheet'
+        type:
+          type: string
+        message:
+          type: string
     TsaRosterTimeApproveRequestBody:
       type: object
       properties:
@@ -1372,34 +1171,13 @@ components:
           $ref: '#/components/schemas/TsaTimesheetQuestionSubmitAnswersRequest'
         setChildTimesheets:
           $ref: '#/components/schemas/TsaTimesheetChildrenRequest'
-    TsaApplicableRangeSummaryResponse:
+    Config:
       type: object
       properties:
-        timesheets:
-          type: array
-          items:
-            $ref: '#/components/schemas/ApplicableRangeSummaryResponseApplicableRangeTimesheet'
-        applicableRange:
-          $ref: '#/components/schemas/ApplicableRangeSummaryResponseApplicableRange'
-    TsaTimesheetBreaksRequest:
-      type: object
-      properties:
-        breaks:
-          type: array
-          items:
-            $ref: '#/components/schemas/modelTimesheetBreak'
-          description: passing an empty array here will delete all breaks for the timesheet.
-        totalDurationMealBreak:
-          type: integer
-          format: int32
-          description: total duration of meal break in minutes
-    TsaConfigAndPermissionUserPermissions:
-      type: object
-      properties:
-        procedures:
-          type: array
-          items:
-            $ref: '#/components/schemas/Procedure'
+        name:
+          $ref: '#/components/schemas/ConfigConfigName'
+        value:
+          type: string
     TsaConfigAndPermission:
       type: object
       properties:
@@ -1429,28 +1207,137 @@ components:
           items:
             type: integer
             format: int32
-    modelPayReturnOverride:
+    GetTimesheetQuestionsResponseTimesheetQuestionWithAnswer:
       type: object
       properties:
-        payRuleId:
+        question:
+          $ref: '#/components/schemas/modelTimesheetQuestion'
+        employeeAnswer:
+          type: string
+    TsaTimesheetQuestionSubmitAnswersRequest:
+      type: object
+      properties:
+        answers:
+          type: array
+          items:
+            $ref: '#/components/schemas/TsaTimesheetQuestionAnswerSubmission'
+          description: omitted answers will be assumed null.
+    TimesheetQuestionFileForAnswer:
+      type: object
+      properties:
+        id:
           type: integer
           format: int32
-        value:
-          type: number
-          format: float
+        linkId:
+          type: string
+        name:
+          type: string
+        type:
+          type: string
+        preview500500Link:
+          type: string
+        downloadLink:
+          type: string
+    TsaTimesheetTimeApproveRequestBody:
+      type: object
+      properties:
+        setProperties:
+          $ref: '#/components/schemas/TsaTimesheetPropertyRequest'
+        setAnswers:
+          $ref: '#/components/schemas/TsaTimesheetQuestionSubmitAnswersRequest'
+        setChildTimesheets:
+          $ref: '#/components/schemas/TsaTimesheetChildrenRequest'
+    TsaValidateCreateTimesheetResponse:
+      type: object
+      properties:
+        valid:
+          type: boolean
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/TsaValidationError'
+    modelTimesheetQuestion:
+      type: object
+      properties:
+        name:
+          type: string
+        label:
+          type: string
+        helptext:
+          type: string
+        sortOrder:
+          type: integer
+          format: int32
+        defaultAnswer:
+          type: string
+        answerType:
+          type: integer
+          format: int32
+        requireNotEmpty:
+          type: boolean
+        valueList:
+          type: array
+          items:
+            type: string
+    TsaAsyncResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        operationId:
+          type: string
+        locks:
+          type: array
+          items:
+            $ref: '#/components/schemas/OperationLock'
+    TimesheetBatchRequestQuery:
+      type: object
+      properties:
+        dateFrom:
+          type: string
+        dateTo:
+          type: string
+        operationalUnitIds:
+          type: array
+          items:
+            type: integer
+            format: int32
+        includeAllLocations:
+          type: boolean
+        approvalStatus:
+          $ref: '#/components/schemas/TimesheetBatchRequestApprovalStatus'
+        employeeIds:
+          type: array
+          items:
+            type: integer
+            format: int32
+        includeAllEmployees:
+          type: boolean
+        timesheetIds:
+          type: array
+          items:
+            type: integer
+            format: int32
+        includeAllTimesheets:
+          type: boolean
+        issueStatus:
+          $ref: '#/components/schemas/TimesheetBatchRequestIssueStatus'
+        rosterIds:
+          type: array
+          items:
+            type: integer
+            format: int32
+    GetTimesheetQuestionsRequestTimesheetQuestionsRequestBody:
+      type: object
+      properties:
+        setProperties:
+          $ref: '#/components/schemas/TsaTimesheetPropertyRequest'
     TsaTimesheetUpdateResponse:
       type: object
       properties:
         data:
           $ref: '#/components/schemas/tenanttsav2modelTimesheet'
         success:
-          type: boolean
-    Procedure:
-      type: object
-      properties:
-        name:
-          $ref: '#/components/schemas/ProcedureProcedureName'
-        allow:
           type: boolean
     OperationLock:
       type: object
@@ -1461,13 +1348,126 @@ components:
           type: object
           additionalProperties:
             type: boolean
-    Config:
+    modelTimesheetBreak:
+      type: object
+      properties:
+        duration:
+          type: integer
+          format: int32
+        startTimeOffset:
+          type: integer
+          format: int32
+        breakType:
+          $ref: '#/components/schemas/tenanttsav2modelBreakType'
+    GetEmployeesForStatusGroupingResponseGetEmployeesForStatusGroupingResponseBody:
+      type: object
+      properties:
+        employeeIds:
+          type: array
+          items:
+            type: integer
+            format: int32
+          description: sorted list of unique employee IDs ordered by approval status and first name
+        nextCursor:
+          type: string
+          description: cursor for next page of results, empty if no more results
+    TsaTimesheetChildrenRequest:
+      type: object
+      properties:
+        childTimesheets:
+          type: array
+          items:
+            $ref: '#/components/schemas/TsaChildTimesheetRequest'
+    TsaTimesheetBatchRequest:
+      type: object
+      properties:
+        query:
+          $ref: '#/components/schemas/TimesheetBatchRequestQuery'
+    TimesheetCreateRequestTimesheetCreateRequestBody:
+      type: object
+      properties:
+        setProperties:
+          $ref: '#/components/schemas/TsaTimesheetPropertyRequest'
+        setAnswers:
+          $ref: '#/components/schemas/TsaTimesheetQuestionSubmitAnswersRequest'
+        rosterId:
+          type: integer
+          format: int32
+        discarded:
+          type: boolean
+        payRuleApproved:
+          type: boolean
+        timeApproved:
+          type: boolean
+        setChildTimesheets:
+          $ref: '#/components/schemas/TsaTimesheetChildrenRequest'
+        inProgress:
+          type: boolean
+    TsaConfigAndPermissionResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          $ref: '#/components/schemas/TsaConfigAndPermission'
+    TsaTimesheetBreaksRequest:
+      type: object
+      properties:
+        breaks:
+          type: array
+          items:
+            $ref: '#/components/schemas/modelTimesheetBreak'
+          description: passing an empty array here will delete all breaks for the timesheet.
+        totalDurationMealBreak:
+          type: integer
+          format: int32
+          description: total duration of meal break in minutes
+    TsaTimesheetQuestionAnswerSubmission:
       type: object
       properties:
         name:
-          $ref: '#/components/schemas/ConfigConfigName'
-        value:
           type: string
+        employeeAnswer:
+          type: string
+    TimesheetBatchRequestIssueStatus:
+      type: string
+      enum:
+      - ISSUES_INCLUDED
+      - ISSUES_ONLY
+      - ISSUES_EXCLUDED
+      default: ISSUES_INCLUDED
+    TsaTimesheetPayApproveRequestBody:
+      type: object
+      properties:
+        setPayReturns:
+          $ref: '#/components/schemas/TsaTimesheetPayReturnOverrideRequest'
+          description: omit this value to fall back to pay calculation/forecast.
+        setProperties:
+          $ref: '#/components/schemas/TsaTimesheetPropertyRequest'
+        setAnswers:
+          $ref: '#/components/schemas/TsaTimesheetQuestionSubmitAnswersRequest'
+        setChildTimesheets:
+          $ref: '#/components/schemas/TsaTimesheetChildrenRequest'
+    ReapproveRequestReapproveRequestBody:
+      type: object
+      properties:
+        setPayReturns:
+          $ref: '#/components/schemas/TsaTimesheetPayReturnOverrideRequest'
+          description: omit this value to fall back to pay calculation/forecast.
+        setProperties:
+          $ref: '#/components/schemas/TsaTimesheetPropertyRequest'
+        setAnswers:
+          $ref: '#/components/schemas/TsaTimesheetQuestionSubmitAnswersRequest'
+        setChildTimesheets:
+          $ref: '#/components/schemas/TsaTimesheetChildrenRequest'
+    TsaTimesheetPayReturnOverrideRequest:
+      type: object
+      properties:
+        payReturnOverrides:
+          type: array
+          items:
+            $ref: '#/components/schemas/modelPayReturnOverride'
+          description: passing an empty array here will cause an approval with no pay returns.
   securitySchemes:
     ApiToken:
       type: apiKey

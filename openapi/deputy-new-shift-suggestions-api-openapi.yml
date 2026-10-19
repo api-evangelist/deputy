@@ -45,6 +45,18 @@ paths:
               $ref: '#/components/schemas/ShiftSuggestionRequestData'
 components:
   schemas:
+    ResponseSoftConstraint:
+      type: string
+      enum:
+      - UNAVAILABLE
+      - ON_LEAVE
+      - NOT_TRAINED
+      - NOT_PREFERRED
+      - STRESSED
+      - VIOLATES_SCHEDULE_RULE
+      - ONBOARDING
+      default: UNAVAILABLE
+      title: "- UNAVAILABLE: Employee is unavailable\n - ON_LEAVE: Employee is on leave\n - NOT_TRAINED: Employee is not trained\n - NOT_PREFERRED: Employee is not preferred\n - STRESSED: Employee is stressed\n - VIOLATES_SCHEDULE_RULE: Employee cannot take the shift because it would violate a schedule rule\n - ONBOARDING: Employee is onboarding"
     ResponseRecommendedStatus:
       type: string
       enum:
@@ -53,6 +65,63 @@ components:
       - RECOMMENDED
       default: NOT_RECOMMENDED_HARD
       title: "- NOT_RECOMMENDED_HARD: Not recommended due to failing hard constraints\n - NOT_RECOMMENDED_SOFT: Not recommended due to failing soft constraints\n - RECOMMENDED: Recommended after satisfying all constraints"
+    ResponseSuggestedEmployee:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        displayName:
+          type: string
+        photoUrl:
+          type: string
+        recommendedStatus:
+          $ref: '#/components/schemas/ResponseRecommendedStatus'
+          title: Recommended status
+        failedHardConstraints:
+          type: array
+          items:
+            $ref: '#/components/schemas/ResponseHardConstraint'
+          title: Hard constraints for the employee (non-overridable)
+        failedSoftConstraints:
+          type: array
+          items:
+            $ref: '#/components/schemas/ResponseSoftConstraint'
+          title: Soft constraints for the employee (overridable)
+        wage:
+          type: string
+          title: Wages for current period to 2 decimal places
+        hoursScheduled:
+          type: string
+          title: Hours scheduled for current period to 2 decimal places
+    ShiftSuggestionResponseData:
+      type: object
+      properties:
+        employees:
+          type: array
+          items:
+            $ref: '#/components/schemas/ResponseSuggestedEmployee'
+    ShiftSuggestionRequestChildShift:
+      type: object
+      properties:
+        area:
+          type: integer
+          format: int32
+        start:
+          type: string
+          title: format YYYY-MM-DDTHH:MM:SS+HH:MM
+        end:
+          type: string
+          title: format YYYY-MM-DDTHH:MM:SS+HH:MM
+    ShiftSuggestionResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          $ref: '#/components/schemas/ShiftSuggestionResponseData'
+        metadata:
+          $ref: '#/components/schemas/ShiftSuggestionResponseMetadata'
     ShiftSuggestionRequestData:
       type: object
       properties:
@@ -89,6 +158,18 @@ components:
         limit:
           type: integer
           format: int32
+    ResponseHardConstraint:
+      type: string
+      enum:
+      - OVERLAPPING
+      default: OVERLAPPING
+      title: '- OVERLAPPING: Employee has overlapping shifts'
+    ShiftSuggestionResponseMetadata:
+      type: object
+      properties:
+        nextCursor:
+          type: string
+          title: Cursor for pagination
     RequestFilters:
       type: object
       properties:
@@ -99,87 +180,6 @@ components:
           items:
             type: integer
             format: int32
-    ShiftSuggestionResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        data:
-          $ref: '#/components/schemas/ShiftSuggestionResponseData'
-        metadata:
-          $ref: '#/components/schemas/ShiftSuggestionResponseMetadata'
-    ResponseSoftConstraint:
-      type: string
-      enum:
-      - UNAVAILABLE
-      - ON_LEAVE
-      - NOT_TRAINED
-      - NOT_PREFERRED
-      - STRESSED
-      - VIOLATES_SCHEDULE_RULE
-      - ONBOARDING
-      default: UNAVAILABLE
-      title: "- UNAVAILABLE: Employee is unavailable\n - ON_LEAVE: Employee is on leave\n - NOT_TRAINED: Employee is not trained\n - NOT_PREFERRED: Employee is not preferred\n - STRESSED: Employee is stressed\n - VIOLATES_SCHEDULE_RULE: Employee cannot take the shift because it would violate a schedule rule\n - ONBOARDING: Employee is onboarding"
-    ShiftSuggestionResponseData:
-      type: object
-      properties:
-        employees:
-          type: array
-          items:
-            $ref: '#/components/schemas/ResponseSuggestedEmployee'
-    ResponseSuggestedEmployee:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int32
-        displayName:
-          type: string
-        photoUrl:
-          type: string
-        recommendedStatus:
-          $ref: '#/components/schemas/ResponseRecommendedStatus'
-          title: Recommended status
-        failedHardConstraints:
-          type: array
-          items:
-            $ref: '#/components/schemas/ResponseHardConstraint'
-          title: Hard constraints for the employee (non-overridable)
-        failedSoftConstraints:
-          type: array
-          items:
-            $ref: '#/components/schemas/ResponseSoftConstraint'
-          title: Soft constraints for the employee (overridable)
-        wage:
-          type: string
-          title: Wages for current period to 2 decimal places
-        hoursScheduled:
-          type: string
-          title: Hours scheduled for current period to 2 decimal places
-    ShiftSuggestionResponseMetadata:
-      type: object
-      properties:
-        nextCursor:
-          type: string
-          title: Cursor for pagination
-    ResponseHardConstraint:
-      type: string
-      enum:
-      - OVERLAPPING
-      default: OVERLAPPING
-      title: '- OVERLAPPING: Employee has overlapping shifts'
-    ShiftSuggestionRequestChildShift:
-      type: object
-      properties:
-        area:
-          type: integer
-          format: int32
-        start:
-          type: string
-          title: format YYYY-MM-DDTHH:MM:SS+HH:MM
-        end:
-          type: string
-          title: format YYYY-MM-DDTHH:MM:SS+HH:MM
   securitySchemes:
     ApiToken:
       type: apiKey

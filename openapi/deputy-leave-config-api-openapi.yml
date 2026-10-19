@@ -68,6 +68,15 @@ components:
         perEmployeeStandardDayEnabled:
           type: boolean
       title: Leave Config
+    LeaveConfigSetLeaveConfigRequest:
+      type: object
+      properties:
+        config:
+          $ref: '#/components/schemas/v2modelLeaveConfig'
+        updateMask:
+          type: string
+          title: Fields to patch
+      title: Set leave config request
     LeaveConfigGetLeaveConfigResponse:
       type: object
       properties:
@@ -84,15 +93,6 @@ components:
         config:
           $ref: '#/components/schemas/v2modelLeaveConfig'
       title: Set leave config response
-    LeaveConfigSetLeaveConfigRequest:
-      type: object
-      properties:
-        config:
-          $ref: '#/components/schemas/v2modelLeaveConfig'
-        updateMask:
-          type: string
-          title: Fields to patch
-      title: Set leave config request
   securitySchemes:
     ApiToken:
       type: apiKey

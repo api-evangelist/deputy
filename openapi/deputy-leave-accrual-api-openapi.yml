@@ -61,36 +61,6 @@ paths:
       description: Release for hire date.
 components:
   schemas:
-    LeaveAccrualAgreedHoursRecalculationPreviewRequest:
-      type: object
-      properties:
-        employeeIds:
-          type: array
-          items:
-            type: integer
-            format: int32
-    LeaveAccrualAgreedHoursRecalculationPreviewResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        employeeEligibilities:
-          type: array
-          items:
-            $ref: '#/components/schemas/LeaveAccrualEmployeeRecalculationEligibility'
-    LeaveAccrualReleaseForHireDateResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-      title: ReleaseForHireDate response
-    LeaveAccrualEligibleRecalculationPolicy:
-      type: object
-      properties:
-        policyId:
-          type: string
-        policyName:
-          type: string
     LeaveAccrualEmployeeRecalculationEligibility:
       type: object
       properties:
@@ -101,6 +71,36 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/LeaveAccrualEligibleRecalculationPolicy'
+    LeaveAccrualReleaseForHireDateResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+      title: ReleaseForHireDate response
+    LeaveAccrualAgreedHoursRecalculationPreviewResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        employeeEligibilities:
+          type: array
+          items:
+            $ref: '#/components/schemas/LeaveAccrualEmployeeRecalculationEligibility'
+    LeaveAccrualEligibleRecalculationPolicy:
+      type: object
+      properties:
+        policyId:
+          type: string
+        policyName:
+          type: string
+    LeaveAccrualAgreedHoursRecalculationPreviewRequest:
+      type: object
+      properties:
+        employeeIds:
+          type: array
+          items:
+            type: integer
+            format: int32
   securitySchemes:
     ApiToken:
       type: apiKey

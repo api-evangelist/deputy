@@ -124,17 +124,13 @@ components:
             type: string
           title: Key-value pair for Employee id and corresponding Onboarding data
       title: Employee Onboarding Export
-    v2modelStatus:
-      type: string
-      enum:
-      - TODO
-      - STARTED
-      - REVIEW
-      - RESET
-      - SUBMITTED
-      - APPROVED
-      - NOT_INITIATED
-      default: TODO
+    EmployeeOnboardingCallbackStoreOnboardingIdResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        error:
+          type: string
     EmployeeOnboardingListOnboardingStatusResponse:
       type: object
       properties:
@@ -144,6 +140,25 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/modelOnboardingStatus'
+    EmployeeOnboardingExportListEmployeesByDateRangeRequestData:
+      type: object
+      properties:
+        startDate:
+          type: string
+          format: date-time
+        endDate:
+          type: string
+          format: date-time
+        locationIds:
+          type: array
+          items:
+            type: integer
+            format: int32
+    EmployeeOnboardingCallbackStoreOnboardingIdRequestData:
+      type: object
+      properties:
+        onboardingId:
+          type: string
     EmployeeOnboardingExportOnboardingExportResponse:
       type: object
       properties:
@@ -155,6 +170,35 @@ components:
             $ref: '#/components/schemas/v2modelEmployeeOnboardingExport'
         error:
           type: string
+    v2modelStatus:
+      type: string
+      enum:
+      - TODO
+      - STARTED
+      - REVIEW
+      - RESET
+      - SUBMITTED
+      - APPROVED
+      - NOT_INITIATED
+      default: TODO
+    EmployeeOnboardingExportListEmployeesByDateRangeResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/ListEmployeesByDateRangeResponseOnboardingData'
+    modelOnboardingStatus:
+      type: object
+      properties:
+        employeeId:
+          type: string
+        onboardingId:
+          type: string
+        status:
+          $ref: '#/components/schemas/v2modelStatus'
     ListEmployeesByDateRangeResponseOnboardingData:
       type: object
       properties:
@@ -171,50 +215,6 @@ components:
         lastModifiedAt:
           type: string
           format: date-time
-    modelOnboardingStatus:
-      type: object
-      properties:
-        employeeId:
-          type: string
-        onboardingId:
-          type: string
-        status:
-          $ref: '#/components/schemas/v2modelStatus'
-    EmployeeOnboardingCallbackStoreOnboardingIdRequestData:
-      type: object
-      properties:
-        onboardingId:
-          type: string
-    EmployeeOnboardingExportListEmployeesByDateRangeRequestData:
-      type: object
-      properties:
-        startDate:
-          type: string
-          format: date-time
-        endDate:
-          type: string
-          format: date-time
-        locationIds:
-          type: array
-          items:
-            type: integer
-            format: int32
-    EmployeeOnboardingExportListEmployeesByDateRangeResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/ListEmployeesByDateRangeResponseOnboardingData'
-    EmployeeOnboardingCallbackStoreOnboardingIdResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        error:
-          type: string
   securitySchemes:
     ApiToken:
       type: apiKey

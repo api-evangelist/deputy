@@ -516,6 +516,45 @@ paths:
           description: Resource not found
 components:
   schemas:
+    EmployeePaycycleReturn:
+      type: object
+      properties:
+        Id:
+          type: integer
+        PaycycleId:
+          type: integer
+        PayRule:
+          type: integer
+        Approved:
+          type: boolean
+        Overridden:
+          type: boolean
+        Value:
+          type: number
+          format: double
+        Cost:
+          type: number
+          format: double
+        OverrideComment:
+          type: string
+          maxLength: 255
+        Creator:
+          type: integer
+        Created:
+          type: string
+          format: date-time
+        Modified:
+          type: string
+        Paycycle:
+          type: object
+        PayRuleObject:
+          type: object
+      required:
+      - Id
+      - PaycycleId
+      - PayRule
+      - Approved
+      - Modified
     QueryRequest:
       type: object
       description: V1 Resource search payload. All fields optional; an empty body returns the first page of results.
@@ -582,45 +621,6 @@ components:
             data: 1
             type: ge
         max: 100
-    EmployeePaycycleReturn:
-      type: object
-      properties:
-        Id:
-          type: integer
-        PaycycleId:
-          type: integer
-        PayRule:
-          type: integer
-        Approved:
-          type: boolean
-        Overridden:
-          type: boolean
-        Value:
-          type: number
-          format: double
-        Cost:
-          type: number
-          format: double
-        OverrideComment:
-          type: string
-          maxLength: 255
-        Creator:
-          type: integer
-        Created:
-          type: string
-          format: date-time
-        Modified:
-          type: string
-        Paycycle:
-          type: object
-        PayRuleObject:
-          type: object
-      required:
-      - Id
-      - PaycycleId
-      - PayRule
-      - Approved
-      - Modified
   securitySchemes:
     BearerAuth:
       type: http

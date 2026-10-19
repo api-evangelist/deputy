@@ -72,15 +72,15 @@ components:
           type: boolean
         error:
           type: string
-    ScheduleShiftToggleMicroSchedulingResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
     ScheduleShiftToggleMicroSchedulingRequestData:
       type: object
       properties:
         enable:
+          type: boolean
+    ScheduleShiftToggleMicroSchedulingResponse:
+      type: object
+      properties:
+        success:
           type: boolean
   securitySchemes:
     ApiToken:

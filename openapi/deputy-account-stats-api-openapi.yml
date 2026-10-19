@@ -57,26 +57,10 @@ paths:
       description: Get pay rate coverage stats for the current tenant.
 components:
   schemas:
-    AccountStatsGetPayRateCoverageResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        data:
-          $ref: '#/components/schemas/AccountStatsGetPayRateCoverageResponseData'
     AccountStatsGetPayCalendarCoverageResponseData:
       type: object
       properties:
         employeesWithPayCalendar:
-          type: integer
-          format: int32
-        totalActiveEmployees:
-          type: integer
-          format: int32
-    AccountStatsGetPayRateCoverageResponseData:
-      type: object
-      properties:
-        employeesWithPayRates:
           type: integer
           format: int32
         totalActiveEmployees:
@@ -89,6 +73,22 @@ components:
           type: boolean
         data:
           $ref: '#/components/schemas/AccountStatsGetPayCalendarCoverageResponseData'
+    AccountStatsGetPayRateCoverageResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          $ref: '#/components/schemas/AccountStatsGetPayRateCoverageResponseData'
+    AccountStatsGetPayRateCoverageResponseData:
+      type: object
+      properties:
+        employeesWithPayRates:
+          type: integer
+          format: int32
+        totalActiveEmployees:
+          type: integer
+          format: int32
   securitySchemes:
     ApiToken:
       type: apiKey

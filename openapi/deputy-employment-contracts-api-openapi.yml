@@ -122,6 +122,79 @@ paths:
               $ref: '#/components/schemas/v2modelEmploymentContracts'
 components:
   schemas:
+    EmploymentContractsDeleteResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+      title: Delete EmploymentContracts response
+    modelEmploymentBasis:
+      type: string
+      enum:
+      - UNKNOWN_BASIS
+      - INDIVIDUAL
+      - LABOUR_HIRE
+      default: UNKNOWN_BASIS
+    modelPayCycleType:
+      type: string
+      enum:
+      - UNKNOWN_CYCLE
+      - WEEKLY
+      - FORTNIGHTLY
+      - MONTHLY
+      - EVERY_3_WEEKS
+      - EVERY_4_WEEKS
+      - BIMONTHLY
+      default: UNKNOWN_CYCLE
+    EmploymentContractsCreateResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          $ref: '#/components/schemas/v2modelEmploymentContracts'
+      title: Create EmploymentContracts response
+    v2employee_contractsmodelEmploymentType:
+      type: string
+      enum:
+      - UNKNOWN_TYPE
+      - FULL_TIME
+      - PART_TIME
+      - CASUAL
+      default: UNKNOWN_TYPE
+    EmploymentContractsUpdateResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          $ref: '#/components/schemas/v2modelEmploymentContracts'
+      title: Update EmploymentContracts response
+    EmploymentContractsListResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/v2modelEmploymentContracts'
+      title: List EmploymentContracts response
+    v2employee_contractsmodelEmploymentCategory:
+      type: string
+      enum:
+      - UNKNOWN_CATEGORY
+      - PERMANENT
+      - TEMPORARY
+      default: UNKNOWN_CATEGORY
+    EmploymentContractsGetResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          $ref: '#/components/schemas/v2modelEmploymentContracts'
+      title: Get  EmploymentContracts response
     v2modelEmploymentContracts:
       type: object
       properties:
@@ -183,79 +256,6 @@ components:
           format: date-time
           title: Timestamp when the Employment Contracts was modified
       title: Employment Contracts
-    EmploymentContractsListResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/v2modelEmploymentContracts'
-      title: List EmploymentContracts response
-    v2employee_contractsmodelEmploymentType:
-      type: string
-      enum:
-      - UNKNOWN_TYPE
-      - FULL_TIME
-      - PART_TIME
-      - CASUAL
-      default: UNKNOWN_TYPE
-    v2employee_contractsmodelEmploymentCategory:
-      type: string
-      enum:
-      - UNKNOWN_CATEGORY
-      - PERMANENT
-      - TEMPORARY
-      default: UNKNOWN_CATEGORY
-    EmploymentContractsUpdateResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        data:
-          $ref: '#/components/schemas/v2modelEmploymentContracts'
-      title: Update EmploymentContracts response
-    EmploymentContractsDeleteResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-      title: Delete EmploymentContracts response
-    modelPayCycleType:
-      type: string
-      enum:
-      - UNKNOWN_CYCLE
-      - WEEKLY
-      - FORTNIGHTLY
-      - MONTHLY
-      - EVERY_3_WEEKS
-      - EVERY_4_WEEKS
-      - BIMONTHLY
-      default: UNKNOWN_CYCLE
-    modelEmploymentBasis:
-      type: string
-      enum:
-      - UNKNOWN_BASIS
-      - INDIVIDUAL
-      - LABOUR_HIRE
-      default: UNKNOWN_BASIS
-    EmploymentContractsCreateResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        data:
-          $ref: '#/components/schemas/v2modelEmploymentContracts'
-      title: Create EmploymentContracts response
-    EmploymentContractsGetResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        data:
-          $ref: '#/components/schemas/v2modelEmploymentContracts'
-      title: Get  EmploymentContracts response
   securitySchemes:
     ApiToken:
       type: apiKey

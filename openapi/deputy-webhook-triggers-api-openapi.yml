@@ -65,59 +65,6 @@ paths:
               $ref: '#/components/schemas/WebhookTriggersTriggerBulkRequest'
 components:
   schemas:
-    WebhookTriggersTriggerBulkResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        message:
-          type: string
-        data:
-          $ref: '#/components/schemas/WebhookTriggersBulkSummary'
-    WebhookTriggersTriggerBulkRequest:
-      type: object
-      properties:
-        requests:
-          type: array
-          items:
-            $ref: '#/components/schemas/WebhookTriggersTriggerRequest'
-          title: List of webhook trigger requests
-        parallelProcessing:
-          type: boolean
-          title: Process requests in parallel
-        maxConcurrent:
-          type: integer
-          format: int32
-          title: Maximum concurrent operations
-    WebhookTriggersBulkSummary:
-      type: object
-      properties:
-        totalRequests:
-          type: integer
-          format: int32
-          title: Total number of requests processed
-        successfulRequests:
-          type: integer
-          format: int32
-          title: Number of successful requests
-        failedRequests:
-          type: integer
-          format: int32
-          title: Number of failed requests
-    modelWebhookTriggerOptions:
-      type: object
-      properties:
-        forceImmediate:
-          type: boolean
-          title: Force immediate execution (bypass transaction safety)
-        bulkMode:
-          type: boolean
-          title: Use bulk mode for better performance with multiple entities
-        maxBatchSize:
-          type: integer
-          format: int32
-          title: Maximum batch size for bulk operations
-      title: Webhook trigger options
     WebhookTriggersTriggerRequest:
       type: object
       properties:
@@ -136,6 +83,53 @@ components:
         options:
           $ref: '#/components/schemas/modelWebhookTriggerOptions'
           title: Webhook trigger options
+    modelWebhookTriggerOptions:
+      type: object
+      properties:
+        forceImmediate:
+          type: boolean
+          title: Force immediate execution (bypass transaction safety)
+        bulkMode:
+          type: boolean
+          title: Use bulk mode for better performance with multiple entities
+        maxBatchSize:
+          type: integer
+          format: int32
+          title: Maximum batch size for bulk operations
+      title: Webhook trigger options
+    WebhookTriggersBulkSummary:
+      type: object
+      properties:
+        totalRequests:
+          type: integer
+          format: int32
+          title: Total number of requests processed
+        successfulRequests:
+          type: integer
+          format: int32
+          title: Number of successful requests
+        failedRequests:
+          type: integer
+          format: int32
+          title: Number of failed requests
+    WebhookTriggersTriggerResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
+        data:
+          $ref: '#/components/schemas/modelWebhookExecutionSummary'
+    WebhookTriggersTriggerBulkResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
+        data:
+          $ref: '#/components/schemas/WebhookTriggersBulkSummary'
     modelWebhookExecutionSummary:
       type: object
       properties:
@@ -157,15 +151,21 @@ components:
           type: string
           title: Topic for processing hook
       title: Summary of webhook execution
-    WebhookTriggersTriggerResponse:
+    WebhookTriggersTriggerBulkRequest:
       type: object
       properties:
-        success:
+        requests:
+          type: array
+          items:
+            $ref: '#/components/schemas/WebhookTriggersTriggerRequest'
+          title: List of webhook trigger requests
+        parallelProcessing:
           type: boolean
-        message:
-          type: string
-        data:
-          $ref: '#/components/schemas/modelWebhookExecutionSummary'
+          title: Process requests in parallel
+        maxConcurrent:
+          type: integer
+          format: int32
+          title: Maximum concurrent operations
   securitySchemes:
     ApiToken:
       type: apiKey

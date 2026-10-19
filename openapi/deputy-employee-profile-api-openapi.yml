@@ -115,7 +115,7 @@ paths:
       - Employee Profile
 components:
   schemas:
-    EmployeeProfileListResponse:
+    EmployeeProfileRetrieveEmployeeProfileByIdsAndCustomFiltersResponse:
       type: object
       properties:
         success:
@@ -123,54 +123,9 @@ components:
         data:
           type: array
           items:
-            $ref: '#/components/schemas/v2modelEmployeeProfile'
+            $ref: '#/components/schemas/modelEmployeeProfileBasic'
         nextCursor:
           type: string
-          description: Cursor to fetch the next page of results. Base64 encoded value. Present only if more results are available. Empty string if this is the last page.
-      title: Get list of employee profile response
-    modelGenderType:
-      type: string
-      enum:
-      - DEFAULT_GENDER
-      - PREFER_NOT_TO_SAY
-      - MALE
-      - FEMALE
-      - NON_BINARY
-      default: DEFAULT_GENDER
-    EmployeeProfileRetrieveEmployeeProfileByIdsAndCustomFiltersRequest:
-      type: object
-      properties:
-        filters:
-          type: array
-          items:
-            type: string
-        op:
-          type: string
-        cursor:
-          type: string
-        limit:
-          type: integer
-          format: int32
-        employeeIds:
-          type: array
-          items:
-            type: string
-        mainLocations:
-          type: array
-          items:
-            type: string
-        employmentTypes:
-          type: array
-          items:
-            type: string
-    EmployeeProfileGetResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        data:
-          $ref: '#/components/schemas/v2modelEmployeeProfile'
-      title: Get employee profile response
     v2modelEmployeeProfile:
       type: object
       properties:
@@ -241,7 +196,15 @@ components:
           type: string
           title: Employee photo url
       title: Employee Profile
-    EmployeeProfileRetrieveEmployeeProfileByIdsAndCustomFiltersResponse:
+    EmployeeProfileGetResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          $ref: '#/components/schemas/v2modelEmployeeProfile'
+      title: Get employee profile response
+    EmployeeProfileListResponse:
       type: object
       properties:
         success:
@@ -249,9 +212,37 @@ components:
         data:
           type: array
           items:
-            $ref: '#/components/schemas/modelEmployeeProfileBasic'
+            $ref: '#/components/schemas/v2modelEmployeeProfile'
         nextCursor:
           type: string
+          description: Cursor to fetch the next page of results. Base64 encoded value. Present only if more results are available. Empty string if this is the last page.
+      title: Get list of employee profile response
+    EmployeeProfileRetrieveEmployeeProfileByIdsAndCustomFiltersRequest:
+      type: object
+      properties:
+        filters:
+          type: array
+          items:
+            type: string
+        op:
+          type: string
+        cursor:
+          type: string
+        limit:
+          type: integer
+          format: int32
+        employeeIds:
+          type: array
+          items:
+            type: string
+        mainLocations:
+          type: array
+          items:
+            type: string
+        employmentTypes:
+          type: array
+          items:
+            type: string
     modelEmployeeProfileBasic:
       type: object
       properties:
@@ -288,6 +279,15 @@ components:
         email:
           type: string
           title: Email
+    modelGenderType:
+      type: string
+      enum:
+      - DEFAULT_GENDER
+      - PREFER_NOT_TO_SAY
+      - MALE
+      - FEMALE
+      - NON_BINARY
+      default: DEFAULT_GENDER
   securitySchemes:
     ApiToken:
       type: apiKey

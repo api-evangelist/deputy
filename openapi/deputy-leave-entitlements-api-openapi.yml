@@ -101,15 +101,6 @@ components:
         leaveEntitlements:
           $ref: '#/components/schemas/v2modelLeaveEntitlements'
       title: Get employee leave entitlements response
-    v2modelLeaveEntitlements:
-      type: object
-      properties:
-        leaveRuleIds:
-          type: array
-          items:
-            type: integer
-            format: int32
-      title: Leave Entitlements
     LeaveEntitlementsLeaveEntitlementsBulkActionResponse:
       type: object
       properties:
@@ -120,6 +111,15 @@ components:
           items:
             type: integer
             format: int32
+    v2modelLeaveEntitlements:
+      type: object
+      properties:
+        leaveRuleIds:
+          type: array
+          items:
+            type: integer
+            format: int32
+      title: Leave Entitlements
   securitySchemes:
     ApiToken:
       type: apiKey

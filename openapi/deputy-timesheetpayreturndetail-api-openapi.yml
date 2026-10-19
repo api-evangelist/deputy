@@ -336,6 +336,54 @@ paths:
           description: Resource not found
 components:
   schemas:
+    TimesheetPayReturnDetail:
+      type: object
+      properties:
+        Id:
+          type: integer
+        TimesheetPayReturnId:
+          type: integer
+        StpClass:
+          type: string
+          maxLength: 255
+        StpCode:
+          type: string
+          maxLength: 10
+        IsMultiplier:
+          type: boolean
+        MultiplierValue:
+          type: number
+          format: double
+        Rate:
+          type: number
+          format: double
+        PayRate:
+          type: string
+          maxLength: 255
+        RemunerationType:
+          type: integer
+        RateType:
+          type: integer
+        RateTag:
+          type: string
+          maxLength: 255
+        ExportCode:
+          type: string
+          maxLength: 255
+        Level:
+          type: string
+          maxLength: 255
+        PayrollId:
+          type: string
+          maxLength: 64
+        TimesheetPayReturn:
+          type: object
+      required:
+      - Id
+      - TimesheetPayReturnId
+      - PayRate
+      - RemunerationType
+      - Level
     QueryRequest:
       type: object
       description: V1 Resource search payload. All fields optional; an empty body returns the first page of results.
@@ -402,54 +450,6 @@ components:
             data: 1
             type: ge
         max: 100
-    TimesheetPayReturnDetail:
-      type: object
-      properties:
-        Id:
-          type: integer
-        TimesheetPayReturnId:
-          type: integer
-        StpClass:
-          type: string
-          maxLength: 255
-        StpCode:
-          type: string
-          maxLength: 10
-        IsMultiplier:
-          type: boolean
-        MultiplierValue:
-          type: number
-          format: double
-        Rate:
-          type: number
-          format: double
-        PayRate:
-          type: string
-          maxLength: 255
-        RemunerationType:
-          type: integer
-        RateType:
-          type: integer
-        RateTag:
-          type: string
-          maxLength: 255
-        ExportCode:
-          type: string
-          maxLength: 255
-        Level:
-          type: string
-          maxLength: 255
-        PayrollId:
-          type: string
-          maxLength: 64
-        TimesheetPayReturn:
-          type: object
-      required:
-      - Id
-      - TimesheetPayReturnId
-      - PayRate
-      - RemunerationType
-      - Level
   securitySchemes:
     BearerAuth:
       type: http

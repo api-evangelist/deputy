@@ -516,72 +516,6 @@ paths:
           description: Resource not found
 components:
   schemas:
-    QueryRequest:
-      type: object
-      description: V1 Resource search payload. All fields optional; an empty body returns the first page of results.
-      properties:
-        search:
-          type: object
-          description: Map of search clauses keyed by an arbitrary id (e.g. `s1`, `s2`). Each clause filters one field.
-          additionalProperties:
-            type: object
-            required:
-            - field
-            - data
-            - type
-            properties:
-              field:
-                type: string
-                description: Field name to filter on (e.g. `Id`, `Employee`).
-              data:
-                description: Comparison value. Type depends on the field.
-              type:
-                type: string
-                description: Comparison operator.
-                enum:
-                - eq
-                - ne
-                - gt
-                - lt
-                - ge
-                - le
-                - is
-                - is not
-                - in
-                - not in
-                - starts
-                - contains
-        sort:
-          type: object
-          description: Map of field name → `asc` or `desc`.
-          additionalProperties:
-            type: string
-            enum:
-            - asc
-            - desc
-        start:
-          type: integer
-          minimum: 0
-          default: 0
-          description: Pagination offset (0-indexed).
-        max:
-          type: integer
-          minimum: 1
-          maximum: 500
-          default: 100
-          description: Max records per page (server caps at 500).
-        join:
-          type: array
-          items:
-            type: string
-          description: Related ORMs to expand inline (e.g. `["EmployeeObject"]`).
-      example:
-        search:
-          s1:
-            field: Id
-            data: 1
-            type: ge
-        max: 100
     CustomFieldData:
       type: object
       properties:
@@ -857,6 +791,72 @@ components:
       - Id
       - System
       - Modified
+    QueryRequest:
+      type: object
+      description: V1 Resource search payload. All fields optional; an empty body returns the first page of results.
+      properties:
+        search:
+          type: object
+          description: Map of search clauses keyed by an arbitrary id (e.g. `s1`, `s2`). Each clause filters one field.
+          additionalProperties:
+            type: object
+            required:
+            - field
+            - data
+            - type
+            properties:
+              field:
+                type: string
+                description: Field name to filter on (e.g. `Id`, `Employee`).
+              data:
+                description: Comparison value. Type depends on the field.
+              type:
+                type: string
+                description: Comparison operator.
+                enum:
+                - eq
+                - ne
+                - gt
+                - lt
+                - ge
+                - le
+                - is
+                - is not
+                - in
+                - not in
+                - starts
+                - contains
+        sort:
+          type: object
+          description: Map of field name → `asc` or `desc`.
+          additionalProperties:
+            type: string
+            enum:
+            - asc
+            - desc
+        start:
+          type: integer
+          minimum: 0
+          default: 0
+          description: Pagination offset (0-indexed).
+        max:
+          type: integer
+          minimum: 1
+          maximum: 500
+          default: 100
+          description: Max records per page (server caps at 500).
+        join:
+          type: array
+          items:
+            type: string
+          description: Related ORMs to expand inline (e.g. `["EmployeeObject"]`).
+      example:
+        search:
+          s1:
+            field: Id
+            data: 1
+            type: ge
+        max: 100
   securitySchemes:
     BearerAuth:
       type: http

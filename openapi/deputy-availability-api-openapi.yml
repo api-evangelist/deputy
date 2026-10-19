@@ -91,6 +91,45 @@ paths:
               $ref: '#/components/schemas/AvailabilityListRequestData'
 components:
   schemas:
+    modelRecurrenceDetail:
+      type: object
+      properties:
+        start:
+          type: string
+        end:
+          type: string
+        frequency:
+          type: string
+        interval:
+          type: integer
+          format: int32
+        weekOfTheMonth:
+          type: integer
+          format: int32
+        isEndingSoon:
+          type: boolean
+      title: Details of a specific availability or unavailability
+    AvailabilityListRequestData:
+      type: object
+      properties:
+        employees:
+          type: array
+          items:
+            type: integer
+            format: int32
+        start:
+          type: string
+        end:
+          type: string
+    AvailabilityListResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/modelEmployeeAvailability'
     AvailabilityGetResponse:
       type: object
       properties:
@@ -98,6 +137,49 @@ components:
           type: boolean
         data:
           $ref: '#/components/schemas/modelEmployeeAvailability'
+    modelAvailabilityDetail:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        tag:
+          type: string
+        kind:
+          type: string
+        start:
+          type: string
+        end:
+          type: string
+        comment:
+          type: string
+        isAllDay:
+          type: boolean
+        isOvernight:
+          type: boolean
+        recurrenceDetail:
+          $ref: '#/components/schemas/modelRecurrenceDetail'
+      title: Details of a specific availability or unavailability
+    modelWeekdayRecurrenceAvailability:
+      type: object
+      properties:
+        dayOfWeek:
+          type: string
+        availability:
+          type: array
+          items:
+            $ref: '#/components/schemas/modelAvailabilityDetail'
+      title: Contains recurrence availability details
+    modelOneOffAvailability:
+      type: object
+      properties:
+        date:
+          type: string
+        availability:
+          type: array
+          items:
+            $ref: '#/components/schemas/modelAvailabilityDetail'
+      title: Contains one-off availability details
     AvailabilityDeleteResponse:
       type: object
       properties:
@@ -130,88 +212,6 @@ components:
         timeZone:
           type: string
       title: Contains the availability data for a specific employee
-    modelAvailabilityDetail:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int32
-        tag:
-          type: string
-        kind:
-          type: string
-        start:
-          type: string
-        end:
-          type: string
-        comment:
-          type: string
-        isAllDay:
-          type: boolean
-        isOvernight:
-          type: boolean
-        recurrenceDetail:
-          $ref: '#/components/schemas/modelRecurrenceDetail'
-      title: Details of a specific availability or unavailability
-    modelRecurrenceDetail:
-      type: object
-      properties:
-        start:
-          type: string
-        end:
-          type: string
-        frequency:
-          type: string
-        interval:
-          type: integer
-          format: int32
-        weekOfTheMonth:
-          type: integer
-          format: int32
-        isEndingSoon:
-          type: boolean
-      title: Details of a specific availability or unavailability
-    modelWeekdayRecurrenceAvailability:
-      type: object
-      properties:
-        dayOfWeek:
-          type: string
-        availability:
-          type: array
-          items:
-            $ref: '#/components/schemas/modelAvailabilityDetail'
-      title: Contains recurrence availability details
-    AvailabilityListRequestData:
-      type: object
-      properties:
-        employees:
-          type: array
-          items:
-            type: integer
-            format: int32
-        start:
-          type: string
-        end:
-          type: string
-    AvailabilityListResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/modelEmployeeAvailability'
-    modelOneOffAvailability:
-      type: object
-      properties:
-        date:
-          type: string
-        availability:
-          type: array
-          items:
-            $ref: '#/components/schemas/modelAvailabilityDetail'
-      title: Contains one-off availability details
     modelDateOfMonthRecurrenceAvailability:
       type: object
       properties:

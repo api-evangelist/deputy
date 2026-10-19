@@ -45,6 +45,32 @@ paths:
               $ref: '#/components/schemas/ScheduleConsentCreateBulkConsentsRequestData'
 components:
   schemas:
+    ConsentConsentStatus:
+      type: string
+      enum:
+      - PENDING
+      - ACCEPTED
+      - DECLINED
+      - CANCELLED
+      - OVERRIDDEN_ACCEPTED
+      default: PENDING
+    ScheduleConsentCreateBulkConsentsRequestData:
+      type: object
+      properties:
+        consents:
+          type: array
+          items:
+            $ref: '#/components/schemas/modelConsent'
+    ScheduleConsentCreateBulkConsentsResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/modelConsent'
+      description: Creates bulk consents response.
     modelConsent:
       type: object
       properties:
@@ -80,32 +106,6 @@ components:
           type: object
           additionalProperties:
             type: string
-    ScheduleConsentCreateBulkConsentsRequestData:
-      type: object
-      properties:
-        consents:
-          type: array
-          items:
-            $ref: '#/components/schemas/modelConsent'
-    ConsentConsentStatus:
-      type: string
-      enum:
-      - PENDING
-      - ACCEPTED
-      - DECLINED
-      - CANCELLED
-      - OVERRIDDEN_ACCEPTED
-      default: PENDING
-    ScheduleConsentCreateBulkConsentsResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/modelConsent'
-      description: Creates bulk consents response.
     ConsentConsentRecordType:
       type: string
       enum:

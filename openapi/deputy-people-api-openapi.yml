@@ -53,49 +53,6 @@ paths:
       description: Get a list of Contracts used within a Company.
 components:
   schemas:
-    PeopleCompany:
-      type: object
-      properties:
-        Id:
-          type: integer
-          format: int32
-        Portfolio:
-          type: integer
-          format: int32
-        Code:
-          type: string
-        Active:
-          type: boolean
-        ParentCompany:
-          type: integer
-          format: int32
-        CompanyName:
-          type: string
-        TradingName:
-          type: string
-        BusinessNumber:
-          type: string
-        CompanyNumber:
-          type: string
-        IsWorkplace:
-          type: boolean
-        IsPayrollEntity:
-          type: boolean
-        PayrollExportCode:
-          type: string
-        Address:
-          type: integer
-          format: int32
-        Contact:
-          type: integer
-          format: int32
-        Creator:
-          type: integer
-          format: int32
-        Created:
-          type: string
-        Modified:
-          type: string
     PeopleListContractsResponse:
       type: object
       properties:
@@ -103,6 +60,13 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/PeopleContract'
+    PeopleListCompaniesResponse:
+      type: object
+      properties:
+        companies:
+          type: array
+          items:
+            $ref: '#/components/schemas/PeopleCompany'
     PeopleContract:
       type: object
       properties:
@@ -170,13 +134,49 @@ components:
           type: boolean
         IsPayPolicy:
           type: boolean
-    PeopleListCompaniesResponse:
+    PeopleCompany:
       type: object
       properties:
-        companies:
-          type: array
-          items:
-            $ref: '#/components/schemas/PeopleCompany'
+        Id:
+          type: integer
+          format: int32
+        Portfolio:
+          type: integer
+          format: int32
+        Code:
+          type: string
+        Active:
+          type: boolean
+        ParentCompany:
+          type: integer
+          format: int32
+        CompanyName:
+          type: string
+        TradingName:
+          type: string
+        BusinessNumber:
+          type: string
+        CompanyNumber:
+          type: string
+        IsWorkplace:
+          type: boolean
+        IsPayrollEntity:
+          type: boolean
+        PayrollExportCode:
+          type: string
+        Address:
+          type: integer
+          format: int32
+        Contact:
+          type: integer
+          format: int32
+        Creator:
+          type: integer
+          format: int32
+        Created:
+          type: string
+        Modified:
+          type: string
   securitySchemes:
     ApiToken:
       type: apiKey

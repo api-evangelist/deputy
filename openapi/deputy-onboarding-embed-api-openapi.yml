@@ -53,50 +53,6 @@ paths:
       description: Perform an action on an embed onboarding task.
 components:
   schemas:
-    embedEmbedOnboardingTaskName:
-      type: string
-      enum:
-      - UNKNOWN
-      - SCHEDULING_RULES
-      - CREATE_SHIFT
-      - PUBLISH_ROSTER
-      - DISCOVER_EMPLOYEE_EXPERIENCE
-      - INVITE_EMPLOYEES
-      - SETUP_PAY_RULES
-      - APPROVE_TIMESHEETS
-      - SEND_TIMESHEETS_TO_PAYROLL
-      default: UNKNOWN
-      description: "- UNKNOWN: The task is unknown\n - SCHEDULING_RULES: Set up scheduling rules (e.g location configuration)\n - CREATE_SHIFT: Create a shift\n - PUBLISH_ROSTER: Publish a roster\n - DISCOVER_EMPLOYEE_EXPERIENCE: Discover employee experience\n - INVITE_EMPLOYEES: Invite employees\n - SETUP_PAY_RULES: Set up pay rules\n - APPROVE_TIMESHEETS: Approve timesheets\n - SEND_TIMESHEETS_TO_PAYROLL: Send timesheets to payroll"
-      title: Valid embed onboarding tasks
-    embedEmbedOnboardingStatus:
-      type: object
-      properties:
-        isCompletedOnboarding:
-          type: boolean
-          title: Whether all onboarding tasks are complete
-        nextStep:
-          $ref: '#/components/schemas/embedEmbedOnboardingTaskName'
-          title: The next step in the onboarding flow
-        onboardingTasks:
-          type: array
-          items:
-            $ref: '#/components/schemas/embedEmbedOnboardingTask'
-          title: The tasks in the onboarding flow, sorted by a predefined sort order
-      title: The status for a new embed business
-    OnboardingDashboardGetEmbedOnboardingStatusResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        status:
-          $ref: '#/components/schemas/embedEmbedOnboardingStatus'
-    OnboardingDashboardPerformEmbedOnboardingActionResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        status:
-          $ref: '#/components/schemas/embedEmbedOnboardingStatus'
     embedEmbedOnboardingTask:
       type: object
       properties:
@@ -115,6 +71,50 @@ components:
           format: date-time
           title: The time when the task was completed
       title: Details of a single embed onboarding task
+    OnboardingDashboardGetEmbedOnboardingStatusResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        status:
+          $ref: '#/components/schemas/embedEmbedOnboardingStatus'
+    OnboardingDashboardPerformEmbedOnboardingActionResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        status:
+          $ref: '#/components/schemas/embedEmbedOnboardingStatus'
+    embedEmbedOnboardingStatus:
+      type: object
+      properties:
+        isCompletedOnboarding:
+          type: boolean
+          title: Whether all onboarding tasks are complete
+        nextStep:
+          $ref: '#/components/schemas/embedEmbedOnboardingTaskName'
+          title: The next step in the onboarding flow
+        onboardingTasks:
+          type: array
+          items:
+            $ref: '#/components/schemas/embedEmbedOnboardingTask'
+          title: The tasks in the onboarding flow, sorted by a predefined sort order
+      title: The status for a new embed business
+    embedEmbedOnboardingTaskName:
+      type: string
+      enum:
+      - UNKNOWN
+      - SCHEDULING_RULES
+      - CREATE_SHIFT
+      - PUBLISH_ROSTER
+      - DISCOVER_EMPLOYEE_EXPERIENCE
+      - INVITE_EMPLOYEES
+      - SETUP_PAY_RULES
+      - APPROVE_TIMESHEETS
+      - SEND_TIMESHEETS_TO_PAYROLL
+      default: UNKNOWN
+      description: "- UNKNOWN: The task is unknown\n - SCHEDULING_RULES: Set up scheduling rules (e.g location configuration)\n - CREATE_SHIFT: Create a shift\n - PUBLISH_ROSTER: Publish a roster\n - DISCOVER_EMPLOYEE_EXPERIENCE: Discover employee experience\n - INVITE_EMPLOYEES: Invite employees\n - SETUP_PAY_RULES: Set up pay rules\n - APPROVE_TIMESHEETS: Approve timesheets\n - SEND_TIMESHEETS_TO_PAYROLL: Send timesheets to payroll"
+      title: Valid embed onboarding tasks
   securitySchemes:
     ApiToken:
       type: apiKey

@@ -516,6 +516,47 @@ paths:
           description: Resource not found
 components:
   schemas:
+    EmployeeAvailability:
+      type: object
+      properties:
+        Id:
+          type: integer
+        Employee:
+          type: integer
+        Type:
+          type: integer
+        MaxDateRecurringGenerated:
+          type: string
+          format: date-time
+        StartTime:
+          type: integer
+        EndTime:
+          type: integer
+        Date:
+          type: string
+          format: date-time
+        Comment:
+          type: string
+          maxLength: 255
+        Schedule:
+          type: integer
+        Creator:
+          type: integer
+        Created:
+          type: string
+          format: date-time
+        Modified:
+          type: string
+        EmployeeObject:
+          type: object
+        ScheduleObject:
+          type: object
+      required:
+      - Id
+      - Employee
+      - Type
+      - Schedule
+      - Modified
     QueryRequest:
       type: object
       description: V1 Resource search payload. All fields optional; an empty body returns the first page of results.
@@ -582,47 +623,6 @@ components:
             data: 1
             type: ge
         max: 100
-    EmployeeAvailability:
-      type: object
-      properties:
-        Id:
-          type: integer
-        Employee:
-          type: integer
-        Type:
-          type: integer
-        MaxDateRecurringGenerated:
-          type: string
-          format: date-time
-        StartTime:
-          type: integer
-        EndTime:
-          type: integer
-        Date:
-          type: string
-          format: date-time
-        Comment:
-          type: string
-          maxLength: 255
-        Schedule:
-          type: integer
-        Creator:
-          type: integer
-        Created:
-          type: string
-          format: date-time
-        Modified:
-          type: string
-        EmployeeObject:
-          type: object
-        ScheduleObject:
-          type: object
-      required:
-      - Id
-      - Employee
-      - Type
-      - Schedule
-      - Modified
   securitySchemes:
     BearerAuth:
       type: http

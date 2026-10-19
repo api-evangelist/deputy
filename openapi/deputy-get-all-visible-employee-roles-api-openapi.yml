@@ -41,6 +41,14 @@ paths:
       description: Get all visible employee roles.
 components:
   schemas:
+    v2BusinessSettingRole:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        name:
+          type: string
     BusinessSettingGetAllVisibleEmployeeRolesResponse:
       type: object
       properties:
@@ -50,14 +58,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/v2BusinessSettingRole'
-    v2BusinessSettingRole:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int32
-        name:
-          type: string
   securitySchemes:
     ApiToken:
       type: apiKey

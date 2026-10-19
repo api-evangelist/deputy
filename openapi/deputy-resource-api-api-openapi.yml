@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: Deputy Resource API
+  title: Deputy Resource Resource API
   version: '1.0'
   contact: {}
   description: 'Operations tagged Resource API across 2 of this provider''s published API definitions: deputy-deputy-openapi.yml, deputy-resource-api-openapi.yml. Each path carries the servers of the definition it was published in.'
@@ -19,6 +19,13 @@ tags:
 - name: Resource API
 paths:
   /v1/resource/Employee/{employeeid}:
+    servers:
+    - url: https://{install}.{geo}.deputy.com/api
+      variables:
+        install:
+          default: ''
+        geo:
+          default: ''
     get:
       tags:
       - Resource API
@@ -38,14 +45,10 @@ paths:
           headers: {}
           content: {}
       deprecated: false
-    servers:
-    - url: https://{install}.{geo}.deputy.com/api
-      variables:
-        install:
-          default: ''
-        geo:
-          default: ''
   /Address:
+    servers:
+    - url: https://{install}.{geo}.deputy.com/api/v1/resource
+      variables: {}
     get:
       tags:
       - Resource API
@@ -57,10 +60,10 @@ paths:
           description: ''
           headers: {}
       deprecated: false
+  /Address/INFO:
     servers:
     - url: https://{install}.{geo}.deputy.com/api/v1/resource
       variables: {}
-  /Address/INFO:
     get:
       tags:
       - Resource API
@@ -72,10 +75,10 @@ paths:
           description: ''
           headers: {}
       deprecated: false
+  /Address/QUERY:
     servers:
     - url: https://{install}.{geo}.deputy.com/api/v1/resource
       variables: {}
-  /Address/QUERY:
     post:
       tags:
       - Resource API
@@ -107,10 +110,10 @@ paths:
           description: ''
           headers: {}
       deprecated: false
+  /Category:
     servers:
     - url: https://{install}.{geo}.deputy.com/api/v1/resource
       variables: {}
-  /Category:
     get:
       tags:
       - Resource API
@@ -122,10 +125,10 @@ paths:
           description: ''
           headers: {}
       deprecated: false
+  /Category/INFO:
     servers:
     - url: https://{install}.{geo}.deputy.com/api/v1/resource
       variables: {}
-  /Category/INFO:
     get:
       tags:
       - Resource API
@@ -137,10 +140,10 @@ paths:
           description: ''
           headers: {}
       deprecated: false
+  /Category/QUERY:
     servers:
     - url: https://{install}.{geo}.deputy.com/api/v1/resource
       variables: {}
-  /Category/QUERY:
     post:
       tags:
       - Resource API
@@ -172,10 +175,10 @@ paths:
           description: ''
           headers: {}
       deprecated: false
+  /Comment:
     servers:
     - url: https://{install}.{geo}.deputy.com/api/v1/resource
       variables: {}
-  /Comment:
     get:
       tags:
       - Resource API
@@ -187,10 +190,10 @@ paths:
           description: ''
           headers: {}
       deprecated: false
+  /Comment/INFO:
     servers:
     - url: https://{install}.{geo}.deputy.com/api/v1/resource
       variables: {}
-  /Comment/INFO:
     get:
       tags:
       - Resource API
@@ -202,10 +205,10 @@ paths:
           description: ''
           headers: {}
       deprecated: false
+  /Comment/QUERY:
     servers:
     - url: https://{install}.{geo}.deputy.com/api/v1/resource
       variables: {}
-  /Comment/QUERY:
     post:
       tags:
       - Resource API
@@ -237,10 +240,10 @@ paths:
           description: ''
           headers: {}
       deprecated: false
+  /Company:
     servers:
     - url: https://{install}.{geo}.deputy.com/api/v1/resource
       variables: {}
-  /Company:
     get:
       tags:
       - Resource API
@@ -283,10 +286,10 @@ paths:
           description: ''
           headers: {}
       deprecated: false
+  /Company/INFO:
     servers:
     - url: https://{install}.{geo}.deputy.com/api/v1/resource
       variables: {}
-  /Company/INFO:
     get:
       tags:
       - Resource API
@@ -298,10 +301,10 @@ paths:
           description: ''
           headers: {}
       deprecated: false
+  /CompanyPeriod:
     servers:
     - url: https://{install}.{geo}.deputy.com/api/v1/resource
       variables: {}
-  /CompanyPeriod:
     get:
       tags:
       - Resource API
@@ -313,10 +316,10 @@ paths:
           description: ''
           headers: {}
       deprecated: false
+  /CompanyPeriod/INFO:
     servers:
     - url: https://{install}.{geo}.deputy.com/api/v1/resource
       variables: {}
-  /CompanyPeriod/INFO:
     get:
       tags:
       - Resource API
@@ -328,10 +331,10 @@ paths:
           description: ''
           headers: {}
       deprecated: false
+  /CompanyPeriod/QUERY:
     servers:
     - url: https://{install}.{geo}.deputy.com/api/v1/resource
       variables: {}
-  /CompanyPeriod/QUERY:
     post:
       tags:
       - Resource API
@@ -363,10 +366,10 @@ paths:
           description: ''
           headers: {}
       deprecated: false
+  /Contact/INFO:
     servers:
     - url: https://{install}.{geo}.deputy.com/api/v1/resource
       variables: {}
-  /Contact/INFO:
     get:
       tags:
       - Resource API
@@ -378,10 +381,10 @@ paths:
           description: ''
           headers: {}
       deprecated: false
+  /Contact/QUERY:
     servers:
     - url: https://{install}.{geo}.deputy.com/api/v1/resource
       variables: {}
-  /Contact/QUERY:
     post:
       tags:
       - Resource API
@@ -413,10 +416,10 @@ paths:
           description: ''
           headers: {}
       deprecated: false
+  /Country/INFO:
     servers:
     - url: https://{install}.{geo}.deputy.com/api/v1/resource
       variables: {}
-  /Country/INFO:
     get:
       tags:
       - Resource API
@@ -428,10 +431,10 @@ paths:
           description: ''
           headers: {}
       deprecated: false
+  /Country/QUERY:
     servers:
     - url: https://{install}.{geo}.deputy.com/api/v1/resource
       variables: {}
-  /Country/QUERY:
     post:
       tags:
       - Resource API
@@ -463,10 +466,10 @@ paths:
           description: ''
           headers: {}
       deprecated: false
+  /CustomAppData:
     servers:
     - url: https://{install}.{geo}.deputy.com/api/v1/resource
       variables: {}
-  /CustomAppData:
     get:
       tags:
       - Resource API
@@ -478,10 +481,10 @@ paths:
           description: ''
           headers: {}
       deprecated: false
+  /CustomAppData/INFO:
     servers:
     - url: https://{install}.{geo}.deputy.com/api/v1/resource
       variables: {}
-  /CustomAppData/INFO:
     get:
       tags:
       - Resource API
@@ -493,10 +496,10 @@ paths:
           description: ''
           headers: {}
       deprecated: false
+  /CustomAppData/QUERY:
     servers:
     - url: https://{install}.{geo}.deputy.com/api/v1/resource
       variables: {}
-  /CustomAppData/QUERY:
     post:
       tags:
       - Resource API
@@ -528,10 +531,10 @@ paths:
           description: ''
           headers: {}
       deprecated: false
+  /CustomField:
     servers:
     - url: https://{install}.{geo}.deputy.com/api/v1/resource
       variables: {}
-  /CustomField:
     get:
       tags:
       - Resource API
@@ -574,10 +577,10 @@ paths:
           description: ''
           headers: {}
       deprecated: false
+  /CustomField/INFO:
     servers:
     - url: https://{install}.{geo}.deputy.com/api/v1/resource
       variables: {}
-  /CustomField/INFO:
     get:
       tags:
       - Resource API
@@ -589,10 +592,10 @@ paths:
           description: ''
           headers: {}
       deprecated: false
+  /CustomField/QUERY:
     servers:
     - url: https://{install}.{geo}.deputy.com/api/v1/resource
       variables: {}
-  /CustomField/QUERY:
     post:
       tags:
       - Resource API
@@ -624,10 +627,10 @@ paths:
           description: ''
           headers: {}
       deprecated: false
+  /CustomFieldData/INFO:
     servers:
     - url: https://{install}.{geo}.deputy.com/api/v1/resource
       variables: {}
-  /CustomFieldData/INFO:
     get:
       tags:
       - Resource API
@@ -639,10 +642,10 @@ paths:
           description: ''
           headers: {}
       deprecated: false
+  /Employee/INFO:
     servers:
     - url: https://{install}.{geo}.deputy.com/api/v1/resource
       variables: {}
-  /Employee/INFO:
     get:
       tags:
       - Resource API
@@ -654,10 +657,10 @@ paths:
           description: ''
           headers: {}
       deprecated: false
+  /Employee/QUERY:
     servers:
     - url: https://{install}.{geo}.deputy.com/api/v1/resource
       variables: {}
-  /Employee/QUERY:
     post:
       tags:
       - Resource API
@@ -689,10 +692,10 @@ paths:
           description: ''
           headers: {}
       deprecated: false
+  /EmployeeAgreement:
     servers:
     - url: https://{install}.{geo}.deputy.com/api/v1/resource
       variables: {}
-  /EmployeeAgreement:
     get:
       tags:
       - Resource API
@@ -704,10 +707,10 @@ paths:
           description: ''
           headers: {}
       deprecated: false
+  /EmployeeAgreement/INFO:
     servers:
     - url: https://{install}.{geo}.deputy.com/api/v1/resource
       variables: {}
-  /EmployeeAgreement/INFO:
     get:
       tags:
       - Resource API
@@ -719,10 +722,10 @@ paths:
           description: ''
           headers: {}
       deprecated: false
+  /EmployeeAgreement/QUERY:
     servers:
     - url: https://{install}.{geo}.deputy.com/api/v1/resource
       variables: {}
-  /EmployeeAgreement/QUERY:
     post:
       tags:
       - Resource API
@@ -754,10 +757,10 @@ paths:
           description: ''
           headers: {}
       deprecated: false
+  /EmployeeAgreementHistory:
     servers:
     - url: https://{install}.{geo}.deputy.com/api/v1/resource
       variables: {}
-  /EmployeeAgreementHistory:
     get:
       tags:
       - Resource API
@@ -769,10 +772,10 @@ paths:
           description: ''
           headers: {}
       deprecated: false
+  /EmployeeAgreementHistory/INFO:
     servers:
     - url: https://{install}.{geo}.deputy.com/api/v1/resource
       variables: {}
-  /EmployeeAgreementHistory/INFO:
     get:
       tags:
       - Resource API
@@ -784,10 +787,10 @@ paths:
           description: ''
           headers: {}
       deprecated: false
+  /EmployeeAgreementHistory/QUERY:
     servers:
     - url: https://{install}.{geo}.deputy.com/api/v1/resource
       variables: {}
-  /EmployeeAgreementHistory/QUERY:
     post:
       tags:
       - Resource API
@@ -819,10 +822,10 @@ paths:
           description: ''
           headers: {}
       deprecated: false
+  /EmployeeAppraisal:
     servers:
     - url: https://{install}.{geo}.deputy.com/api/v1/resource
       variables: {}
-  /EmployeeAppraisal:
     get:
       tags:
       - Resource API
@@ -865,10 +868,10 @@ paths:
           description: ''
           headers: {}
       deprecated: false
+  /EmployeeAppraisal/INFO:
     servers:
     - url: https://{install}.{geo}.deputy.com/api/v1/resource
       variables: {}
-  /EmployeeAppraisal/INFO:
     get:
       tags:
       - Resource API
@@ -880,10 +883,10 @@ paths:
           description: ''
           headers: {}
       deprecated: false
+  /EmployeeAvailability:
     servers:
     - url: https://{install}.{geo}.deputy.com/api/v1/resource
       variables: {}
-  /EmployeeAvailability:
     get:
       tags:
       - Resource API
@@ -895,10 +898,10 @@ paths:
           description: ''
           headers: {}
       deprecated: false
+  /EmployeeAvailability/INFO:
     servers:
     - url: https://{install}.{geo}.deputy.com/api/v1/resource
       variables: {}
-  /EmployeeAvailability/INFO:
     get:
       tags:
       - Resource API
@@ -910,10 +913,10 @@ paths:
           description: ''
           headers: {}
       deprecated: false
+  /EmployeeAvailability/QUERY:
     servers:
     - url: https://{install}.{geo}.deputy.com/api/v1/resource
       variables: {}
-  /EmployeeAvailability/QUERY:
     post:
       tags:
       - Resource API
@@ -945,10 +948,10 @@ paths:
           description: ''
           headers: {}
       deprecated: false
+  /EmployeeHistory:
     servers:
     - url: https://{install}.{geo}.deputy.com/api/v1/resource
       variables: {}
-  /EmployeeHistory:
     get:
       tags:
       - Resource API
@@ -960,10 +963,10 @@ paths:
           description: ''
           headers: {}
       deprecated: false
+  /EmployeeHistory/INFO:
     servers:
     - url: https://{install}.{geo}.deputy.com/api/v1/resource
       variables: {}
-  /EmployeeHistory/INFO:
     get:
       tags:
       - Resource API
@@ -975,10 +978,10 @@ paths:
           description: ''
           headers: {}
       deprecated: false
+  /EmployeeHistory/QUERY:
     servers:
     - url: https://{install}.{geo}.deputy.com/api/v1/resource
       variables: {}
-  /EmployeeHistory/QUERY:
     post:
       tags:
       - Resource API
@@ -1010,10 +1013,10 @@ paths:
           description: ''
           headers: {}
       deprecated: false
+  /EmployeeRole:
     servers:
     - url: https://{install}.{geo}.deputy.com/api/v1/resource
       variables: {}
-  /EmployeeRole:
     get:
       tags:
       - Resource API
@@ -1025,10 +1028,10 @@ paths:
           description: ''
           headers: {}
       deprecated: false
+  /EmployeeRole/INFO:
     servers:
     - url: https://{install}.{geo}.deputy.com/api/v1/resource
       variables: {}
-  /EmployeeRole/INFO:
     get:
       tags:
       - Resource API
@@ -1040,10 +1043,10 @@ paths:
           description: ''
           headers: {}
       deprecated: false
+  /EmployeeRole/QUERY:
     servers:
     - url: https://{install}.{geo}.deputy.com/api/v1/resource
       variables: {}
-  /EmployeeRole/QUERY:
     post:
       tags:
       - Resource API
@@ -1075,10 +1078,10 @@ paths:
           description: ''
           headers: {}
       deprecated: false
+  /EmployeeWorkplace:
     servers:
     - url: https://{install}.{geo}.deputy.com/api/v1/resource
       variables: {}
-  /EmployeeWorkplace:
     get:
       tags:
       - Resource API
@@ -1121,10 +1124,10 @@ paths:
           description: ''
           headers: {}
       deprecated: false
+  /EmploymentCondition:
     servers:
     - url: https://{install}.{geo}.deputy.com/api/v1/resource
       variables: {}
-  /EmploymentCondition:
     get:
       tags:
       - Resource API
@@ -1136,10 +1139,10 @@ paths:
           description: ''
           headers: {}
       deprecated: false
+  /EmploymentCondition/INFO:
     servers:
     - url: https://{install}.{geo}.deputy.com/api/v1/resource
       variables: {}
-  /EmploymentCondition/INFO:
     get:
       tags:
       - Resource API
@@ -1151,10 +1154,10 @@ paths:
           description: ''
           headers: {}
       deprecated: false
+  /EmploymentCondition/QUERY:
     servers:
     - url: https://{install}.{geo}.deputy.com/api/v1/resource
       variables: {}
-  /EmploymentCondition/QUERY:
     post:
       tags:
       - Resource API
@@ -1186,10 +1189,10 @@ paths:
           description: ''
           headers: {}
       deprecated: false
+  /EmploymentContract/INFO:
     servers:
     - url: https://{install}.{geo}.deputy.com/api/v1/resource
       variables: {}
-  /EmploymentContract/INFO:
     get:
       tags:
       - Resource API
@@ -1201,10 +1204,10 @@ paths:
           description: ''
           headers: {}
       deprecated: false
+  /EmploymentContract/QUERY:
     servers:
     - url: https://{install}.{geo}.deputy.com/api/v1/resource
       variables: {}
-  /EmploymentContract/QUERY:
     post:
       tags:
       - Resource API
@@ -1236,10 +1239,10 @@ paths:
           description: ''
           headers: {}
       deprecated: false
+  /EmploymentContractLeaveRules:
     servers:
     - url: https://{install}.{geo}.deputy.com/api/v1/resource
       variables: {}
-  /EmploymentContractLeaveRules:
     get:
       tags:
       - Resource API
@@ -1282,10 +1285,10 @@ paths:
           description: ''
           headers: {}
       deprecated: false
+  /EmploymentContractLeaveRules/INFO:
     servers:
     - url: https://{install}.{geo}.deputy.com/api/v1/resource
       variables: {}
-  /EmploymentContractLeaveRules/INFO:
     get:
       tags:
       - Resource API
@@ -1297,10 +1300,10 @@ paths:
           description: ''
           headers: {}
       deprecated: false
+  /Event:
     servers:
     - url: https://{install}.{geo}.deputy.com/api/v1/resource
       variables: {}
-  /Event:
     get:
       tags:
       - Resource API
@@ -1312,10 +1315,10 @@ paths:
           description: ''
           headers: {}
       deprecated: false
+  /Event/INFO:
     servers:
     - url: https://{install}.{geo}.deputy.com/api/v1/resource
       variables: {}
-  /Event/INFO:
     get:
       tags:
       - Resource API
@@ -1327,10 +1330,10 @@ paths:
           description: ''
           headers: {}
       deprecated: false
+  /Event/QUERY:
     servers:
     - url: https://{install}.{geo}.deputy.com/api/v1/resource
       variables: {}
-  /Event/QUERY:
     post:
       tags:
       - Resource API
@@ -1362,110 +1365,10 @@ paths:
           description: ''
           headers: {}
       deprecated: false
-    servers:
-    - url: https://{install}.{geo}.deputy.com/api/v1/resource
-      variables: {}
 components:
   schemas:
-    Search:
-      title: Search
-      required:
-      - s1
-      type: object
-      properties:
-        s1:
-          $ref: '#/components/schemas/S1'
-      example:
-        s1:
-          field: Id
-          data: 1
-          type: eq
-    SearchforanEmployeeWorkplaceRequest:
-      title: SearchforanEmployeeWorkplaceRequest
-      required:
-      - search
-      type: object
-      properties:
-        search:
-          $ref: '#/components/schemas/Search'
-      example:
-        search:
-          s1:
-            field: Id
-            data: 1
-            type: eq
-    SearchforanemployeeRequest:
-      title: SearchforanemployeeRequest
-      required:
-      - search
-      type: object
-      properties:
-        search:
-          $ref: '#/components/schemas/Search'
-      example:
-        search:
-          s1:
-            field: Id
-            data: 1
-            type: eq
-    SearchforacommentRequest:
-      title: SearchforacommentRequest
-      required:
-      - search
-      type: object
-      properties:
-        search:
-          $ref: '#/components/schemas/Search'
-      example:
-        search:
-          s1:
-            field: Id
-            data: 1
-            type: eq
-    SearchforanEmployeeAgreementHistoryRequest:
-      title: SearchforanEmployeeAgreementHistoryRequest
-      required:
-      - search
-      type: object
-      properties:
-        search:
-          $ref: '#/components/schemas/Search'
-      example:
-        search:
-          s1:
-            field: Id
-            data: 1
-            type: eq
-    SearchforanEmployeeAppraisalRequest:
-      title: SearchforanEmployeeAppraisalRequest
-      required:
-      - search
-      type: object
-      properties:
-        search:
-          $ref: '#/components/schemas/Search'
-      example:
-        search:
-          s1:
-            field: Id
-            data: 1
-            type: eq
-    SearchforanEmploymentConditionRequest:
-      title: SearchforanEmploymentConditionRequest
-      required:
-      - search
-      type: object
-      properties:
-        search:
-          $ref: '#/components/schemas/Search'
-      example:
-        search:
-          s1:
-            field: Id
-            data: 1
-            type: eq
-    SearchforaCustomFieldRequest:
-      title: SearchforaCustomFieldRequest
+    SearchforaLocationRequest:
+      title: SearchforaLocationRequest
       required:
       - search
       type: object
@@ -1492,48 +1395,6 @@ components:
             field: Code
             data: au
             type: eq
-    SearchforanEmployeeRoleRequest:
-      title: SearchforanEmployeeRoleRequest
-      required:
-      - search
-      type: object
-      properties:
-        search:
-          $ref: '#/components/schemas/Search'
-      example:
-        search:
-          s1:
-            field: Id
-            data: 1
-            type: eq
-    SearchforEventsRequest:
-      title: SearchforEventsRequest
-      required:
-      - search
-      type: object
-      properties:
-        search:
-          $ref: '#/components/schemas/Search'
-      example:
-        search:
-          s1:
-            field: Id
-            data: 1
-            type: eq
-    SearchforaddressRequest:
-      title: SearchforaddressRequest
-      required:
-      - search
-      type: object
-      properties:
-        search:
-          $ref: '#/components/schemas/Search'
-      example:
-        search:
-          s1:
-            field: Id
-            data: 1
-            type: eq
     S16:
       title: S16
       required:
@@ -1552,8 +1413,8 @@ components:
         field: Code
         data: au
         type: eq
-    SearchforanEmployeeHistoryRequest:
-      title: SearchforanEmployeeHistoryRequest
+    SearchforanemployeeagreementRequest:
+      title: SearchforanemployeeagreementRequest
       required:
       - search
       type: object
@@ -1566,8 +1427,69 @@ components:
             field: Id
             data: 1
             type: eq
-    SearchforanEmploymentContractRequest:
-      title: SearchforanEmploymentContractRequest
+    SearchforanEmployeeAvailabilityRequest:
+      title: SearchforanEmployeeAvailabilityRequest
+      required:
+      - search
+      type: object
+      properties:
+        search:
+          $ref: '#/components/schemas/Search'
+      example:
+        search:
+          s1:
+            field: Id
+            data: 1
+            type: eq
+    S1:
+      title: S1
+      required:
+      - field
+      - data
+      - type
+      type: object
+      properties:
+        field:
+          type: string
+        data:
+          type: integer
+          format: int32
+        type:
+          type: string
+      example:
+        field: Id
+        data: 1
+        type: eq
+    SearchforanEmployeeRoleRequest:
+      title: SearchforanEmployeeRoleRequest
+      required:
+      - search
+      type: object
+      properties:
+        search:
+          $ref: '#/components/schemas/Search'
+      example:
+        search:
+          s1:
+            field: Id
+            data: 1
+            type: eq
+    SearchforaCompanyPeriodRequest:
+      title: SearchforaCompanyPeriodRequest
+      required:
+      - search
+      type: object
+      properties:
+        search:
+          $ref: '#/components/schemas/Search'
+      example:
+        search:
+          s1:
+            field: Id
+            data: 1
+            type: eq
+    SearchforanEmployeeHistoryRequest:
+      title: SearchforanEmployeeHistoryRequest
       required:
       - search
       type: object
@@ -1608,27 +1530,8 @@ components:
             field: Id
             data: 1
             type: eq
-    S1:
-      title: S1
-      required:
-      - field
-      - data
-      - type
-      type: object
-      properties:
-        field:
-          type: string
-        data:
-          type: integer
-          format: int32
-        type:
-          type: string
-      example:
-        field: Id
-        data: 1
-        type: eq
-    SearchforaLocationRequest:
-      title: SearchforaLocationRequest
+    SearchforanEmployeeAppraisalRequest:
+      title: SearchforanEmployeeAppraisalRequest
       required:
       - search
       type: object
@@ -1641,8 +1544,78 @@ components:
             field: Id
             data: 1
             type: eq
-    SearchforanemployeeagreementRequest:
-      title: SearchforanemployeeagreementRequest
+    SearchforaCustomFieldRequest:
+      title: SearchforaCustomFieldRequest
+      required:
+      - search
+      type: object
+      properties:
+        search:
+          $ref: '#/components/schemas/Search'
+      example:
+        search:
+          s1:
+            field: Id
+            data: 1
+            type: eq
+    SearchforEventsRequest:
+      title: SearchforEventsRequest
+      required:
+      - search
+      type: object
+      properties:
+        search:
+          $ref: '#/components/schemas/Search'
+      example:
+        search:
+          s1:
+            field: Id
+            data: 1
+            type: eq
+    SearchforanEmployeeAgreementHistoryRequest:
+      title: SearchforanEmployeeAgreementHistoryRequest
+      required:
+      - search
+      type: object
+      properties:
+        search:
+          $ref: '#/components/schemas/Search'
+      example:
+        search:
+          s1:
+            field: Id
+            data: 1
+            type: eq
+    SearchforacommentRequest:
+      title: SearchforacommentRequest
+      required:
+      - search
+      type: object
+      properties:
+        search:
+          $ref: '#/components/schemas/Search'
+      example:
+        search:
+          s1:
+            field: Id
+            data: 1
+            type: eq
+    SearchforanEmploymentConditionRequest:
+      title: SearchforanEmploymentConditionRequest
+      required:
+      - search
+      type: object
+      properties:
+        search:
+          $ref: '#/components/schemas/Search'
+      example:
+        search:
+          s1:
+            field: Id
+            data: 1
+            type: eq
+    SearchforanEmployeeWorkplaceRequest:
+      title: SearchforanEmployeeWorkplaceRequest
       required:
       - search
       type: object
@@ -1669,36 +1642,50 @@ components:
             field: Id
             data: 1
             type: eq
+    SearchforanEmploymentContractRequest:
+      title: SearchforanEmploymentContractRequest
+      required:
+      - search
+      type: object
+      properties:
+        search:
+          $ref: '#/components/schemas/Search'
+      example:
+        search:
+          s1:
+            field: Id
+            data: 1
+            type: eq
+    SearchforaddressRequest:
+      title: SearchforaddressRequest
+      required:
+      - search
+      type: object
+      properties:
+        search:
+          $ref: '#/components/schemas/Search'
+      example:
+        search:
+          s1:
+            field: Id
+            data: 1
+            type: eq
+    SearchforanemployeeRequest:
+      title: SearchforanemployeeRequest
+      required:
+      - search
+      type: object
+      properties:
+        search:
+          $ref: '#/components/schemas/Search'
+      example:
+        search:
+          s1:
+            field: Id
+            data: 1
+            type: eq
     SearchforacustomfielddataentryRequest:
       title: SearchforacustomfielddataentryRequest
-      required:
-      - search
-      type: object
-      properties:
-        search:
-          $ref: '#/components/schemas/Search'
-      example:
-        search:
-          s1:
-            field: Id
-            data: 1
-            type: eq
-    SearchforanEmployeeAvailabilityRequest:
-      title: SearchforanEmployeeAvailabilityRequest
-      required:
-      - search
-      type: object
-      properties:
-        search:
-          $ref: '#/components/schemas/Search'
-      example:
-        search:
-          s1:
-            field: Id
-            data: 1
-            type: eq
-    SearchforaCompanyPeriodRequest:
-      title: SearchforaCompanyPeriodRequest
       required:
       - search
       type: object
@@ -1723,6 +1710,19 @@ components:
         s1:
           field: Code
           data: au
+          type: eq
+    Search:
+      title: Search
+      required:
+      - s1
+      type: object
+      properties:
+        s1:
+          $ref: '#/components/schemas/S1'
+      example:
+        s1:
+          field: Id
+          data: 1
           type: eq
     SearchforEmploymentContractLeaveRulesRequest:
       title: SearchforEmploymentContractLeaveRulesRequest

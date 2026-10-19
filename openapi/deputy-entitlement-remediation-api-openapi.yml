@@ -86,14 +86,6 @@ components:
           type: boolean
         link:
           type: string
-    v2modelBalanceRemediationType:
-      type: string
-      enum:
-      - BALANCE_REMEDIATION_UNKNOWN
-      - BALANCE_REMEDIATION_INELIGIBLE
-      - BALANCE_REMEDIATION_LEAVE_ENGINE
-      - BALANCE_REMEDIATION_LEGACY
-      default: BALANCE_REMEDIATION_UNKNOWN
     LeaveEntitlementRemediationStatusEntitlementRemediationStatusCode:
       type: string
       enum:
@@ -116,26 +108,6 @@ components:
       properties:
         actionType:
           $ref: '#/components/schemas/modelActionType'
-    modelActionType:
-      type: string
-      enum:
-      - ACTION_TYPE_UNKNOWN
-      - REVIEW_AFFECTED_EMPLOYEES
-      - SELF_MANAGE
-      - AUTO_FIX
-      default: ACTION_TYPE_UNKNOWN
-    LeaveEntitlementsRemediationGetEntitlementRemediationStatusResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        data:
-          $ref: '#/components/schemas/modelLeaveEntitlementRemediationStatus'
-    LeaveEntitlementsRemediationSetEntitlementRemediationActionTypeResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
     modelLeaveEntitlementRemediationStatus:
       type: object
       properties:
@@ -159,6 +131,34 @@ components:
           type: string
         balanceFileKey:
           type: string
+    v2modelBalanceRemediationType:
+      type: string
+      enum:
+      - BALANCE_REMEDIATION_UNKNOWN
+      - BALANCE_REMEDIATION_INELIGIBLE
+      - BALANCE_REMEDIATION_LEAVE_ENGINE
+      - BALANCE_REMEDIATION_LEGACY
+      default: BALANCE_REMEDIATION_UNKNOWN
+    LeaveEntitlementsRemediationSetEntitlementRemediationActionTypeResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+    modelActionType:
+      type: string
+      enum:
+      - ACTION_TYPE_UNKNOWN
+      - REVIEW_AFFECTED_EMPLOYEES
+      - SELF_MANAGE
+      - AUTO_FIX
+      default: ACTION_TYPE_UNKNOWN
+    LeaveEntitlementsRemediationGetEntitlementRemediationStatusResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          $ref: '#/components/schemas/modelLeaveEntitlementRemediationStatus'
   securitySchemes:
     ApiToken:
       type: apiKey

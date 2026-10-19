@@ -78,23 +78,6 @@ paths:
       description: List session history records.
 components:
   schemas:
-    modelSessionInfo:
-      type: object
-      properties:
-        sessionId:
-          type: string
-          title: a reference to the id in deputec_session table
-        ip:
-          type: string
-        host:
-          type: string
-        agent:
-          type: string
-        sessionStart:
-          type: string
-          format: date-time
-        loginViaPortal:
-          type: boolean
     SessionHistoryListResponse:
       type: object
       properties:
@@ -130,6 +113,23 @@ components:
           $ref: '#/components/schemas/modelSessionInfo'
         ksuid:
           type: string
+    modelSessionInfo:
+      type: object
+      properties:
+        sessionId:
+          type: string
+          title: a reference to the id in deputec_session table
+        ip:
+          type: string
+        host:
+          type: string
+        agent:
+          type: string
+        sessionStart:
+          type: string
+          format: date-time
+        loginViaPortal:
+          type: boolean
   securitySchemes:
     ApiToken:
       type: apiKey

@@ -56,6 +56,15 @@ paths:
       description: Retrieve my colleagues that are also working.
 components:
   schemas:
+    v2AlsoWorkingResponseData:
+      type: object
+      properties:
+        date:
+          type: string
+        employees:
+          type: array
+          items:
+            $ref: '#/components/schemas/AlsoWorkingResponseEmployeeProfile'
     v2AlsoWorkingResponse:
       type: object
       properties:
@@ -75,15 +84,6 @@ components:
           type: string
         photoUrl:
           type: string
-    v2AlsoWorkingResponseData:
-      type: object
-      properties:
-        date:
-          type: string
-        employees:
-          type: array
-          items:
-            $ref: '#/components/schemas/AlsoWorkingResponseEmployeeProfile'
   securitySchemes:
     ApiToken:
       type: apiKey

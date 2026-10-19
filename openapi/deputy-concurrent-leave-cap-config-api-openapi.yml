@@ -39,7 +39,15 @@ paths:
       description: Get concurrent leave cap config.
 components:
   schemas:
-    modelConcurrentLeaveCapConfigLeaveRule:
+    ConcurrentLeaveCapConfigGetConcurrentLeaveCapConfigResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          $ref: '#/components/schemas/v2modelConcurrentLeaveCapConfig'
+      title: Get concurrent leave cap config response
+    modelConcurrentLeaveCapRuleLocation:
       type: object
       properties:
         id:
@@ -47,7 +55,7 @@ components:
           format: int32
         name:
           type: string
-    modelConcurrentLeaveCapRuleLocation:
+    modelConcurrentLeaveCapConfigLeaveRule:
       type: object
       properties:
         id:
@@ -67,22 +75,6 @@ components:
           format: int32
         blockType:
           $ref: '#/components/schemas/modelBlockType'
-    ConcurrentLeaveCapConfigGetConcurrentLeaveCapConfigResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        data:
-          $ref: '#/components/schemas/v2modelConcurrentLeaveCapConfig'
-      title: Get concurrent leave cap config response
-    modelBlockType:
-      type: string
-      enum:
-      - UNKNOWN_BLOCK
-      - HARD_BLOCK
-      - SOFT_BLOCK
-      - HARD_NO_OVERRIDE
-      default: UNKNOWN_BLOCK
     v2modelConcurrentLeaveCapConfig:
       type: object
       properties:
@@ -109,6 +101,14 @@ components:
         modifiedAt:
           type: string
           format: date-time
+    modelBlockType:
+      type: string
+      enum:
+      - UNKNOWN_BLOCK
+      - HARD_BLOCK
+      - SOFT_BLOCK
+      - HARD_NO_OVERRIDE
+      default: UNKNOWN_BLOCK
   securitySchemes:
     ApiToken:
       type: apiKey

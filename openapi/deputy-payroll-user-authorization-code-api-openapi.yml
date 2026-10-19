@@ -45,13 +45,6 @@ paths:
       description: Generate authorization code for payroll user.
 components:
   schemas:
-    modelGenerateAuthorizationCodeForPartnerUserResponseData:
-      type: object
-      properties:
-        code:
-          type: string
-          title: OAuth code for the payroll user
-      title: Get Authorization Code for Payroll User Response
     AuthorizationCodeGenerateAuthorizationCodeForPartnerUserResponse:
       type: object
       properties:
@@ -59,6 +52,13 @@ components:
           type: boolean
         data:
           $ref: '#/components/schemas/modelGenerateAuthorizationCodeForPartnerUserResponseData'
+    modelGenerateAuthorizationCodeForPartnerUserResponseData:
+      type: object
+      properties:
+        code:
+          type: string
+          title: OAuth code for the payroll user
+      title: Get Authorization Code for Payroll User Response
   securitySchemes:
     ApiToken:
       type: apiKey

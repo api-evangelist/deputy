@@ -516,6 +516,51 @@ paths:
           description: Resource not found
 components:
   schemas:
+    TaskGroupSetup:
+      type: object
+      properties:
+        Id:
+          type: integer
+        Key:
+          type: string
+          maxLength: 64
+        Name:
+          type: string
+          maxLength: 64
+        Active:
+          type: boolean
+        Compulsory:
+          type: boolean
+        Notification:
+          type: string
+        Deadline:
+          type: number
+          format: double
+        Plugins:
+          type: string
+        Oncreate:
+          type: string
+        Onsubmit:
+          type: string
+        Comment:
+          type: string
+        LaborModel:
+          type: boolean
+        Creator:
+          type: integer
+        Created:
+          type: string
+          format: date-time
+        Modified:
+          type: string
+      required:
+      - Id
+      - Key
+      - Name
+      - Active
+      - Creator
+      - Created
+      - Modified
     QueryRequest:
       type: object
       description: V1 Resource search payload. All fields optional; an empty body returns the first page of results.
@@ -582,51 +627,6 @@ components:
             data: 1
             type: ge
         max: 100
-    TaskGroupSetup:
-      type: object
-      properties:
-        Id:
-          type: integer
-        Key:
-          type: string
-          maxLength: 64
-        Name:
-          type: string
-          maxLength: 64
-        Active:
-          type: boolean
-        Compulsory:
-          type: boolean
-        Notification:
-          type: string
-        Deadline:
-          type: number
-          format: double
-        Plugins:
-          type: string
-        Oncreate:
-          type: string
-        Onsubmit:
-          type: string
-        Comment:
-          type: string
-        LaborModel:
-          type: boolean
-        Creator:
-          type: integer
-        Created:
-          type: string
-          format: date-time
-        Modified:
-          type: string
-      required:
-      - Id
-      - Key
-      - Name
-      - Active
-      - Creator
-      - Created
-      - Modified
   securitySchemes:
     BearerAuth:
       type: http

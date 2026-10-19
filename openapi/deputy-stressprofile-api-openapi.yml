@@ -516,6 +516,44 @@ paths:
           description: Resource not found
 components:
   schemas:
+    StressProfile:
+      type: object
+      properties:
+        Id:
+          type: integer
+        Name:
+          type: string
+          maxLength: 255
+        MaxHoursPerShift:
+          type: number
+          format: double
+        MaxHoursPerPeriod:
+          type: number
+          format: double
+        MaxDaysPerPeriod:
+          type: number
+          format: double
+        MaxHoursPerDay:
+          type: number
+          format: double
+        GapHoursBetweenShifts:
+          type: number
+          format: double
+        CustomRules:
+          type: string
+          maxLength: 255
+        Creator:
+          type: integer
+        Created:
+          type: string
+          format: date-time
+        Modified:
+          type: string
+      required:
+      - Id
+      - Name
+      - MaxHoursPerShift
+      - Modified
     QueryRequest:
       type: object
       description: V1 Resource search payload. All fields optional; an empty body returns the first page of results.
@@ -582,44 +620,6 @@ components:
             data: 1
             type: ge
         max: 100
-    StressProfile:
-      type: object
-      properties:
-        Id:
-          type: integer
-        Name:
-          type: string
-          maxLength: 255
-        MaxHoursPerShift:
-          type: number
-          format: double
-        MaxHoursPerPeriod:
-          type: number
-          format: double
-        MaxDaysPerPeriod:
-          type: number
-          format: double
-        MaxHoursPerDay:
-          type: number
-          format: double
-        GapHoursBetweenShifts:
-          type: number
-          format: double
-        CustomRules:
-          type: string
-          maxLength: 255
-        Creator:
-          type: integer
-        Created:
-          type: string
-          format: date-time
-        Modified:
-          type: string
-      required:
-      - Id
-      - Name
-      - MaxHoursPerShift
-      - Modified
   securitySchemes:
     BearerAuth:
       type: http

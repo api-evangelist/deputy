@@ -85,26 +85,33 @@ paths:
               $ref: '#/components/schemas/modelLoadTemplatePayload'
 components:
   schemas:
-    ScheduleTemplateBulkDeleteTemplateResponseMetadata:
+    ScheduleTemplateBulkDeleteTemplateRequestData:
       type: object
       properties:
-        deletedCount:
-          type: integer
-          format: int32
-          title: Number of templates successfully deleted
-        deletedIds:
+        templateIds:
           type: array
           items:
             type: integer
             format: int32
-          title: IDs that were successfully deleted
-        failedIds:
-          type: array
-          items:
-            type: integer
-            format: int32
-          title: IDs that failed to delete (for partial failure scenarios)
-      title: Metadata about the bulk delete operation
+          title: Array of template IDs to delete
+    modelViewType:
+      type: string
+      enum:
+      - DAILY
+      - DAILY_EMP
+      - WEEKLY
+      - WEEKLY_EMPLOYEE
+      - FORTNIGHTLY
+      - FORTNIGHTLY_EMP
+      - MONTHLY_EMPLOYEE
+      - FOURWEEKLY_EMP
+      - MONTHLY
+      default: DAILY
+    ScheduleTemplateCreateTemplateResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
     ScheduleTemplateCreateTemplateRequestData:
       type: object
       properties:
@@ -145,23 +152,13 @@ components:
             type: integer
             format: int32
           title: optional employee ids
-    ScheduleTemplateBulkDeleteTemplateRequestData:
+    LoadTemplateResponseLoadResponseData:
       type: object
       properties:
-        templateIds:
-          type: array
-          items:
-            type: integer
-            format: int32
-          title: Array of template IDs to delete
-    ScheduleTemplateBulkDeleteTemplateResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-          title: Success flag
-        metadata:
-          $ref: '#/components/schemas/ScheduleTemplateBulkDeleteTemplateResponseMetadata'
+        correlationId:
+          type: string
+        jobId:
+          type: string
     modelLoadTemplatePayload:
       type: object
       properties:
@@ -192,24 +189,14 @@ components:
             type: integer
             format: int32
           title: optional employee ids
-    modelViewType:
-      type: string
-      enum:
-      - DAILY
-      - DAILY_EMP
-      - WEEKLY
-      - WEEKLY_EMPLOYEE
-      - FORTNIGHTLY
-      - FORTNIGHTLY_EMP
-      - MONTHLY_EMPLOYEE
-      - FOURWEEKLY_EMP
-      - MONTHLY
-      default: DAILY
-    ScheduleTemplateCreateTemplateResponse:
+    ScheduleTemplateBulkDeleteTemplateResponse:
       type: object
       properties:
         success:
           type: boolean
+          title: Success flag
+        metadata:
+          $ref: '#/components/schemas/ScheduleTemplateBulkDeleteTemplateResponseMetadata'
     ScheduleTemplateLoadTemplateResponse:
       type: object
       properties:
@@ -217,13 +204,26 @@ components:
           type: boolean
         data:
           $ref: '#/components/schemas/LoadTemplateResponseLoadResponseData'
-    LoadTemplateResponseLoadResponseData:
+    ScheduleTemplateBulkDeleteTemplateResponseMetadata:
       type: object
       properties:
-        correlationId:
-          type: string
-        jobId:
-          type: string
+        deletedCount:
+          type: integer
+          format: int32
+          title: Number of templates successfully deleted
+        deletedIds:
+          type: array
+          items:
+            type: integer
+            format: int32
+          title: IDs that were successfully deleted
+        failedIds:
+          type: array
+          items:
+            type: integer
+            format: int32
+          title: IDs that failed to delete (for partial failure scenarios)
+      title: Metadata about the bulk delete operation
   securitySchemes:
     ApiToken:
       type: apiKey

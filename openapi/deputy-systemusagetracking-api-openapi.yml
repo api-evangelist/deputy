@@ -336,6 +336,50 @@ paths:
           description: Resource not found
 components:
   schemas:
+    SystemUsageTracking:
+      type: object
+      properties:
+        Id:
+          type: integer
+        Date:
+          type: string
+          format: date-time
+        EmpId:
+          type: integer
+        CompanyId:
+          type: integer
+        BalanceId:
+          type: integer
+        UsageType:
+          type: integer
+        UsageRecordId:
+          type: integer
+        Usage:
+          type: number
+          format: double
+        Description:
+          type: string
+          maxLength: 255
+        Creator:
+          type: integer
+        Created:
+          type: string
+          format: date-time
+        Modified:
+          type: string
+        Company:
+          type: object
+        Balance:
+          type: object
+      required:
+      - Id
+      - Date
+      - EmpId
+      - CompanyId
+      - UsageType
+      - UsageRecordId
+      - Usage
+      - Modified
     QueryRequest:
       type: object
       description: V1 Resource search payload. All fields optional; an empty body returns the first page of results.
@@ -402,50 +446,6 @@ components:
             data: 1
             type: ge
         max: 100
-    SystemUsageTracking:
-      type: object
-      properties:
-        Id:
-          type: integer
-        Date:
-          type: string
-          format: date-time
-        EmpId:
-          type: integer
-        CompanyId:
-          type: integer
-        BalanceId:
-          type: integer
-        UsageType:
-          type: integer
-        UsageRecordId:
-          type: integer
-        Usage:
-          type: number
-          format: double
-        Description:
-          type: string
-          maxLength: 255
-        Creator:
-          type: integer
-        Created:
-          type: string
-          format: date-time
-        Modified:
-          type: string
-        Company:
-          type: object
-        Balance:
-          type: object
-      required:
-      - Id
-      - Date
-      - EmpId
-      - CompanyId
-      - UsageType
-      - UsageRecordId
-      - Usage
-      - Modified
   securitySchemes:
     BearerAuth:
       type: http

@@ -516,46 +516,6 @@ paths:
           description: Resource not found
 components:
   schemas:
-    EmployeeWorkplace:
-      type: object
-      properties:
-        Id:
-          type: integer
-        EmployeeId:
-          type: integer
-        Company:
-          type: integer
-        SortOrder:
-          type: integer
-        Agreement1:
-          type: integer
-        Agreement2:
-          type: integer
-        Agreement3:
-          type: integer
-        Creator:
-          type: integer
-        Created:
-          type: string
-          format: date-time
-        Modified:
-          type: string
-        Employee:
-          type: object
-        CompanyObject:
-          type: object
-        Agreement1Object:
-          type: object
-        Agreement2Object:
-          type: object
-        Agreement3Object:
-          type: object
-      required:
-      - Id
-      - EmployeeId
-      - Company
-      - SortOrder
-      - Modified
     QueryRequest:
       type: object
       description: V1 Resource search payload. All fields optional; an empty body returns the first page of results.
@@ -622,6 +582,46 @@ components:
             data: 1
             type: ge
         max: 100
+    EmployeeWorkplace:
+      type: object
+      properties:
+        Id:
+          type: integer
+        EmployeeId:
+          type: integer
+        Company:
+          type: integer
+        SortOrder:
+          type: integer
+        Agreement1:
+          type: integer
+        Agreement2:
+          type: integer
+        Agreement3:
+          type: integer
+        Creator:
+          type: integer
+        Created:
+          type: string
+          format: date-time
+        Modified:
+          type: string
+        Employee:
+          type: object
+        CompanyObject:
+          type: object
+        Agreement1Object:
+          type: object
+        Agreement2Object:
+          type: object
+        Agreement3Object:
+          type: object
+      required:
+      - Id
+      - EmployeeId
+      - Company
+      - SortOrder
+      - Modified
   securitySchemes:
     BearerAuth:
       type: http

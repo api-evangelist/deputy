@@ -336,6 +336,35 @@ paths:
           description: Resource not found
 components:
   schemas:
+    SystemUsageBalance:
+      type: object
+      properties:
+        Id:
+          type: integer
+        Type:
+          type: integer
+        Date:
+          type: string
+          format: date-time
+        Credit:
+          type: number
+          format: double
+        Description:
+          type: string
+          maxLength: 255
+        Creator:
+          type: integer
+        Created:
+          type: string
+          format: date-time
+        Modified:
+          type: string
+      required:
+      - Id
+      - Type
+      - Date
+      - Credit
+      - Modified
     QueryRequest:
       type: object
       description: V1 Resource search payload. All fields optional; an empty body returns the first page of results.
@@ -402,35 +431,6 @@ components:
             data: 1
             type: ge
         max: 100
-    SystemUsageBalance:
-      type: object
-      properties:
-        Id:
-          type: integer
-        Type:
-          type: integer
-        Date:
-          type: string
-          format: date-time
-        Credit:
-          type: number
-          format: double
-        Description:
-          type: string
-          maxLength: 255
-        Creator:
-          type: integer
-        Created:
-          type: string
-          format: date-time
-        Modified:
-          type: string
-      required:
-      - Id
-      - Type
-      - Date
-      - Credit
-      - Modified
   securitySchemes:
     BearerAuth:
       type: http

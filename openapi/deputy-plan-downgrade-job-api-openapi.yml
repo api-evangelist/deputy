@@ -45,6 +45,16 @@ paths:
               $ref: '#/components/schemas/ProductSubscriptionDowngradeJobRequest'
 components:
   schemas:
+    ProductSubscriptionDowngradeJobResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+    ProductSubscriptionDowngradeJobRequest:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/PlanDowngradePayload'
     PlanDowngradePayload:
       type: object
       properties:
@@ -57,16 +67,6 @@ components:
         downgradedAt:
           type: string
           format: date-time
-    ProductSubscriptionDowngradeJobRequest:
-      type: object
-      properties:
-        data:
-          $ref: '#/components/schemas/PlanDowngradePayload'
-    ProductSubscriptionDowngradeJobResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
   securitySchemes:
     ApiToken:
       type: apiKey

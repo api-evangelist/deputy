@@ -59,39 +59,13 @@ paths:
       description: Retrieve employment condition by given Id.
 components:
   schemas:
-    EmploymentConditionListResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/v2modelEmploymentCondition'
-      title: Get list of employment conditions response
-    EmploymentConditionGetResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        data:
-          $ref: '#/components/schemas/v2modelEmploymentCondition'
-      title: Get employment condition response
-    v2employee_contractsmodelEmploymentType:
+    modelEmploymentBasis:
       type: string
       enum:
-      - UNKNOWN_TYPE
-      - FULL_TIME
-      - PART_TIME
-      - CASUAL
-      default: UNKNOWN_TYPE
-    v2employee_contractsmodelEmploymentCategory:
-      type: string
-      enum:
-      - UNKNOWN_CATEGORY
-      - PERMANENT
-      - TEMPORARY
-      default: UNKNOWN_CATEGORY
+      - UNKNOWN_BASIS
+      - INDIVIDUAL
+      - LABOUR_HIRE
+      default: UNKNOWN_BASIS
     v2modelEmploymentCondition:
       type: object
       properties:
@@ -163,13 +137,39 @@ components:
           format: date-time
           title: Timestamp when this condition was modified
       title: Employment Condition
-    modelEmploymentBasis:
+    EmploymentConditionGetResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          $ref: '#/components/schemas/v2modelEmploymentCondition'
+      title: Get employment condition response
+    v2employee_contractsmodelEmploymentType:
       type: string
       enum:
-      - UNKNOWN_BASIS
-      - INDIVIDUAL
-      - LABOUR_HIRE
-      default: UNKNOWN_BASIS
+      - UNKNOWN_TYPE
+      - FULL_TIME
+      - PART_TIME
+      - CASUAL
+      default: UNKNOWN_TYPE
+    EmploymentConditionListResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/v2modelEmploymentCondition'
+      title: Get list of employment conditions response
+    v2employee_contractsmodelEmploymentCategory:
+      type: string
+      enum:
+      - UNKNOWN_CATEGORY
+      - PERMANENT
+      - TEMPORARY
+      default: UNKNOWN_CATEGORY
   securitySchemes:
     ApiToken:
       type: apiKey

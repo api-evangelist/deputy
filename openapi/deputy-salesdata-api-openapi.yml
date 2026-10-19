@@ -516,6 +516,50 @@ paths:
           description: Resource not found
 components:
   schemas:
+    SalesData:
+      type: object
+      properties:
+        Id:
+          type: integer
+        Date:
+          type: string
+          format: date-time
+        Timestamp:
+          type: integer
+        Employee:
+          type: integer
+        OperationalUnit:
+          type: integer
+        SalesType:
+          type: string
+          maxLength: 32
+        SalesRef:
+          type: string
+          maxLength: 255
+        SalesQty:
+          type: number
+          format: double
+        SalesAmount:
+          type: number
+          format: double
+        SalesPayload:
+          type: string
+        Creator:
+          type: integer
+        Created:
+          type: string
+          format: date-time
+        Modified:
+          type: string
+        EmployeeObject:
+          type: object
+        OperationalUnitObject:
+          type: object
+      required:
+      - Id
+      - OperationalUnit
+      - SalesRef
+      - Modified
     QueryRequest:
       type: object
       description: V1 Resource search payload. All fields optional; an empty body returns the first page of results.
@@ -582,50 +626,6 @@ components:
             data: 1
             type: ge
         max: 100
-    SalesData:
-      type: object
-      properties:
-        Id:
-          type: integer
-        Date:
-          type: string
-          format: date-time
-        Timestamp:
-          type: integer
-        Employee:
-          type: integer
-        OperationalUnit:
-          type: integer
-        SalesType:
-          type: string
-          maxLength: 32
-        SalesRef:
-          type: string
-          maxLength: 255
-        SalesQty:
-          type: number
-          format: double
-        SalesAmount:
-          type: number
-          format: double
-        SalesPayload:
-          type: string
-        Creator:
-          type: integer
-        Created:
-          type: string
-          format: date-time
-        Modified:
-          type: string
-        EmployeeObject:
-          type: object
-        OperationalUnitObject:
-          type: object
-      required:
-      - Id
-      - OperationalUnit
-      - SalesRef
-      - Modified
   securitySchemes:
     BearerAuth:
       type: http

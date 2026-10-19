@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: Deputy V2 Scoped User info API
+  title: Deputy V2 Scoped User Info API
   version: '1.0'
   description: Scoped-OAuth API. These endpoints require a specific OAuth scope (e.g. HR export) and are NOT callable with a standard Deputy access token. Request the appropriate scope during your OAuth flow.
 servers:

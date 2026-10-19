@@ -39,21 +39,23 @@ paths:
       description: Get product subscription details.
 components:
   schemas:
-    PaywallPaywallCta:
-      type: string
-      enum:
-      - HIDDEN
-      - CONTACT_SALES
-      - SELF_SERVE
-      default: HIDDEN
-    GetProductSubscriptionResponseCurrentPlan:
+    FeatureInfo:
       type: object
       properties:
-        id:
-          type: integer
-          format: int32
-        name:
-          type: string
+        status:
+          $ref: '#/components/schemas/FeatureInfoFeatureStatus'
+          title: Whether the tenant has ACCESS, the feature is HIDDEN, or a PAYWALL should be shown
+        paywall:
+          $ref: '#/components/schemas/Paywall'
+          title: Paywall information if status is PAYWALL
+      title: Feature access information
+    FeatureInfoFeatureStatus:
+      type: string
+      enum:
+      - ACCESS
+      - PAYWALL
+      - HIDDEN
+      default: ACCESS
     GetProductSubscriptionResponse:
       type: object
       properties:
@@ -65,6 +67,19 @@ components:
           type: object
           additionalProperties:
             $ref: '#/components/schemas/FeatureInfo'
+    PaywallPaywallCta:
+      type: string
+      enum:
+      - HIDDEN
+      - CONTACT_SALES
+      - SELF_SERVE
+      default: HIDDEN
+    PaywallPaywallType:
+      type: string
+      enum:
+      - PLAN
+      - ADD_ON
+      default: PLAN
     Paywall:
       type: object
       properties:
@@ -81,29 +96,14 @@ components:
           $ref: '#/components/schemas/PaywallPaywallCta'
           title: What should be the action of the paywall CTA
       title: Paywall information for features that require upgrade
-    PaywallPaywallType:
-      type: string
-      enum:
-      - PLAN
-      - ADD_ON
-      default: PLAN
-    FeatureInfoFeatureStatus:
-      type: string
-      enum:
-      - ACCESS
-      - PAYWALL
-      - HIDDEN
-      default: ACCESS
-    FeatureInfo:
+    GetProductSubscriptionResponseCurrentPlan:
       type: object
       properties:
-        status:
-          $ref: '#/components/schemas/FeatureInfoFeatureStatus'
-          title: Whether the tenant has ACCESS, the feature is HIDDEN, or a PAYWALL should be shown
-        paywall:
-          $ref: '#/components/schemas/Paywall'
-          title: Paywall information if status is PAYWALL
-      title: Feature access information
+        id:
+          type: integer
+          format: int32
+        name:
+          type: string
   securitySchemes:
     ApiToken:
       type: apiKey

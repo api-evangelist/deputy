@@ -83,17 +83,6 @@ components:
           $ref: '#/components/schemas/tenantauthv2modelEmployeeLocation'
           title: Primary Location
       title: Employee with basic information
-    tenantauthv2modelEmployeeLocation:
-      type: object
-      properties:
-        id:
-          type: string
-          format: int64
-          title: Location ID
-        name:
-          type: string
-          title: Location name
-      title: Primary location information
     AccessManagementListEmployeeByRoleResponse:
       type: object
       properties:
@@ -107,6 +96,17 @@ components:
           type: integer
           format: int32
       title: Response for getting employees by role
+    tenantauthv2modelEmployeeLocation:
+      type: object
+      properties:
+        id:
+          type: string
+          format: int64
+          title: Location ID
+        name:
+          type: string
+          title: Location name
+      title: Primary location information
   securitySchemes:
     ApiToken:
       type: apiKey

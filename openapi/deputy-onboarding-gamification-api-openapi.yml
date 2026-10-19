@@ -39,7 +39,7 @@ paths:
       description: Get the gamification status and the details of available gamification tasks.
   /onboarding/v2/gamification/tasks/{taskName}/complete:
     post:
-      summary: Manually complete a gamification task.
+      summary: Manually complete a gamification task
       operationId: OnboardingGamificationV2Controller_CompleteGamificationTask
       responses:
         '200':
@@ -69,65 +69,6 @@ paths:
       description: Manually complete a gamification task. If the task is already completed before, we still return a successful response but nothing will change in the BE state.
 components:
   schemas:
-    modelSignupPlatform:
-      type: string
-      enum:
-      - WEB
-      - MOBILE_APP
-      - API
-      default: WEB
-      title: Platforms that an install can be signed up from
-    modelGamificationInfo:
-      type: object
-      properties:
-        gamificationStatus:
-          $ref: '#/components/schemas/modelGamificationStatus'
-          description: General gamification status, trial end date and remaining days etc.
-        gamificationTasks:
-          type: array
-          items:
-            $ref: '#/components/schemas/modelGamificationTask'
-          title: Array of all available gamification tasks and their respective status
-      title: All gamification-related information of a trial business
-    OnboardingGamificationCompleteGamificationTaskResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        data:
-          $ref: '#/components/schemas/modelGamificationInfo'
-    modelGamificationStatus:
-      type: object
-      properties:
-        isGamificationEnabled:
-          type: boolean
-          description: Whether the gamification feature is enabled for this trial. Will be false if the install is not in trial.
-        trialDaysLeft:
-          type: integer
-          format: int32
-          title: The amount of trial days left before this trial expires
-        trialEndDate:
-          type: string
-          format: date-time
-          title: The trial end date
-        signupPlatform:
-          $ref: '#/components/schemas/modelSignupPlatform'
-          title: The platform that this installation was first signed up from
-      title: The gamification status for a trial business
-    modelGamificationTaskName:
-      type: string
-      enum:
-      - BUSINESS_NAME
-      - SCHEDULING_RULES
-      - INVITE_EMPLOYEE
-      - PUBLISH_ROSTER
-      - APPROVE_TIMESHEET
-      - MOBILE_NUMBER
-      - EXPLORE_ECOSYSTEM
-      - BOOK_DEMO
-      - PAID
-      default: BUSINESS_NAME
-      title: Valid gamification tasks
     modelGamificationTask:
       type: object
       properties:
@@ -157,6 +98,65 @@ components:
           type: boolean
         data:
           $ref: '#/components/schemas/modelGamificationInfo'
+    modelGamificationInfo:
+      type: object
+      properties:
+        gamificationStatus:
+          $ref: '#/components/schemas/modelGamificationStatus'
+          description: General gamification status, trial end date and remaining days etc.
+        gamificationTasks:
+          type: array
+          items:
+            $ref: '#/components/schemas/modelGamificationTask'
+          title: Array of all available gamification tasks and their respective status
+      title: All gamification-related information of a trial business
+    modelGamificationStatus:
+      type: object
+      properties:
+        isGamificationEnabled:
+          type: boolean
+          description: Whether the gamification feature is enabled for this trial. Will be false if the install is not in trial.
+        trialDaysLeft:
+          type: integer
+          format: int32
+          title: The amount of trial days left before this trial expires
+        trialEndDate:
+          type: string
+          format: date-time
+          title: The trial end date
+        signupPlatform:
+          $ref: '#/components/schemas/modelSignupPlatform'
+          title: The platform that this installation was first signed up from
+      title: The gamification status for a trial business
+    modelSignupPlatform:
+      type: string
+      enum:
+      - WEB
+      - MOBILE_APP
+      - API
+      default: WEB
+      title: Platforms that an install can be signed up from
+    OnboardingGamificationCompleteGamificationTaskResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          $ref: '#/components/schemas/modelGamificationInfo'
+    modelGamificationTaskName:
+      type: string
+      enum:
+      - BUSINESS_NAME
+      - SCHEDULING_RULES
+      - INVITE_EMPLOYEE
+      - PUBLISH_ROSTER
+      - APPROVE_TIMESHEET
+      - MOBILE_NUMBER
+      - EXPLORE_ECOSYSTEM
+      - BOOK_DEMO
+      - PAID
+      default: BUSINESS_NAME
+      title: Valid gamification tasks
   securitySchemes:
     ApiToken:
       type: apiKey

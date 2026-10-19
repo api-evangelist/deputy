@@ -336,43 +336,6 @@ paths:
           description: Resource not found
 components:
   schemas:
-    CompanyPeriod:
-      type: object
-      properties:
-        Id:
-          type: integer
-        Start:
-          type: integer
-        DateStart:
-          type: string
-          format: date-time
-        End:
-          type: integer
-        DateEnd:
-          type: string
-          format: date-time
-        Company:
-          type: integer
-        PayPeriod:
-          type: integer
-        Creator:
-          type: integer
-        Created:
-          type: string
-          format: date-time
-        Modified:
-          type: string
-        CompanyObject:
-          type: object
-        PayPeriodObject:
-          type: object
-      required:
-      - Id
-      - Start
-      - End
-      - Company
-      - PayPeriod
-      - Modified
     QueryRequest:
       type: object
       description: V1 Resource search payload. All fields optional; an empty body returns the first page of results.
@@ -439,6 +402,43 @@ components:
             data: 1
             type: ge
         max: 100
+    CompanyPeriod:
+      type: object
+      properties:
+        Id:
+          type: integer
+        Start:
+          type: integer
+        DateStart:
+          type: string
+          format: date-time
+        End:
+          type: integer
+        DateEnd:
+          type: string
+          format: date-time
+        Company:
+          type: integer
+        PayPeriod:
+          type: integer
+        Creator:
+          type: integer
+        Created:
+          type: string
+          format: date-time
+        Modified:
+          type: string
+        CompanyObject:
+          type: object
+        PayPeriodObject:
+          type: object
+      required:
+      - Id
+      - Start
+      - End
+      - Company
+      - PayPeriod
+      - Modified
   securitySchemes:
     BearerAuth:
       type: http

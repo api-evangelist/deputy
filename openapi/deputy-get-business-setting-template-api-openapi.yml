@@ -50,6 +50,15 @@ paths:
       description: Get template.
 components:
   schemas:
+    BusinessSettingTemplateResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        groups:
+          type: array
+          items:
+            $ref: '#/components/schemas/BusinessSettingSettingGroup'
     modelTemplate:
       type: object
       properties:
@@ -74,6 +83,19 @@ components:
       - CONTACT_SALES
       - SELF_SERVE
       default: HIDDEN
+    BusinessSettingSettingGroup:
+      type: object
+      properties:
+        title:
+          type: string
+        description:
+          type: string
+        configKey:
+          type: string
+        templates:
+          type: array
+          items:
+            $ref: '#/components/schemas/modelTemplate'
     TemplateSettingPaywall:
       type: object
       properties:
@@ -90,28 +112,6 @@ components:
           $ref: '#/components/schemas/SettingPaywallSettingPaywallCta'
           title: What should be the action of the paywall CTA
       title: Paywall information for features that require upgrade
-    BusinessSettingSettingGroup:
-      type: object
-      properties:
-        title:
-          type: string
-        description:
-          type: string
-        configKey:
-          type: string
-        templates:
-          type: array
-          items:
-            $ref: '#/components/schemas/modelTemplate'
-    BusinessSettingTemplateResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        groups:
-          type: array
-          items:
-            $ref: '#/components/schemas/BusinessSettingSettingGroup'
   securitySchemes:
     ApiToken:
       type: apiKey

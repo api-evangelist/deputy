@@ -336,6 +336,36 @@ paths:
           description: Resource not found
 components:
   schemas:
+    Category:
+      type: object
+      properties:
+        Id:
+          type: integer
+        Category:
+          type: string
+          maxLength: 32
+        Group:
+          type: string
+          maxLength: 64
+        SortOrder:
+          type: integer
+        Stafflog:
+          type: boolean
+        System:
+          type: boolean
+        Creator:
+          type: integer
+        Created:
+          type: string
+          format: date-time
+        Modified:
+          type: string
+      required:
+      - Id
+      - Category
+      - SortOrder
+      - Stafflog
+      - Modified
     QueryRequest:
       type: object
       description: V1 Resource search payload. All fields optional; an empty body returns the first page of results.
@@ -402,36 +432,6 @@ components:
             data: 1
             type: ge
         max: 100
-    Category:
-      type: object
-      properties:
-        Id:
-          type: integer
-        Category:
-          type: string
-          maxLength: 32
-        Group:
-          type: string
-          maxLength: 64
-        SortOrder:
-          type: integer
-        Stafflog:
-          type: boolean
-        System:
-          type: boolean
-        Creator:
-          type: integer
-        Created:
-          type: string
-          format: date-time
-        Modified:
-          type: string
-      required:
-      - Id
-      - Category
-      - SortOrder
-      - Stafflog
-      - Modified
   securitySchemes:
     BearerAuth:
       type: http

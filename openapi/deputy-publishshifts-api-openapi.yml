@@ -85,64 +85,6 @@ paths:
               $ref: '#/components/schemas/PublishPreviewPreviewRequest'
 components:
   schemas:
-    modelPublishingStatusStatus:
-      type: string
-      enum:
-      - NOT_STARTED
-      - PAUSED
-      - IN_PROGRESS
-      - FINISHED
-      default: NOT_STARTED
-    PublishPreviewPublishPreviewStatus:
-      type: string
-      enum:
-      - UNPUBLISHED
-      - ALL
-      default: UNPUBLISHED
-    PublishPreviewPublishPreviewData:
-      type: object
-      properties:
-        microShiftsCount:
-          type: integer
-          format: int32
-        totalShiftsCount:
-          type: integer
-          format: int32
-        shiftsRequiringConsentCount:
-          type: integer
-          format: int32
-        locations:
-          type: array
-          items:
-            $ref: '#/components/schemas/PublishPreviewLocationPreview'
-    LocationMode:
-      type: string
-      enum:
-      - ALL
-      - SELECTED
-      default: ALL
-      description: "LocationMode specifies how location filtering should be applied.\n\n - ALL: Include all locations accessible by the current user (no filtering)\n - SELECTED: Filter to only selected locations (requires locationIds to be provided)"
-    PublishPreviewLocationPreview:
-      type: object
-      properties:
-        locationId:
-          type: integer
-          format: int32
-        locationName:
-          type: string
-        areas:
-          type: array
-          items:
-            $ref: '#/components/schemas/PublishPreviewAreaPreview'
-    tenantschedulev2modelProgress:
-      type: object
-      properties:
-        items:
-          type: integer
-          format: int32
-        processed:
-          type: integer
-          format: int32
     PublishPreviewAreaPreview:
       type: object
       properties:
@@ -156,29 +98,14 @@ components:
           items:
             type: integer
             format: int32
-    PublishPreviewPublishPreviewResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        data:
-          $ref: '#/components/schemas/PublishPreviewPublishPreviewData'
-    PublishPreviewPreviewRequest:
-      type: object
-      properties:
-        locationIds:
-          type: array
-          items:
-            type: integer
-            format: int32
-        locationMode:
-          $ref: '#/components/schemas/LocationMode'
-        startDate:
-          type: string
-        endDate:
-          type: string
-        status:
-          $ref: '#/components/schemas/PublishPreviewPublishPreviewStatus'
+    modelPublishingStatusStatus:
+      type: string
+      enum:
+      - NOT_STARTED
+      - PAUSED
+      - IN_PROGRESS
+      - FINISHED
+      default: NOT_STARTED
     modelPublishingStatus:
       type: object
       properties:
@@ -202,6 +129,79 @@ components:
           type: boolean
         isResumable:
           type: boolean
+    PublishPreviewLocationPreview:
+      type: object
+      properties:
+        locationId:
+          type: integer
+          format: int32
+        locationName:
+          type: string
+        areas:
+          type: array
+          items:
+            $ref: '#/components/schemas/PublishPreviewAreaPreview'
+    PublishPreviewPublishPreviewResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          $ref: '#/components/schemas/PublishPreviewPublishPreviewData'
+    PublishPreviewPreviewRequest:
+      type: object
+      properties:
+        locationIds:
+          type: array
+          items:
+            type: integer
+            format: int32
+        locationMode:
+          $ref: '#/components/schemas/LocationMode'
+        startDate:
+          type: string
+        endDate:
+          type: string
+        status:
+          $ref: '#/components/schemas/PublishPreviewPublishPreviewStatus'
+    LocationMode:
+      type: string
+      enum:
+      - ALL
+      - SELECTED
+      default: ALL
+      description: "LocationMode specifies how location filtering should be applied.\n\n - ALL: Include all locations accessible by the current user (no filtering)\n - SELECTED: Filter to only selected locations (requires locationIds to be provided)"
+    PublishPreviewPublishPreviewStatus:
+      type: string
+      enum:
+      - UNPUBLISHED
+      - ALL
+      default: UNPUBLISHED
+    tenantschedulev2modelProgress:
+      type: object
+      properties:
+        items:
+          type: integer
+          format: int32
+        processed:
+          type: integer
+          format: int32
+    PublishPreviewPublishPreviewData:
+      type: object
+      properties:
+        microShiftsCount:
+          type: integer
+          format: int32
+        totalShiftsCount:
+          type: integer
+          format: int32
+        shiftsRequiringConsentCount:
+          type: integer
+          format: int32
+        locations:
+          type: array
+          items:
+            $ref: '#/components/schemas/PublishPreviewLocationPreview'
   securitySchemes:
     ApiToken:
       type: apiKey

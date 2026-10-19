@@ -119,6 +119,33 @@ paths:
               $ref: '#/components/schemas/MarkAsPaidBatchRequestMarkAsPaidBatchRequestBody'
 components:
   schemas:
+    OperationLock:
+      type: object
+      properties:
+        kind:
+          type: string
+        ids:
+          type: object
+          additionalProperties:
+            type: boolean
+    MarkAsPaidSingleRequestMarkAsPaidRequestBody:
+      type: object
+      properties:
+        startDate:
+          type: string
+        endDate:
+          type: string
+    TsaAsyncResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        operationId:
+          type: string
+        locks:
+          type: array
+          items:
+            $ref: '#/components/schemas/OperationLock'
     MarkAsPaidBatchRequestMarkAsPaidBatchRequestBody:
       type: object
       properties:
@@ -136,33 +163,6 @@ components:
           items:
             type: integer
             format: int32
-    OperationLock:
-      type: object
-      properties:
-        kind:
-          type: string
-        ids:
-          type: object
-          additionalProperties:
-            type: boolean
-    TsaAsyncResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        operationId:
-          type: string
-        locks:
-          type: array
-          items:
-            $ref: '#/components/schemas/OperationLock'
-    MarkAsPaidSingleRequestMarkAsPaidRequestBody:
-      type: object
-      properties:
-        startDate:
-          type: string
-        endDate:
-          type: string
   securitySchemes:
     ApiToken:
       type: apiKey

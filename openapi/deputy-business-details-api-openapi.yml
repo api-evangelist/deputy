@@ -58,13 +58,6 @@ paths:
               $ref: '#/components/schemas/v2modelBusinessDetails'
 components:
   schemas:
-    BusinessDetailsGetBusinessDetailsResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        data:
-          $ref: '#/components/schemas/v2modelBusinessDetails'
     v2modelBusinessDetails:
       type: object
       properties:
@@ -72,6 +65,13 @@ components:
           type: string
           title: Business name
     BusinessDetailsUpdateBusinessDetailsResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          $ref: '#/components/schemas/v2modelBusinessDetails'
+    BusinessDetailsGetBusinessDetailsResponse:
       type: object
       properties:
         success:

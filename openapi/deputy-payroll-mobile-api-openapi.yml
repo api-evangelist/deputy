@@ -39,20 +39,6 @@ paths:
       description: Get widget data.
 components:
   schemas:
-    RecentPayslipsWidgetGetRecentPayslipWidgetResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        data:
-          $ref: '#/components/schemas/modelGetRecentPayslipWidgetResponseData'
-      title: Get widget data response
-    modelPayHistoryData:
-      type: object
-      properties:
-        redirectPath:
-          type: string
-          title: Redirect path
     modelGetRecentPayslipWidgetResponseData:
       type: object
       properties:
@@ -62,6 +48,20 @@ components:
         payHistory:
           $ref: '#/components/schemas/modelPayHistoryData'
           title: Pay history data
+    modelPayHistoryData:
+      type: object
+      properties:
+        redirectPath:
+          type: string
+          title: Redirect path
+    RecentPayslipsWidgetGetRecentPayslipWidgetResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          $ref: '#/components/schemas/modelGetRecentPayslipWidgetResponseData'
+      title: Get widget data response
   securitySchemes:
     ApiToken:
       type: apiKey

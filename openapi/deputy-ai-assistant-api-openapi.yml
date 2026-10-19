@@ -39,11 +39,6 @@ paths:
       description: Get settings.
 components:
   schemas:
-    SettingsGetSettingsData:
-      type: object
-      properties:
-        showDeputyAi:
-          type: boolean
     SettingsGetSettingsResponse:
       type: object
       properties:
@@ -51,6 +46,11 @@ components:
           type: boolean
         data:
           $ref: '#/components/schemas/SettingsGetSettingsData'
+    SettingsGetSettingsData:
+      type: object
+      properties:
+        showDeputyAi:
+          type: boolean
   securitySchemes:
     ApiToken:
       type: apiKey

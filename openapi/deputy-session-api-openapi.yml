@@ -336,6 +336,41 @@ paths:
           description: Resource not found
 components:
   schemas:
+    Session:
+      type: object
+      properties:
+        Id:
+          type: integer
+        UserId:
+          type: integer
+        Ip:
+          type: string
+          maxLength: 16
+        Host:
+          type: string
+          maxLength: 255
+        Browser:
+          type: string
+          maxLength: 255
+        ScreenRes:
+          type: string
+          maxLength: 32
+        Start:
+          type: integer
+        End:
+          type: integer
+        Modified:
+          type: string
+        User:
+          type: object
+      required:
+      - Id
+      - UserId
+      - Ip
+      - Host
+      - Browser
+      - Start
+      - Modified
     QueryRequest:
       type: object
       description: V1 Resource search payload. All fields optional; an empty body returns the first page of results.
@@ -402,41 +437,6 @@ components:
             data: 1
             type: ge
         max: 100
-    Session:
-      type: object
-      properties:
-        Id:
-          type: integer
-        UserId:
-          type: integer
-        Ip:
-          type: string
-          maxLength: 16
-        Host:
-          type: string
-          maxLength: 255
-        Browser:
-          type: string
-          maxLength: 255
-        ScreenRes:
-          type: string
-          maxLength: 32
-        Start:
-          type: integer
-        End:
-          type: integer
-        Modified:
-          type: string
-        User:
-          type: object
-      required:
-      - Id
-      - UserId
-      - Ip
-      - Host
-      - Browser
-      - Start
-      - Modified
   securitySchemes:
     BearerAuth:
       type: http

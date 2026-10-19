@@ -516,6 +516,54 @@ paths:
           description: Resource not found
 components:
   schemas:
+    EmployeeContractedHoursShift:
+      type: object
+      properties:
+        Id:
+          type: integer
+        EmployeeContractedHoursId:
+          type: integer
+        CompanyId:
+          type: integer
+        OperationalUnitId:
+          type: integer
+        DayOfWeek:
+          type: integer
+        SortOrder:
+          type: integer
+        StartTime:
+          type: string
+          format: date-time
+        EndTime:
+          type: string
+          format: date-time
+        Mealbreak:
+          type: string
+          format: date-time
+        ShiftType:
+          type: integer
+        Creator:
+          type: integer
+        Created:
+          type: string
+          format: date-time
+        Modified:
+          type: string
+        EmployeeContractedHours:
+          type: object
+        Company:
+          type: object
+        OperationalUnit:
+          type: object
+      required:
+      - Id
+      - EmployeeContractedHoursId
+      - CompanyId
+      - DayOfWeek
+      - SortOrder
+      - StartTime
+      - EndTime
+      - Modified
     QueryRequest:
       type: object
       description: V1 Resource search payload. All fields optional; an empty body returns the first page of results.
@@ -582,54 +630,6 @@ components:
             data: 1
             type: ge
         max: 100
-    EmployeeContractedHoursShift:
-      type: object
-      properties:
-        Id:
-          type: integer
-        EmployeeContractedHoursId:
-          type: integer
-        CompanyId:
-          type: integer
-        OperationalUnitId:
-          type: integer
-        DayOfWeek:
-          type: integer
-        SortOrder:
-          type: integer
-        StartTime:
-          type: string
-          format: date-time
-        EndTime:
-          type: string
-          format: date-time
-        Mealbreak:
-          type: string
-          format: date-time
-        ShiftType:
-          type: integer
-        Creator:
-          type: integer
-        Created:
-          type: string
-          format: date-time
-        Modified:
-          type: string
-        EmployeeContractedHours:
-          type: object
-        Company:
-          type: object
-        OperationalUnit:
-          type: object
-      required:
-      - Id
-      - EmployeeContractedHoursId
-      - CompanyId
-      - DayOfWeek
-      - SortOrder
-      - StartTime
-      - EndTime
-      - Modified
   securitySchemes:
     BearerAuth:
       type: http

@@ -336,6 +336,37 @@ paths:
           description: Resource not found
 components:
   schemas:
+    EmployeeAgreementAreaRate:
+      type: object
+      properties:
+        Id:
+          type: integer
+        EmployeeAgreementId:
+          type: integer
+        OperationalUnitId:
+          type: integer
+        ContractId:
+          type: integer
+        BaseRate:
+          type: number
+          format: double
+        LevelId:
+          type: integer
+        JuniorRateId:
+          type: integer
+        EmployeeAgreement:
+          type: object
+        OperationalUnit:
+          type: object
+        Contract:
+          type: object
+        Level:
+          type: object
+      required:
+      - Id
+      - EmployeeAgreementId
+      - OperationalUnitId
+      - ContractId
     QueryRequest:
       type: object
       description: V1 Resource search payload. All fields optional; an empty body returns the first page of results.
@@ -402,37 +433,6 @@ components:
             data: 1
             type: ge
         max: 100
-    EmployeeAgreementAreaRate:
-      type: object
-      properties:
-        Id:
-          type: integer
-        EmployeeAgreementId:
-          type: integer
-        OperationalUnitId:
-          type: integer
-        ContractId:
-          type: integer
-        BaseRate:
-          type: number
-          format: double
-        LevelId:
-          type: integer
-        JuniorRateId:
-          type: integer
-        EmployeeAgreement:
-          type: object
-        OperationalUnit:
-          type: object
-        Contract:
-          type: object
-        Level:
-          type: object
-      required:
-      - Id
-      - EmployeeAgreementId
-      - OperationalUnitId
-      - ContractId
   securitySchemes:
     BearerAuth:
       type: http

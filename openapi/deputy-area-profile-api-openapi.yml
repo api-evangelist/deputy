@@ -278,6 +278,107 @@ paths:
               $ref: '#/components/schemas/v2modelAreaProfile'
 components:
   schemas:
+    AreaProfileCreateResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          $ref: '#/components/schemas/v2modelAreaProfile'
+      title: Create Area response
+    AreaProfileAreaInUseResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/AreaProfileAreaInUseResponseData'
+    modelAreaProfileLocationGeo:
+      type: object
+      properties:
+        latitude:
+          type: number
+          format: double
+        longitude:
+          type: number
+          format: double
+    modelAreaType:
+      type: string
+      enum:
+      - DEFAULT_AREA
+      - AREA_WITH_GEO
+      default: DEFAULT_AREA
+    AreaProfileEmployeeTrainedRequest:
+      type: object
+      properties:
+        employeeId:
+          type: integer
+          format: int32
+        locationIds:
+          type: array
+          items:
+            type: integer
+            format: int32
+        shiftId:
+          type: integer
+          format: int32
+        filterAssignedAreas:
+          type: boolean
+    AreaProfileAreaInUseRequest:
+      type: object
+      properties:
+        locationIds:
+          type: array
+          items:
+            type: integer
+            format: int32
+        areaIds:
+          type: array
+          items:
+            type: integer
+            format: int32
+    AreaProfileEmployeeTrainedResponseData:
+      type: object
+      properties:
+        areas:
+          type: array
+          items:
+            type: integer
+            format: int32
+    AreaProfileUpdateResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          $ref: '#/components/schemas/v2modelAreaProfile'
+      title: Update Area response
+    AreaProfileDeleteResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+      title: Delete Area response
+    AreaProfileAreaInUseResponseData:
+      type: object
+      properties:
+        areaId:
+          type: integer
+          format: int32
+        usedInTimesheet:
+          type: boolean
+        usedInRoster:
+          type: boolean
+    AreaProfileGetResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          $ref: '#/components/schemas/v2modelAreaProfile'
+      title: Get Area profile response
     tenantlocationv2modelAddress:
       type: object
       properties:
@@ -308,68 +409,6 @@ components:
           type: string
           title: '[read-only] Print address in a single line string'
       title: Address data as response
-    modelAreaProfileLocationGeo:
-      type: object
-      properties:
-        latitude:
-          type: number
-          format: double
-        longitude:
-          type: number
-          format: double
-    AreaProfileListResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/v2modelAreaProfile'
-        nextCursor:
-          type: string
-          description: Cursor to fetch the next page of results. Base64 encoded value. Present only if more results are available. Empty string if this is the last page.
-      title: Get Areas response
-    AreaProfileEmployeeTrainedResponseData:
-      type: object
-      properties:
-        areas:
-          type: array
-          items:
-            type: integer
-            format: int32
-    AreaProfileEmployeeTrainedResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        data:
-          $ref: '#/components/schemas/AreaProfileEmployeeTrainedResponseData'
-    modelAreaType:
-      type: string
-      enum:
-      - DEFAULT_AREA
-      - AREA_WITH_GEO
-      default: DEFAULT_AREA
-    AreaProfileAreaInUseResponseData:
-      type: object
-      properties:
-        areaId:
-          type: integer
-          format: int32
-        usedInTimesheet:
-          type: boolean
-        usedInRoster:
-          type: boolean
-    AreaProfileAreaInUseResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/AreaProfileAreaInUseResponseData'
     v2modelAreaProfile:
       type: object
       properties:
@@ -436,65 +475,26 @@ components:
         geo:
           $ref: '#/components/schemas/modelAreaProfileLocationGeo'
       title: Area profile
-    AreaProfileDeleteResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-      title: Delete Area response
-    AreaProfileUpdateResponse:
+    AreaProfileEmployeeTrainedResponse:
       type: object
       properties:
         success:
           type: boolean
         data:
-          $ref: '#/components/schemas/v2modelAreaProfile'
-      title: Update Area response
-    AreaProfileCreateResponse:
+          $ref: '#/components/schemas/AreaProfileEmployeeTrainedResponseData'
+    AreaProfileListResponse:
       type: object
       properties:
         success:
           type: boolean
         data:
-          $ref: '#/components/schemas/v2modelAreaProfile'
-      title: Create Area response
-    AreaProfileGetResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        data:
-          $ref: '#/components/schemas/v2modelAreaProfile'
-      title: Get Area profile response
-    AreaProfileEmployeeTrainedRequest:
-      type: object
-      properties:
-        employeeId:
-          type: integer
-          format: int32
-        locationIds:
           type: array
           items:
-            type: integer
-            format: int32
-        shiftId:
-          type: integer
-          format: int32
-        filterAssignedAreas:
-          type: boolean
-    AreaProfileAreaInUseRequest:
-      type: object
-      properties:
-        locationIds:
-          type: array
-          items:
-            type: integer
-            format: int32
-        areaIds:
-          type: array
-          items:
-            type: integer
-            format: int32
+            $ref: '#/components/schemas/v2modelAreaProfile'
+        nextCursor:
+          type: string
+          description: Cursor to fetch the next page of results. Base64 encoded value. Present only if more results are available. Empty string if this is the last page.
+      title: Get Areas response
   securitySchemes:
     ApiToken:
       type: apiKey

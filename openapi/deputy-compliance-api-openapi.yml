@@ -543,6 +543,276 @@ paths:
       description: Delete pay rule.
 components:
   schemas:
+    modelContractConfigStatus:
+      type: string
+      enum:
+      - CONTRACT_CONFIG_STATUS_INACTIVE
+      - CONTRACT_CONFIG_STATUS_ACTIVE
+      - CONTRACT_CONFIG_STATUS_ARCHIVED
+      default: CONTRACT_CONFIG_STATUS_INACTIVE
+    PayRuleRemunerationBy:
+      type: string
+      enum:
+      - REMUNERATION_BY_UNKNOWN
+      - REMUNERATION_BY_BASE
+      - REMUNERATION_BY_SHIFT_LOADING
+      - REMUNERATION_BY_PERIOD_LOADING
+      default: REMUNERATION_BY_UNKNOWN
+    ContractGetEmployeesByContractIdResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/modelEmployeeProfilePayRate'
+    modelContractJuniorRate:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uint64
+        contractId:
+          type: string
+          format: uint64
+        name:
+          type: string
+        age:
+          type: string
+          format: uint64
+        type:
+          $ref: '#/components/schemas/modelContractJuniorRateType'
+        value:
+          type: string
+        exportCode:
+          type: string
+    ContractDuplicateResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          $ref: '#/components/schemas/tenantcompliancev2modelContract'
+    PayRulePayPortionRule:
+      type: string
+      enum:
+      - PAY_PORTION_RULE_UNKNOWN
+      - PAY_PORTION_RULE_GREATER
+      - PAY_PORTION_RULE_EXACT
+      - PAY_PORTION_RULE_FULL
+      default: PAY_PORTION_RULE_UNKNOWN
+    EmployeeRateUpdateEmployeeRatesRequest:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/modelRateDetail'
+    modelCustomFieldAnswerAction:
+      type: string
+      enum:
+      - UNSPECIFIED_ACTION
+      - FILTER
+      - TOIL_ACCRUAL
+      default: UNSPECIFIED_ACTION
+      title: "- UNSPECIFIED_ACTION: default is filter action, same as FILTER\n - FILTER: filter pay rule according to the CustomFieldAnswer setup\n - TOIL_ACCRUAL: convert Overtime to TimeOffInLieu when calculating shift cost"
+    v2modelPayPolicy:
+      type: object
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        country:
+          type: string
+        award:
+          type: string
+        effectiveDate:
+          type: string
+        employmentType:
+          $ref: '#/components/schemas/tenantcompliancev2modelEmploymentType'
+    PayRuleBatchSaveRequest:
+      type: object
+      properties:
+        contractId:
+          type: integer
+          format: int32
+        payRules:
+          type: array
+          items:
+            $ref: '#/components/schemas/tenantcompliancev2modelPayRule'
+        confirmCustomisation:
+          type: boolean
+    ContractUpdateJsonResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+    modelTrainingRequirement:
+      type: object
+      properties:
+        module:
+          type: string
+          format: int64
+    PayPolicyLatestVersionGetLatestVersionResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          $ref: '#/components/schemas/modelPayPolicyVersion'
+      title: Get latest active version of pay policy response
+    ContractGetByIdResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          $ref: '#/components/schemas/tenantcompliancev2modelContract'
+    ContractListGetContractListResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        nextPageToken:
+          type: string
+        totalCount:
+          type: integer
+          format: int64
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/modelContractListItem'
+    tenantcompliancev2modelLevel:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        levelKsuid:
+          type: string
+        levelBaseRate:
+          type: string
+    tenantcompliancev2modelEmploymentType:
+      type: string
+      enum:
+      - EMPLOYMENT_TYPE_UNKNOWN
+      - EMPLOYMENT_TYPE_FULL_TIME
+      - EMPLOYMENT_TYPE_PART_TIME
+      - EMPLOYMENT_TYPE_CASUAL
+      - EMPLOYMENT_TYPE_CONTRACTOR
+      - EMPLOYMENT_TYPE_HOURLY
+      - EMPLOYMENT_TYPE_SALARY
+      - EMPLOYMENT_TYPE_GENERIC
+      default: EMPLOYMENT_TYPE_UNKNOWN
+      description: 'In the code this is also referred to as employment status
+
+        (employment_status DB table column).'
+    CalculationTypeCalculationTypeCategory:
+      type: string
+      enum:
+      - NONE
+      - OVERTIME
+      - PENALTY
+      - ORDINARY
+      default: NONE
+    ContractUpdateResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+    ContractConfigBatchSaveRequest:
+      type: object
+      properties:
+        configs:
+          type: array
+          items:
+            $ref: '#/components/schemas/v2modelContractConfig'
+        confirmCustomisation:
+          type: boolean
+    modelContractJuniorRateType:
+      type: string
+      enum:
+      - CONTRACT_JUNIOR_RATE_TYPE_UNKNOWN
+      - CONTRACT_JUNIOR_RATE_TYPE_MULTIPLIER
+      - CONTRACT_JUNIOR_RATE_TYPE_FIXED
+      default: CONTRACT_JUNIOR_RATE_TYPE_UNKNOWN
+    AwardListResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/tenantcompliancev2modelAward'
+    LeaveRuleAssociateRequest:
+      type: object
+      properties:
+        contractId:
+          type: integer
+          format: int64
+        leaveRuleIds:
+          type: array
+          items:
+            type: integer
+            format: int64
+    ContractPayRuleOrderingResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        requiresConfirmation:
+          type: boolean
+    ContractPayRuleOrderingRequest:
+      type: object
+      properties:
+        contractId:
+          type: integer
+          format: int64
+        payRuleIds:
+          type: array
+          items:
+            type: integer
+            format: int64
+        confirmCustomisation:
+          type: boolean
+    ContractCreateResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          $ref: '#/components/schemas/tenantcompliancev2modelContract'
+    modelContractConfigCategory:
+      type: string
+      enum:
+      - CONTRACT_CONFIG_CATEGORY_UNKNOWN
+      - CONTRACT_CONFIG_CATEGORY_GLOBAL_SETTINGS
+      - CONTRACT_CONFIG_CATEGORY_JUNIOR_RATE
+      - CONTRACT_CONFIG_CATEGORY_CONTRACT_DETAILS
+      - CONTRACT_CONFIG_CATEGORY_PAY_POLICY_CONTEXT
+      - CONTRACT_CONFIG_CATEGORY_SHARED_CONTEXT
+      - CONTRACT_CONFIG_CATEGORY_EXPORT_CODE_TEMPLATE
+      default: CONTRACT_CONFIG_CATEGORY_UNKNOWN
+    v2modelLeaveRule:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        description:
+          type: string
+        isPaid:
+          type: boolean
+        type:
+          type: integer
+          format: int64
     v2modelEmployeeRate:
       type: object
       properties:
@@ -556,6 +826,22 @@ components:
           items:
             $ref: '#/components/schemas/modelRateDetail'
       title: EmployeeRate represents the rates of an employee linked to a specific contract, contains a list of rate details
+    modelPayConfig:
+      type: object
+      properties:
+        roundUpHours:
+          type: boolean
+        loadingLimit:
+          $ref: '#/components/schemas/modelLoadingLimit'
+        classificationReference:
+          type: string
+    compliancev2modelEmploymentCategory:
+      type: string
+      enum:
+      - EMPLOYMENT_CATEGORY_UNKNOWN
+      - EMPLOYMENT_CATEGORY_PERMANENT
+      - EMPLOYMENT_CATEGORY_TEMPORARY
+      default: EMPLOYMENT_CATEGORY_UNKNOWN
     modelRateDetail:
       type: object
       properties:
@@ -590,210 +876,18 @@ components:
 
             When updating rate details, this is the new rate value'
       title: Rate represents the details of the employee rate, either main rate or area rate, and related location and area
-    modelContractListItem:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int64
-        name:
-          type: string
-        description:
-          type: string
-        ppid:
-          type: string
-        employeeCount:
-          type: integer
-          format: int64
-        employmentType:
-          $ref: '#/components/schemas/tenantcompliancev2modelEmploymentType'
-        status:
-          $ref: '#/components/schemas/modelContractStatus'
-        type:
-          $ref: '#/components/schemas/modelContractType'
-    modelContractStatus:
-      type: string
-      enum:
-      - INACTIVE
-      - ACTIVE
-      - DRAFT
-      default: INACTIVE
-    CalculationTypeCalculationTypeCategory:
-      type: string
-      enum:
-      - NONE
-      - OVERTIME
-      - PENALTY
-      - ORDINARY
-      default: NONE
-    LeaveRuleUnassociateResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-    ContractConfigBatchSaveResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        error:
-          type: string
-        requiresConfirmation:
-          type: boolean
-    CustomFieldAnswerSystem:
-      type: string
-      enum:
-      - UNSPECIFIED
-      - TIMESHEET
-      - EMPLOYEE
-      - ROSTER
-      default: UNSPECIFIED
-    PayRuleUnassociateResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-    modelCustomFieldAnswerConfig:
-      type: object
-      properties:
-        operation:
-          type: string
-          title: one of eq, neq, gt, lt, gte, lte, in, nin
-        values:
-          type: array
-          items:
-            type: string
-    PayRulePayPortionRule:
-      type: string
-      enum:
-      - PAY_PORTION_RULE_UNKNOWN
-      - PAY_PORTION_RULE_GREATER
-      - PAY_PORTION_RULE_EXACT
-      - PAY_PORTION_RULE_FULL
-      default: PAY_PORTION_RULE_UNKNOWN
-    ContractImportJsonResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        newContractId:
-          type: integer
-          format: int64
-    modelContractJuniorRate:
-      type: object
-      properties:
-        id:
-          type: string
-          format: uint64
-        contractId:
-          type: string
-          format: uint64
-        name:
-          type: string
-        age:
-          type: string
-          format: uint64
-        type:
-          $ref: '#/components/schemas/modelContractJuniorRateType'
-        value:
-          type: string
-        exportCode:
-          type: string
-    modelCustomFieldAnswerAction:
-      type: string
-      enum:
-      - UNSPECIFIED_ACTION
-      - FILTER
-      - TOIL_ACCRUAL
-      default: UNSPECIFIED_ACTION
-      title: "- UNSPECIFIED_ACTION: default is filter action, same as FILTER\n - FILTER: filter pay rule according to the CustomFieldAnswer setup\n - TOIL_ACCRUAL: convert Overtime to TimeOffInLieu when calculating shift cost"
-    modelEmployeeProfilePayRate:
-      type: object
-      properties:
-        id:
-          type: string
-          format: int64
-          title: Employee ID
-        firstName:
-          type: string
-          title: Employee first name
-        lastName:
-          type: string
-          title: Employee last name
-        displayName:
-          type: string
-          title: Employee display name
-        photoUrl:
-          type: string
-          title: Photo url
-        photoFileId:
-          type: string
-          format: int64
-          title: Photo file id
-        baseRate:
-          type: string
-          title: Employee pay rate
-        levelId:
-          type: string
-          title: Level Id
-    ContractDuplicateResponse:
+    ContractExportJsonResponse:
       type: object
       properties:
         success:
           type: boolean
         data:
-          $ref: '#/components/schemas/tenantcompliancev2modelContract'
-    PayRuleBatchSaveRequest:
+          type: string
+    ContractUpdateJsonRequest:
       type: object
       properties:
-        contractId:
-          type: integer
-          format: int32
-        payRules:
-          type: array
-          items:
-            $ref: '#/components/schemas/tenantcompliancev2modelPayRule'
-        confirmCustomisation:
-          type: boolean
-    PayRuleBatchSaveResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        error:
+        data:
           type: string
-        requiresConfirmation:
-          type: boolean
-    v2modelFilter:
-      type: object
-      properties:
-        customFieldAnswers:
-          type: array
-          items:
-            $ref: '#/components/schemas/modelCustomFieldAnswer'
-        recurrenceRule:
-          type: string
-        shiftSchedulingType:
-          $ref: '#/components/schemas/FilterShiftSchedulingType'
-        shiftStartTimeRange:
-          type: string
-        shiftEndTimeRange:
-          type: string
-        rRulePublicHolidayInclusion:
-          $ref: '#/components/schemas/FilterRRulePublicHolidayInclusionType'
-          title: Determines recurrence rule is applicable on public holiday (recurrenceRule AND public holiday condition should be met)
-        particularDate:
-          type: string
-        applyOncePerDay:
-          type: boolean
-        areaNames:
-          type: array
-          items:
-            type: string
-        trainingRequirements:
-          type: array
-          items:
-            $ref: '#/components/schemas/modelTrainingRequirement'
     CalculationTypeSearchResponse:
       type: object
       properties:
@@ -803,117 +897,20 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/compliancev2modelCalculationType'
-    ContractGetEmployeesByContractIdResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/modelEmployeeProfilePayRate'
-    PayRuleRemunerationType:
+    FilterRRulePublicHolidayInclusionType:
       type: string
       enum:
-      - REMUNERATION_TYPE_UNKNOWN
-      - REMUNERATION_TYPE_HOURLY
-      - REMUNERATION_TYPE_MULTIPLIER
-      - REMUNERATION_TYPE_UNIT
-      - REMUNERATION_TYPE_SALARY
-      default: REMUNERATION_TYPE_UNKNOWN
-    modelPayConfig:
-      type: object
-      properties:
-        roundUpHours:
-          type: boolean
-        loadingLimit:
-          $ref: '#/components/schemas/modelLoadingLimit'
-        classificationReference:
-          type: string
-    ContractExportJsonResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        data:
-          type: string
-    ContractCreateResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        data:
-          $ref: '#/components/schemas/tenantcompliancev2modelContract'
-    ContractListGetContractListResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        nextPageToken:
-          type: string
-        totalCount:
-          type: integer
-          format: int64
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/modelContractListItem'
-    ContractConfigBatchSaveRequest:
-      type: object
-      properties:
-        configs:
-          type: array
-          items:
-            $ref: '#/components/schemas/v2modelContractConfig'
-        confirmCustomisation:
-          type: boolean
-    ContractPayRuleOrderingResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        requiresConfirmation:
-          type: boolean
-    modelContractLevel:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int64
-        name:
-          type: string
-        levelKsuid:
-          type: string
-        contractId:
-          type: integer
-          format: int64
-        baseRate:
-          type: string
-        crIds:
-          type: array
-          items:
-            type: string
-        exportCode:
-          type: string
-    modelContractPayType:
+      - PH_INCLUSION_UNSPECIFIED
+      - PH_ONLY
+      - NON_PH_ONLY
+      default: PH_INCLUSION_UNSPECIFIED
+    FilterShiftSchedulingType:
       type: string
       enum:
-      - CONTRACT_PAY_TYPE_UNKNOWN
-      - CONTRACT_PAY_TYPE_HOURLY
-      - CONTRACT_PAY_TYPE_SALARY
-      default: CONTRACT_PAY_TYPE_UNKNOWN
-    tenantcompliancev2modelLevel:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int64
-        name:
-          type: string
-        levelKsuid:
-          type: string
-        levelBaseRate:
-          type: string
+      - UNSPECIFIED
+      - SCHEDULED_ONLY
+      - UNSCHEDULED_ONLY
+      default: UNSPECIFIED
     tenantcompliancev2modelAward:
       type: object
       properties:
@@ -946,121 +943,6 @@ components:
           type: string
           title: the base pay rule hourly rate
       title: Award represents a library award/pay policy, or a custom pay policy created from PRB
-    FilterShiftSchedulingType:
-      type: string
-      enum:
-      - UNSPECIFIED
-      - SCHEDULED_ONLY
-      - UNSCHEDULED_ONLY
-      default: UNSPECIFIED
-    ContractUpdateJsonResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-    v2modelLeaveRule:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int64
-        name:
-          type: string
-        description:
-          type: string
-        isPaid:
-          type: boolean
-        type:
-          type: integer
-          format: int64
-    PayRuleRemunerationBy:
-      type: string
-      enum:
-      - REMUNERATION_BY_UNKNOWN
-      - REMUNERATION_BY_BASE
-      - REMUNERATION_BY_SHIFT_LOADING
-      - REMUNERATION_BY_PERIOD_LOADING
-      default: REMUNERATION_BY_UNKNOWN
-    modelPayRuleRateType:
-      type: string
-      enum:
-      - RATE_TYPE_UNKNOWN
-      - RATE_TYPE_ORDINARY
-      - RATE_TYPE_OVERTIME
-      - RATE_TYPE_PENALTY
-      - RATE_TYPE_NON_PAYABLE
-      default: RATE_TYPE_UNKNOWN
-    modelCustomFieldAnswerType:
-      type: string
-      enum:
-      - TYPE_UNSPECIFIED
-      - TYPE_LIST
-      - TYPE_BOOL
-      - TYPE_NUMBER
-      - TYPE_TEXT
-      - TYPE_BOOL_YES_COMMENT
-      - TYPE_BOOL_NO_COMMENT
-      default: TYPE_UNSPECIFIED
-    modelTrainingRequirement:
-      type: object
-      properties:
-        module:
-          type: string
-          format: int64
-    modelLoadingLimit:
-      type: object
-      properties:
-        limitType:
-          type: string
-        limitPer:
-          type: string
-        customPeriod:
-          type: string
-        minValue:
-          type: number
-          format: float
-        maxValue:
-          type: number
-          format: float
-    PayRuleDeleteResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-    compliancev2modelCalculationType:
-      type: object
-      properties:
-        id:
-          type: string
-        title:
-          type: string
-        country:
-          type: string
-        description:
-          type: string
-        category:
-          $ref: '#/components/schemas/CalculationTypeCalculationTypeCategory'
-        localContextList:
-          type: array
-          items:
-            type: string
-        supportedRuleTypes:
-          type: array
-          items:
-            $ref: '#/components/schemas/CalculationTypeRuleType'
-        systemContextList:
-          type: array
-          items:
-            type: string
-        sharedContextList:
-          type: array
-          items:
-            type: string
-    ContractImportJsonRequest:
-      type: object
-      properties:
-        data:
-          type: string
     tenantcompliancev2modelPayRule:
       type: object
       properties:
@@ -1125,91 +1007,67 @@ components:
           title: the id of leave rule which TOIL Accrual goes to when TOIL is set up to convert OT to TOIL, only used with toilMultiplier
         payrollTaxCode:
           type: string
-    CalculationTypeRuleType:
+    CustomFieldAnswerSystem:
       type: string
       enum:
-      - RULE_TYPE_UNKNOWN
-      - BASE
-      - SHIFT_LOADING
-      - PERIOD_LOADING
-      default: RULE_TYPE_UNKNOWN
-    modelContractJuniorRateType:
-      type: string
-      enum:
-      - CONTRACT_JUNIOR_RATE_TYPE_UNKNOWN
-      - CONTRACT_JUNIOR_RATE_TYPE_MULTIPLIER
-      - CONTRACT_JUNIOR_RATE_TYPE_FIXED
-      default: CONTRACT_JUNIOR_RATE_TYPE_UNKNOWN
-    PayPolicyLatestVersionGetLatestVersionResponse:
+      - UNSPECIFIED
+      - TIMESHEET
+      - EMPLOYEE
+      - ROSTER
+      default: UNSPECIFIED
+    modelCustomFieldAnswer:
       type: object
       properties:
-        success:
-          type: boolean
-        data:
-          $ref: '#/components/schemas/modelPayPolicyVersion'
-      title: Get latest active version of pay policy response
-    LeaveRuleListResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/v2modelLeaveRule'
-    EmployeeRateGetEmployeeRateByContractResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        totalCount:
-          type: integer
-          format: int64
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/v2modelEmployeeRate'
-    AwardListResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/tenantcompliancev2modelAward'
-    tenantcompliancev2modelEmploymentType:
-      type: string
-      enum:
-      - EMPLOYMENT_TYPE_UNKNOWN
-      - EMPLOYMENT_TYPE_FULL_TIME
-      - EMPLOYMENT_TYPE_PART_TIME
-      - EMPLOYMENT_TYPE_CASUAL
-      - EMPLOYMENT_TYPE_CONTRACTOR
-      - EMPLOYMENT_TYPE_HOURLY
-      - EMPLOYMENT_TYPE_SALARY
-      - EMPLOYMENT_TYPE_GENERIC
-      default: EMPLOYMENT_TYPE_UNKNOWN
-      description: 'In the code this is also referred to as employment status
-
-        (employment_status DB table column).'
-    LeaveRuleAssociateResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-    EmployeeRateUpdateEmployeeRatesRequest:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/modelRateDetail'
-    ContractUpdateJsonRequest:
-      type: object
-      properties:
-        data:
+        identifier:
           type: string
+          title: the unique identifier of the custom field (api_name)
+        system:
+          $ref: '#/components/schemas/CustomFieldAnswerSystem'
+          title: type of the custom field, i.e. "TIMESHEET" or "EMPLOYEE"
+        configs:
+          type: array
+          items:
+            $ref: '#/components/schemas/modelCustomFieldAnswerConfig'
+          title: configuration for the custom field answer, i.e. operation and acceptable answers
+        type:
+          $ref: '#/components/schemas/modelCustomFieldAnswerType'
+          title: type of the custom field, e.g. list, boolean, number, text
+        action:
+          $ref: '#/components/schemas/modelCustomFieldAnswerAction'
+          title: specific action we would like to perform when checking the pay rule against the question/answer; Unspecified means it's the default filtering action
+    PayRuleRemunerationType:
+      type: string
+      enum:
+      - REMUNERATION_TYPE_UNKNOWN
+      - REMUNERATION_TYPE_HOURLY
+      - REMUNERATION_TYPE_MULTIPLIER
+      - REMUNERATION_TYPE_UNIT
+      - REMUNERATION_TYPE_SALARY
+      default: REMUNERATION_TYPE_UNKNOWN
+    PayRuleBatchSaveResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        error:
+          type: string
+        requiresConfirmation:
+          type: boolean
+    modelCustomFieldAnswerConfig:
+      type: object
+      properties:
+        operation:
+          type: string
+          title: one of eq, neq, gt, lt, gte, lte, in, nin
+        values:
+          type: array
+          items:
+            type: string
+    EmployeeRateUpdateEmployeeRatesResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
     tenantcompliancev2modelContract:
       type: object
       properties:
@@ -1253,38 +1111,96 @@ components:
         standardHours:
           type: string
           description: Standard hours per day for this contract. Maps to employment condition's avgHoursPerDay. Set to 0 to unlink employment condition.
-    modelContractConfigStatus:
+    modelAwardEmploymentType:
       type: string
       enum:
-      - CONTRACT_CONFIG_STATUS_INACTIVE
-      - CONTRACT_CONFIG_STATUS_ACTIVE
-      - CONTRACT_CONFIG_STATUS_ARCHIVED
-      default: CONTRACT_CONFIG_STATUS_INACTIVE
-    PayPolicyPayPolicySearchResponse:
+      - EMPLOYMENT_TYPE_UNKNOWN
+      - FULL_TIME
+      - PART_TIME
+      - CASUAL
+      - CONTRACTOR
+      - HOURLY
+      - SALARY
+      default: EMPLOYMENT_TYPE_UNKNOWN
+    LeaveRuleAssociateResponse:
       type: object
       properties:
         success:
           type: boolean
+    modelCustomFieldAnswerType:
+      type: string
+      enum:
+      - TYPE_UNSPECIFIED
+      - TYPE_LIST
+      - TYPE_BOOL
+      - TYPE_NUMBER
+      - TYPE_TEXT
+      - TYPE_BOOL_YES_COMMENT
+      - TYPE_BOOL_NO_COMMENT
+      default: TYPE_UNSPECIFIED
+    ContractConfigBatchSaveResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        error:
+          type: string
+        requiresConfirmation:
+          type: boolean
+    modelContractType:
+      type: string
+      enum:
+      - LIBRARY
+      - CUSTOM
+      default: LIBRARY
+    modelLoadingLimit:
+      type: object
+      properties:
+        limitType:
+          type: string
+        limitPer:
+          type: string
+        customPeriod:
+          type: string
+        minValue:
+          type: number
+          format: float
+        maxValue:
+          type: number
+          format: float
+    modelPayRuleRateType:
+      type: string
+      enum:
+      - RATE_TYPE_UNKNOWN
+      - RATE_TYPE_ORDINARY
+      - RATE_TYPE_OVERTIME
+      - RATE_TYPE_PENALTY
+      - RATE_TYPE_NON_PAYABLE
+      default: RATE_TYPE_UNKNOWN
+    EmployeeRateGetEmployeeRateByContractResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        totalCount:
+          type: integer
+          format: int64
         data:
           type: array
           items:
-            $ref: '#/components/schemas/v2modelPayPolicy'
-    ContractUpdateDetail:
+            $ref: '#/components/schemas/v2modelEmployeeRate'
+    modelContractPayType:
+      type: string
+      enum:
+      - CONTRACT_PAY_TYPE_UNKNOWN
+      - CONTRACT_PAY_TYPE_HOURLY
+      - CONTRACT_PAY_TYPE_SALARY
+      default: CONTRACT_PAY_TYPE_UNKNOWN
+    PayRuleUnassociateResponse:
       type: object
       properties:
-        name:
-          type: string
-        description:
-          type: string
-        employmentCategory:
-          $ref: '#/components/schemas/compliancev2modelEmploymentCategory'
-        employmentType:
-          $ref: '#/components/schemas/tenantcompliancev2modelEmploymentType'
-        basePayRule:
-          $ref: '#/components/schemas/tenantcompliancev2modelPayRule'
-        standardHours:
-          type: string
-          description: Standard hours per day for this contract. Omit to leave unchanged, set to 0 to unlink employment condition, or provide a positive value to create/update employment condition.
+        success:
+          type: boolean
     modelPayPolicyVersion:
       type: object
       properties:
@@ -1304,6 +1220,107 @@ components:
           type: string
         deprecationDate:
           type: string
+    modelEmployeeProfilePayRate:
+      type: object
+      properties:
+        id:
+          type: string
+          format: int64
+          title: Employee ID
+        firstName:
+          type: string
+          title: Employee first name
+        lastName:
+          type: string
+          title: Employee last name
+        displayName:
+          type: string
+          title: Employee display name
+        photoUrl:
+          type: string
+          title: Photo url
+        photoFileId:
+          type: string
+          format: int64
+          title: Photo file id
+        baseRate:
+          type: string
+          title: Employee pay rate
+        levelId:
+          type: string
+          title: Level Id
+    ContractImportJsonRequest:
+      type: object
+      properties:
+        data:
+          type: string
+    LeaveRuleUnassociateResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+    ContractUpdateDetail:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        employmentCategory:
+          $ref: '#/components/schemas/compliancev2modelEmploymentCategory'
+        employmentType:
+          $ref: '#/components/schemas/tenantcompliancev2modelEmploymentType'
+        basePayRule:
+          $ref: '#/components/schemas/tenantcompliancev2modelPayRule'
+        standardHours:
+          type: string
+          description: Standard hours per day for this contract. Omit to leave unchanged, set to 0 to unlink employment condition, or provide a positive value to create/update employment condition.
+    PayPolicyPayPolicySearchResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/v2modelPayPolicy'
+    ContractImportJsonResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        newContractId:
+          type: integer
+          format: int64
+    compliancev2modelCalculationType:
+      type: object
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        country:
+          type: string
+        description:
+          type: string
+        category:
+          $ref: '#/components/schemas/CalculationTypeCalculationTypeCategory'
+        localContextList:
+          type: array
+          items:
+            type: string
+        supportedRuleTypes:
+          type: array
+          items:
+            $ref: '#/components/schemas/CalculationTypeRuleType'
+        systemContextList:
+          type: array
+          items:
+            type: string
+        sharedContextList:
+          type: array
+          items:
+            type: string
     v2modelContractConfig:
       type: object
       properties:
@@ -1319,106 +1336,20 @@ components:
           type: string
         status:
           $ref: '#/components/schemas/modelContractConfigStatus'
-    ContractUpdateResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-    modelContractType:
-      type: string
-      enum:
-      - LIBRARY
-      - CUSTOM
-      default: LIBRARY
-    v2modelPayPolicy:
-      type: object
-      properties:
-        id:
-          type: string
-        title:
-          type: string
-        country:
-          type: string
-        award:
-          type: string
-        effectiveDate:
-          type: string
-        employmentType:
-          $ref: '#/components/schemas/tenantcompliancev2modelEmploymentType'
-    FilterRRulePublicHolidayInclusionType:
-      type: string
-      enum:
-      - PH_INCLUSION_UNSPECIFIED
-      - PH_ONLY
-      - NON_PH_ONLY
-      default: PH_INCLUSION_UNSPECIFIED
-    LeaveRuleAssociateRequest:
-      type: object
-      properties:
-        contractId:
-          type: integer
-          format: int64
-        leaveRuleIds:
-          type: array
-          items:
-            type: integer
-            format: int64
-    modelAwardEmploymentType:
-      type: string
-      enum:
-      - EMPLOYMENT_TYPE_UNKNOWN
-      - FULL_TIME
-      - PART_TIME
-      - CASUAL
-      - CONTRACTOR
-      - HOURLY
-      - SALARY
-      default: EMPLOYMENT_TYPE_UNKNOWN
-    EmployeeRateUpdateEmployeeRatesResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-    ContractPayRuleOrderingRequest:
-      type: object
-      properties:
-        contractId:
-          type: integer
-          format: int64
-        payRuleIds:
-          type: array
-          items:
-            type: integer
-            format: int64
-        confirmCustomisation:
-          type: boolean
-    modelCustomFieldAnswer:
-      type: object
-      properties:
-        identifier:
-          type: string
-          title: the unique identifier of the custom field (api_name)
-        system:
-          $ref: '#/components/schemas/CustomFieldAnswerSystem'
-          title: type of the custom field, i.e. "TIMESHEET" or "EMPLOYEE"
-        configs:
-          type: array
-          items:
-            $ref: '#/components/schemas/modelCustomFieldAnswerConfig'
-          title: configuration for the custom field answer, i.e. operation and acceptable answers
-        type:
-          $ref: '#/components/schemas/modelCustomFieldAnswerType'
-          title: type of the custom field, e.g. list, boolean, number, text
-        action:
-          $ref: '#/components/schemas/modelCustomFieldAnswerAction'
-          title: specific action we would like to perform when checking the pay rule against the question/answer; Unspecified means it's the default filtering action
-    ContractGetByIdResponse:
+    LeaveRuleListResponse:
       type: object
       properties:
         success:
           type: boolean
         data:
-          $ref: '#/components/schemas/tenantcompliancev2modelContract'
+          type: array
+          items:
+            $ref: '#/components/schemas/v2modelLeaveRule'
+    PayRuleDeleteResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
     JuniorRateUpdateJuniorRateResponse:
       type: object
       properties:
@@ -1426,24 +1357,93 @@ components:
           type: boolean
         error:
           type: string
-    compliancev2modelEmploymentCategory:
+    CalculationTypeRuleType:
       type: string
       enum:
-      - EMPLOYMENT_CATEGORY_UNKNOWN
-      - EMPLOYMENT_CATEGORY_PERMANENT
-      - EMPLOYMENT_CATEGORY_TEMPORARY
-      default: EMPLOYMENT_CATEGORY_UNKNOWN
-    modelContractConfigCategory:
+      - RULE_TYPE_UNKNOWN
+      - BASE
+      - SHIFT_LOADING
+      - PERIOD_LOADING
+      default: RULE_TYPE_UNKNOWN
+    modelContractListItem:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        description:
+          type: string
+        ppid:
+          type: string
+        employeeCount:
+          type: integer
+          format: int64
+        employmentType:
+          $ref: '#/components/schemas/tenantcompliancev2modelEmploymentType'
+        status:
+          $ref: '#/components/schemas/modelContractStatus'
+        type:
+          $ref: '#/components/schemas/modelContractType'
+    modelContractStatus:
       type: string
       enum:
-      - CONTRACT_CONFIG_CATEGORY_UNKNOWN
-      - CONTRACT_CONFIG_CATEGORY_GLOBAL_SETTINGS
-      - CONTRACT_CONFIG_CATEGORY_JUNIOR_RATE
-      - CONTRACT_CONFIG_CATEGORY_CONTRACT_DETAILS
-      - CONTRACT_CONFIG_CATEGORY_PAY_POLICY_CONTEXT
-      - CONTRACT_CONFIG_CATEGORY_SHARED_CONTEXT
-      - CONTRACT_CONFIG_CATEGORY_EXPORT_CODE_TEMPLATE
-      default: CONTRACT_CONFIG_CATEGORY_UNKNOWN
+      - INACTIVE
+      - ACTIVE
+      - DRAFT
+      default: INACTIVE
+    modelContractLevel:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        levelKsuid:
+          type: string
+        contractId:
+          type: integer
+          format: int64
+        baseRate:
+          type: string
+        crIds:
+          type: array
+          items:
+            type: string
+        exportCode:
+          type: string
+    v2modelFilter:
+      type: object
+      properties:
+        customFieldAnswers:
+          type: array
+          items:
+            $ref: '#/components/schemas/modelCustomFieldAnswer'
+        recurrenceRule:
+          type: string
+        shiftSchedulingType:
+          $ref: '#/components/schemas/FilterShiftSchedulingType'
+        shiftStartTimeRange:
+          type: string
+        shiftEndTimeRange:
+          type: string
+        rRulePublicHolidayInclusion:
+          $ref: '#/components/schemas/FilterRRulePublicHolidayInclusionType'
+          title: Determines recurrence rule is applicable on public holiday (recurrenceRule AND public holiday condition should be met)
+        particularDate:
+          type: string
+        applyOncePerDay:
+          type: boolean
+        areaNames:
+          type: array
+          items:
+            type: string
+        trainingRequirements:
+          type: array
+          items:
+            $ref: '#/components/schemas/modelTrainingRequirement'
   securitySchemes:
     ApiToken:
       type: apiKey

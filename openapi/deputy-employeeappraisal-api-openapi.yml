@@ -516,6 +516,53 @@ paths:
           description: Resource not found
 components:
   schemas:
+    EmployeeAppraisal:
+      type: object
+      properties:
+        Id:
+          type: integer
+        Employee:
+          type: integer
+        DayTimestamp:
+          type: integer
+        Date:
+          type: string
+          format: date-time
+        Mark01:
+          type: number
+          format: double
+        Mark02:
+          type: number
+          format: double
+        Mark03:
+          type: number
+          format: double
+        Mark04:
+          type: number
+          format: double
+        Mark05:
+          type: number
+          format: double
+        Creator:
+          type: integer
+        Created:
+          type: string
+          format: date-time
+        Modified:
+          type: string
+        EmployeeObject:
+          type: object
+      required:
+      - Id
+      - Employee
+      - DayTimestamp
+      - Date
+      - Mark01
+      - Mark02
+      - Mark03
+      - Mark04
+      - Mark05
+      - Modified
     QueryRequest:
       type: object
       description: V1 Resource search payload. All fields optional; an empty body returns the first page of results.
@@ -582,53 +629,6 @@ components:
             data: 1
             type: ge
         max: 100
-    EmployeeAppraisal:
-      type: object
-      properties:
-        Id:
-          type: integer
-        Employee:
-          type: integer
-        DayTimestamp:
-          type: integer
-        Date:
-          type: string
-          format: date-time
-        Mark01:
-          type: number
-          format: double
-        Mark02:
-          type: number
-          format: double
-        Mark03:
-          type: number
-          format: double
-        Mark04:
-          type: number
-          format: double
-        Mark05:
-          type: number
-          format: double
-        Creator:
-          type: integer
-        Created:
-          type: string
-          format: date-time
-        Modified:
-          type: string
-        EmployeeObject:
-          type: object
-      required:
-      - Id
-      - Employee
-      - DayTimestamp
-      - Date
-      - Mark01
-      - Mark02
-      - Mark03
-      - Mark04
-      - Mark05
-      - Modified
   securitySchemes:
     BearerAuth:
       type: http

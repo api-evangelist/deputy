@@ -124,48 +124,6 @@ paths:
               $ref: '#/components/schemas/MetricsUpsertRequest'
 components:
   schemas:
-    modelBudgetStatusResponseData:
-      type: object
-      properties:
-        date:
-          type: string
-        budget:
-          type: number
-          format: double
-        status:
-          $ref: '#/components/schemas/modelBudgetStatus'
-    MetricsBudgetStatusRequest:
-      type: object
-      properties:
-        start:
-          type: string
-          format: int64
-          title: Start timestamp
-        end:
-          type: string
-          format: int64
-          title: End timestamp
-        areas:
-          type: array
-          items:
-            type: integer
-            format: int32
-    MetricsBudgetStatusResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        type:
-          type: string
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/modelBudgetStatusResponseData'
-    MetricsDeleteResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
     modelMetric:
       type: object
       properties:
@@ -211,13 +169,6 @@ components:
           type: string
           title: Payload
       title: Metric
-    MetricsUpsertRequest:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/modelMetric'
     MetricsDeleteRequest:
       type: object
       properties:
@@ -238,6 +189,63 @@ components:
             type: integer
             format: int32
           title: List of area ids
+    MetricsUpsertRequest:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/modelMetric'
+    MetricsBudgetStatusRequest:
+      type: object
+      properties:
+        start:
+          type: string
+          format: int64
+          title: Start timestamp
+        end:
+          type: string
+          format: int64
+          title: End timestamp
+        areas:
+          type: array
+          items:
+            type: integer
+            format: int32
+    MetricsDeleteResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+    MetricsDownloadResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        resources:
+          type: array
+          items:
+            type: string
+          title: Download urls
+    modelBudgetStatusResponseData:
+      type: object
+      properties:
+        date:
+          type: string
+        budget:
+          type: number
+          format: double
+        status:
+          $ref: '#/components/schemas/modelBudgetStatus'
+    MetricsUpsertResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/modelMetric'
     v2modelState:
       type: string
       enum:
@@ -252,25 +260,17 @@ components:
       - WITHIN_BUDGET
       - OVER_BUDGET
       default: WITHIN_BUDGET
-    MetricsDownloadResponse:
+    MetricsBudgetStatusResponse:
       type: object
       properties:
         success:
           type: boolean
-        resources:
-          type: array
-          items:
-            type: string
-          title: Download urls
-    MetricsUpsertResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
+        type:
+          type: string
         data:
           type: array
           items:
-            $ref: '#/components/schemas/modelMetric'
+            $ref: '#/components/schemas/modelBudgetStatusResponseData'
   securitySchemes:
     ApiToken:
       type: apiKey

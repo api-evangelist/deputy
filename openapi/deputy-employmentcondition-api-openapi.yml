@@ -336,6 +336,62 @@ paths:
           description: Resource not found
 components:
   schemas:
+    EmploymentCondition:
+      type: object
+      properties:
+        Id:
+          type: integer
+        Name:
+          type: string
+          maxLength: 255
+        Description:
+          type: string
+        AwardLevel:
+          type: string
+          maxLength: 255
+        EmploymentBasis:
+          type: integer
+        EmploymentCategory:
+          type: integer
+        EmploymentPeriod:
+          type: integer
+        EmploymentStatus:
+          type: integer
+        ProbationaryPeriod:
+          type: integer
+        WorkingDaysPerPeriod:
+          type: number
+          format: double
+        UsualStartTime:
+          type: string
+          format: date-time
+        UsualFinishTime:
+          type: string
+          format: date-time
+        UsualMealbreak:
+          type: string
+          format: date-time
+        AvgHoursPerDay:
+          type: number
+          format: double
+        MinHoursPerDay:
+          type: number
+          format: double
+        MinHoursForLeave:
+          type: number
+          format: double
+        Creator:
+          type: integer
+        Created:
+          type: string
+          format: date-time
+        Modified:
+          type: string
+      required:
+      - Id
+      - Name
+      - WorkingDaysPerPeriod
+      - Modified
     QueryRequest:
       type: object
       description: V1 Resource search payload. All fields optional; an empty body returns the first page of results.
@@ -402,62 +458,6 @@ components:
             data: 1
             type: ge
         max: 100
-    EmploymentCondition:
-      type: object
-      properties:
-        Id:
-          type: integer
-        Name:
-          type: string
-          maxLength: 255
-        Description:
-          type: string
-        AwardLevel:
-          type: string
-          maxLength: 255
-        EmploymentBasis:
-          type: integer
-        EmploymentCategory:
-          type: integer
-        EmploymentPeriod:
-          type: integer
-        EmploymentStatus:
-          type: integer
-        ProbationaryPeriod:
-          type: integer
-        WorkingDaysPerPeriod:
-          type: number
-          format: double
-        UsualStartTime:
-          type: string
-          format: date-time
-        UsualFinishTime:
-          type: string
-          format: date-time
-        UsualMealbreak:
-          type: string
-          format: date-time
-        AvgHoursPerDay:
-          type: number
-          format: double
-        MinHoursPerDay:
-          type: number
-          format: double
-        MinHoursForLeave:
-          type: number
-          format: double
-        Creator:
-          type: integer
-        Created:
-          type: string
-          format: date-time
-        Modified:
-          type: string
-      required:
-      - Id
-      - Name
-      - WorkingDaysPerPeriod
-      - Modified
   securitySchemes:
     BearerAuth:
       type: http

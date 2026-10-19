@@ -516,6 +516,39 @@ paths:
           description: Resource not found
 components:
   schemas:
+    Event:
+      type: object
+      properties:
+        Id:
+          type: integer
+        Title:
+          type: string
+        Schedule:
+          type: integer
+        Colour:
+          type: string
+          maxLength: 16
+        ShowOnRoster:
+          type: boolean
+        AddToBudget:
+          type: number
+          format: double
+        BlockTimeOff:
+          type: boolean
+        Creator:
+          type: integer
+        Created:
+          type: string
+          format: date-time
+        Modified:
+          type: string
+        ScheduleObject:
+          type: object
+      required:
+      - Id
+      - Schedule
+      - ShowOnRoster
+      - Modified
     QueryRequest:
       type: object
       description: V1 Resource search payload. All fields optional; an empty body returns the first page of results.
@@ -582,39 +615,6 @@ components:
             data: 1
             type: ge
         max: 100
-    Event:
-      type: object
-      properties:
-        Id:
-          type: integer
-        Title:
-          type: string
-        Schedule:
-          type: integer
-        Colour:
-          type: string
-          maxLength: 16
-        ShowOnRoster:
-          type: boolean
-        AddToBudget:
-          type: number
-          format: double
-        BlockTimeOff:
-          type: boolean
-        Creator:
-          type: integer
-        Created:
-          type: string
-          format: date-time
-        Modified:
-          type: string
-        ScheduleObject:
-          type: object
-      required:
-      - Id
-      - Schedule
-      - ShowOnRoster
-      - Modified
   securitySchemes:
     BearerAuth:
       type: http

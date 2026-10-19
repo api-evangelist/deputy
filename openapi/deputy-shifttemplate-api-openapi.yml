@@ -516,6 +516,54 @@ paths:
           description: Resource not found
 components:
   schemas:
+    ShiftTemplate:
+      type: object
+      properties:
+        Id:
+          type: integer
+        Name:
+          type: string
+          maxLength: 255
+        TotalTime:
+          type: number
+          format: double
+        Slots:
+          type: string
+          maxLength: 255
+        Schedule:
+          type: integer
+        Active:
+          type: boolean
+        AutoCommitBreak:
+          type: boolean
+        BlockEarlyBreakEnd:
+          type: boolean
+        BlockEarlyBreakStart:
+          type: boolean
+        AdditionalConfig:
+          type: string
+        Country:
+          type: integer
+        Creator:
+          type: integer
+        Created:
+          type: string
+          format: date-time
+        Modified:
+          type: string
+        ScheduleObject:
+          type: object
+        CountryObject:
+          type: object
+      required:
+      - Id
+      - Name
+      - Schedule
+      - Active
+      - AutoCommitBreak
+      - BlockEarlyBreakEnd
+      - BlockEarlyBreakStart
+      - Modified
     QueryRequest:
       type: object
       description: V1 Resource search payload. All fields optional; an empty body returns the first page of results.
@@ -582,54 +630,6 @@ components:
             data: 1
             type: ge
         max: 100
-    ShiftTemplate:
-      type: object
-      properties:
-        Id:
-          type: integer
-        Name:
-          type: string
-          maxLength: 255
-        TotalTime:
-          type: number
-          format: double
-        Slots:
-          type: string
-          maxLength: 255
-        Schedule:
-          type: integer
-        Active:
-          type: boolean
-        AutoCommitBreak:
-          type: boolean
-        BlockEarlyBreakEnd:
-          type: boolean
-        BlockEarlyBreakStart:
-          type: boolean
-        AdditionalConfig:
-          type: string
-        Country:
-          type: integer
-        Creator:
-          type: integer
-        Created:
-          type: string
-          format: date-time
-        Modified:
-          type: string
-        ScheduleObject:
-          type: object
-        CountryObject:
-          type: object
-      required:
-      - Id
-      - Name
-      - Schedule
-      - Active
-      - AutoCommitBreak
-      - BlockEarlyBreakEnd
-      - BlockEarlyBreakStart
-      - Modified
   securitySchemes:
     BearerAuth:
       type: http

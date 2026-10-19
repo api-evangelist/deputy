@@ -76,6 +76,36 @@ components:
         modified:
           type: string
           format: date-time
+    CreateFileResponseCreateFileResponseBody:
+      type: object
+      properties:
+        file:
+          $ref: '#/components/schemas/modelFile'
+        filePreviews:
+          type: array
+          items:
+            $ref: '#/components/schemas/modelFilePreview'
+    CreateFileRequestCreateFileRequestBody:
+      type: object
+      properties:
+        type:
+          type: string
+        data:
+          type: string
+        name:
+          type: string
+        size:
+          type: integer
+          format: int32
+        preview:
+          type: boolean
+    CreateFileResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          $ref: '#/components/schemas/CreateFileResponseCreateFileResponseBody'
     modelFile:
       type: object
       properties:
@@ -121,36 +151,6 @@ components:
         modified:
           type: string
           format: date-time
-    CreateFileRequestCreateFileRequestBody:
-      type: object
-      properties:
-        type:
-          type: string
-        data:
-          type: string
-        name:
-          type: string
-        size:
-          type: integer
-          format: int32
-        preview:
-          type: boolean
-    CreateFileResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        data:
-          $ref: '#/components/schemas/CreateFileResponseCreateFileResponseBody'
-    CreateFileResponseCreateFileResponseBody:
-      type: object
-      properties:
-        file:
-          $ref: '#/components/schemas/modelFile'
-        filePreviews:
-          type: array
-          items:
-            $ref: '#/components/schemas/modelFilePreview'
   securitySchemes:
     ApiToken:
       type: apiKey

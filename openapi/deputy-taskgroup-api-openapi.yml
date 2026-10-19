@@ -516,6 +516,60 @@ paths:
           description: Resource not found
 components:
   schemas:
+    TaskGroup:
+      type: object
+      properties:
+        Id:
+          type: integer
+        GroupSetupId:
+          type: integer
+        Key:
+          type: string
+          maxLength: 64
+        Name:
+          type: string
+          maxLength: 64
+        DayTimestamp:
+          type: integer
+        Date:
+          type: string
+          format: date-time
+        OrigDayTimestamp:
+          type: integer
+        OrigDate:
+          type: string
+          format: date-time
+        OpUnitId:
+          type: integer
+        SortOrder:
+          type: integer
+        Comment:
+          type: string
+        LaborModel:
+          type: boolean
+        Creator:
+          type: integer
+        Created:
+          type: string
+          format: date-time
+        Modified:
+          type: string
+        GroupSetup:
+          type: object
+        OpUnit:
+          type: object
+      required:
+      - Id
+      - GroupSetupId
+      - Key
+      - Name
+      - DayTimestamp
+      - Date
+      - OpUnitId
+      - SortOrder
+      - Creator
+      - Created
+      - Modified
     QueryRequest:
       type: object
       description: V1 Resource search payload. All fields optional; an empty body returns the first page of results.
@@ -582,60 +636,6 @@ components:
             data: 1
             type: ge
         max: 100
-    TaskGroup:
-      type: object
-      properties:
-        Id:
-          type: integer
-        GroupSetupId:
-          type: integer
-        Key:
-          type: string
-          maxLength: 64
-        Name:
-          type: string
-          maxLength: 64
-        DayTimestamp:
-          type: integer
-        Date:
-          type: string
-          format: date-time
-        OrigDayTimestamp:
-          type: integer
-        OrigDate:
-          type: string
-          format: date-time
-        OpUnitId:
-          type: integer
-        SortOrder:
-          type: integer
-        Comment:
-          type: string
-        LaborModel:
-          type: boolean
-        Creator:
-          type: integer
-        Created:
-          type: string
-          format: date-time
-        Modified:
-          type: string
-        GroupSetup:
-          type: object
-        OpUnit:
-          type: object
-      required:
-      - Id
-      - GroupSetupId
-      - Key
-      - Name
-      - DayTimestamp
-      - Date
-      - OpUnitId
-      - SortOrder
-      - Creator
-      - Created
-      - Modified
   securitySchemes:
     BearerAuth:
       type: http

@@ -58,36 +58,20 @@ paths:
               $ref: '#/components/schemas/ProductAddOnsSubscribeAddOnProductRequestData'
 components:
   schemas:
-    ProductAddOnsSubscribeAddOnProductRequestData:
-      type: object
-      properties:
-        productIdentifier:
-          type: string
-        isTrial:
-          type: boolean
-        promoCode:
-          type: string
-          title: Promo code to apply to the add-on product
-    ProductAddOnsSubscribeAddOnProductResponse:
+    ProductAddOnsGetAddOnProductsResponse:
       type: object
       properties:
         success:
           type: boolean
-      title: SubscribeAddOnProduct response
-    modelAvailableAddOnProductInfo:
-      type: object
-      properties:
-        name:
-          type: string
-        identifier:
-          type: string
-        trialDays:
-          type: integer
-          format: int32
-        prices:
-          type: object
-          additionalProperties:
-            $ref: '#/components/schemas/modelCountryPrices'
+        productAddOns:
+          type: array
+          items:
+            $ref: '#/components/schemas/modelAddOnProductInfo'
+        availableProductAddOns:
+          type: array
+          items:
+            $ref: '#/components/schemas/modelAvailableAddOnProductInfo'
+      title: GetAddOnProductsResponse
     modelCountryPrices:
       type: object
       properties:
@@ -126,20 +110,6 @@ components:
           additionalProperties:
             type: string
           title: Maps payment frequencies (e.g. 'monthly', 'annual') to their corresponding plan identifiers for equivalent add-ons
-    ProductAddOnsGetAddOnProductsResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        productAddOns:
-          type: array
-          items:
-            $ref: '#/components/schemas/modelAddOnProductInfo'
-        availableProductAddOns:
-          type: array
-          items:
-            $ref: '#/components/schemas/modelAvailableAddOnProductInfo'
-      title: GetAddOnProductsResponse
     modelPlanPrices:
       type: object
       properties:
@@ -151,6 +121,36 @@ components:
           format: double
         period:
           type: string
+    ProductAddOnsSubscribeAddOnProductRequestData:
+      type: object
+      properties:
+        productIdentifier:
+          type: string
+        isTrial:
+          type: boolean
+        promoCode:
+          type: string
+          title: Promo code to apply to the add-on product
+    ProductAddOnsSubscribeAddOnProductResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+      title: SubscribeAddOnProduct response
+    modelAvailableAddOnProductInfo:
+      type: object
+      properties:
+        name:
+          type: string
+        identifier:
+          type: string
+        trialDays:
+          type: integer
+          format: int32
+        prices:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/modelCountryPrices'
   securitySchemes:
     ApiToken:
       type: apiKey

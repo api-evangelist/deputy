@@ -336,6 +336,36 @@ paths:
           description: Resource not found
 components:
   schemas:
+    EmployeeRole:
+      type: object
+      properties:
+        Id:
+          type: integer
+        Role:
+          type: string
+          maxLength: 64
+        Ranking:
+          type: integer
+        ReportTo:
+          type: integer
+        Permissions:
+          type: string
+        Require2fa:
+          type: boolean
+        Creator:
+          type: integer
+        Created:
+          type: string
+          format: date-time
+        Modified:
+          type: string
+        ReportToObject:
+          type: object
+      required:
+      - Id
+      - Role
+      - Ranking
+      - Modified
     QueryRequest:
       type: object
       description: V1 Resource search payload. All fields optional; an empty body returns the first page of results.
@@ -402,36 +432,6 @@ components:
             data: 1
             type: ge
         max: 100
-    EmployeeRole:
-      type: object
-      properties:
-        Id:
-          type: integer
-        Role:
-          type: string
-          maxLength: 64
-        Ranking:
-          type: integer
-        ReportTo:
-          type: integer
-        Permissions:
-          type: string
-        Require2fa:
-          type: boolean
-        Creator:
-          type: integer
-        Created:
-          type: string
-          format: date-time
-        Modified:
-          type: string
-        ReportToObject:
-          type: object
-      required:
-      - Id
-      - Role
-      - Ranking
-      - Modified
   securitySchemes:
     BearerAuth:
       type: http

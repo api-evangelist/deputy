@@ -28,6 +28,13 @@ tags:
 - name: Timesheets
 paths:
   /v1/supervise/timesheet/end:
+    servers:
+    - url: https://{install}.{geo}.deputy.com/api
+      variables:
+        install:
+          default: ''
+        geo:
+          default: ''
     post:
       tags:
       - Timesheets
@@ -57,6 +64,7 @@ paths:
       deprecated: false
       security:
       - httpBearer: []
+  /v1/supervise/timesheet/pause:
     servers:
     - url: https://{install}.{geo}.deputy.com/api
       variables:
@@ -64,7 +72,6 @@ paths:
           default: ''
         geo:
           default: ''
-  /v1/supervise/timesheet/pause:
     post:
       tags:
       - Timesheets
@@ -94,6 +101,7 @@ paths:
       deprecated: false
       security:
       - httpBearer: []
+  /v1/supervise/timesheet/start:
     servers:
     - url: https://{install}.{geo}.deputy.com/api
       variables:
@@ -101,7 +109,6 @@ paths:
           default: ''
         geo:
           default: ''
-  /v1/supervise/timesheet/start:
     post:
       tags:
       - Timesheets
@@ -126,6 +133,7 @@ paths:
       deprecated: false
       security:
       - httpBearer: []
+  /v1/supervise/timesheet/{timesheetid}/details:
     servers:
     - url: https://{install}.{geo}.deputy.com/api
       variables:
@@ -133,7 +141,6 @@ paths:
           default: ''
         geo:
           default: ''
-  /v1/supervise/timesheet/{timesheetid}/details:
     get:
       tags:
       - Timesheets
@@ -156,14 +163,22 @@ paths:
       deprecated: false
       security:
       - httpBearer: []
-    servers:
-    - url: https://{install}.{geo}.deputy.com/api
-      variables:
-        install:
-          default: ''
-        geo:
-          default: ''
   /management/v2/timesheets:
+    servers:
+    - url: https://{subdomain}.{region}.deputy.com/api
+      description: Deputy tenant
+      variables:
+        subdomain:
+          default: your-subdomain
+          description: Your Deputy tenant subdomain
+        region:
+          default: deputy
+          enum:
+          - au
+          - eu
+          - na
+          - deputy
+          description: 'Deputy region: au, eu, na, or deputy (AU default)'
     get:
       summary: Retrieve list of timesheets
       operationId: TimesheetsV2Controller_list
@@ -253,6 +268,7 @@ paths:
               $ref: '#/components/schemas/tenanttimesheetv2modelTimesheet'
       security:
       - ApiToken: []
+  /management/v2/timesheets/{id}:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api
       description: Deputy tenant
@@ -268,7 +284,6 @@ paths:
           - na
           - deputy
           description: 'Deputy region: au, eu, na, or deputy (AU default)'
-  /management/v2/timesheets/{id}:
     get:
       summary: Retrieve timesheets data by given Id
       operationId: TimesheetsV2Controller_get
@@ -338,6 +353,7 @@ paths:
               $ref: '#/components/schemas/modelUpdateTimesheetRequest'
       security:
       - ApiToken: []
+  /management/v2/timesheets/{id}:auto-end:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api
       description: Deputy tenant
@@ -353,7 +369,6 @@ paths:
           - na
           - deputy
           description: 'Deputy region: au, eu, na, or deputy (AU default)'
-  /management/v2/timesheets/{id}:auto-end:
     post:
       summary: End a timesheet without children, automatically calculates children from roster…
       operationId: TimesheetsV2Controller_autoEndTimesheet
@@ -377,6 +392,7 @@ paths:
         Only requires timesheet ID. All other data (start, end, children, meal breaks) are calculated automatically.'
       security:
       - ApiToken: []
+  /management/v2/timesheets/{id}:end:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api
       description: Deputy tenant
@@ -392,7 +408,6 @@ paths:
           - na
           - deputy
           description: 'Deputy region: au, eu, na, or deputy (AU default)'
-  /management/v2/timesheets/{id}:end:
     post:
       summary: End a timesheet
       operationId: TimesheetsV2Controller_end
@@ -420,6 +435,7 @@ paths:
               $ref: '#/components/schemas/modelEndTimesheetRequest'
       security:
       - ApiToken: []
+  /management/v2/timesheets:pause:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api
       description: Deputy tenant
@@ -435,7 +451,6 @@ paths:
           - na
           - deputy
           description: 'Deputy region: au, eu, na, or deputy (AU default)'
-  /management/v2/timesheets:pause:
     post:
       operationId: TimesheetsV2Controller_pause
       responses:
@@ -457,6 +472,7 @@ paths:
               $ref: '#/components/schemas/modelPauseTimesheetRequest'
       security:
       - ApiToken: []
+  /management/v2/timesheets:start:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api
       description: Deputy tenant
@@ -472,7 +488,6 @@ paths:
           - na
           - deputy
           description: 'Deputy region: au, eu, na, or deputy (AU default)'
-  /management/v2/timesheets:start:
     post:
       summary: Start a timesheet
       operationId: TimesheetsV2Controller_start
@@ -500,6 +515,7 @@ paths:
               $ref: '#/components/schemas/modelStartTimesheetRequest'
       security:
       - ApiToken: []
+  /timesheet-export/v2/summary-by-rate:get:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api
       description: Deputy tenant
@@ -515,7 +531,6 @@ paths:
           - na
           - deputy
           description: 'Deputy region: au, eu, na, or deputy (AU default)'
-  /timesheet-export/v2/summary-by-rate:get:
     post:
       summary: Fetch a summary grouped and sorted by rate
       operationId: TimesheetExportV2Controller_getRateSummary
@@ -537,6 +552,7 @@ paths:
               $ref: '#/components/schemas/TimesheetExportSummaryRequest'
       security:
       - ApiToken: []
+  /timesheet-export/v2/summary:get:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api
       description: Deputy tenant
@@ -552,7 +568,6 @@ paths:
           - na
           - deputy
           description: 'Deputy region: au, eu, na, or deputy (AU default)'
-  /timesheet-export/v2/summary:get:
     post:
       summary: Fetch a summary by filtering timesheets given filters
       operationId: TimesheetExportV2Controller_getSummary
@@ -574,348 +589,92 @@ paths:
               $ref: '#/components/schemas/TimesheetExportSummaryRequest'
       security:
       - ApiToken: []
-    servers:
-    - url: https://{subdomain}.{region}.deputy.com/api
-      description: Deputy tenant
-      variables:
-        subdomain:
-          default: your-subdomain
-          description: Your Deputy tenant subdomain
-        region:
-          default: deputy
-          enum:
-          - au
-          - eu
-          - na
-          - deputy
-          description: 'Deputy region: au, eu, na, or deputy (AU default)'
 components:
   schemas:
-    StartanemployeestimesheetClockOnRequest:
-      title: StartanemployeestimesheetClockOnRequest
-      required:
-      - intOpunitId
-      - intEmployeeId
+    modelMealBreakSlotsWrapper:
       type: object
       properties:
-        intOpunitId:
-          type: integer
-          format: int32
-          description: The id of the location the area the timesheet is for
-        intEmployeeId:
-          type: integer
-          format: int32
-          description: The id record of the employee for who the timesheet is for
-    StopanemployeestimesheetClockOffRequest:
-      title: StopanemployeestimesheetClockOffRequest
-      required:
-      - intTimesheetId
-      - intMealbreakMinute
-      type: object
-      properties:
-        intTimesheetId:
-          type: integer
-          format: int32
-          description: Record id of the timesheet to stop
-        intMealbreakMinute:
-          type: integer
-          format: int32
-          description: Number of minutes taken as a meal break in the timesheet period
-    TimesheetExportRateSummaryResponse:
-      type: object
-      properties:
-        rateSummaries:
+        slots:
           type: array
           items:
-            $ref: '#/components/schemas/modelRateSummary'
-    TimesheetExportSummaryResponse:
+            $ref: '#/components/schemas/modelMealBreak'
+      title: Wrapper for mealBreakSlots to distinguish between "not provided" and "empty array"
+    modelTimesheetActionResponse:
       type: object
       properties:
-        totalEmployees:
-          type: integer
-          format: int32
-        totalTimesheets:
-          type: integer
-          format: int32
-        totalHours:
-          type: string
-        totalCost:
-          type: string
-          title: Total cost formatted as 123.4567
-        summarizedTimesheets:
-          type: array
-          items:
-            $ref: '#/components/schemas/modelSummarizedTimesheet'
-        summarizedPayCycles:
-          type: array
-          items:
-            $ref: '#/components/schemas/modelSummarizedTimesheet'
-        startDate:
-          type: string
-          title: Start Date - YYYY-MM-DD
-        endDate:
-          type: string
-          title: End Date - YYYY-MM-DD
-    modelBreak:
-      type: object
-      properties:
-        slotType:
-          $ref: '#/components/schemas/modelSlotType'
-          title: type of slot
-        start:
-          type: integer
-          format: int32
-          title: can start break after seconds passed after shift start
-        end:
-          type: integer
-          format: int32
-          title: can end break after seconds passed after shift start
-        state:
-          $ref: '#/components/schemas/modelBreakState'
-          title: Break state
-        canStartEarly:
+        managerNotified:
           type: boolean
-          title: '[Deprecated] can employee start break early, override shift template'
-        canEndEarly:
-          type: boolean
-          title: '[Deprecated] can employee end break early, override shift template'
-        isMandatory:
-          type: boolean
-          title: '[Deprecated] is it mandatory to take this break, override shift template'
-        type:
-          $ref: '#/components/schemas/tenantsharedv2modelBreakType'
-          title: type of break
-        typeLabel:
-          type: string
-          title: break type name in config
-        startDateTime:
-          type: string
-          title: format ISO8601 eg 2024-06-25T13:45:00+01:00
-        endDateTime:
-          type: string
-          title: format ISO8601 eg 2024-06-25T13:45:00+01:00
-    modelBreakState:
-      type: string
-      enum:
-      - NOT_START
-      - IN_PROGRESS
-      - FINISHED
-      - DURATION_ONLY
-      - DURATION_FINISHED
-      default: NOT_START
-      title: Break States
-    modelRateSummaryPayRule:
-      type: object
-      properties:
         id:
-          type: integer
-          format: int32
-    modelMultiListField:
-      type: object
-      properties:
-        value:
-          type: array
-          items:
-            type: string
-    modelDateRange:
-      type: object
-      properties:
-        startDate:
-          type: string
-          title: Start Date - YYYY-MM-DD
-        endDate:
-          type: string
-          title: End Date - YYYY-MM-DD
-    modelPauseTimesheetRequest:
-      type: object
-      properties:
-        breakId:
-          type: integer
-          format: int32
-          title: index of schedule break
-        breakAction:
-          $ref: '#/components/schemas/modelBreakAction'
-        employeeId:
-          type: integer
-          format: int32
-    modelPayCenters:
-      type: object
-      properties:
-        payCenterIds:
-          type: array
-          items:
-            type: integer
-            format: int32
-    modelValidationFlag:
-      type: string
-      enum:
-      - VALIDATION_FLAG_NONE
-      - VALIDATION_FLAG_GENERIC_ERROR
-      - VALIDATION_FLAG_DIFFERS_FROM_ROSTER
-      - VALIDATION_FLAG_SHORTER_THAN_ROSTER
-      - VALIDATION_FLAG_LONGER_THAN_ROSTER
-      - VALIDATION_FLAG_NO_MEALBREAK
-      - VALIDATION_FLAG_SHORTER_MEALBREAK
-      - VALIDATION_FLAG_LONGER_MEALBREAK
-      - VALIDATION_FLAG_LATE_MEALBREAK
-      - VALIDATION_FLAG_INSUFFICIENT_MEALBREAK
-      - VALIDATION_FLAG_OUTSIDE_GEO_BOUNDARIES
-      - VALIDATION_FLAG_SHIFT_PLAN_ISSUES
-      - VALIDATION_FLAG_NO_START_PHOTO
-      - VALIDATION_FLAG_NO_END_PHOTO
-      - VALIDATION_FLAG_PHOTO_DOES_NOT_MATCH
-      - VALIDATION_FLAG_CLOSED_BY_SYSTEM
-      - VALIDATION_FLAG_SHORTER_REST_BREAK
-      - VALIDATION_FLAG_SHORTER_MEAL_BREAK
-      - VALIDATION_FLAG_MISSED_SCHEDULE_BREAK
-      - VALIDATION_FLAG_ATTESTATION_PREVENT_CLOCK_IN
-      - VALIDATION_FLAG_ATTESTATION_NOTIFY_MANAGER
-      default: VALIDATION_FLAG_NONE
-    tenantsharedv2modelBreakType:
-      type: string
-      enum:
-      - MEAL_BREAK
-      - REST_BREAK
-      default: MEAL_BREAK
-      title: Break Type
-    modelCompanyPeriods:
-      type: object
-      properties:
-        companyPeriodIds:
-          type: array
-          items:
-            type: integer
-            format: int32
-          title: Company Period IDs
-    modelFileField:
-      type: object
-      properties:
-        value:
-          type: integer
-          format: int32
-    modelStartTimesheetRequest:
-      type: object
-      properties:
-        recordIP:
-          type: boolean
-        areaId:
-          type: integer
-          format: int32
-        employeeComment:
-          type: string
-        customFields:
-          type: array
-          items:
-            $ref: '#/components/schemas/tenantsharedv2modelCustomField'
-        fileId:
           type: integer
           format: int32
         employeeId:
           type: integer
           format: int32
-        geoLocation:
-          $ref: '#/components/schemas/modelGeoLocation'
-    TimesheetsListResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/tenanttimesheetv2modelTimesheet'
-        nextCursor:
-          type: string
-    tenantsharedv2modelCustomField:
-      type: object
-      properties:
-        id:
-          type: string
-          format: int64
-        booleanField:
-          $ref: '#/components/schemas/modelBooleanField'
-        stringField:
-          $ref: '#/components/schemas/modelStringField'
-        listField:
-          $ref: '#/components/schemas/modelListField'
-        multiListField:
-          $ref: '#/components/schemas/modelMultiListField'
-        fileField:
-          $ref: '#/components/schemas/modelFileField'
-          title: file id
-        employeeVisible:
-          type: boolean
-    SummaryFiltersEmployeeSelectionMode:
-      type: string
-      enum:
-      - EMPLOYEE_SELECTION_MODE_UNKNOWN
-      - INCLUDE
-      - EXCLUDE
-      default: EMPLOYEE_SELECTION_MODE_UNKNOWN
-    modelRateSummaryLeaveRule:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int32
-    modelEndTimesheetRequest:
-      type: object
-      properties:
-        recordIP:
-          type: boolean
         start:
           type: string
-          title: timesheet start time, format ISO8601 eg 2012-12-18T13:45:00+01:00
+          title: child shift start time, format ISO8601 eg 2012-12-18T13:45:00+01:00
         end:
           type: string
-          title: timesheet end time, format ISO8601 eg 2012-12-18T13:45:00+01:00
-        employeeComment:
-          type: string
-        children:
-          type: array
-          items:
-            $ref: '#/components/schemas/modelChildTimesheet'
+          title: child shift end time, format ISO8601 eg 2012-12-18T13:45:00+01:00
         mealBreakSlots:
           type: array
           items:
             $ref: '#/components/schemas/modelMealBreak'
-        customFields:
-          type: array
-          items:
-            $ref: '#/components/schemas/tenantsharedv2modelCustomField'
-        geoLocation:
-          $ref: '#/components/schemas/modelGeoLocation'
+        totalTime:
+          type: number
+          format: float
+        shiftId:
+          type: integer
+          format: int32
+        employeeComment:
+          type: string
+        disputed:
+          type: boolean
+        timeApproved:
+          type: boolean
+        area:
+          $ref: '#/components/schemas/tenanttimesheetv2modelArea'
+        inProgress:
+          type: boolean
+        autoRounded:
+          type: boolean
         fileId:
           type: integer
           format: int32
-        areaId:
-          type: integer
-          format: int32
-    modelSummaryFilters:
-      type: object
-      properties:
-        companyPeriods:
-          $ref: '#/components/schemas/modelCompanyPeriods'
-        payCalendar:
-          $ref: '#/components/schemas/modelPayCalendarOption'
-        dateRange:
-          $ref: '#/components/schemas/modelDateRange'
-        locations:
-          $ref: '#/components/schemas/modelLocations'
-        payCenters:
-          $ref: '#/components/schemas/modelPayCenters'
-        employeeIds:
+        children:
           type: array
           items:
-            type: integer
-            format: int32
-        employeeSelectionMode:
-          $ref: '#/components/schemas/SummaryFiltersEmployeeSelectionMode'
-    TimesheetsDeleteResponse:
+            $ref: '#/components/schemas/modelChildTimesheet'
+      title: response for starting or ending timesheet
+    RateSummaryValueUnit:
+      type: string
+      enum:
+      - VALUE_UNIT_UNKNOWN
+      - HOURS
+      - UNITS
+      default: VALUE_UNIT_UNKNOWN
+      title: Value unit option
+    modelSlotType:
+      type: string
+      enum:
+      - BREAK
+      - WORK
+      - CUSTOM
+      default: BREAK
+      title: Type of Slot
+    modelSummarizedTimesheet:
       type: object
       properties:
-        success:
-          type: boolean
+        id:
+          type: integer
+          format: int32
+        modifiedTimestamp:
+          type: string
+          title: Modified Timestamp - YYYY-MM-DD HH:MM:SS
+        employeeId:
+          type: integer
+          format: int32
+          title: Employee ID
     tenanttimesheetv2modelTimesheet:
       type: object
       properties:
@@ -1102,44 +861,33 @@ components:
           type: string
           title: 'Timesheet end time localized. Format: ISO8601 eg 2012-12-18T13:45:00+01:00'
       title: Timesheet model
-    modelLocations:
+    modelUpdateTimesheetRequest:
       type: object
       properties:
-        locationIds:
+        recordIP:
+          type: boolean
+        employeeComment:
+          type: string
+        start:
+          type: string
+          title: timesheet start time, format ISO8601 eg 2012-12-18T13:45:00+01:00
+        customFields:
           type: array
           items:
-            type: integer
-            format: int32
-    modelMealBreakSlotsWrapper:
-      type: object
-      properties:
-        slots:
-          type: array
-          items:
-            $ref: '#/components/schemas/modelMealBreak'
-      title: Wrapper for mealBreakSlots to distinguish between "not provided" and "empty array"
-    TimesheetsActionResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        data:
-          $ref: '#/components/schemas/modelTimesheetActionResponse'
-    RateSummaryValueUnit:
-      type: string
-      enum:
-      - VALUE_UNIT_UNKNOWN
-      - HOURS
-      - UNITS
-      default: VALUE_UNIT_UNKNOWN
-      title: Value unit option
-    TimesheetsPauseResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        data:
-          $ref: '#/components/schemas/tenanttimesheetv2modelTimesheet'
+            $ref: '#/components/schemas/tenantsharedv2modelCustomField'
+        mealBreakMinute:
+          type: integer
+          format: int32
+          title: Total break duration in minutes (use this OR mealBreakSlots, not both)
+        areaId:
+          type: integer
+          format: int32
+          title: Area ID to update the timesheet area
+        mealBreakSlots:
+          $ref: '#/components/schemas/modelMealBreakSlotsWrapper'
+          title: 'Break slots with detailed timing (start/end times, type, state)
+
+            Use wrapper to distinguish between "not provided" (keep existing) and "empty" (clear all)'
     TimesheetExportSummaryRequest:
       type: object
       properties:
@@ -1147,134 +895,62 @@ components:
           $ref: '#/components/schemas/modelSummaryFilters'
         bulkSelection:
           $ref: '#/components/schemas/modelSummaryBulkSelection'
-    tenanttimesheetv2modelArea:
+    TimesheetsActionResponse:
       type: object
       properties:
-        id:
-          type: integer
-          format: int32
-        name:
-          type: string
-        locationId:
-          type: integer
-          format: int32
-        locationName:
-          type: string
-    modelStringField:
+        success:
+          type: boolean
+        data:
+          $ref: '#/components/schemas/modelTimesheetActionResponse'
+    TimesheetsDeleteResponse:
       type: object
       properties:
-        value:
-          type: string
-    modelMealBreak:
+        success:
+          type: boolean
+    modelGeoLocation:
       type: object
       properties:
-        type:
-          $ref: '#/components/schemas/tenantsharedv2modelBreakType'
-          title: type of slot
-        start:
-          type: string
-          title: break start time, format ISO8601 eg 2012-12-18T13:45:00+01:00
-        end:
-          type: string
-          title: break end time, format ISO8601 eg 2012-12-18T13:45:00+01:00
-        state:
-          $ref: '#/components/schemas/modelBreakState'
-          title: break state
+        latitude:
+          type: number
+          format: double
+        longitude:
+          type: number
+          format: double
+        accuracy:
+          type: number
+          format: double
+    modelBreakAction:
+      type: string
+      enum:
+      - M
+      - R
+      - E
+      default: M
+      title: "- M: MEAL BREAK\n - R: REST BREAK\n - E: END BREAK"
     modelBooleanField:
       type: object
       properties:
         value:
           type: boolean
           default: 'false'
-    modelChildTimesheet:
-      type: object
-      properties:
-        start:
-          type: string
-          title: child shift start time, format ISO8601 eg 2012-12-18T13:45:00+01:00
-        end:
-          type: string
-          title: child shift end time, format ISO8601 eg 2012-12-18T13:45:00+01:00
-        areaId:
-          type: integer
-          format: int32
-        id:
-          type: integer
-          format: int32
-        areaName:
-          type: string
-          title: Area name
-        locationId:
-          type: integer
-          format: int32
-          title: Location ID
-        locationName:
-          type: string
-          title: Location name
-    modelSummaryBulkSelection:
-      type: object
-      properties:
-        timesheetIds:
-          type: array
-          items:
-            type: integer
-            format: int32
-        payCycleIds:
-          type: array
-          items:
-            type: integer
-            format: int32
-    TimesheetsGetResponse:
+    TimesheetsListResponse:
       type: object
       properties:
         success:
           type: boolean
         data:
-          $ref: '#/components/schemas/tenanttimesheetv2modelTimesheet'
-    modelSlotType:
+          type: array
+          items:
+            $ref: '#/components/schemas/tenanttimesheetv2modelTimesheet'
+        nextCursor:
+          type: string
+    tenantsharedv2modelBreakType:
       type: string
       enum:
-      - BREAK
-      - WORK
-      - CUSTOM
-      default: BREAK
-      title: Type of Slot
-    modelPayCalendarOption:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int32
-          title: Pay Calendar ID
-        startDate:
-          type: string
-          title: Start Date - YYYY-MM-DD
-        endDate:
-          type: string
-          title: End Date - YYYY-MM-DD
-    modelRateSummary:
-      type: object
-      properties:
-        name:
-          type: string
-        type:
-          $ref: '#/components/schemas/modelRateSummaryRateType'
-        payRule:
-          $ref: '#/components/schemas/modelRateSummaryPayRule'
-        leaveRule:
-          $ref: '#/components/schemas/modelRateSummaryLeaveRule'
-        isSetToExport:
-          type: boolean
-        exportCode:
-          type: string
-        totalValue:
-          type: string
-          title: Total value represented as a string with 4dp - 1234.5678
-        valueUnit:
-          $ref: '#/components/schemas/RateSummaryValueUnit'
-        totalCost:
-          type: string
-          title: Total cost represented as a string with 4dp - 1234.5678
+      - MEAL_BREAK
+      - REST_BREAK
+      default: MEAL_BREAK
+      title: Break Type
     modelTimesheetPayReturn:
       type: object
       properties:
@@ -1307,14 +983,113 @@ components:
           type: boolean
         data:
           $ref: '#/components/schemas/tenanttimesheetv2modelTimesheet'
-    modelBreakAction:
-      type: string
-      enum:
-      - M
-      - R
-      - E
-      default: M
-      title: "- M: MEAL BREAK\n - R: REST BREAK\n - E: END BREAK"
+    modelStartTimesheetRequest:
+      type: object
+      properties:
+        recordIP:
+          type: boolean
+        areaId:
+          type: integer
+          format: int32
+        employeeComment:
+          type: string
+        customFields:
+          type: array
+          items:
+            $ref: '#/components/schemas/tenantsharedv2modelCustomField'
+        fileId:
+          type: integer
+          format: int32
+        employeeId:
+          type: integer
+          format: int32
+        geoLocation:
+          $ref: '#/components/schemas/modelGeoLocation'
+    modelRateSummary:
+      type: object
+      properties:
+        name:
+          type: string
+        type:
+          $ref: '#/components/schemas/modelRateSummaryRateType'
+        payRule:
+          $ref: '#/components/schemas/modelRateSummaryPayRule'
+        leaveRule:
+          $ref: '#/components/schemas/modelRateSummaryLeaveRule'
+        isSetToExport:
+          type: boolean
+        exportCode:
+          type: string
+        totalValue:
+          type: string
+          title: Total value represented as a string with 4dp - 1234.5678
+        valueUnit:
+          $ref: '#/components/schemas/RateSummaryValueUnit'
+        totalCost:
+          type: string
+          title: Total cost represented as a string with 4dp - 1234.5678
+    modelChildTimesheet:
+      type: object
+      properties:
+        start:
+          type: string
+          title: child shift start time, format ISO8601 eg 2012-12-18T13:45:00+01:00
+        end:
+          type: string
+          title: child shift end time, format ISO8601 eg 2012-12-18T13:45:00+01:00
+        areaId:
+          type: integer
+          format: int32
+        id:
+          type: integer
+          format: int32
+        areaName:
+          type: string
+          title: Area name
+        locationId:
+          type: integer
+          format: int32
+          title: Location ID
+        locationName:
+          type: string
+          title: Location name
+    modelDateRange:
+      type: object
+      properties:
+        startDate:
+          type: string
+          title: Start Date - YYYY-MM-DD
+        endDate:
+          type: string
+          title: End Date - YYYY-MM-DD
+    TimesheetExportSummaryResponse:
+      type: object
+      properties:
+        totalEmployees:
+          type: integer
+          format: int32
+        totalTimesheets:
+          type: integer
+          format: int32
+        totalHours:
+          type: string
+        totalCost:
+          type: string
+          title: Total cost formatted as 123.4567
+        summarizedTimesheets:
+          type: array
+          items:
+            $ref: '#/components/schemas/modelSummarizedTimesheet'
+        summarizedPayCycles:
+          type: array
+          items:
+            $ref: '#/components/schemas/modelSummarizedTimesheet'
+        startDate:
+          type: string
+          title: Start Date - YYYY-MM-DD
+        endDate:
+          type: string
+          title: End Date - YYYY-MM-DD
     modelRateSummaryRateType:
       type: string
       enum:
@@ -1325,110 +1100,335 @@ components:
       - LEAVE
       default: RATE_TYPE_UNKNOWN
       title: Rate Type option
-    modelSummarizedTimesheet:
+    modelValidationFlag:
+      type: string
+      enum:
+      - VALIDATION_FLAG_NONE
+      - VALIDATION_FLAG_GENERIC_ERROR
+      - VALIDATION_FLAG_DIFFERS_FROM_ROSTER
+      - VALIDATION_FLAG_SHORTER_THAN_ROSTER
+      - VALIDATION_FLAG_LONGER_THAN_ROSTER
+      - VALIDATION_FLAG_NO_MEALBREAK
+      - VALIDATION_FLAG_SHORTER_MEALBREAK
+      - VALIDATION_FLAG_LONGER_MEALBREAK
+      - VALIDATION_FLAG_LATE_MEALBREAK
+      - VALIDATION_FLAG_INSUFFICIENT_MEALBREAK
+      - VALIDATION_FLAG_OUTSIDE_GEO_BOUNDARIES
+      - VALIDATION_FLAG_SHIFT_PLAN_ISSUES
+      - VALIDATION_FLAG_NO_START_PHOTO
+      - VALIDATION_FLAG_NO_END_PHOTO
+      - VALIDATION_FLAG_PHOTO_DOES_NOT_MATCH
+      - VALIDATION_FLAG_CLOSED_BY_SYSTEM
+      - VALIDATION_FLAG_SHORTER_REST_BREAK
+      - VALIDATION_FLAG_SHORTER_MEAL_BREAK
+      - VALIDATION_FLAG_MISSED_SCHEDULE_BREAK
+      - VALIDATION_FLAG_ATTESTATION_PREVENT_CLOCK_IN
+      - VALIDATION_FLAG_ATTESTATION_NOTIFY_MANAGER
+      default: VALIDATION_FLAG_NONE
+    TimesheetExportRateSummaryResponse:
       type: object
       properties:
-        id:
-          type: integer
-          format: int32
-        modifiedTimestamp:
-          type: string
-          title: Modified Timestamp - YYYY-MM-DD HH:MM:SS
-        employeeId:
-          type: integer
-          format: int32
-          title: Employee ID
-    modelUpdateTimesheetRequest:
+        rateSummaries:
+          type: array
+          items:
+            $ref: '#/components/schemas/modelRateSummary'
+    modelEndTimesheetRequest:
       type: object
       properties:
         recordIP:
           type: boolean
-        employeeComment:
-          type: string
         start:
           type: string
           title: timesheet start time, format ISO8601 eg 2012-12-18T13:45:00+01:00
-        customFields:
-          type: array
-          items:
-            $ref: '#/components/schemas/tenantsharedv2modelCustomField'
-        mealBreakMinute:
-          type: integer
-          format: int32
-          title: Total break duration in minutes (use this OR mealBreakSlots, not both)
-        areaId:
-          type: integer
-          format: int32
-          title: Area ID to update the timesheet area
-        mealBreakSlots:
-          $ref: '#/components/schemas/modelMealBreakSlotsWrapper'
-          title: 'Break slots with detailed timing (start/end times, type, state)
-
-            Use wrapper to distinguish between "not provided" (keep existing) and "empty" (clear all)'
-    modelTimesheetActionResponse:
-      type: object
-      properties:
-        managerNotified:
-          type: boolean
-        id:
-          type: integer
-          format: int32
-        employeeId:
-          type: integer
-          format: int32
-        start:
-          type: string
-          title: child shift start time, format ISO8601 eg 2012-12-18T13:45:00+01:00
         end:
           type: string
-          title: child shift end time, format ISO8601 eg 2012-12-18T13:45:00+01:00
-        mealBreakSlots:
-          type: array
-          items:
-            $ref: '#/components/schemas/modelMealBreak'
-        totalTime:
-          type: number
-          format: float
-        shiftId:
-          type: integer
-          format: int32
+          title: timesheet end time, format ISO8601 eg 2012-12-18T13:45:00+01:00
         employeeComment:
           type: string
-        disputed:
-          type: boolean
-        timeApproved:
-          type: boolean
-        area:
-          $ref: '#/components/schemas/tenanttimesheetv2modelArea'
-        inProgress:
-          type: boolean
-        autoRounded:
-          type: boolean
-        fileId:
-          type: integer
-          format: int32
         children:
           type: array
           items:
             $ref: '#/components/schemas/modelChildTimesheet'
-      title: response for starting or ending timesheet
+        mealBreakSlots:
+          type: array
+          items:
+            $ref: '#/components/schemas/modelMealBreak'
+        customFields:
+          type: array
+          items:
+            $ref: '#/components/schemas/tenantsharedv2modelCustomField'
+        geoLocation:
+          $ref: '#/components/schemas/modelGeoLocation'
+        fileId:
+          type: integer
+          format: int32
+        areaId:
+          type: integer
+          format: int32
+    StartanemployeestimesheetClockOnRequest:
+      title: StartanemployeestimesheetClockOnRequest
+      required:
+      - intOpunitId
+      - intEmployeeId
+      type: object
+      properties:
+        intOpunitId:
+          type: integer
+          format: int32
+          description: The id of the location the area the timesheet is for
+        intEmployeeId:
+          type: integer
+          format: int32
+          description: The id record of the employee for who the timesheet is for
+    modelStringField:
+      type: object
+      properties:
+        value:
+          type: string
+    modelPauseTimesheetRequest:
+      type: object
+      properties:
+        breakId:
+          type: integer
+          format: int32
+          title: index of schedule break
+        breakAction:
+          $ref: '#/components/schemas/modelBreakAction'
+        employeeId:
+          type: integer
+          format: int32
+    modelCompanyPeriods:
+      type: object
+      properties:
+        companyPeriodIds:
+          type: array
+          items:
+            type: integer
+            format: int32
+          title: Company Period IDs
+    tenantsharedv2modelCustomField:
+      type: object
+      properties:
+        id:
+          type: string
+          format: int64
+        booleanField:
+          $ref: '#/components/schemas/modelBooleanField'
+        stringField:
+          $ref: '#/components/schemas/modelStringField'
+        listField:
+          $ref: '#/components/schemas/modelListField'
+        multiListField:
+          $ref: '#/components/schemas/modelMultiListField'
+        fileField:
+          $ref: '#/components/schemas/modelFileField'
+          title: file id
+        employeeVisible:
+          type: boolean
+    modelBreakState:
+      type: string
+      enum:
+      - NOT_START
+      - IN_PROGRESS
+      - FINISHED
+      - DURATION_ONLY
+      - DURATION_FINISHED
+      default: NOT_START
+      title: Break States
+    StopanemployeestimesheetClockOffRequest:
+      title: StopanemployeestimesheetClockOffRequest
+      required:
+      - intTimesheetId
+      - intMealbreakMinute
+      type: object
+      properties:
+        intTimesheetId:
+          type: integer
+          format: int32
+          description: Record id of the timesheet to stop
+        intMealbreakMinute:
+          type: integer
+          format: int32
+          description: Number of minutes taken as a meal break in the timesheet period
+    modelSummaryFilters:
+      type: object
+      properties:
+        companyPeriods:
+          $ref: '#/components/schemas/modelCompanyPeriods'
+        payCalendar:
+          $ref: '#/components/schemas/modelPayCalendarOption'
+        dateRange:
+          $ref: '#/components/schemas/modelDateRange'
+        locations:
+          $ref: '#/components/schemas/modelLocations'
+        payCenters:
+          $ref: '#/components/schemas/modelPayCenters'
+        employeeIds:
+          type: array
+          items:
+            type: integer
+            format: int32
+        employeeSelectionMode:
+          $ref: '#/components/schemas/SummaryFiltersEmployeeSelectionMode'
+    SummaryFiltersEmployeeSelectionMode:
+      type: string
+      enum:
+      - EMPLOYEE_SELECTION_MODE_UNKNOWN
+      - INCLUDE
+      - EXCLUDE
+      default: EMPLOYEE_SELECTION_MODE_UNKNOWN
+    modelMealBreak:
+      type: object
+      properties:
+        type:
+          $ref: '#/components/schemas/tenantsharedv2modelBreakType'
+          title: type of slot
+        start:
+          type: string
+          title: break start time, format ISO8601 eg 2012-12-18T13:45:00+01:00
+        end:
+          type: string
+          title: break end time, format ISO8601 eg 2012-12-18T13:45:00+01:00
+        state:
+          $ref: '#/components/schemas/modelBreakState'
+          title: break state
+    modelMultiListField:
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            type: string
+    TimesheetsGetResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          $ref: '#/components/schemas/tenanttimesheetv2modelTimesheet'
+    TimesheetsPauseResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          $ref: '#/components/schemas/tenanttimesheetv2modelTimesheet'
+    modelSummaryBulkSelection:
+      type: object
+      properties:
+        timesheetIds:
+          type: array
+          items:
+            type: integer
+            format: int32
+        payCycleIds:
+          type: array
+          items:
+            type: integer
+            format: int32
+    modelRateSummaryPayRule:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+    modelBreak:
+      type: object
+      properties:
+        slotType:
+          $ref: '#/components/schemas/modelSlotType'
+          title: type of slot
+        start:
+          type: integer
+          format: int32
+          title: can start break after seconds passed after shift start
+        end:
+          type: integer
+          format: int32
+          title: can end break after seconds passed after shift start
+        state:
+          $ref: '#/components/schemas/modelBreakState'
+          title: Break state
+        canStartEarly:
+          type: boolean
+          title: '[Deprecated] can employee start break early, override shift template'
+        canEndEarly:
+          type: boolean
+          title: '[Deprecated] can employee end break early, override shift template'
+        isMandatory:
+          type: boolean
+          title: '[Deprecated] is it mandatory to take this break, override shift template'
+        type:
+          $ref: '#/components/schemas/tenantsharedv2modelBreakType'
+          title: type of break
+        typeLabel:
+          type: string
+          title: break type name in config
+        startDateTime:
+          type: string
+          title: format ISO8601 eg 2024-06-25T13:45:00+01:00
+        endDateTime:
+          type: string
+          title: format ISO8601 eg 2024-06-25T13:45:00+01:00
+    modelPayCenters:
+      type: object
+      properties:
+        payCenterIds:
+          type: array
+          items:
+            type: integer
+            format: int32
     modelListField:
       type: object
       properties:
         value:
           type: string
-    modelGeoLocation:
+    modelLocations:
       type: object
       properties:
-        latitude:
-          type: number
-          format: double
-        longitude:
-          type: number
-          format: double
-        accuracy:
-          type: number
-          format: double
+        locationIds:
+          type: array
+          items:
+            type: integer
+            format: int32
+    modelFileField:
+      type: object
+      properties:
+        value:
+          type: integer
+          format: int32
+    tenanttimesheetv2modelArea:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        name:
+          type: string
+        locationId:
+          type: integer
+          format: int32
+        locationName:
+          type: string
+    modelPayCalendarOption:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+          title: Pay Calendar ID
+        startDate:
+          type: string
+          title: Start Date - YYYY-MM-DD
+        endDate:
+          type: string
+          title: End Date - YYYY-MM-DD
+    modelRateSummaryLeaveRule:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
   securitySchemes:
     httpBearer:
       type: http

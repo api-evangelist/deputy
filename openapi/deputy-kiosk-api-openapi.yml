@@ -336,6 +336,51 @@ paths:
           description: Resource not found
 components:
   schemas:
+    Kiosk:
+      type: object
+      properties:
+        Id:
+          type: integer
+        Name:
+          type: string
+          maxLength: 48
+        InstallationId:
+          type: string
+          maxLength: 255
+        Company:
+          type: integer
+        ConnectionMode:
+          type: integer
+        SubnetRestriction:
+          type: string
+        AuthenticationMode:
+          type: integer
+        UseBiometric:
+          type: boolean
+        LastActivity:
+          type: string
+          maxLength: 255
+        IpAddress:
+          type: string
+          maxLength: 255
+        EnableMultiLocations:
+          type: boolean
+        Creator:
+          type: integer
+        Created:
+          type: string
+          format: date-time
+        Modified:
+          type: string
+        CompanyObject:
+          type: object
+      required:
+      - Id
+      - Name
+      - InstallationId
+      - Company
+      - ConnectionMode
+      - Modified
     QueryRequest:
       type: object
       description: V1 Resource search payload. All fields optional; an empty body returns the first page of results.
@@ -402,51 +447,6 @@ components:
             data: 1
             type: ge
         max: 100
-    Kiosk:
-      type: object
-      properties:
-        Id:
-          type: integer
-        Name:
-          type: string
-          maxLength: 48
-        InstallationId:
-          type: string
-          maxLength: 255
-        Company:
-          type: integer
-        ConnectionMode:
-          type: integer
-        SubnetRestriction:
-          type: string
-        AuthenticationMode:
-          type: integer
-        UseBiometric:
-          type: boolean
-        LastActivity:
-          type: string
-          maxLength: 255
-        IpAddress:
-          type: string
-          maxLength: 255
-        EnableMultiLocations:
-          type: boolean
-        Creator:
-          type: integer
-        Created:
-          type: string
-          format: date-time
-        Modified:
-          type: string
-        CompanyObject:
-          type: object
-      required:
-      - Id
-      - Name
-      - InstallationId
-      - Company
-      - ConnectionMode
-      - Modified
   securitySchemes:
     BearerAuth:
       type: http

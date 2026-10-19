@@ -92,15 +92,6 @@ paths:
               $ref: '#/components/schemas/LeaveFeatureSetSetSuggestionStatusRequest'
 components:
   schemas:
-    modelLeaveFeatureSetStatusLeaveFeatureSet:
-      type: string
-      enum:
-      - UNKNOWN_SET
-      - BASIC
-      - FULL
-      - NONE
-      default: UNKNOWN_SET
-      title: Leave Feature Set
     LeaveFeatureSetSetSuggestionStatusResponse:
       type: object
       properties:
@@ -109,6 +100,15 @@ components:
         status:
           $ref: '#/components/schemas/modelLeaveFeatureSetSuggestionStatus'
       title: Set leave feature set suggestion status response
+    LeaveFeatureSetSetSuggestionStatusRequest:
+      type: object
+      properties:
+        status:
+          $ref: '#/components/schemas/modelLeaveFeatureSetSuggestionStatus'
+        updateMask:
+          type: string
+          title: Fields to patch
+      title: Set leave feature set suggestion status request
     modelLeaveFeatureSetStatus:
       type: object
       properties:
@@ -144,6 +144,43 @@ components:
           type: boolean
           title: Is the account a trial
       title: Leave Feature Set Status
+    LeaveFeatureSetSetLeaveAdoptionStatusRequest:
+      type: object
+      properties:
+        adopted:
+          type: boolean
+      title: Set Adoption Status request
+    LeaveFeatureSetGetLeaveFeatureSetStatusResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        status:
+          $ref: '#/components/schemas/modelLeaveFeatureSetStatus'
+      title: Get leave feature set status response
+    LeaveFeatureSetSetLeaveAdoptionStatusResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+      title: Set Adoption Status response
+    modelLeaveFeatureSetStatusLeaveFeatureSet:
+      type: string
+      enum:
+      - UNKNOWN_SET
+      - BASIC
+      - FULL
+      - NONE
+      default: UNKNOWN_SET
+      title: Leave Feature Set
+    modelAdoptionStatus:
+      type: object
+      properties:
+        adopted:
+          type: boolean
+        adoptedAt:
+          type: string
+          format: date-time
     LeaveFeatureSetStatusLeaveHRAddonEligibility:
       type: string
       enum:
@@ -153,29 +190,6 @@ components:
       - NOT_ELIGIBLE
       default: UNKNOWN_ELIGIBILITY
       title: Leave HR Addon Eligibility
-    LeaveFeatureSetSetSuggestionStatusRequest:
-      type: object
-      properties:
-        status:
-          $ref: '#/components/schemas/modelLeaveFeatureSetSuggestionStatus'
-        updateMask:
-          type: string
-          title: Fields to patch
-      title: Set leave feature set suggestion status request
-    LeaveFeatureSetSetLeaveAdoptionStatusResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-      title: Set Adoption Status response
-    modelAdoptionStatus:
-      type: object
-      properties:
-        adopted:
-          type: boolean
-        adoptedAt:
-          type: string
-          format: date-time
     LeaveFeatureSetGetAdoptionStatusResponse:
       type: object
       properties:
@@ -184,20 +198,6 @@ components:
         adoption:
           $ref: '#/components/schemas/modelAdoptionStatus'
       title: Get Adoption Status response
-    LeaveFeatureSetGetLeaveFeatureSetStatusResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        status:
-          $ref: '#/components/schemas/modelLeaveFeatureSetStatus'
-      title: Get leave feature set status response
-    LeaveFeatureSetSetLeaveAdoptionStatusRequest:
-      type: object
-      properties:
-        adopted:
-          type: boolean
-      title: Set Adoption Status request
     modelLeaveFeatureSetSuggestionStatus:
       type: object
       properties:

@@ -56,46 +56,6 @@ paths:
       description: List logs.
 components:
   schemas:
-    LeaveLogEntryLogType:
-      type: string
-      enum:
-      - LOG_UNKNOWN_TYPE
-      - LOG_MANUAL_MOD
-      - LOG_HOURS_WORKED
-      - LOG_DEDUCTION
-      - LOG_FIXED_RELEASE
-      - LOG_AGREED_HOURS
-      - LOG_REVERT_ACCRUAL
-      - LOG_REVERT_DEDUCTION
-      - LOG_BALANCE_RESET
-      - LOG_ROLLOVER_WITH_CAP
-      - LOG_POLICY_ASSIGNED
-      - LOG_POLICY_REMOVED
-      - LOG_TIMESHEET_RECALCULATED
-      - LOG_HOURS_WORKED_SINCE_THRESHOLD_OVERRIDDEN
-      - LOG_ROLLOVER_FULL
-      - LOG_TOIL_HOURS_WORKED
-      - LOG_TOIL_REVERT_ACCRUAL
-      - LOG_TOIL_TIMESHEET_RECALCULATED
-      default: LOG_UNKNOWN_TYPE
-      title: Log Type
-    modelLeaveLogActor:
-      type: object
-      properties:
-        name:
-          type: string
-          title: name of the employee
-        status:
-          $ref: '#/components/schemas/modelLeaveLogActorStatus'
-          title: employee status
-      title: Leave Log Actor
-    modelLeaveLogActorStatus:
-      type: string
-      enum:
-      - NOT_FOUND
-      - ARCHIVED
-      - ACTIVE
-      default: NOT_FOUND
     modelFixedReleaseDetails:
       type: object
       properties:
@@ -106,22 +66,31 @@ components:
           type: boolean
         proRata:
           $ref: '#/components/schemas/modelProRata'
-    modelAgreedHoursDetails:
+    modelLeaveLogEntryTimesheet:
       type: object
       properties:
-        fullTimeAmount:
+        timesheetId:
+          type: string
+          title: The timesheet Id of the accrual, deduction or revert
+        timesheetHours:
           type: number
-          format: float
-        isProRatedRelease:
-          type: boolean
-        proRata:
-          $ref: '#/components/schemas/modelProRata'
-        averageHoursPerWeek:
-          type: number
-          format: float
-        averageDaysPerWeek:
-          type: number
-          format: float
+          format: double
+          title: The timesheet hours of the accrual, deduction or revert
+        startedAt:
+          type: string
+          format: date-time
+          title: The timestamp in UTC of the hours were worked or leave was taken
+        timeZone:
+          type: string
+          title: The name of time zone in which the start and end of the timesheet should be interpreted, e.g. Australia/Melbourne
+      title: Leave Log Timesheet
+    modelLeaveLogActorStatus:
+      type: string
+      enum:
+      - NOT_FOUND
+      - ARCHIVED
+      - ACTIVE
+      default: NOT_FOUND
     modelLeaveLogEntry:
       type: object
       properties:
@@ -162,36 +131,32 @@ components:
           $ref: '#/components/schemas/modelAgreedHoursDetails'
           title: Agreed hours details
       title: Leave Log Entry
-    modelLeaveLogEntryTimesheet:
+    modelLeaveLogActor:
       type: object
       properties:
-        timesheetId:
+        name:
           type: string
-          title: The timesheet Id of the accrual, deduction or revert
-        timesheetHours:
+          title: name of the employee
+        status:
+          $ref: '#/components/schemas/modelLeaveLogActorStatus'
+          title: employee status
+      title: Leave Log Actor
+    modelAgreedHoursDetails:
+      type: object
+      properties:
+        fullTimeAmount:
           type: number
-          format: double
-          title: The timesheet hours of the accrual, deduction or revert
-        startedAt:
-          type: string
-          format: date-time
-          title: The timestamp in UTC of the hours were worked or leave was taken
-        timeZone:
-          type: string
-          title: The name of time zone in which the start and end of the timesheet should be interpreted, e.g. Australia/Melbourne
-      title: Leave Log Timesheet
-    modelProRata:
-      type: object
-      properties:
-        denominator:
-          $ref: '#/components/schemas/ProRataProRataUnit'
-    ProRataProRataUnit:
-      type: string
-      enum:
-      - UNKNOWN_PRO_RATA_UNIT
-      - PRO_RATA_UNIT_DAY
-      - PRO_RATA_UNIT_MONTH
-      default: UNKNOWN_PRO_RATA_UNIT
+          format: float
+        isProRatedRelease:
+          type: boolean
+        proRata:
+          $ref: '#/components/schemas/modelProRata'
+        averageHoursPerWeek:
+          type: number
+          format: float
+        averageDaysPerWeek:
+          type: number
+          format: float
     LeaveAuditLogListAuditLogsResponse:
       type: object
       properties:
@@ -203,6 +168,41 @@ components:
             $ref: '#/components/schemas/modelLeaveLogEntry'
         nextCursor:
           type: string
+    modelProRata:
+      type: object
+      properties:
+        denominator:
+          $ref: '#/components/schemas/ProRataProRataUnit'
+    LeaveLogEntryLogType:
+      type: string
+      enum:
+      - LOG_UNKNOWN_TYPE
+      - LOG_MANUAL_MOD
+      - LOG_HOURS_WORKED
+      - LOG_DEDUCTION
+      - LOG_FIXED_RELEASE
+      - LOG_AGREED_HOURS
+      - LOG_REVERT_ACCRUAL
+      - LOG_REVERT_DEDUCTION
+      - LOG_BALANCE_RESET
+      - LOG_ROLLOVER_WITH_CAP
+      - LOG_POLICY_ASSIGNED
+      - LOG_POLICY_REMOVED
+      - LOG_TIMESHEET_RECALCULATED
+      - LOG_HOURS_WORKED_SINCE_THRESHOLD_OVERRIDDEN
+      - LOG_ROLLOVER_FULL
+      - LOG_TOIL_HOURS_WORKED
+      - LOG_TOIL_REVERT_ACCRUAL
+      - LOG_TOIL_TIMESHEET_RECALCULATED
+      default: LOG_UNKNOWN_TYPE
+      title: Log Type
+    ProRataProRataUnit:
+      type: string
+      enum:
+      - UNKNOWN_PRO_RATA_UNIT
+      - PRO_RATA_UNIT_DAY
+      - PRO_RATA_UNIT_MONTH
+      default: UNKNOWN_PRO_RATA_UNIT
   securitySchemes:
     ApiToken:
       type: apiKey

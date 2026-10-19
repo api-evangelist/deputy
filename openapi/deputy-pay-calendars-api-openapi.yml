@@ -301,100 +301,6 @@ paths:
       description: Retrieve list of employees assigned to a pay calendar.
 components:
   schemas:
-    PayCalendarsListResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/v2modelPayCalendar'
-        nextCursor:
-          type: string
-    PayCalendarsCreateResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        data:
-          $ref: '#/components/schemas/v2modelPayCalendar'
-    PayCalendarsDeactivateResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        data:
-          type: string
-    EmployeesByPayCalendarMainAgreement:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int32
-          title: MainAgreement ID
-        employmentTypeId:
-          type: integer
-          format: int32
-          title: Employment Type
-    PayCalendarsAssignEmployeesResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-    PayCalendarsAssignEmployee:
-      type: object
-      properties:
-        employeeId:
-          type: string
-          format: int64
-        locationId:
-          type: string
-          format: int64
-    PayCalendarPayCalendarFrequency:
-      type: string
-      enum:
-      - NONE
-      - WEEKLY
-      - FOUR_WEEKLY
-      - FORTNIGHTLY
-      - TWICE_MONTHLY
-      - MONTHLY
-      - QUARTERLY
-      default: NONE
-    PayCalendarsAssignEmployeesRequest:
-      type: object
-      properties:
-        id:
-          type: string
-          format: int64
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/PayCalendarsAssignEmployee'
-        filter:
-          $ref: '#/components/schemas/PayCalendarsAssignEmployeesFilter'
-        businessId:
-          type: string
-    PayCalendarsListPayPeriodsResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/modelPayPeriodByPayCalendar'
-    modelEmployeesByPayCalendarLocation:
-      type: object
-      properties:
-        id:
-          type: string
-          format: int64
-          title: Primary location ID of employee
-        name:
-          type: string
-          title: Primary location of employee
     PayCalendarsUpdateResponse:
       type: object
       properties:
@@ -402,6 +308,27 @@ components:
           type: boolean
         data:
           $ref: '#/components/schemas/v2modelPayCalendar'
+    PayCalendarsCreateResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          $ref: '#/components/schemas/v2modelPayCalendar'
+    PayCalendarsListAssignedEmployeesResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/modelEmployeesByPayCalendar'
+        totalCount:
+          type: string
+          format: int64
+        nextCursor:
+          type: string
     PayCalendarsSearchAssignedEmployeesResponse:
       type: object
       properties:
@@ -413,6 +340,62 @@ components:
             $ref: '#/components/schemas/modelEmployeesByPayCalendar'
         nextCursor:
           type: string
+    modelEmployeesByPayCalendarPayCalendar:
+      type: object
+      properties:
+        id:
+          type: string
+          format: int64
+          title: PayCalendar ID
+        name:
+          type: string
+          title: PayCalendar name
+    modelEmployeesByPayCalendarLocation:
+      type: object
+      properties:
+        id:
+          type: string
+          format: int64
+          title: Primary location ID of employee
+        name:
+          type: string
+          title: Primary location of employee
+    PayCalendarsAssignEmployee:
+      type: object
+      properties:
+        employeeId:
+          type: string
+          format: int64
+        locationId:
+          type: string
+          format: int64
+    modelPayPeriodByPayCalendar:
+      type: object
+      properties:
+        startDate:
+          type: string
+          title: Pay Period Start Date
+        endDate:
+          type: string
+          title: Pay Period End Date
+    PayCalendarsGetResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          $ref: '#/components/schemas/v2modelPayCalendar'
+    PayCalendarPayCalendarFrequency:
+      type: string
+      enum:
+      - NONE
+      - WEEKLY
+      - FOUR_WEEKLY
+      - FORTNIGHTLY
+      - TWICE_MONTHLY
+      - MONTHLY
+      - QUARTERLY
+      default: NONE
     modelEmployeesByPayCalendar:
       type: object
       properties:
@@ -442,6 +425,45 @@ components:
           type: string
           title: Thumbnail photo URL
       title: Employees by pay calendar
+    PayCalendarsListPayPeriodsResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/modelPayPeriodByPayCalendar'
+    EmployeesByPayCalendarMainAgreement:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+          title: MainAgreement ID
+        employmentTypeId:
+          type: integer
+          format: int32
+          title: Employment Type
+    PayCalendarsAssignEmployeesRequest:
+      type: object
+      properties:
+        id:
+          type: string
+          format: int64
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/PayCalendarsAssignEmployee'
+        filter:
+          $ref: '#/components/schemas/PayCalendarsAssignEmployeesFilter'
+        businessId:
+          type: string
+    PayCalendarsAssignEmployeesResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
     PayCalendarsEmploymentType:
       type: string
       enum:
@@ -449,33 +471,16 @@ components:
       - EMPLOYEE
       - CONTRACTOR
       default: NONE
-    modelPayPeriodByPayCalendar:
+    PayCalendarsListResponse:
       type: object
       properties:
-        startDate:
-          type: string
-          title: Pay Period Start Date
-        endDate:
-          type: string
-          title: Pay Period End Date
-    PayCalendarsAssignEmployeesFilter:
-      type: object
-      properties:
-        employmentTypes:
+        success:
+          type: boolean
+        data:
           type: array
           items:
-            $ref: '#/components/schemas/PayCalendarsEmploymentType'
-        locationIds:
-          type: array
-          items:
-            type: string
-            format: int64
-        payCalendarIds:
-          type: array
-          items:
-            type: string
-            format: int64
-        employeeDisplayName:
+            $ref: '#/components/schemas/v2modelPayCalendar'
+        nextCursor:
           type: string
     v2modelPayCalendar:
       type: object
@@ -528,37 +533,32 @@ components:
           type: string
           format: date-time
           title: '[read-only] Modified Date of Pay calendar'
-    modelEmployeesByPayCalendarPayCalendar:
+    PayCalendarsAssignEmployeesFilter:
       type: object
       properties:
-        id:
-          type: string
-          format: int64
-          title: PayCalendar ID
-        name:
-          type: string
-          title: PayCalendar name
-    PayCalendarsListAssignedEmployeesResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        data:
+        employmentTypes:
           type: array
           items:
-            $ref: '#/components/schemas/modelEmployeesByPayCalendar'
-        totalCount:
+            $ref: '#/components/schemas/PayCalendarsEmploymentType'
+        locationIds:
+          type: array
+          items:
+            type: string
+            format: int64
+        payCalendarIds:
+          type: array
+          items:
+            type: string
+            format: int64
+        employeeDisplayName:
           type: string
-          format: int64
-        nextCursor:
-          type: string
-    PayCalendarsGetResponse:
+    PayCalendarsDeactivateResponse:
       type: object
       properties:
         success:
           type: boolean
         data:
-          $ref: '#/components/schemas/v2modelPayCalendar'
+          type: string
   securitySchemes:
     ApiToken:
       type: apiKey

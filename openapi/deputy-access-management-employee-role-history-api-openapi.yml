@@ -48,52 +48,6 @@ paths:
       description: List employee role history.
 components:
   schemas:
-    tenantauthv2modelEmployeeLocation:
-      type: object
-      properties:
-        id:
-          type: string
-          format: int64
-          title: Location ID
-        name:
-          type: string
-          title: Location name
-      title: Primary location information
-    AccessManagementListEmployeeRoleHistoryResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        changes:
-          type: array
-          items:
-            $ref: '#/components/schemas/modelEmployeeRoleHistory'
-      title: Response to list the history of an employee role
-    tenantauthv2modelEmployee:
-      type: object
-      properties:
-        id:
-          type: string
-          format: int64
-          title: Employee ID
-        displayName:
-          type: string
-          title: Employee display name
-        primaryLocation:
-          $ref: '#/components/schemas/tenantauthv2modelEmployeeLocation'
-          title: Primary Location
-      title: Employee with basic information
-    EmployeeRoleHistoryFIELD_NAME:
-      type: string
-      enum:
-      - FIELD_NAME_UNSPECIFIED
-      - NAME
-      - REQUIRE_2FA
-      - REPORTS_TO
-      - ALSO_REPORTS_TO
-      - PRIVILEGES
-      default: FIELD_NAME_UNSPECIFIED
-      title: The field that was changed
     modelEmployeeRoleHistory:
       type: object
       properties:
@@ -124,6 +78,52 @@ components:
         newValue:
           type: string
           title: The new value of the field
+    tenantauthv2modelEmployee:
+      type: object
+      properties:
+        id:
+          type: string
+          format: int64
+          title: Employee ID
+        displayName:
+          type: string
+          title: Employee display name
+        primaryLocation:
+          $ref: '#/components/schemas/tenantauthv2modelEmployeeLocation'
+          title: Primary Location
+      title: Employee with basic information
+    tenantauthv2modelEmployeeLocation:
+      type: object
+      properties:
+        id:
+          type: string
+          format: int64
+          title: Location ID
+        name:
+          type: string
+          title: Location name
+      title: Primary location information
+    EmployeeRoleHistoryFIELD_NAME:
+      type: string
+      enum:
+      - FIELD_NAME_UNSPECIFIED
+      - NAME
+      - REQUIRE_2FA
+      - REPORTS_TO
+      - ALSO_REPORTS_TO
+      - PRIVILEGES
+      default: FIELD_NAME_UNSPECIFIED
+      title: The field that was changed
+    AccessManagementListEmployeeRoleHistoryResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        changes:
+          type: array
+          items:
+            $ref: '#/components/schemas/modelEmployeeRoleHistory'
+      title: Response to list the history of an employee role
   securitySchemes:
     ApiToken:
       type: apiKey

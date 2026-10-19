@@ -195,52 +195,41 @@ paths:
               $ref: '#/components/schemas/LocationProfileUpdateBusinessNumberRequestData'
 components:
   schemas:
-    tenantlocationv2modelAddress:
+    LocationProfileListResponse:
       type: object
       properties:
-        id:
-          type: integer
-          format: int32
-          title: Address Id
-        street:
+        success:
+          type: boolean
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/v2modelLocationProfile'
+        nextCursor:
           type: string
-          title: Street address line
-        state:
-          type: string
-          title: 'State code, e.g: ''CA'' for California or ''NSW'' for New South Wales'
-        postcode:
-          type: string
-          title: Postcode
-        country:
-          type: string
-          title: 'Country code, e.g: ''US'' for the United States of America, ''AU'' for Australia'
-        verifiedAt:
-          type: string
-          format: date-time
-          title: Timestamp of when the address was last verified
-        note:
-          type: string
-          title: Note
-        print:
-          type: string
-          title: '[read-only] Print address in a single line string'
-      title: Address data as response
-    LocationProfileGetResponse:
+          description: Cursor to fetch the next page of results. Base64 encoded value. Present only if more results are available. Empty string if this is the last page.
+      title: Get list of location profile response
+    modelLocationProfileLocationGeo:
+      type: object
+      properties:
+        latitude:
+          type: number
+          format: double
+        longitude:
+          type: number
+          format: double
+    LocationProfileUpdateBusinessNumberResponse:
       type: object
       properties:
         success:
           type: boolean
         data:
           $ref: '#/components/schemas/v2modelLocationProfile'
-      title: Get location profile response
-    LocationProfileUnarchiveRequest:
+      title: Update business number of location profile response
+    LocationProfileUpdateBusinessNumberRequestData:
       type: object
       properties:
-        id:
-          type: integer
-          format: int32
-          title: Location Id to unarchive
-      title: Unarchive location request
+        businessNumber:
+          type: string
     v2modelLocationProfile:
       type: object
       properties:
@@ -299,32 +288,38 @@ components:
         geo:
           $ref: '#/components/schemas/modelLocationProfileLocationGeo'
       title: Location Profile
-    LocationProfileUpdateBusinessNumberRequestData:
-      type: object
-      properties:
-        businessNumber:
-          type: string
-    LocationProfileListResponse:
+    LocationProfileUpdateAddressResponse:
       type: object
       properties:
         success:
           type: boolean
         data:
-          type: array
-          items:
-            $ref: '#/components/schemas/v2modelLocationProfile'
-        nextCursor:
-          type: string
-          description: Cursor to fetch the next page of results. Base64 encoded value. Present only if more results are available. Empty string if this is the last page.
-      title: Get list of location profile response
-    LocationProfileUpdateBusinessNumberResponse:
+          $ref: '#/components/schemas/LocationProfileUpdateAddressResponseData'
+      title: Update business number of location profile response
+    LocationProfileUnarchiveRequest:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+          title: Location Id to unarchive
+      title: Unarchive location request
+    LocationProfileGetResponse:
       type: object
       properties:
         success:
           type: boolean
         data:
           $ref: '#/components/schemas/v2modelLocationProfile'
-      title: Update business number of location profile response
+      title: Get location profile response
+    LocationProfileUnarchiveResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          $ref: '#/components/schemas/v2modelLocationProfile'
+      title: Unarchive location response
     LocationProfileUpdateAddressResponseData:
       type: object
       properties:
@@ -337,31 +332,36 @@ components:
           type: integer
           format: int32
           title: Internal country id
-    modelLocationProfileLocationGeo:
+    tenantlocationv2modelAddress:
       type: object
       properties:
-        latitude:
-          type: number
-          format: double
-        longitude:
-          type: number
-          format: double
-    LocationProfileUnarchiveResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        data:
-          $ref: '#/components/schemas/v2modelLocationProfile'
-      title: Unarchive location response
-    LocationProfileUpdateAddressResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        data:
-          $ref: '#/components/schemas/LocationProfileUpdateAddressResponseData'
-      title: Update business number of location profile response
+        id:
+          type: integer
+          format: int32
+          title: Address Id
+        street:
+          type: string
+          title: Street address line
+        state:
+          type: string
+          title: 'State code, e.g: ''CA'' for California or ''NSW'' for New South Wales'
+        postcode:
+          type: string
+          title: Postcode
+        country:
+          type: string
+          title: 'Country code, e.g: ''US'' for the United States of America, ''AU'' for Australia'
+        verifiedAt:
+          type: string
+          format: date-time
+          title: Timestamp of when the address was last verified
+        note:
+          type: string
+          title: Note
+        print:
+          type: string
+          title: '[read-only] Print address in a single line string'
+      title: Address data as response
     LocationProfileUpdateAddressRequestData:
       type: object
       properties:

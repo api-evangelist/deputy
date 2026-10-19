@@ -211,6 +211,13 @@ paths:
       description: Check employee sentiment eligibility.
 components:
   schemas:
+    modelQuestionResponse:
+      type: object
+      properties:
+        answer:
+          type: string
+        comment:
+          type: string
     modelEmployeeSentimentWeeklyAverage:
       type: object
       properties:
@@ -219,241 +226,6 @@ components:
         average:
           type: number
           format: float
-    modelQuestion:
-      type: object
-      properties:
-        id:
-          type: string
-        type:
-          $ref: '#/components/schemas/QuestionQuestionType'
-        question:
-          type: string
-        description:
-          type: string
-        options:
-          type: array
-          items:
-            type: string
-        isRequired:
-          type: boolean
-        order:
-          type: integer
-          format: int32
-        isSelected:
-          type: boolean
-        isCustom:
-          type: boolean
-        createdAt:
-          type: string
-          format: date-time
-        updatedAt:
-          type: string
-          format: date-time
-        responses:
-          type: array
-          items:
-            $ref: '#/components/schemas/modelQuestionResponse'
-    EmployeeSentimentGetSettingsResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        data:
-          $ref: '#/components/schemas/modelPulseSettings'
-      title: GetSettingsResponse is the response for getting shift pulse settings
-    EmployeeSentimentSentimentCount:
-      type: object
-      properties:
-        emoji:
-          type: string
-          title: emoji icon of the sentiment
-        label:
-          type: string
-          title: label of the sentiment
-        count:
-          type: integer
-          format: int32
-          title: count of the emoji sentiments
-        percentage:
-          type: number
-          format: float
-          title: percentage of the count
-        order:
-          type: integer
-          format: int32
-          title: order of the emoji
-      title: SentimentsCount
-    modelPulseSettingsEmoji:
-      type: object
-      properties:
-        icon:
-          type: string
-        label:
-          type: string
-        score:
-          $ref: '#/components/schemas/modelPulseSettingsScore'
-        order:
-          type: integer
-          format: int32
-    v2modelEmployeeSentiment:
-      type: object
-      properties:
-        score:
-          $ref: '#/components/schemas/modelEmployeeSentimentScore'
-          title: Score
-        locationId:
-          type: integer
-          format: int32
-          title: Location ID
-        comment:
-          type: string
-          title: Comment
-        areaId:
-          type: integer
-          format: int32
-          title: area ID
-      title: Employee Sentiment
-    modelQuestionResponse:
-      type: object
-      properties:
-        answer:
-          type: string
-        comment:
-          type: string
-    modelEmployeeSentimentScore:
-      type: string
-      enum:
-      - UNKNOWN_SCORE
-      - STRESSED
-      - FRUSTRATED
-      - OKAY
-      - GOOD
-      - HAPPY
-      default: UNKNOWN_SCORE
-      description: "- UNKNOWN_SCORE: not used\n - STRESSED: valid scores"
-      title: Score
-    EmployeeSentimentAggregateResponseData:
-      type: object
-      properties:
-        start:
-          type: string
-          format: date-time
-          title: Start time
-        end:
-          type: string
-          format: date-time
-          title: End time
-        locationId:
-          type: integer
-          format: int32
-          title: Location ID
-        average:
-          type: number
-          format: float
-          title: Average score for the period
-        count:
-          type: integer
-          format: int32
-          title: Count of the sentiments in the period
-        commentsCount:
-          type: integer
-          format: int32
-          title: Number of comments
-        sentimentsByDate:
-          type: array
-          items:
-            $ref: '#/components/schemas/EmployeeSentimentSentimentsByDate'
-          title: Score summary
-        percentageChange:
-          type: number
-          format: float
-          title: percentageChange since last 30 days
-        sentimentsCount:
-          type: object
-          additionalProperties:
-            $ref: '#/components/schemas/EmployeeSentimentSentimentCount'
-          title: reaction count of each score
-      title: AggregateResponse data
-    EmployeeSentimentCheckResponseData:
-      type: object
-      properties:
-        eligible:
-          type: boolean
-          title: whether user is eligible for a pulse check
-        emojis:
-          type: object
-          additionalProperties:
-            $ref: '#/components/schemas/modelEmployeeSentimentEmoji'
-          title: emoji collection
-        shiftPulseQuestion:
-          type: string
-          title: custom shit pulse question
-    EmployeeSentimentGetWeeklyAggregatedResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        data:
-          $ref: '#/components/schemas/modelEmployeeSentimentWeekly'
-      title: Get weekly employee sentiment aggregated response
-    EmployeeSentimentCheckResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        data:
-          $ref: '#/components/schemas/EmployeeSentimentCheckResponseData'
-      title: CheckResponse
-    modelEmployeeSentimentWeekly:
-      type: object
-      properties:
-        start:
-          type: string
-        end:
-          type: string
-        locationId:
-          type: integer
-          format: int32
-        sentiments:
-          type: array
-          items:
-            $ref: '#/components/schemas/modelEmployeeSentimentWeeklyAverage'
-        comments:
-          type: array
-          items:
-            type: string
-    EmployeeSentimentSentimentsByDate:
-      type: object
-      properties:
-        date:
-          type: string
-          format: date-time
-          title: Date for the day
-        sentiments:
-          type: array
-          items:
-            $ref: '#/components/schemas/EmployeeSentimentSentiment'
-          title: Sentiments for this date
-      title: SentimentsByDate
-    EmployeeSentimentAggregateResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        data:
-          $ref: '#/components/schemas/EmployeeSentimentAggregateResponseData'
-      title: AggregateResponse
-    modelPulseSettingsScore:
-      type: string
-      enum:
-      - UNKNOWN_SCORE
-      - STRESSED
-      - FRUSTRATED
-      - OKAY
-      - GOOD
-      - HAPPY
-      default: UNKNOWN_SCORE
-      title: "- UNKNOWN_SCORE: not used\n - STRESSED: valid scores"
     modelEmployeeSentimentEmoji:
       type: object
       properties:
@@ -472,34 +244,14 @@ components:
           type: string
           title: icon assigned to the emoji
       title: Emoji
-    EmployeeSentimentSentiment:
-      type: object
-      properties:
-        score:
-          $ref: '#/components/schemas/modelEmployeeSentimentScore'
-        comment:
-          type: string
-        emoji:
-          type: string
-      title: Sentiment
-    EmployeeSentimentCreateResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        data:
-          $ref: '#/components/schemas/v2modelEmployeeSentiment'
-      title: Create an employee sentiment response
-    PulseSettingsPulseFrequency:
+    QuestionQuestionType:
       type: string
       enum:
-      - PULSE_FREQUENCY_UNKNOWN
-      - PULSE_FREQUENCY_EVERY_SHIFT
-      - PULSE_FREQUENCY_DAILY
-      - PULSE_FREQUENCY_WEEKLY
-      - PULSE_FREQUENCY_FORTNIGHTLY
-      - PULSE_FREQUENCY_MONTHLY
-      default: PULSE_FREQUENCY_UNKNOWN
+      - UNKNOWN_QUESTION_TYPE
+      - SHORT
+      - YES_NO
+      - MULTIPLE
+      default: UNKNOWN_QUESTION_TYPE
     modelPulseSettings:
       type: object
       properties:
@@ -542,14 +294,262 @@ components:
           type: string
           format: date-time
           title: last modified at timestamp
-    QuestionQuestionType:
+    EmployeeSentimentCreateResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          $ref: '#/components/schemas/v2modelEmployeeSentiment'
+      title: Create an employee sentiment response
+    EmployeeSentimentCheckResponseData:
+      type: object
+      properties:
+        eligible:
+          type: boolean
+          title: whether user is eligible for a pulse check
+        emojis:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/modelEmployeeSentimentEmoji'
+          title: emoji collection
+        shiftPulseQuestion:
+          type: string
+          title: custom shit pulse question
+    modelPulseSettingsEmoji:
+      type: object
+      properties:
+        icon:
+          type: string
+        label:
+          type: string
+        score:
+          $ref: '#/components/schemas/modelPulseSettingsScore'
+        order:
+          type: integer
+          format: int32
+    modelEmployeeSentimentWeekly:
+      type: object
+      properties:
+        start:
+          type: string
+        end:
+          type: string
+        locationId:
+          type: integer
+          format: int32
+        sentiments:
+          type: array
+          items:
+            $ref: '#/components/schemas/modelEmployeeSentimentWeeklyAverage'
+        comments:
+          type: array
+          items:
+            type: string
+    EmployeeSentimentGetSettingsResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          $ref: '#/components/schemas/modelPulseSettings'
+      title: GetSettingsResponse is the response for getting shift pulse settings
+    PulseSettingsPulseFrequency:
       type: string
       enum:
-      - UNKNOWN_QUESTION_TYPE
-      - SHORT
-      - YES_NO
-      - MULTIPLE
-      default: UNKNOWN_QUESTION_TYPE
+      - PULSE_FREQUENCY_UNKNOWN
+      - PULSE_FREQUENCY_EVERY_SHIFT
+      - PULSE_FREQUENCY_DAILY
+      - PULSE_FREQUENCY_WEEKLY
+      - PULSE_FREQUENCY_FORTNIGHTLY
+      - PULSE_FREQUENCY_MONTHLY
+      default: PULSE_FREQUENCY_UNKNOWN
+    EmployeeSentimentSentiment:
+      type: object
+      properties:
+        score:
+          $ref: '#/components/schemas/modelEmployeeSentimentScore'
+        comment:
+          type: string
+        emoji:
+          type: string
+      title: Sentiment
+    EmployeeSentimentSentimentsByDate:
+      type: object
+      properties:
+        date:
+          type: string
+          format: date-time
+          title: Date for the day
+        sentiments:
+          type: array
+          items:
+            $ref: '#/components/schemas/EmployeeSentimentSentiment'
+          title: Sentiments for this date
+      title: SentimentsByDate
+    modelQuestion:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          $ref: '#/components/schemas/QuestionQuestionType'
+        question:
+          type: string
+        description:
+          type: string
+        options:
+          type: array
+          items:
+            type: string
+        isRequired:
+          type: boolean
+        order:
+          type: integer
+          format: int32
+        isSelected:
+          type: boolean
+        isCustom:
+          type: boolean
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+        responses:
+          type: array
+          items:
+            $ref: '#/components/schemas/modelQuestionResponse'
+    EmployeeSentimentAggregateResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          $ref: '#/components/schemas/EmployeeSentimentAggregateResponseData'
+      title: AggregateResponse
+    EmployeeSentimentCheckResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          $ref: '#/components/schemas/EmployeeSentimentCheckResponseData'
+      title: CheckResponse
+    v2modelEmployeeSentiment:
+      type: object
+      properties:
+        score:
+          $ref: '#/components/schemas/modelEmployeeSentimentScore'
+          title: Score
+        locationId:
+          type: integer
+          format: int32
+          title: Location ID
+        comment:
+          type: string
+          title: Comment
+        areaId:
+          type: integer
+          format: int32
+          title: area ID
+      title: Employee Sentiment
+    EmployeeSentimentAggregateResponseData:
+      type: object
+      properties:
+        start:
+          type: string
+          format: date-time
+          title: Start time
+        end:
+          type: string
+          format: date-time
+          title: End time
+        locationId:
+          type: integer
+          format: int32
+          title: Location ID
+        average:
+          type: number
+          format: float
+          title: Average score for the period
+        count:
+          type: integer
+          format: int32
+          title: Count of the sentiments in the period
+        commentsCount:
+          type: integer
+          format: int32
+          title: Number of comments
+        sentimentsByDate:
+          type: array
+          items:
+            $ref: '#/components/schemas/EmployeeSentimentSentimentsByDate'
+          title: Score summary
+        percentageChange:
+          type: number
+          format: float
+          title: percentageChange since last 30 days
+        sentimentsCount:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/EmployeeSentimentSentimentCount'
+          title: reaction count of each score
+      title: AggregateResponse data
+    EmployeeSentimentGetWeeklyAggregatedResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          $ref: '#/components/schemas/modelEmployeeSentimentWeekly'
+      title: Get weekly employee sentiment aggregated response
+    EmployeeSentimentSentimentCount:
+      type: object
+      properties:
+        emoji:
+          type: string
+          title: emoji icon of the sentiment
+        label:
+          type: string
+          title: label of the sentiment
+        count:
+          type: integer
+          format: int32
+          title: count of the emoji sentiments
+        percentage:
+          type: number
+          format: float
+          title: percentage of the count
+        order:
+          type: integer
+          format: int32
+          title: order of the emoji
+      title: SentimentsCount
+    modelPulseSettingsScore:
+      type: string
+      enum:
+      - UNKNOWN_SCORE
+      - STRESSED
+      - FRUSTRATED
+      - OKAY
+      - GOOD
+      - HAPPY
+      default: UNKNOWN_SCORE
+      title: "- UNKNOWN_SCORE: not used\n - STRESSED: valid scores"
+    modelEmployeeSentimentScore:
+      type: string
+      enum:
+      - UNKNOWN_SCORE
+      - STRESSED
+      - FRUSTRATED
+      - OKAY
+      - GOOD
+      - HAPPY
+      default: UNKNOWN_SCORE
+      description: "- UNKNOWN_SCORE: not used\n - STRESSED: valid scores"
+      title: Score
   securitySchemes:
     ApiToken:
       type: apiKey

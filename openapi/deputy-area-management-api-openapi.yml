@@ -45,6 +45,16 @@ paths:
       description: List data based on employee id.
 components:
   schemas:
+    AreaManagementListByEmployeeIdResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/v2modelAreaManagement'
+      title: Get Area management by employee response
     v2modelAreaManagement:
       type: object
       properties:
@@ -61,16 +71,6 @@ components:
           format: int32
           title: Area ID
       title: Area management
-    AreaManagementListByEmployeeIdResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/v2modelAreaManagement'
-      title: Get Area management by employee response
   securitySchemes:
     ApiToken:
       type: apiKey

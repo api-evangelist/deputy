@@ -45,6 +45,26 @@ paths:
       description: Get employee standard day hours.
 components:
   schemas:
+    modelEmployeeStandardDayStandardDayCalculationMethod:
+      type: string
+      enum:
+      - UNKNOWN_METHOD
+      - AGREED_HOURS
+      - DEFAULT_SHIFT
+      - REFERENCE_PERIOD
+      - LOCATION_DEFAULT_SHIFT
+      - EMPLOYMENT_CONDITION
+      - PER_EMPLOYEE_STANDARD_DAY
+      default: UNKNOWN_METHOD
+      title: Possible calculation methods
+    EmployeeStandardDayGetResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          $ref: '#/components/schemas/v2modelEmployeeStandardDay'
+      title: Get an employee standard day hours response
     v2modelEmployeeStandardDay:
       type: object
       properties:
@@ -59,26 +79,6 @@ components:
           type: number
           format: float
           title: The default value for standard day hours
-    EmployeeStandardDayGetResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        data:
-          $ref: '#/components/schemas/v2modelEmployeeStandardDay'
-      title: Get an employee standard day hours response
-    modelEmployeeStandardDayStandardDayCalculationMethod:
-      type: string
-      enum:
-      - UNKNOWN_METHOD
-      - AGREED_HOURS
-      - DEFAULT_SHIFT
-      - REFERENCE_PERIOD
-      - LOCATION_DEFAULT_SHIFT
-      - EMPLOYMENT_CONDITION
-      - PER_EMPLOYEE_STANDARD_DAY
-      default: UNKNOWN_METHOD
-      title: Possible calculation methods
   securitySchemes:
     ApiToken:
       type: apiKey

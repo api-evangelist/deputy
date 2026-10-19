@@ -67,28 +67,6 @@ paths:
       - TimesheetQuestionRemediation
 components:
   schemas:
-    TimesheetQuestionRemediationGetTimesheetQuestionRemediationStatusResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        data:
-          $ref: '#/components/schemas/modelTimesheetQuestionRemediationStatus'
-    TimesheetQuestionRemediationTriggerTimesheetQuestionRemediationPayRecalculationResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-    TimesheetQuestionRemediationStatusTimesheetQuestionRemediationStatusCode:
-      type: string
-      enum:
-      - STATUS_UNKNOWN
-      - NOT_ELIGIBLE
-      - NOT_STARTED
-      - RUNNING
-      - COMPLETED
-      - FAILED
-      default: STATUS_UNKNOWN
     modelTimesheetQuestionRemediationStatus:
       type: object
       properties:
@@ -101,6 +79,28 @@ components:
       properties:
         url:
           type: string
+    TimesheetQuestionRemediationGetTimesheetQuestionRemediationStatusResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          $ref: '#/components/schemas/modelTimesheetQuestionRemediationStatus'
+    TimesheetQuestionRemediationStatusTimesheetQuestionRemediationStatusCode:
+      type: string
+      enum:
+      - STATUS_UNKNOWN
+      - NOT_ELIGIBLE
+      - NOT_STARTED
+      - RUNNING
+      - COMPLETED
+      - FAILED
+      default: STATUS_UNKNOWN
+    TimesheetQuestionRemediationTriggerTimesheetQuestionRemediationPayRecalculationResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
   securitySchemes:
     ApiToken:
       type: apiKey

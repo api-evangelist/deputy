@@ -516,6 +516,30 @@ paths:
           description: Resource not found
 components:
   schemas:
+    Team:
+      type: object
+      properties:
+        Id:
+          type: integer
+        LeaderEmployee:
+          type: integer
+        Name:
+          type: string
+          maxLength: 64
+        Creator:
+          type: integer
+        Created:
+          type: string
+          format: date-time
+        Modified:
+          type: string
+        LeaderEmployeeObject:
+          type: object
+      required:
+      - Id
+      - LeaderEmployee
+      - Name
+      - Modified
     QueryRequest:
       type: object
       description: V1 Resource search payload. All fields optional; an empty body returns the first page of results.
@@ -582,30 +606,6 @@ components:
             data: 1
             type: ge
         max: 100
-    Team:
-      type: object
-      properties:
-        Id:
-          type: integer
-        LeaderEmployee:
-          type: integer
-        Name:
-          type: string
-          maxLength: 64
-        Creator:
-          type: integer
-        Created:
-          type: string
-          format: date-time
-        Modified:
-          type: string
-        LeaderEmployeeObject:
-          type: object
-      required:
-      - Id
-      - LeaderEmployee
-      - Name
-      - Modified
   securitySchemes:
     BearerAuth:
       type: http

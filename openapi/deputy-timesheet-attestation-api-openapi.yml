@@ -121,18 +121,11 @@ paths:
               $ref: '#/components/schemas/ResolveDisputedAttestationRequestResolveDisputedAttestationRequestBody'
 components:
   schemas:
-    ResolveDisputedAttestationRequestResolveDisputedAttestationRequestBody:
+    ResolveDisputedAttestationResponseResolveDisputedAttestationResponseBody:
       type: object
       properties:
-        reason:
+        status:
           type: string
-    TsaDisputeAttestationResponse:
-      type: object
-      properties:
-        data:
-          $ref: '#/components/schemas/DisputeAttestationResponseDisputeAttestationResponseBody'
-        success:
-          type: boolean
     TsaConfirmAttestationResponse:
       type: object
       properties:
@@ -140,24 +133,7 @@ components:
           $ref: '#/components/schemas/ConfirmAttestationResponseConfirmAttestationResponseBody'
         success:
           type: boolean
-    CancelDisputeAttestationResponseCancelDisputeAttestationResponseBody:
-      type: object
-      properties:
-        status:
-          type: string
-    TsaResolveDisputedAttestationResponse:
-      type: object
-      properties:
-        data:
-          $ref: '#/components/schemas/ResolveDisputedAttestationResponseResolveDisputedAttestationResponseBody'
-        success:
-          type: boolean
     DisputeAttestationResponseDisputeAttestationResponseBody:
-      type: object
-      properties:
-        status:
-          type: string
-    ConfirmAttestationResponseConfirmAttestationResponseBody:
       type: object
       properties:
         status:
@@ -174,7 +150,31 @@ components:
           $ref: '#/components/schemas/CancelDisputeAttestationResponseCancelDisputeAttestationResponseBody'
         success:
           type: boolean
-    ResolveDisputedAttestationResponseResolveDisputedAttestationResponseBody:
+    CancelDisputeAttestationResponseCancelDisputeAttestationResponseBody:
+      type: object
+      properties:
+        status:
+          type: string
+    TsaDisputeAttestationResponse:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/DisputeAttestationResponseDisputeAttestationResponseBody'
+        success:
+          type: boolean
+    TsaResolveDisputedAttestationResponse:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/ResolveDisputedAttestationResponseResolveDisputedAttestationResponseBody'
+        success:
+          type: boolean
+    ResolveDisputedAttestationRequestResolveDisputedAttestationRequestBody:
+      type: object
+      properties:
+        reason:
+          type: string
+    ConfirmAttestationResponseConfirmAttestationResponseBody:
       type: object
       properties:
         status:
