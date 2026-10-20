@@ -123,338 +123,6 @@
   relationship: ipaas-bridge
   status: pending-partner-spec
   arazzo: null
-- slug: deputy-slack
-  label: Slack
-  partner: slack
-  partner_name: Slack
-  category: Team Chat
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/deputy/integrations/slack
-  source: edge
-  relationship: ipaas-bridge
-  status: pending-generation
-  arazzo: null
-- slug: deputy-microsoft-outlook
-  label: Microsoft Outlook
-  partner: microsoft-outlook
-  partner_name: Microsoft Outlook
-  category: Calendar
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/deputy/integrations/microsoft-outlook
-  source: edge
-  relationship: ipaas-bridge
-  status: pending-generation
-  arazzo: null
-- slug: deputy-monday-com
-  label: monday.com
-  partner: monday-com
-  partner_name: monday.com
-  category: Project Management
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/deputy/integrations/monday
-  source: edge
-  relationship: ipaas-bridge
-  status: pending-generation
-  arazzo: null
-- slug: deputy-airtable
-  label: Airtable
-  partner: airtable
-  partner_name: Airtable
-  category: Databases
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/deputy/integrations/airtable
-  source: edge
-  relationship: ipaas-bridge
-  status: pending-generation
-  arazzo: null
-- slug: deputy-crewtraka
-  label: CrewTraka
-  partner_name: CrewTraka
-  category: Time Tracking Software
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/deputy/integrations/crewtraka
-  source: edge
-  relationship: ipaas-bridge
-  status: pending-partner-spec
-  arazzo: null
-- slug: deputy-microsoft-excel
-  label: Microsoft Excel
-  partner_name: Microsoft Excel
-  category: Microsoft
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/deputy/integrations/excel
-  source: edge
-  relationship: ipaas-bridge
-  status: pending-partner-spec
-  arazzo: null
-- slug: deputy-anthropic-claude
-  label: Anthropic (Claude)
-  partner: anthropic
-  partner_name: Anthropic (Claude)
-  category: AI Models
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/deputy/integrations/anthropic-claude
-  source: edge
-  relationship: ipaas-bridge
-  status: pending-generation
-  arazzo: null
-- slug: deputy-brighthr
-  label: BrightHR
-  partner_name: BrightHR
-  category: Human Resources
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/deputy/integrations/brighthr
-  source: edge
-  relationship: ipaas-bridge
-  status: pending-partner-spec
-  arazzo: null
-- slug: deputy-google-forms
-  label: Google Forms
-  partner: google-forms
-  partner_name: Google Forms
-  category: Forms & Surveys
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/deputy/integrations/google-forms
-  source: edge
-  relationship: ipaas-bridge
-  status: pending-generation
-  arazzo: null
-- slug: deputy-hubspot
-  label: HubSpot
-  partner: hubspot
-  partner_name: HubSpot
-  category: Marketing Automation
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/deputy/integrations/hubspot
-  source: edge
-  relationship: ipaas-bridge
-  status: pending-generation
-  arazzo: null
-- slug: deputy-fareharbor
-  label: FareHarbor
-  partner_name: FareHarbor
-  category: Scheduling & Booking
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/deputy/integrations/fareharbor
-  source: edge
-  relationship: ipaas-bridge
-  status: pending-partner-spec
-  arazzo: null
-- slug: deputy-xero
-  label: Xero
-  partner: xero
-  partner_name: Xero
-  category: Accounting
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/deputy/integrations/xero
-  source: edge
-  relationship: ipaas-bridge
-  status: pending-generation
-  arazzo: null
-- slug: deputy-connecteam
-  label: Connecteam
-  partner: connecteam
-  partner_name: Connecteam
-  category: Scheduling & Booking
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/deputy/integrations/connecteam
-  source: edge
-  relationship: ipaas-bridge
-  status: pending-generation
-  arazzo: null
-- slug: deputy-employment-hero-payroll-software
-  label: Employment Hero Payroll Software
-  partner: employment-hero
-  partner_name: Employment Hero Payroll Software
-  category: Human Resources
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/deputy/integrations/employment-hero-payroll-software
-  source: edge
-  relationship: ipaas-bridge
-  status: pending-generation
-  arazzo: null
-- slug: deputy-google-forms-legacy
-  label: Google Forms (Legacy)
-  partner: google
-  partner_name: Google Forms (Legacy)
-  category: Forms & Surveys
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/deputy/integrations/google-forms-legacy
-  source: edge
-  relationship: ipaas-bridge
-  status: pending-generation
-  arazzo: null
-- slug: deputy-access-fasttrack360
-  label: Access FastTrack360
-  partner_name: Access FastTrack360
-  category: Analytics
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/deputy/integrations/access-fasttrack360
-  source: edge
-  relationship: ipaas-bridge
-  status: pending-partner-spec
-  arazzo: null
-- slug: deputy-simpro
-  label: Simpro
-  partner: simpro
-  partner_name: Simpro
-  category: Project Management
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/deputy/integrations/simpro
-  source: edge
-  relationship: ipaas-bridge
-  status: pending-generation
-  arazzo: null
-- slug: deputy-shopify
-  label: Shopify
-  partner: shopify
-  partner_name: Shopify
-  category: eCommerce
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/deputy/integrations/shopify
-  source: edge
-  relationship: ipaas-bridge
-  status: pending-generation
-  arazzo: null
-- slug: deputy-twilio
-  label: Twilio
-  partner: twilio
-  partner_name: Twilio
-  category: Phone & SMS
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/deputy/integrations/twilio
-  source: edge
-  relationship: ipaas-bridge
-  status: pending-generation
-  arazzo: null
-- slug: deputy-reckon-one
-  label: Reckon One
-  partner_name: Reckon One
-  category: Accounting
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/deputy/integrations/reckon-one
-  source: edge
-  relationship: ipaas-bridge
-  status: pending-partner-spec
-  arazzo: null
-- slug: deputy-google-drive
-  label: Google Drive
-  partner: google-drive
-  partner_name: Google Drive
-  category: File Management & Storage
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/deputy/integrations/google-drive
-  source: edge
-  relationship: ipaas-bridge
-  status: pending-generation
-  arazzo: null
-- slug: deputy-procore
-  label: Procore
-  partner: procore
-  partner_name: Procore
-  category: Project Management
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/deputy/integrations/procore
-  source: edge
-  relationship: ipaas-bridge
-  status: pending-partner-spec
-  arazzo: null
-- slug: deputy-stripe
-  label: Stripe
-  partner: stripe
-  partner_name: Stripe
-  category: Payment Processing
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/deputy/integrations/stripe
-  source: edge
-  relationship: ipaas-bridge
-  status: pending-generation
-  arazzo: null
-- slug: deputy-google-chat
-  label: Google Chat
-  partner: google-chat
-  partner_name: Google Chat
-  category: Google
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/deputy/integrations/google-chat
-  source: edge
-  relationship: ipaas-bridge
-  status: pending-generation
-  arazzo: null
-- slug: deputy-microsoft-sharepoint
-  label: Microsoft SharePoint
-  partner: microsoft
-  partner_name: Microsoft SharePoint
-  category: Microsoft
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/deputy/integrations/sharepoint
-  source: edge
-  relationship: ipaas-bridge
-  status: pending-generation
-  arazzo: null
-- slug: deputy-dropbox-sign
-  label: Dropbox Sign
-  partner: hellosign
-  partner_name: Dropbox Sign
-  category: Signatures
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/deputy/integrations/dropbox-sign
-  source: edge
-  relationship: ipaas-bridge
-  status: pending-generation
-  arazzo: null
 - slug: deputy-adp-own
   label: ADP (own)
   partner: adp
@@ -635,4 +303,336 @@
     detected_by: sweep-compliance-assurance.py
     detected: '2026-10-20'
   status: not-a-workflow
+  arazzo: null
+- slug: deputy-slack
+  label: Slack
+  partner: slack
+  partner_name: Slack
+  category: Team Chat
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/deputy/integrations/slack
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-generation
+  arazzo: null
+- slug: deputy-microsoft-outlook
+  label: Microsoft Outlook
+  partner: microsoft-outlook
+  partner_name: Microsoft Outlook
+  category: Calendar
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/deputy/integrations/microsoft-outlook
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-generation
+  arazzo: null
+- slug: deputy-monday-com
+  label: monday.com
+  partner: monday-com
+  partner_name: monday.com
+  category: Project Management
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/deputy/integrations/monday
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-generation
+  arazzo: null
+- slug: deputy-airtable
+  label: Airtable
+  partner: airtable
+  partner_name: Airtable
+  category: Databases
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/deputy/integrations/airtable
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-generation
+  arazzo: null
+- slug: deputy-crewtraka
+  label: CrewTraka
+  partner_name: CrewTraka
+  category: Time Tracking Software
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/deputy/integrations/crewtraka
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-partner-spec
+  arazzo: null
+- slug: deputy-microsoft-excel
+  label: Microsoft Excel
+  partner_name: Microsoft Excel
+  category: Microsoft
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/deputy/integrations/excel
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-partner-spec
+  arazzo: null
+- slug: deputy-brighthr
+  label: BrightHR
+  partner_name: BrightHR
+  category: Human Resources
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/deputy/integrations/brighthr
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-partner-spec
+  arazzo: null
+- slug: deputy-anthropic-claude
+  label: Anthropic (Claude)
+  partner: anthropic
+  partner_name: Anthropic (Claude)
+  category: AI Models
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/deputy/integrations/anthropic-claude
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-generation
+  arazzo: null
+- slug: deputy-google-forms
+  label: Google Forms
+  partner: google-forms
+  partner_name: Google Forms
+  category: Forms & Surveys
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/deputy/integrations/google-forms
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-generation
+  arazzo: null
+- slug: deputy-hubspot
+  label: HubSpot
+  partner: hubspot
+  partner_name: HubSpot
+  category: Marketing Automation
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/deputy/integrations/hubspot
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-generation
+  arazzo: null
+- slug: deputy-fareharbor
+  label: FareHarbor
+  partner_name: FareHarbor
+  category: Scheduling & Booking
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/deputy/integrations/fareharbor
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-partner-spec
+  arazzo: null
+- slug: deputy-xero
+  label: Xero
+  partner: xero
+  partner_name: Xero
+  category: Accounting
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/deputy/integrations/xero
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-generation
+  arazzo: null
+- slug: deputy-connecteam
+  label: Connecteam
+  partner: connecteam
+  partner_name: Connecteam
+  category: Scheduling & Booking
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/deputy/integrations/connecteam
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-generation
+  arazzo: null
+- slug: deputy-employment-hero-payroll-software
+  label: Employment Hero Payroll Software
+  partner: employment-hero
+  partner_name: Employment Hero Payroll Software
+  category: Human Resources
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/deputy/integrations/employment-hero-payroll-software
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-generation
+  arazzo: null
+- slug: deputy-access-fasttrack360
+  label: Access FastTrack360
+  partner_name: Access FastTrack360
+  category: Analytics
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/deputy/integrations/access-fasttrack360
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-partner-spec
+  arazzo: null
+- slug: deputy-google-forms-legacy
+  label: Google Forms (Legacy)
+  partner: google-forms
+  partner_name: Google Forms (Legacy)
+  category: Forms & Surveys
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/deputy/integrations/google-forms-legacy
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-generation
+  arazzo: null
+- slug: deputy-simpro
+  label: Simpro
+  partner: simpro
+  partner_name: Simpro
+  category: Project Management
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/deputy/integrations/simpro
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-generation
+  arazzo: null
+- slug: deputy-shopify
+  label: Shopify
+  partner: shopify
+  partner_name: Shopify
+  category: eCommerce
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/deputy/integrations/shopify
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-generation
+  arazzo: null
+- slug: deputy-twilio
+  label: Twilio
+  partner: twilio
+  partner_name: Twilio
+  category: Phone & SMS
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/deputy/integrations/twilio
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-generation
+  arazzo: null
+- slug: deputy-reckon-one
+  label: Reckon One
+  partner_name: Reckon One
+  category: Accounting
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/deputy/integrations/reckon-one
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-partner-spec
+  arazzo: null
+- slug: deputy-google-drive
+  label: Google Drive
+  partner: google-drive
+  partner_name: Google Drive
+  category: File Management & Storage
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/deputy/integrations/google-drive
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-generation
+  arazzo: null
+- slug: deputy-stripe
+  label: Stripe
+  partner: stripe
+  partner_name: Stripe
+  category: Payment Processing
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/deputy/integrations/stripe
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-generation
+  arazzo: null
+- slug: deputy-google-chat
+  label: Google Chat
+  partner: google-chat
+  partner_name: Google Chat
+  category: Google
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/deputy/integrations/google-chat
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-generation
+  arazzo: null
+- slug: deputy-microsoft-sharepoint
+  label: Microsoft SharePoint
+  partner: sharepoint
+  partner_name: Microsoft SharePoint
+  category: Microsoft
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/deputy/integrations/sharepoint
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-generation
+  arazzo: null
+- slug: deputy-dropbox-sign
+  label: Dropbox Sign
+  partner: dropbox-sign
+  partner_name: Dropbox Sign
+  category: Signatures
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/deputy/integrations/dropbox-sign
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-partner-spec
+  arazzo: null
+- slug: deputy-procore
+  label: Procore
+  partner: procore
+  partner_name: Procore
+  category: Project Management
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/deputy/integrations/procore
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-generation
   arazzo: null

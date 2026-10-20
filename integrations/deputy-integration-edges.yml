@@ -1,4 +1,4 @@
-generated: '2026-10-14'
+generated: '2026-10-20'
 method: searched
 source:
 - https://zapier.com/apps/deputy/integrations
@@ -86,367 +86,6 @@ marketplace_apps:
   - key: find_shift
     label: Find Shift
 edges:
-- partner_name: Google Calendar
-  partner: google-calendar
-  partner_match: domain+name-among-holders
-  partner_candidate: null
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  relationship: ipaas-bridge
-  evidence: https://zapier.com/apps/deputy/integrations/google-calendar
-  direction: third-party
-  category: Calendar
-  partner_url: https://calendar.google.com/
-- partner_name: Slack
-  partner: slack
-  partner_match: name-exact
-  partner_candidate: null
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  relationship: ipaas-bridge
-  evidence: https://zapier.com/apps/deputy/integrations/slack
-  direction: third-party
-  category: Team Chat
-  partner_url: https://slack.com/
-- partner_name: Microsoft Outlook
-  partner: microsoft-outlook
-  partner_match: name-exact
-  partner_candidate: null
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  relationship: ipaas-bridge
-  evidence: https://zapier.com/apps/deputy/integrations/microsoft-outlook
-  direction: third-party
-  category: Calendar
-  partner_url: https://outlook.live.com/
-- partner_name: monday.com
-  partner: monday-com
-  partner_match: domain
-  partner_candidate: null
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  relationship: ipaas-bridge
-  evidence: https://zapier.com/apps/deputy/integrations/monday
-  direction: third-party
-  category: Project Management
-  partner_url: https://monday.com/
-- partner_name: Airtable
-  partner: airtable
-  partner_match: domain
-  partner_candidate: null
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  relationship: ipaas-bridge
-  evidence: https://zapier.com/apps/deputy/integrations/airtable
-  direction: third-party
-  category: Databases
-  partner_url: https://airtable.com/
-- partner_name: CrewTraka
-  partner: null
-  partner_match: null
-  partner_candidate: null
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  relationship: ipaas-bridge
-  evidence: https://zapier.com/apps/deputy/integrations/crewtraka
-  direction: third-party
-  category: Time Tracking Software
-  partner_url: https://www.crewtraka.com/
-- partner_name: Jotform
-  partner: jotform
-  partner_match: domain
-  partner_candidate: null
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  relationship: ipaas-bridge
-  evidence: https://zapier.com/apps/deputy/integrations/jotform
-  direction: third-party
-  category: Forms & Surveys
-  partner_url: http://www.jotform.com/
-- partner_name: Google Sheets
-  partner: google-sheets
-  partner_match: domain+name-among-holders
-  partner_candidate: null
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  relationship: ipaas-bridge
-  evidence: https://zapier.com/apps/deputy/integrations/google-sheets
-  direction: third-party
-  category: Google
-  partner_url: http://sheets.google.com/
-- partner_name: Microsoft Excel
-  partner: null
-  partner_match: null
-  partner_candidate: zapier
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  relationship: ipaas-bridge
-  evidence: https://zapier.com/apps/deputy/integrations/excel
-  direction: third-party
-  category: Microsoft
-  partner_url: https://zapier.com/office.com
-- partner_name: Gmail
-  partner: gmail
-  partner_match: domain+name-among-holders
-  partner_candidate: null
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  relationship: ipaas-bridge
-  evidence: https://zapier.com/apps/deputy/integrations/gmail
-  direction: third-party
-  category: Email
-  partner_url: https://mail.google.com/
-- partner_name: Anthropic (Claude)
-  partner: anthropic
-  partner_match: domain
-  partner_candidate: null
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  relationship: ipaas-bridge
-  evidence: https://zapier.com/apps/deputy/integrations/anthropic-claude
-  direction: third-party
-  category: AI Models
-  partner_url: https://www.anthropic.com/
-- partner_name: BrightHR
-  partner: null
-  partner_match: null
-  partner_candidate: zapier
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  relationship: ipaas-bridge
-  evidence: https://zapier.com/apps/deputy/integrations/brighthr
-  direction: third-party
-  category: Human Resources
-  partner_url: https://zapier.com/www.brighthr.com
-- partner_name: Google Forms
-  partner: google-forms
-  partner_match: domain+name-among-holders
-  partner_candidate: null
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  relationship: ipaas-bridge
-  evidence: https://zapier.com/apps/deputy/integrations/google-forms
-  direction: third-party
-  category: Forms & Surveys
-  partner_url: http://google.com/
-- partner_name: HubSpot
-  partner: hubspot
-  partner_match: domain
-  partner_candidate: null
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  relationship: ipaas-bridge
-  evidence: https://zapier.com/apps/deputy/integrations/hubspot
-  direction: third-party
-  category: Marketing Automation
-  partner_url: http://www.hubspot.com/
-- partner_name: FareHarbor
-  partner: null
-  partner_match: null
-  partner_candidate: null
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  relationship: ipaas-bridge
-  evidence: https://zapier.com/apps/deputy/integrations/fareharbor
-  direction: third-party
-  category: Scheduling & Booking
-  partner_url: https://fareharbor.com/
-- partner_name: Xero
-  partner: xero
-  partner_match: name-exact
-  partner_candidate: null
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  relationship: ipaas-bridge
-  evidence: https://zapier.com/apps/deputy/integrations/xero
-  direction: third-party
-  category: Accounting
-  partner_url: https://xero5440.partnerlinks.io/uvwuuwrxyoi8
-- partner_name: Connecteam
-  partner: connecteam
-  partner_match: domain
-  partner_candidate: null
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  relationship: ipaas-bridge
-  evidence: https://zapier.com/apps/deputy/integrations/connecteam
-  direction: third-party
-  category: Scheduling & Booking
-  partner_url: https://connecteam.com/?utm_source=zapier&utm_medium=partnerships&utm_content=marketplace
-- partner_name: Employment Hero Payroll Software
-  partner: employment-hero
-  partner_match: domain+name-among-holders
-  partner_candidate: null
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  relationship: ipaas-bridge
-  evidence: https://zapier.com/apps/deputy/integrations/employment-hero-payroll-software
-  direction: third-party
-  category: Human Resources
-  partner_url: https://employmenthero.com/uk/products/payroll-software/
-- partner_name: Google Forms (Legacy)
-  partner: google
-  partner_match: domain+name-among-holders
-  partner_candidate: null
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  relationship: ipaas-bridge
-  evidence: https://zapier.com/apps/deputy/integrations/google-forms-legacy
-  direction: third-party
-  category: Forms & Surveys
-  partner_url: http://google.com/
-- partner_name: Access FastTrack360
-  partner: null
-  partner_match: null
-  partner_candidate: null
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  relationship: ipaas-bridge
-  evidence: https://zapier.com/apps/deputy/integrations/access-fasttrack360
-  direction: third-party
-  category: Analytics
-  partner_url: https://www.theaccessgroup.com/en-au/products/fasttrack360/
-- partner_name: Simpro
-  partner: simpro
-  partner_match: domain
-  partner_candidate: null
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  relationship: ipaas-bridge
-  evidence: https://zapier.com/apps/deputy/integrations/simpro
-  direction: third-party
-  category: Project Management
-  partner_url: https://simprogroup.com/zapier
-- partner_name: Shopify
-  partner: shopify
-  partner_match: domain
-  partner_candidate: null
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  relationship: ipaas-bridge
-  evidence: https://zapier.com/apps/deputy/integrations/shopify
-  direction: third-party
-  category: eCommerce
-  partner_url: https://www.shopify.com/
-- partner_name: Twilio
-  partner: twilio
-  partner_match: domain
-  partner_candidate: null
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  relationship: ipaas-bridge
-  evidence: https://zapier.com/apps/deputy/integrations/twilio
-  direction: third-party
-  category: Phone & SMS
-  partner_url: https://www.twilio.com/
-- partner_name: Reckon One
-  partner: null
-  partner_match: null
-  partner_candidate: null
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  relationship: ipaas-bridge
-  evidence: https://zapier.com/apps/deputy/integrations/reckon-one
-  direction: third-party
-  category: Accounting
-  partner_url: http://www.reckonone.com/
-- partner_name: Google Drive
-  partner: google-drive
-  partner_match: domain+name-among-holders
-  partner_candidate: null
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  relationship: ipaas-bridge
-  evidence: https://zapier.com/apps/deputy/integrations/google-drive
-  direction: third-party
-  category: File Management & Storage
-  partner_url: https://www.google.com/drive/
-- partner_name: Procore
-  partner: procore
-  partner_match: domain
-  partner_candidate: null
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  relationship: ipaas-bridge
-  evidence: https://zapier.com/apps/deputy/integrations/procore
-  direction: third-party
-  category: Project Management
-  partner_url: http://www.procore.com/
-- partner_name: Stripe
-  partner: stripe
-  partner_match: domain
-  partner_candidate: null
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  relationship: ipaas-bridge
-  evidence: https://zapier.com/apps/deputy/integrations/stripe
-  direction: third-party
-  category: Payment Processing
-  partner_url: https://stripe.com/
-- partner_name: Google Chat
-  partner: google-chat
-  partner_match: domain+name-among-holders
-  partner_candidate: null
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  relationship: ipaas-bridge
-  evidence: https://zapier.com/apps/deputy/integrations/google-chat
-  direction: third-party
-  category: Google
-  partner_url: https://gsuite.google.com/products/chat/
-- partner_name: Microsoft SharePoint
-  partner: microsoft
-  partner_match: domain+name-among-holders
-  partner_candidate: null
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  relationship: ipaas-bridge
-  evidence: https://zapier.com/apps/deputy/integrations/sharepoint
-  direction: third-party
-  category: Microsoft
-  partner_url: https://www.microsoft.com/en-ca/microsoft-365/sharepoint/collaboration
-- partner_name: Dropbox Sign
-  partner: hellosign
-  partner_note: dropbox-sign consolidated into hellosign 2026-10-14 (duplicate profile; approved by Kin Lane)
-  partner_match: name-exact
-  partner_candidate: null
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  relationship: ipaas-bridge
-  evidence: https://zapier.com/apps/deputy/integrations/dropbox-sign
-  direction: third-party
-  category: Signatures
-  partner_url: https://www.hellosign.com/api
 - partner_name: ADP (own)
   partner: adp
   partner_match: mirror
@@ -641,6 +280,366 @@ edges:
     detected: '2026-10-20'
   detected_by: sweep-compliance-assurance.py
   first_seen: '2026-10-20'
+- partner_name: Google Calendar
+  partner: google-calendar
+  partner_match: domain+name-among-holders
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/deputy/integrations/google-calendar
+  direction: third-party
+  category: Calendar
+  partner_url: https://calendar.google.com/
+- partner_name: Slack
+  partner: slack
+  partner_match: name-exact
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/deputy/integrations/slack
+  direction: third-party
+  category: Team Chat
+  partner_url: https://slack.com/
+- partner_name: Microsoft Outlook
+  partner: microsoft-outlook
+  partner_match: name-exact
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/deputy/integrations/microsoft-outlook
+  direction: third-party
+  category: Calendar
+  partner_url: https://outlook.live.com/
+- partner_name: monday.com
+  partner: monday-com
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/deputy/integrations/monday
+  direction: third-party
+  category: Project Management
+  partner_url: https://monday.com/
+- partner_name: Airtable
+  partner: airtable
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/deputy/integrations/airtable
+  direction: third-party
+  category: Databases
+  partner_url: https://airtable.com/
+- partner_name: Jotform
+  partner: jotform
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/deputy/integrations/jotform
+  direction: third-party
+  category: Forms & Surveys
+  partner_url: http://www.jotform.com/
+- partner_name: CrewTraka
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/deputy/integrations/crewtraka
+  direction: third-party
+  category: Time Tracking Software
+  partner_url: https://www.crewtraka.com/
+- partner_name: Google Sheets
+  partner: google-sheets
+  partner_match: domain+name-among-holders
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/deputy/integrations/google-sheets
+  direction: third-party
+  category: Google
+  partner_url: http://sheets.google.com/
+- partner_name: Microsoft Excel
+  partner: null
+  partner_match: null
+  partner_candidate: zapier
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/deputy/integrations/excel
+  direction: third-party
+  category: Microsoft
+  partner_url: https://zapier.com/office.com
+- partner_name: Gmail
+  partner: gmail
+  partner_match: domain+name-among-holders
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/deputy/integrations/gmail
+  direction: third-party
+  category: Email
+  partner_url: https://mail.google.com/
+- partner_name: BrightHR
+  partner: null
+  partner_match: null
+  partner_candidate: zapier
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/deputy/integrations/brighthr
+  direction: third-party
+  category: Human Resources
+  partner_url: https://zapier.com/www.brighthr.com
+- partner_name: Anthropic (Claude)
+  partner: anthropic
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/deputy/integrations/anthropic-claude
+  direction: third-party
+  category: AI Models
+  partner_url: https://www.anthropic.com/
+- partner_name: Google Forms
+  partner: google-forms
+  partner_match: domain+name-among-holders
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/deputy/integrations/google-forms
+  direction: third-party
+  category: Forms & Surveys
+  partner_url: http://google.com/
+- partner_name: HubSpot
+  partner: hubspot
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/deputy/integrations/hubspot
+  direction: third-party
+  category: Marketing Automation
+  partner_url: http://www.hubspot.com/
+- partner_name: FareHarbor
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/deputy/integrations/fareharbor
+  direction: third-party
+  category: Scheduling & Booking
+  partner_url: https://fareharbor.com/
+- partner_name: Xero
+  partner: xero
+  partner_match: name-exact
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/deputy/integrations/xero
+  direction: third-party
+  category: Accounting
+  partner_url: https://xero5440.partnerlinks.io/uvwuuwrxyoi8
+- partner_name: Connecteam
+  partner: connecteam
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/deputy/integrations/connecteam
+  direction: third-party
+  category: Scheduling & Booking
+  partner_url: https://connecteam.com/?utm_source=zapier&utm_medium=partnerships&utm_content=marketplace
+- partner_name: Employment Hero Payroll Software
+  partner: employment-hero
+  partner_match: domain+name-among-holders
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/deputy/integrations/employment-hero-payroll-software
+  direction: third-party
+  category: Human Resources
+  partner_url: https://employmenthero.com/uk/products/payroll-software/
+- partner_name: Access FastTrack360
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/deputy/integrations/access-fasttrack360
+  direction: third-party
+  category: Analytics
+  partner_url: https://www.theaccessgroup.com/en-au/products/fasttrack360/
+- partner_name: Google Forms (Legacy)
+  partner: google-forms
+  partner_match: domain+name-among-holders
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/deputy/integrations/google-forms-legacy
+  direction: third-party
+  category: Forms & Surveys
+  partner_url: http://google.com/
+- partner_name: Simpro
+  partner: simpro
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/deputy/integrations/simpro
+  direction: third-party
+  category: Project Management
+  partner_url: https://simprogroup.com/zapier
+- partner_name: Shopify
+  partner: shopify
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/deputy/integrations/shopify
+  direction: third-party
+  category: eCommerce
+  partner_url: https://www.shopify.com/
+- partner_name: Twilio
+  partner: twilio
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/deputy/integrations/twilio
+  direction: third-party
+  category: Phone & SMS
+  partner_url: https://www.twilio.com/
+- partner_name: Reckon One
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/deputy/integrations/reckon-one
+  direction: third-party
+  category: Accounting
+  partner_url: http://www.reckonone.com/
+- partner_name: Google Drive
+  partner: google-drive
+  partner_match: domain+name-among-holders
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/deputy/integrations/google-drive
+  direction: third-party
+  category: File Management & Storage
+  partner_url: https://www.google.com/drive/
+- partner_name: Stripe
+  partner: stripe
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/deputy/integrations/stripe
+  direction: third-party
+  category: Payment Processing
+  partner_url: https://stripe.com/
+- partner_name: Google Chat
+  partner: google-chat
+  partner_match: domain+name-among-holders
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/deputy/integrations/google-chat
+  direction: third-party
+  category: Google
+  partner_url: https://gsuite.google.com/products/chat/
+- partner_name: Microsoft SharePoint
+  partner: sharepoint
+  partner_match: domain+name-among-holders
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/deputy/integrations/sharepoint
+  direction: third-party
+  category: Microsoft
+  partner_url: https://www.microsoft.com/en-ca/microsoft-365/sharepoint/collaboration
+- partner_name: Dropbox Sign
+  partner: dropbox-sign
+  partner_match: name-exact
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/deputy/integrations/dropbox-sign
+  direction: third-party
+  category: Signatures
+  partner_url: https://www.hellosign.com/api
+- partner_name: Procore
+  partner: procore
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/deputy/integrations/procore
+  direction: third-party
+  category: Project Management
+  partner_url: http://www.procore.com/
 templates:
 - title: Start new Deputy unavailabilities when Google Calendar events begin
   url: https://zapier.com/apps/deputy/integrations/google-calendar/1753838/start-new-deputy-unavailabilities-when-google-calendar-events-begin
