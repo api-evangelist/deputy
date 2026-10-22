@@ -2,7 +2,7 @@ openapi: 3.2.0
 info:
   title: Deputy Task API
   version: 1.0.0
-  description: 'Operations tagged Task across 2 of this provider''s published API definitions: deputy-openapi.json, deputy-task-api-openapi.yml. Each path carries the servers of the definition it was published in.'
+  description: 'Operations tagged Task across 3 of this provider''s published API definitions: deputy-openapi.json, deputy-v1-resource-api.json, deputy-v1-supervise-api.json. Each path carries the servers of the definition it was published in.'
 servers:
 - url: https://{subdomain}.{region}.deputy.com/api/v1
   description: Deputy tenant
@@ -438,19 +438,6 @@ paths:
           - na
           - deputy
   /resource/Task:
-    servers:
-    - url: https://{subdomain}.{region}.deputy.com/api/v1
-      description: Deputy tenant
-      variables:
-        subdomain:
-          default: your-subdomain
-        region:
-          default: deputy
-          enum:
-          - au
-          - eu
-          - na
-          - deputy
     get:
       tags:
       - Task
@@ -535,7 +522,6 @@ paths:
       security:
       - BearerAuth: []
       - OAuth2: []
-  /resource/Task/BULK:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -549,6 +535,91 @@ paths:
           - eu
           - na
           - deputy
+  /resource/Task/INFO:
+    get:
+      tags:
+      - Task
+      summary: Get field metadata for Task
+      description: Returns the field list, types, and associations for this resource. Useful when building integrations that need to know which fields are queryable.
+      operationId: infoTask
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Authentication required or invalid token
+        '403':
+          description: Forbidden — token lacks access to this resource
+        '404':
+          description: Resource not found
+      security:
+      - BearerAuth: []
+      - OAuth2: []
+    servers:
+    - url: https://{subdomain}.{region}.deputy.com/api/v1
+      description: Deputy tenant
+      variables:
+        subdomain:
+          default: your-subdomain
+        region:
+          default: deputy
+          enum:
+          - au
+          - eu
+          - na
+          - deputy
+  /resource/Task/QUERY:
+    post:
+      tags:
+      - Task
+      summary: Search Task
+      description: 'Flexible search endpoint. Body supports `search`, `sort`, `start`, `max`, and `join` clauses. Example: `{"search": {"s1": {"field": "Id", "data": 1, "type": "eq"}}}`.'
+      operationId: searchTask
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/QueryRequest'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Task'
+        '400':
+          description: Bad request
+        '401':
+          description: Authentication required or invalid token
+        '403':
+          description: Forbidden — token lacks access to this resource
+        '404':
+          description: Resource not found
+      security:
+      - BearerAuth: []
+      - OAuth2: []
+    servers:
+    - url: https://{subdomain}.{region}.deputy.com/api/v1
+      description: Deputy tenant
+      variables:
+        subdomain:
+          default: your-subdomain
+        region:
+          default: deputy
+          enum:
+          - au
+          - eu
+          - na
+          - deputy
+  /resource/Task/BULK:
     post:
       tags:
       - Task
@@ -583,7 +654,6 @@ paths:
       security:
       - BearerAuth: []
       - OAuth2: []
-  /resource/Task/INFO:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -597,44 +667,7 @@ paths:
           - eu
           - na
           - deputy
-    get:
-      tags:
-      - Task
-      summary: Get field metadata for Task
-      description: Returns the field list, types, and associations for this resource. Useful when building integrations that need to know which fields are queryable.
-      operationId: infoTask
-      responses:
-        '200':
-          description: Success
-          content:
-            application/json:
-              schema:
-                type: object
-        '400':
-          description: Bad request
-        '401':
-          description: Authentication required or invalid token
-        '403':
-          description: Forbidden — token lacks access to this resource
-        '404':
-          description: Resource not found
-      security:
-      - BearerAuth: []
-      - OAuth2: []
   /resource/Task/PREDICT:
-    servers:
-    - url: https://{subdomain}.{region}.deputy.com/api/v1
-      description: Deputy tenant
-      variables:
-        subdomain:
-          default: your-subdomain
-        region:
-          default: deputy
-          enum:
-          - au
-          - eu
-          - na
-          - deputy
     post:
       tags:
       - Task
@@ -665,7 +698,6 @@ paths:
       security:
       - BearerAuth: []
       - OAuth2: []
-  /resource/Task/QUERY:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -679,52 +711,7 @@ paths:
           - eu
           - na
           - deputy
-    post:
-      tags:
-      - Task
-      summary: Search Task
-      description: 'Flexible search endpoint. Body supports `search`, `sort`, `start`, `max`, and `join` clauses. Example: `{"search": {"s1": {"field": "Id", "data": 1, "type": "eq"}}}`.'
-      operationId: searchTask
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/QueryRequest'
-      responses:
-        '200':
-          description: Success
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Task'
-        '400':
-          description: Bad request
-        '401':
-          description: Authentication required or invalid token
-        '403':
-          description: Forbidden — token lacks access to this resource
-        '404':
-          description: Resource not found
-      security:
-      - BearerAuth: []
-      - OAuth2: []
   /resource/Task/{id}:
-    servers:
-    - url: https://{subdomain}.{region}.deputy.com/api/v1
-      description: Deputy tenant
-      variables:
-        subdomain:
-          default: your-subdomain
-        region:
-          default: deputy
-          enum:
-          - au
-          - eu
-          - na
-          - deputy
     get:
       tags:
       - Task
@@ -860,7 +847,6 @@ paths:
       security:
       - BearerAuth: []
       - OAuth2: []
-  /resource/Task/{id}/COMMENTS:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -874,6 +860,104 @@ paths:
           - eu
           - na
           - deputy
+  /resource/Task/{id}/HISTORY:
+    get:
+      tags:
+      - Task
+      summary: Get change history for a Task
+      operationId: historyTask
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: Numeric id of the resource
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Task'
+        '400':
+          description: Bad request
+        '401':
+          description: Authentication required or invalid token
+        '403':
+          description: Forbidden — token lacks access to this resource
+        '404':
+          description: Resource not found
+      security:
+      - BearerAuth: []
+      - OAuth2: []
+    servers:
+    - url: https://{subdomain}.{region}.deputy.com/api/v1
+      description: Deputy tenant
+      variables:
+        subdomain:
+          default: your-subdomain
+        region:
+          default: deputy
+          enum:
+          - au
+          - eu
+          - na
+          - deputy
+  /resource/Task/{id}/HISTORY/travel/{timestamp}:
+    get:
+      tags:
+      - Task
+      summary: Get a Task as it existed at a prior time
+      operationId: historyTaskTravel
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: Numeric id of the resource
+      - name: timestamp
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+        description: Unix epoch seconds
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Task'
+        '400':
+          description: Bad request
+        '401':
+          description: Authentication required or invalid token
+        '403':
+          description: Forbidden — token lacks access to this resource
+        '404':
+          description: Resource not found
+      security:
+      - BearerAuth: []
+      - OAuth2: []
+    servers:
+    - url: https://{subdomain}.{region}.deputy.com/api/v1
+      description: Deputy tenant
+      variables:
+        subdomain:
+          default: your-subdomain
+        region:
+          default: deputy
+          enum:
+          - au
+          - eu
+          - na
+          - deputy
+  /resource/Task/{id}/COMMENTS:
     get:
       tags:
       - Task
@@ -957,7 +1041,6 @@ paths:
       security:
       - BearerAuth: []
       - OAuth2: []
-  /resource/Task/{id}/COMMENTS/{commentId}:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -971,6 +1054,7 @@ paths:
           - eu
           - na
           - deputy
+  /resource/Task/{id}/COMMENTS/{commentId}:
     delete:
       tags:
       - Task
@@ -1009,7 +1093,6 @@ paths:
       security:
       - BearerAuth: []
       - OAuth2: []
-  /resource/Task/{id}/HISTORY:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -1023,103 +1106,7 @@ paths:
           - eu
           - na
           - deputy
-    get:
-      tags:
-      - Task
-      summary: Get change history for a Task
-      operationId: historyTask
-      parameters:
-      - name: id
-        in: path
-        required: true
-        schema:
-          type: integer
-        description: Numeric id of the resource
-      responses:
-        '200':
-          description: Success
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Task'
-        '400':
-          description: Bad request
-        '401':
-          description: Authentication required or invalid token
-        '403':
-          description: Forbidden — token lacks access to this resource
-        '404':
-          description: Resource not found
-      security:
-      - BearerAuth: []
-      - OAuth2: []
-  /resource/Task/{id}/HISTORY/travel/{timestamp}:
-    servers:
-    - url: https://{subdomain}.{region}.deputy.com/api/v1
-      description: Deputy tenant
-      variables:
-        subdomain:
-          default: your-subdomain
-        region:
-          default: deputy
-          enum:
-          - au
-          - eu
-          - na
-          - deputy
-    get:
-      tags:
-      - Task
-      summary: Get a Task as it existed at a prior time
-      operationId: historyTaskTravel
-      parameters:
-      - name: id
-        in: path
-        required: true
-        schema:
-          type: integer
-        description: Numeric id of the resource
-      - name: timestamp
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int64
-        description: Unix epoch seconds
-      responses:
-        '200':
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Task'
-        '400':
-          description: Bad request
-        '401':
-          description: Authentication required or invalid token
-        '403':
-          description: Forbidden — token lacks access to this resource
-        '404':
-          description: Resource not found
-      security:
-      - BearerAuth: []
-      - OAuth2: []
   /supervise/task:
-    servers:
-    - url: https://{subdomain}.{region}.deputy.com/api/v1
-      description: Deputy tenant
-      variables:
-        subdomain:
-          default: your-subdomain
-        region:
-          default: deputy
-          enum:
-          - au
-          - eu
-          - na
-          - deputy
     get:
       tags:
       - Task
@@ -1198,7 +1185,6 @@ paths:
               type: object
       security:
       - BearerAuth: []
-  /supervise/task/QUERY:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -1212,6 +1198,7 @@ paths:
           - eu
           - na
           - deputy
+  /supervise/task/QUERY:
     post:
       tags:
       - Task
@@ -1240,7 +1227,6 @@ paths:
               type: object
       security:
       - BearerAuth: []
-  /supervise/task/completed:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -1254,6 +1240,7 @@ paths:
           - eu
           - na
           - deputy
+  /supervise/task/completed:
     get:
       tags:
       - Task
@@ -1304,7 +1291,6 @@ paths:
               type: object
       security:
       - BearerAuth: []
-  /supervise/task/department:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -1318,6 +1304,7 @@ paths:
           - eu
           - na
           - deputy
+  /supervise/task/department:
     get:
       tags:
       - Task
@@ -1368,7 +1355,6 @@ paths:
               type: object
       security:
       - BearerAuth: []
-  /supervise/task/department/generate:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -1382,6 +1368,7 @@ paths:
           - eu
           - na
           - deputy
+  /supervise/task/department/generate:
     post:
       tags:
       - Task
@@ -1410,7 +1397,6 @@ paths:
               type: object
       security:
       - BearerAuth: []
-  /supervise/task/department/schedule:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -1424,6 +1410,7 @@ paths:
           - eu
           - na
           - deputy
+  /supervise/task/department/schedule:
     get:
       tags:
       - Task
@@ -1446,7 +1433,6 @@ paths:
           description: Not found
       security:
       - BearerAuth: []
-  /supervise/task/department/task/systemtemplate/copy:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -1460,6 +1446,7 @@ paths:
           - eu
           - na
           - deputy
+  /supervise/task/department/task/systemtemplate/copy:
     post:
       tags:
       - Task
@@ -1488,7 +1475,6 @@ paths:
               type: object
       security:
       - BearerAuth: []
-  /supervise/task/department/task/systemtemplate/list:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -1502,6 +1488,7 @@ paths:
           - eu
           - na
           - deputy
+  /supervise/task/department/task/systemtemplate/list:
     get:
       tags:
       - Task
@@ -1524,7 +1511,6 @@ paths:
           description: Not found
       security:
       - BearerAuth: []
-  /supervise/task/department/task/{taskid}:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -1538,6 +1524,7 @@ paths:
           - eu
           - na
           - deputy
+  /supervise/task/department/task/{taskid}:
     delete:
       tags:
       - Task
@@ -1567,7 +1554,6 @@ paths:
           pattern: \d+
       security:
       - BearerAuth: []
-  /supervise/task/department/taskgroup/{taskgroupid}:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -1581,6 +1567,7 @@ paths:
           - eu
           - na
           - deputy
+  /supervise/task/department/taskgroup/{taskgroupid}:
     delete:
       tags:
       - Task
@@ -1610,7 +1597,6 @@ paths:
           pattern: \d+
       security:
       - BearerAuth: []
-  /supervise/task/department/{deptid}:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -1624,6 +1610,7 @@ paths:
           - eu
           - na
           - deputy
+  /supervise/task/department/{deptid}:
     get:
       tags:
       - Task
@@ -1653,7 +1640,6 @@ paths:
           pattern: \d+
       security:
       - BearerAuth: []
-  /supervise/task/department/{deptid}/apply:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -1667,6 +1653,7 @@ paths:
           - eu
           - na
           - deputy
+  /supervise/task/department/{deptid}/apply:
     post:
       tags:
       - Task
@@ -1702,7 +1689,6 @@ paths:
               type: object
       security:
       - BearerAuth: []
-  /supervise/task/department/{deptid}/create:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -1716,6 +1702,7 @@ paths:
           - eu
           - na
           - deputy
+  /supervise/task/department/{deptid}/create:
     post:
       tags:
       - Task
@@ -1751,7 +1738,6 @@ paths:
               type: object
       security:
       - BearerAuth: []
-  /supervise/task/department/{deptid}/date/{strYMD}:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -1765,6 +1751,7 @@ paths:
           - eu
           - na
           - deputy
+  /supervise/task/department/{deptid}/date/{strYMD}:
     get:
       tags:
       - Task
@@ -1799,7 +1786,6 @@ paths:
           type: string
       security:
       - BearerAuth: []
-  /supervise/task/department/{deptid}/date/{strYMD}/{strendYMD}:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -1813,6 +1799,7 @@ paths:
           - eu
           - na
           - deputy
+  /supervise/task/department/{deptid}/date/{strYMD}/{strendYMD}:
     get:
       tags:
       - Task
@@ -1852,7 +1839,6 @@ paths:
           type: string
       security:
       - BearerAuth: []
-  /supervise/task/department/{deptid}/setup:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -1866,6 +1852,7 @@ paths:
           - eu
           - na
           - deputy
+  /supervise/task/department/{deptid}/setup:
     get:
       tags:
       - Task
@@ -1895,7 +1882,6 @@ paths:
           pattern: \d+
       security:
       - BearerAuth: []
-  /supervise/task/department/{deptid}/setup/apply:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -1909,6 +1895,7 @@ paths:
           - eu
           - na
           - deputy
+  /supervise/task/department/{deptid}/setup/apply:
     post:
       tags:
       - Task
@@ -1944,7 +1931,6 @@ paths:
               type: object
       security:
       - BearerAuth: []
-  /supervise/task/department/{deptid}/setup/create:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -1958,6 +1944,7 @@ paths:
           - eu
           - na
           - deputy
+  /supervise/task/department/{deptid}/setup/create:
     put:
       tags:
       - Task
@@ -2028,7 +2015,6 @@ paths:
               type: object
       security:
       - BearerAuth: []
-  /supervise/task/department/{deptid}/setup/{taskgroupsetupid}:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -2042,6 +2028,7 @@ paths:
           - eu
           - na
           - deputy
+  /supervise/task/department/{deptid}/setup/{taskgroupsetupid}:
     get:
       tags:
       - Task
@@ -2153,7 +2140,6 @@ paths:
           pattern: \d+
       security:
       - BearerAuth: []
-  /supervise/task/department/{deptid}/setup/{taskgroupsetupid}/apply:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -2167,6 +2153,7 @@ paths:
           - eu
           - na
           - deputy
+  /supervise/task/department/{deptid}/setup/{taskgroupsetupid}/apply:
     post:
       tags:
       - Task
@@ -2208,7 +2195,6 @@ paths:
               type: object
       security:
       - BearerAuth: []
-  /supervise/task/department/{deptid}/setup/{taskgroupsetupid}/create:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -2222,6 +2208,7 @@ paths:
           - eu
           - na
           - deputy
+  /supervise/task/department/{deptid}/setup/{taskgroupsetupid}/create:
     put:
       tags:
       - Task
@@ -2304,7 +2291,6 @@ paths:
               type: object
       security:
       - BearerAuth: []
-  /supervise/task/department/{deptid}/setup/{taskgroupsetupid}/generate:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -2318,6 +2304,7 @@ paths:
           - eu
           - na
           - deputy
+  /supervise/task/department/{deptid}/setup/{taskgroupsetupid}/generate:
     post:
       tags:
       - Task
@@ -2359,7 +2346,6 @@ paths:
               type: object
       security:
       - BearerAuth: []
-  /supervise/task/department/{deptid}/setup/{taskgroupsetupid}/{tasksetupid}:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -2373,6 +2359,7 @@ paths:
           - eu
           - na
           - deputy
+  /supervise/task/department/{deptid}/setup/{taskgroupsetupid}/{tasksetupid}:
     get:
       tags:
       - Task
@@ -2502,7 +2489,6 @@ paths:
           pattern: \d+
       security:
       - BearerAuth: []
-  /supervise/task/department/{deptid}/{taskgroupid}:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -2516,6 +2502,7 @@ paths:
           - eu
           - na
           - deputy
+  /supervise/task/department/{deptid}/{taskgroupid}:
     get:
       tags:
       - Task
@@ -2551,7 +2538,6 @@ paths:
           pattern: \d+
       security:
       - BearerAuth: []
-  /supervise/task/department/{deptid}/{taskgroupid}/any:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -2565,6 +2551,7 @@ paths:
           - eu
           - na
           - deputy
+  /supervise/task/department/{deptid}/{taskgroupid}/any:
     get:
       tags:
       - Task
@@ -2600,7 +2587,6 @@ paths:
           pattern: \d+
       security:
       - BearerAuth: []
-  /supervise/task/department/{deptid}/{taskgroupid}/apply:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -2614,6 +2600,7 @@ paths:
           - eu
           - na
           - deputy
+  /supervise/task/department/{deptid}/{taskgroupid}/apply:
     post:
       tags:
       - Task
@@ -2655,7 +2642,6 @@ paths:
               type: object
       security:
       - BearerAuth: []
-  /supervise/task/department/{deptid}/{taskgroupid}/create:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -2669,6 +2655,7 @@ paths:
           - eu
           - na
           - deputy
+  /supervise/task/department/{deptid}/{taskgroupid}/create:
     post:
       tags:
       - Task
@@ -2710,7 +2697,6 @@ paths:
               type: object
       security:
       - BearerAuth: []
-  /supervise/task/{id}:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -2724,6 +2710,7 @@ paths:
           - eu
           - na
           - deputy
+  /supervise/task/{id}:
     post:
       tags:
       - Task
@@ -2823,7 +2810,6 @@ paths:
           pattern: \d+
       security:
       - BearerAuth: []
-  /supervise/task/{id}/do:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -2837,6 +2823,7 @@ paths:
           - eu
           - na
           - deputy
+  /supervise/task/{id}/do:
     post:
       tags:
       - Task
@@ -2872,7 +2859,6 @@ paths:
               type: object
       security:
       - BearerAuth: []
-  /supervise/task/{id}/undo:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -2886,6 +2872,7 @@ paths:
           - eu
           - na
           - deputy
+  /supervise/task/{id}/undo:
     post:
       tags:
       - Task
@@ -2921,6 +2908,19 @@ paths:
               type: object
       security:
       - BearerAuth: []
+    servers:
+    - url: https://{subdomain}.{region}.deputy.com/api/v1
+      description: Deputy tenant
+      variables:
+        subdomain:
+          default: your-subdomain
+        region:
+          default: deputy
+          enum:
+          - au
+          - eu
+          - na
+          - deputy
 components:
   schemas:
     Task:
@@ -3083,4 +3083,9 @@ components:
             longlife_refresh_token: Extended session
 x-refined-from:
 - deputy-openapi.json
-- deputy-task-api-openapi.yml
+- deputy-v1-resource-api.json
+- deputy-v1-supervise-api.json
+x-readme:
+  explorer-enabled: true
+  proxy-enabled: true
+  samples-enabled: true

@@ -1,0 +1,76 @@
+arazzo: 1.0.1
+info:
+  title: Create Deputy Employees from Jotform Submissions
+  summary: Read the latest Jotform form submission and create a Deputy employee from it.
+  description: Recreates the Zapier template "Create new Deputy employees from new Jotform submissions". Lists a Jotform form's submissions, then creates an employee through the Deputy V2 employees endpoint. The mapping of form answers to first/last name depends on the form, so the answer paths are inputs.
+  version: 1.0.0
+sourceDescriptions:
+- name: jotformSubmissionApi
+  url: https://raw.githubusercontent.com/api-evangelist/jotform/refs/heads/main/openapi/jotform-submission-api-openapi.yml
+  type: openapi
+- name: deputyEmployeesApi
+  url: https://raw.githubusercontent.com/api-evangelist/deputy/refs/heads/main/openapi/deputy-employees-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: deputy-jotform-new-employees
+  summary: Create a Deputy employee from a new Jotform submission.
+  description: Fetch submissions for a form and create a Deputy employee at a location.
+  inputs:
+    type: object
+    properties:
+      formId:
+        type: string
+      firstName:
+        type: string
+        description: First name taken from the submission answer the form uses for it.
+      lastName:
+        type: string
+      locationId:
+        type: string
+        description: Deputy location (company) id for the employee's primary location.
+    required: [formId, firstName, lastName, locationId]
+  steps:
+  - stepId: get-form-submissions
+    description: List the form's submissions.
+    operationId: $sourceDescriptions.jotformSubmissionApi.getFormSubmissions
+    parameters:
+    - name: formID
+      in: path
+      value: $inputs.formId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      submissionId: $response.body#/content/0/id
+  - stepId: create-deputy-employee
+    description: Create the employee in Deputy.
+    operationId: $sourceDescriptions.deputyEmployeesApi.EmployeesV2Controller_create
+    requestBody:
+      contentType: application/json
+      payload:
+        data:
+          firstName: $inputs.firstName
+          lastName: $inputs.lastName
+          primaryLocation:
+            id: $inputs.locationId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      employee: $response.body
+  outputs:
+    submissionId: $steps.get-form-submissions.outputs.submissionId
+    employee: $steps.create-deputy-employee.outputs.employee
+x-integration:
+  partner: jotform
+  template: https://zapier.com/apps/deputy/integrations/jotform/1388446/create-new-deputy-employees-from-new-jotform-submissions
+  edge_evidence: https://zapier.com/apps/deputy/integrations/jotform/1388446/create-new-deputy-employees-from-new-jotform-submissions
+  edge_type: marketplace
+  method: generated
+  generated: '2026-10-21'
+  generator: claude-opus-5-5 docs module
+  guessed_steps:
+  - step: get-form-submissions
+    cause: partner-contract
+    why: The Jotform submissions response path content/0/id is not settled by a declared response schema.
+  - step: create-deputy-employee
+    cause: provider-contract
+    why: The body shape (data.firstName, data.lastName, data.primaryLocation.id) follows the docs page adding-an-employee; the response id path is not declared, so the whole body is output.

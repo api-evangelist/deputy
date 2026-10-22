@@ -2,7 +2,7 @@ openapi: 3.2.0
 info:
   title: Deputy Department API
   version: 1.0.0
-  description: 'Operations tagged Department across 2 of this provider''s published API definitions: deputy-openapi.json, deputy-department-api-openapi.yml. Each path carries the servers of the definition it was published in.'
+  description: 'Operations tagged Department across 2 of this provider''s published API definitions: deputy-openapi.json, deputy-v1-supervise-api.json. Each path carries the servers of the definition it was published in.'
 servers:
 - url: https://{subdomain}.{region}.deputy.com/api/v1
   description: Deputy tenant
@@ -152,19 +152,6 @@ paths:
           - na
           - deputy
   /supervise/department:
-    servers:
-    - url: https://{subdomain}.{region}.deputy.com/api/v1
-      description: Deputy tenant
-      variables:
-        subdomain:
-          default: your-subdomain
-        region:
-          default: deputy
-          enum:
-          - au
-          - eu
-          - na
-          - deputy
     put:
       tags:
       - Department
@@ -191,7 +178,6 @@ paths:
           application/json:
             schema:
               type: object
-  /supervise/department/all/{locationId}:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -205,6 +191,7 @@ paths:
           - eu
           - na
           - deputy
+  /supervise/department/all/{locationId}:
     post:
       tags:
       - Department
@@ -238,7 +225,6 @@ paths:
           application/json:
             schema:
               type: object
-  /supervise/department/check/{id}:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -252,6 +238,7 @@ paths:
           - eu
           - na
           - deputy
+  /supervise/department/check/{id}:
     get:
       tags:
       - Department
@@ -279,7 +266,6 @@ paths:
         schema:
           type: integer
           pattern: \d+
-  /supervise/department/create:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -293,6 +279,7 @@ paths:
           - eu
           - na
           - deputy
+  /supervise/department/create:
     put:
       tags:
       - Department
@@ -319,7 +306,6 @@ paths:
           application/json:
             schema:
               type: object
-  /supervise/department/location/{id}:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -333,6 +319,7 @@ paths:
           - eu
           - na
           - deputy
+  /supervise/department/location/{id}:
     get:
       tags:
       - Department
@@ -360,7 +347,6 @@ paths:
         schema:
           type: integer
           pattern: \d+
-  /supervise/department/{id}:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -374,6 +360,7 @@ paths:
           - eu
           - na
           - deputy
+  /supervise/department/{id}:
     post:
       tags:
       - Department
@@ -434,6 +421,19 @@ paths:
         schema:
           type: integer
           pattern: \d+
+    servers:
+    - url: https://{subdomain}.{region}.deputy.com/api/v1
+      description: Deputy tenant
+      variables:
+        subdomain:
+          default: your-subdomain
+        region:
+          default: deputy
+          enum:
+          - au
+          - eu
+          - na
+          - deputy
 components:
   securitySchemes:
     BearerAuth:
@@ -442,4 +442,8 @@ components:
       description: OAuth 2.0 access token or Deputy Permanent Token.
 x-refined-from:
 - deputy-openapi.json
-- deputy-department-api-openapi.yml
+- deputy-v1-supervise-api.json
+x-readme:
+  explorer-enabled: true
+  proxy-enabled: true
+  samples-enabled: true

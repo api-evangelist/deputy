@@ -1,0 +1,163 @@
+openapi: 3.2.0
+info:
+  title: Deputy Sales API
+  contact: {}
+  version: '1.0'
+servers:
+- url: https://{install}.{geo}.deputy.com/api
+  variables:
+    install:
+      default: ''
+    geo:
+      default: ''
+security:
+- httpBearer: []
+tags:
+- name: Sales
+paths:
+  /v2/metrics:
+    post:
+      tags:
+      - Sales
+      summary: Add a sale to sales metrics
+      operationId: Addasaletosalesmetrics
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/AddasaletosalesmetricsRequest'
+              - example:
+                  data:
+                  - timestamp: 1660272300
+                    area: 2
+                    type: Sales
+                    reference: API-Sales-Entry-1660272300
+                    value: 100.3
+                    employee: 1
+                    location: 1
+            example:
+              data:
+              - timestamp: 1660272300
+                area: 2
+                type: Sales
+                reference: API-Sales-Entry-1660272300
+                value: 100.3
+                employee: 1
+                location: 1
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content: {}
+      deprecated: false
+  /v2/metrics/raw:
+    get:
+      tags:
+      - Sales
+      summary: Retrieve Sales Data
+      operationId: RetrieveSalesData
+      parameters:
+      - name: areas
+        in: query
+        description: ''
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: integer
+          format: int32
+          example: 1
+      - name: types
+        in: query
+        description: ''
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+          example: Sales
+      - name: start
+        in: query
+        description: ''
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: integer
+          format: int32
+          example: 1626203567
+      - name: end
+        in: query
+        description: ''
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: integer
+          format: int32
+          example: 1657775576
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content: {}
+      deprecated: false
+components:
+  schemas:
+    AddasaletosalesmetricsRequest:
+      title: AddasaletosalesmetricsRequest
+      required:
+      - data
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Datum'
+          description: ''
+    Datum:
+      title: Datum
+      required:
+      - timestamp
+      - type
+      - reference
+      - value
+      type: object
+      properties:
+        timestamp:
+          type: integer
+          format: int32
+          description: Timestamp in unix time of when the transaction occured
+        area:
+          type: integer
+          format: int32
+          description: The id of the area that should be associated with the transaction
+        type:
+          type: string
+          description: The type of transaction. MANUAL or ACTUAL
+        reference:
+          type: string
+          description: Unique reference for the transaction. If reference is not unique it will overwrite previous transaction
+        value:
+          type: number
+          description: The amount for the transaction
+        employee:
+          type: integer
+          format: int32
+          description: The id of the employee to be associated with the transaction
+        location:
+          type: integer
+          format: int32
+          description: The id of the location to be associated with the transaction
+  securitySchemes:
+    httpBearer:
+      type: http
+      scheme: bearer
+x-readme:
+  explorer-enabled: true
+  proxy-enabled: true
+  samples-enabled: true

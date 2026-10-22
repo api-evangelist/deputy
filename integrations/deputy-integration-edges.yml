@@ -701,4 +701,24 @@ templates:
   apps:
   - servicem8
   - deputy
+skips:
+- label: Start new Deputy unavailabilities when Google Calendar events begin
+  cause: catalog
+  why: The catalog google-calendar specs (calendars, colors, free-busy, users) hold no Events operation, so no event
+    can be read or created.
+- label: Create Google Calendar events for new Deputy schedules
+  cause: catalog
+  why: The catalog google-calendar specs (calendars, colors, free-busy, users) hold no Events operation, so no event
+    can be read or created.
+- label: Create detailed events in Google Calendar from new schedules in Deputy
+  cause: catalog
+  why: The catalog google-calendar specs (calendars, colors, free-busy, users) hold no Events operation, so no event
+    can be read or created.
+- label: Create Deputy unavailabilities from new Google Calendar events
+  cause: catalog
+  why: The catalog google-calendar specs (calendars, colors, free-busy, users) hold no Events operation, so no event
+    can be read or created.
+- label: Create new Deputy announcements for every new Jotform submission
+  cause: provider-contract
+  why: Not generated this run; the Deputy announcement (memo) create operation body is not schema-declared.
 template_total: 124

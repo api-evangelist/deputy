@@ -1,7 +1,8 @@
-generated: '2026-10-14'
-method: derived
-source: openapi/deputy-deputy-openapi.yml, openapi/deputy-v1-resource-api-openapi.yml, openapi/deputy-v1-supervise-api-openapi.yml,
-  openapi/deputy-v2-api-openapi.yml
+generated: '2026-10-21'
+method: searched
+source:
+- https://developer.deputy.com/docs/using-oauth-20.md
+- https://developer.deputy.com/docs/using-a-permanent-token.md
 summary:
   types:
   - apiKey
@@ -34,3 +35,21 @@ schemes:
   parameter: OAuth
   sources:
   - openapi/deputy-v2-api-openapi.yml
+derived_from: openapi/deputy-deputy-openapi.yml, openapi/deputy-v1-resource-api-openapi.yml, openapi/deputy-v1-supervise-api-openapi.yml, openapi/deputy-v2-api-openapi.yml
+docs: https://developer.deputy.com/docs/using-oauth-20
+documented:
+  modes:
+  - OAuth 2.0 authorization code (multi-install apps, client registered at https://once.deputy.com/my/oauth_clients)
+  - Permanent token (single install, from https://{install}.{geo}.deputy.com/exec/devapp/oauth_clients "Get an Access Token")
+  authorization_url: https://once.deputy.com/my/oauth/login
+  token_url: https://once.deputy.com/my/oauth/access_token
+  refresh_url: https://{usersinstall}.{geo}.deputy.com/oauth/access_token
+  scope: longlife_refresh_token
+  token_request_format: application/x-www-form-urlencoded
+  access_token_lifetime: Deputy access tokens currently last for twenty four hours.
+  code_expiry: This must be completed within ten minutes else the code will expire
+  refresh_rotation: Using a refresh token to renew an access token will invalidate it.
+  token_binding: The token response includes an endpoint field; the token only works with the Deputy install selected during authentication.
+  header: 'Authorization: Bearer {Access Token}'
+  embed: For Deputy Embed partners the OAuth handshake is done silently using the partner's authorisation endpoints, gated behind a commercial agreement (https://developer.deputy.com/docs/public-api-facts-and-overview).
+  advanced_access: An Advanced Employee API is available (after additional vendor security check) for confidential data such as TFN.

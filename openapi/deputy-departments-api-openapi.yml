@@ -1,0 +1,301 @@
+openapi: 3.2.0
+info:
+  title: Deputy Departments API
+  contact: {}
+  version: '1.0'
+servers:
+- url: https://{install}.{geo}.deputy.com/api
+  variables:
+    install:
+      default: ''
+    geo:
+      default: ''
+security:
+- httpBearer: []
+tags:
+- name: Departments
+paths:
+  /v1/supervise/department:
+    put:
+      tags:
+      - Departments
+      summary: Create a Department
+      operationId: CreateaDepartment
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/CreateaDepartmentRequest'
+              - example:
+                  intCompanyId: 1
+                  strOpunitName: Deutsche Bank Park
+                  strAddress: Mörfelder Landstraße 362, 60528 Frankfurt am Main
+                  strExportName: Fußball
+                  intSortOrder: 0
+                  intOpunitType: 1
+                  LocationId: 1
+            example:
+              intCompanyId: 1
+              strOpunitName: Deutsche Bank Park
+              strAddress: Mörfelder Landstraße 362, 60528 Frankfurt am Main
+              strExportName: Fußball
+              intSortOrder: 0
+              intOpunitType: 1
+              LocationId: 1
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content: {}
+      deprecated: false
+  /v1/supervise/department/create:
+    put:
+      tags:
+      - Departments
+      summary: Create Multiple Departments
+      operationId: CreateMultipleDepartments
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/CreateMultipleDepartmentsRequest'
+              - example:
+                  arrArea:
+                  - intCompanyId: 1
+                    strOpunitName: Stamford Bridge
+                    intAddressId: 172
+                    arrTrainingId:
+                    - 2
+                    intCountry: 222
+                    intOpunitType: 1
+                  - intCompanyId: 1
+                    strOpunitName: Craven Cottage
+                    strAddress: Moor Ln, Salford M7 3BS, United Kingdom
+                    strExportName: Project92Ltd
+                    intSortOrder: 0
+                    intCountry: 222
+                    intOpunitType: 1
+            example:
+              arrArea:
+              - intCompanyId: 1
+                strOpunitName: Stamford Bridge
+                intAddressId: 172
+                arrTrainingId:
+                - 2
+                intCountry: 222
+                intOpunitType: 1
+              - intCompanyId: 1
+                strOpunitName: Craven Cottage
+                strAddress: Moor Ln, Salford M7 3BS, United Kingdom
+                strExportName: Project92Ltd
+                intSortOrder: 0
+                intCountry: 222
+                intOpunitType: 1
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content: {}
+      deprecated: false
+  /v1/resource/OperationalUnit:
+    get:
+      tags:
+      - Departments
+      summary: Get Operational Units
+      operationId: GetOperationalUnits
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content: {}
+      deprecated: false
+  /v1/resource/OperationalUnit/{id}:
+    delete:
+      tags:
+      - Departments
+      summary: Delete a Single Operational Unit
+      operationId: DeleteaSingleOperationalUnit
+      parameters:
+      - name: id
+        in: path
+        description: The area id record
+        required: true
+        style: simple
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content: {}
+      deprecated: false
+  /v1/resource/OperationalUnit/{opunitid}:
+    post:
+      tags:
+      - Departments
+      summary: Update a single operational unit
+      operationId: Updateasingleoperationalunit
+      parameters:
+      - name: opunitid
+        in: path
+        description: The area id record
+        required: true
+        style: simple
+        schema:
+          type: integer
+          format: int32
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/UpdateasingleoperationalunitRequest'
+              - example:
+                  intCompanyId: 12
+                  intAddressId: 17
+                  strOpunitName: Ibrox Stadium
+                  strExportName: Rangers
+                  arrTrainingId:
+                  - 1
+                  - 2
+                  - 3
+            example:
+              intCompanyId: 12
+              intAddressId: 17
+              strOpunitName: Ibrox Stadium
+              strExportName: Rangers
+              arrTrainingId:
+              - 1
+              - 2
+              - 3
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content: {}
+      deprecated: false
+components:
+  schemas:
+    CreateMultipleDepartmentsRequest:
+      title: CreateMultipleDepartmentsRequest
+      required:
+      - arrArea
+      type: object
+      properties:
+        arrArea:
+          type: array
+          items:
+            $ref: '#/components/schemas/ArrArea'
+          description: ''
+    CreateaDepartmentRequest:
+      title: CreateaDepartmentRequest
+      required:
+      - strOpunitName
+      type: object
+      properties:
+        intCompanyId:
+          type: integer
+          format: int32
+          description: Id of location the area should be added to
+        strOpunitName:
+          type: string
+          description: Name of the Area
+        strAddress:
+          type: string
+          description: Address of the area
+        strExportName:
+          type: string
+          description: Payroll export name to be used for the area
+        intSortOrder:
+          type: integer
+          format: int32
+          description: Order that the areas will appear in Deputy. If for example this is 0, it will list this area first and changing the order of the existing areas
+        intOpunitType:
+          type: integer
+          format: int32
+          description: Designates if the area should have geo coordinates set. 0 - Default, 1 - Area with Geo
+        LocationId:
+          type: integer
+          format: int32
+          description: Id of the location for the area.
+    ArrArea:
+      title: ArrArea
+      required:
+      - strOpunitName
+      type: object
+      properties:
+        intCompanyId:
+          type: integer
+          format: int32
+          description: Id of the location the areas are for
+        strOpunitName:
+          type: string
+          description: The name of the area being added
+        intAddressId:
+          type: integer
+          format: int32
+          description: The id record of the address resource being associated to the area
+        arrTrainingId:
+          type: array
+          items:
+            type: integer
+            format: int32
+          description: Array of training id records employees must have to work in this area
+        intCountry:
+          type: integer
+          format: int32
+          description: Country code for the area. Can be found using the country code resource
+        intOpunitType:
+          type: integer
+          format: int32
+          description: Designates if the area should have a geo attached. 0 - Default, 1 - Geo based area
+        strAddress:
+          type: string
+          description: An address for the area
+        strExportName:
+          type: string
+          description: The payroll export code for the area
+        intSortOrder:
+          type: integer
+          format: int32
+          description: Defines the order that the areas appear in dropdown lists within Deputy
+    UpdateasingleoperationalunitRequest:
+      title: UpdateasingleoperationalunitRequest
+      type: object
+      properties:
+        intCompanyId:
+          type: integer
+          format: int32
+        intAddressId:
+          type: integer
+          format: int32
+        strOpunitName:
+          type: string
+        strExportName:
+          type: string
+        arrTrainingId:
+          type: array
+          items:
+            type: integer
+            format: int32
+          description: ''
+  securitySchemes:
+    httpBearer:
+      type: http
+      scheme: bearer
+x-readme:
+  explorer-enabled: true
+  proxy-enabled: true
+  samples-enabled: true

@@ -1,0 +1,47 @@
+name: Deputy pricing
+generated: '2026-10-21'
+method: searched
+source: https://www.deputy.com/pricing
+audience: business-product
+pricing_basis: per-seat
+published: true
+currency: USD
+delivery:
+  delivery: managed
+note: The page offers an Annual/Monthly toggle ("SAVE 10% Annual Monthly"). The prices below are the ones in the page text as fetched; which toggle state they reflect is not stated. API access is not priced separately. Embed partner accounts are under a commercial agreement.
+plan_count: 3
+plans:
+- name: Lite
+  description: Everything you need to get started with scheduling and time tracking
+  price: 5
+  price_text: $5 per user per month
+  billing_period: month
+  features: [Basic Scheduling, Basic Timesheets, Basic Time Clocking, Labor Law Compliance, Payroll & HR integrations]
+  limits: []
+- name: Core
+  description: Advanced tools to streamline operations and boost productivity
+  price: 6.5
+  price_text: $6.50 per user per month
+  billing_period: month
+  features: [Everything in Lite, Advanced Scheduling, Auto-scheduling, Demand Forecasting, Wage and Labor Budgets]
+  limits: []
+- name: Pro
+  description: Complete control with powerful automation, insights, & priority support
+  price: 9
+  price_text: $9 per user per month
+  billing_period: month
+  features: [Everything in Core, Custom Access Levels, Single Sign-On (SSO), Sandbox environment, 24/7 Live Chat]
+  limits: []
+- name: Enterprise
+  description: Need additional customization or a tailored solution?
+  price: Contact sales
+  price_text: Contact us
+  features: []
+  limits: []
+add_ons:
+- name: HR
+  price_text: $2 USD (excl. all applicable taxes) per user per month billed monthly
+- name: Messaging+
+  price_text: $1.95 USD (excl. all applicable taxes) per user per month billed monthly
+- name: Analytics+
+  price_text: $1.50 USD (excl. all applicable taxes) per user per month billed monthly

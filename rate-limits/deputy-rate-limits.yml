@@ -1,0 +1,7 @@
+name: Deputy rate limits
+generated: '2026-10-21'
+method: none
+source: https://developer.deputy.com/llms.txt
+limit_count: 0
+note: Searched the developer docs index (59 guide pages, incl. getting-started, Public API facts, OAuth, webhook overview) and the OpenAPI contracts. No request rate limit, throttling status or rate-limit response header is documented. The docs state a page-size cap ("The maximum amount of records included in a single response is 500"), which is pagination, not a rate limit, and that "There is no limit to how many Webhooks you can setup per Deputy install."
+limits: []

@@ -1,0 +1,201 @@
+openapi: 3.2.0
+info:
+  title: Deputy Rosters API
+  contact: {}
+  version: '1.0'
+servers:
+- url: https://{install}.{geo}.deputy.com/api
+  variables:
+    install:
+      default: ''
+    geo:
+      default: ''
+security:
+- httpBearer: []
+tags:
+- name: Rosters
+paths:
+  /v1/supervise/roster:
+    get:
+      tags:
+      - Rosters
+      summary: Get a list of rosters from last 12 hours, and forward 36hours
+      description: Get a list of rosters from last 12 hours, and forward 36 hours
+      operationId: Getalistofrostersfromlast12hours,andforward36hours
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content: {}
+      deprecated: false
+  /v1/supervise/roster/copy:
+    post:
+      tags:
+      - Rosters
+      summary: Copy a Roster
+      operationId: CopyaRoster
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/CopyaRosterRequest'
+              - example:
+                  strFromDate: '2022-07-25T00:00:00.000Z'
+                  strToDate: '2022-07-28T00:00:00.000Z'
+                  intOperationalUnitArray:
+                  - 400
+                  blnRequireErrorDetails: 1
+            example:
+              strFromDate: '2022-07-25T00:00:00.000Z'
+              strToDate: '2022-07-28T00:00:00.000Z'
+              intOperationalUnitArray:
+              - 400
+              blnRequireErrorDetails: 1
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content: {}
+      deprecated: false
+  /v1/supervise/roster/publish:
+    post:
+      tags:
+      - Rosters
+      summary: Publish a roster
+      operationId: Publisharoster
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/PublisharosterRequest'
+              - example:
+                  intMode: 1
+                  blnAllLocationsMode: 1
+                  intRosterArray:
+                  - 400
+            example:
+              intMode: 1
+              blnAllLocationsMode: 1
+              intRosterArray:
+              - 400
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content: {}
+      deprecated: false
+  /v1/supervise/roster/discard:
+    post:
+      tags:
+      - Rosters
+      summary: Discard a roster
+      operationId: Discardaroster
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/DiscardarosterRequest'
+              - example:
+                  intRosterArray:
+                  - 400
+            example:
+              intRosterArray:
+              - 400
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content: {}
+      deprecated: false
+  /v1/supervise/roster/autobuild:
+    get:
+      tags:
+      - Rosters
+      summary: Get rosters available for swap
+      operationId: Getrostersavailableforswap
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content: {}
+      deprecated: false
+components:
+  schemas:
+    PublisharosterRequest:
+      title: PublisharosterRequest
+      required:
+      - intMode
+      - blnAllLocationsMode
+      - intRosterArray
+      type: object
+      properties:
+        intMode:
+          type: integer
+          format: int32
+        blnAllLocationsMode:
+          type: integer
+          format: int32
+          description: Whether to publish all locations rosters with this request. 0 - No, 1 - Yes
+        intRosterArray:
+          type: array
+          items:
+            type: integer
+            format: int32
+          description: Array of roster ids to be published with this request
+    DiscardarosterRequest:
+      title: DiscardarosterRequest
+      required:
+      - intRosterArray
+      type: object
+      properties:
+        intRosterArray:
+          type: array
+          items:
+            type: integer
+            format: int32
+          description: Array of the roster id records to discard as part of this request
+    CopyaRosterRequest:
+      title: CopyaRosterRequest
+      required:
+      - strFromDate
+      - strToDate
+      - intOperationalUnitArray
+      type: object
+      properties:
+        strFromDate:
+          type: string
+          description: Start date of roster in format YYYY-MM-DD
+        strToDate:
+          type: string
+          description: End date of roster in format YYYY-MM-DD
+        intOperationalUnitArray:
+          type: array
+          items:
+            type: integer
+            format: int32
+        blnRequireErrorDetails:
+          type: integer
+          format: int32
+          description: Require error details or not. 0 - No, 1 - Yes
+  securitySchemes:
+    httpBearer:
+      type: http
+      scheme: bearer
+x-readme:
+  explorer-enabled: true
+  proxy-enabled: true
+  samples-enabled: true

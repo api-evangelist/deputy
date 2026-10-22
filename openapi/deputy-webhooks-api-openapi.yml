@@ -1,0 +1,76 @@
+openapi: 3.2.0
+info:
+  title: Deputy Webhooks API
+  contact: {}
+  version: '1.0'
+servers:
+- url: https://{install}.{geo}.deputy.com/api
+  variables:
+    install:
+      default: ''
+    geo:
+      default: ''
+security:
+- httpBearer: []
+tags:
+- name: Webhooks
+paths:
+  /v1/resource/Webhook:
+    post:
+      tags:
+      - Webhooks
+      summary: Add a webhook (URL)
+      operationId: Addawebhook(URL)
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/AddawebhookURLRequest'
+              - example:
+                  Topic: Timesheet.Insert
+                  Enabled: 1
+                  Type: URL
+                  Address: https://webhook.site/a90b0a6b-43e9-4755-8bf5-3518980d373a
+            example:
+              Topic: Timesheet.Insert
+              Enabled: 1
+              Type: URL
+              Address: https://webhook.site/a90b0a6b-43e9-4755-8bf5-3518980d373a
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content: {}
+      deprecated: false
+components:
+  schemas:
+    AddawebhookURLRequest:
+      title: AddawebhookURLRequest
+      required:
+      - Topic
+      - Enabled
+      - Type
+      - Address
+      type: object
+      properties:
+        Topic:
+          type: string
+        Enabled:
+          type: integer
+          format: int32
+        Type:
+          type: string
+        Address:
+          type: string
+  securitySchemes:
+    httpBearer:
+      type: http
+      scheme: bearer
+x-readme:
+  explorer-enabled: true
+  proxy-enabled: true
+  samples-enabled: true

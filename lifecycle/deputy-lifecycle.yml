@@ -1,0 +1,17 @@
+generated: '2026-10-21'
+method: searched
+source: https://developer.deputy.com/docs/public-api-facts-and-overview.md
+versioning:
+  scheme: path
+  description: Path-versioned APIs (/api/v1/... and /api/v2/...) on each customer install host https://{install}.{geo}.deputy.com/api/. New versions ship alongside old ones; upgrading is the partner's choice.
+  quote: "Deputy typically does not deprecate APIs even when a new version is made available."
+deprecation:
+  policy: "In the scenario where Deputy does have to deprecate an API at least six months notice is provided to third party partners."
+  notice_period: at least six months notice
+  headers: none documented (no Sunset/Deprecation header)
+  deprecated_operations: []
+  note: "No operation in openapi/ is marked deprecated: true."
+status_page: https://status.deputy.com
+support: "Deputy has a team on call 24/7 to respond to incidents"
+sla: null
+docs: https://developer.deputy.com/docs/public-api-facts-and-overview

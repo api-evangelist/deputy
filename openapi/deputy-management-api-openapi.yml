@@ -1,0 +1,690 @@
+openapi: 3.2.0
+info:
+  title: Deputy Management API
+  contact: {}
+  version: '1.0'
+servers:
+- url: https://{install}.{geo}.deputy.com/api
+  variables:
+    install:
+      default: ''
+    geo:
+      default: ''
+security:
+- httpBearer: []
+tags:
+- name: Management
+paths:
+  /v1/my/setup/addNewWorkplace:
+    post:
+      tags:
+      - Management
+      summary: Add New Workplace
+      description: 'This endpoint allows you to add a new workplace/location to your existing Deputy install.
+
+
+        | **Data element** | **Requirements** | **Notes** |
+
+        | --- | --- | --- |
+
+        | strWorkplaceName | String naming the workplace | |
+
+        | stWorkplaceTimezone | Timezone for the workplace using TZ database naming | See this website for information
+
+        |
+
+        | strAddress | String of the locations address | |
+
+        | strLat | The latitude of the location using a string | |
+
+        | strLon | The longitude of the location using a string | |
+
+        | intCountry | An integer which defines which country the location is in | |
+
+        | arrAreaNames | An array of the area names to add to the location | Example : \[''Chef'', ''Cashier''\] |
+
+        | strWorkplaceCode | A string with a length of 3 allowing you to define a short code for the location | |
+
+        | strParentCompany | Name or integer id of the company the location belongs to | Optional |
+
+        | strPayrollExportCode | String naming what to use as a code for payroll exports to applications such as Xero | Optional |
+
+        | blnIsWorkplace | Whether the location is considered a workplace | Boolean
+
+        1 - True
+
+        0 - False |
+
+        | blnIsPayrollEntity | Whether the location has payroll setup | Boolean
+
+        1- True
+
+        0 - False |
+
+
+        **Example**
+
+
+        ``` json
+
+        {
+
+        "strWorkplaceName": "Simons Sambos - Sydney",
+
+        "strWorkplaceTimezone": "Australia/Sydney",
+
+        "strAddress": "580 George St",
+
+        "strLat": "151.2093",
+
+        "strLon": "33.8688",
+
+        "intCountry": 13,
+
+        "arrAreaNames": ["Chef", "Cashier"],
+
+        "strWorkplaceCode": "SYD",
+
+        "strPayrollExportCode": "SYDEXPORT",
+
+        "blnIsWorkplace": 1,
+
+        "blnIsPayrollEntity": 1
+
+        }
+
+
+        ```'
+      operationId: AddNewWorkplace
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/AddNewWorkplaceRequest'
+              - example:
+                  strWorkplaceName: Simons Sambos - Sydney2
+                  strWorkplaceTimezone: Australia/Sydney
+                  strAddress: 580 George St
+                  strLat: '151.2093'
+                  strLon: '33.8688'
+                  intCountry: 13
+                  arrAreaNames:
+                  - Chef
+                  - Cashier
+                  strWorkplaceCode: SYD
+                  strPayrollExportCode: SYDEXPORT
+                  blnIsWorkplace: 1
+                  blnIsPayrollEntity: 1
+            example:
+              strWorkplaceName: Simons Sambos - Sydney2
+              strWorkplaceTimezone: Australia/Sydney
+              strAddress: 580 George St
+              strLat: '151.2093'
+              strLon: '33.8688'
+              intCountry: 13
+              arrAreaNames:
+              - Chef
+              - Cashier
+              strWorkplaceCode: SYD
+              strPayrollExportCode: SYDEXPORT
+              blnIsWorkplace: 1
+              blnIsPayrollEntity: 1
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content: {}
+      deprecated: false
+  /v1/my/location/{id}:
+    get:
+      tags:
+      - Management
+      summary: Get location by id
+      operationId: Getlocationbyid
+      parameters:
+      - name: id
+        in: path
+        description: The company id
+        required: true
+        style: simple
+        schema:
+          minimum: 1
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content: {}
+      deprecated: false
+  /v1/supervise/memo:
+    put:
+      tags:
+      - Management
+      summary: Create a memo
+      description: 'Example
+
+        ``` json
+
+        {
+
+        "strContent": "Hello, this is a memo",
+
+        "intCompany": 1,
+
+        "blnRequireConfirm": 0
+
+        }
+
+        ```'
+      operationId: CreateAMemo
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/CreateamemoRequest'
+              - example:
+                  strContent: Hello, this is a memo
+                  intCompany: 1
+                  blnRequireConfirm: 0
+            example:
+              strContent: Hello, this is a memo
+              intCompany: 1
+              blnRequireConfirm: 0
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content: {}
+      deprecated: false
+      x-operation-id-source: normalized
+      x-operation-id-original: Create a memo
+  /v1/supervise/empshiftinfo/{employeeid}:
+    get:
+      tags:
+      - Management
+      summary: Find out an employees status
+      operationId: Findoutanemployeesstatus
+      parameters:
+      - name: employeeid
+        in: path
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content: {}
+      deprecated: false
+  /v1/supervise/journal:
+    post:
+      tags:
+      - Management
+      summary: Post a journal
+      description: 'Example
+
+
+        ``` json
+
+        {
+
+        "strComment": "This is a journal",
+
+        "intEmployeeId": 1
+
+        }
+
+
+        ```'
+      operationId: Postajournal
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/PostajournalRequest'
+              - example:
+                  strComment: This is a journal
+                  intEmployeeId: 1
+            example:
+              strComment: This is a journal
+              intEmployeeId: 1
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content: {}
+      deprecated: false
+  /v1/supervise/leave/{employeeid}:
+    get:
+      tags:
+      - Management
+      summary: Find an employees leave
+      description: 'Example
+
+        ``` json
+
+        {
+
+        "strContent": "Hello, this is a memo",
+
+        "intCompany": 1,
+
+        "blnRequireConfirm": 0
+
+        }
+
+        ```'
+      operationId: Findanemployeesleave
+      parameters:
+      - name: employeeid
+        in: path
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content: {}
+      deprecated: false
+  /v1/supervise/leave:
+    post:
+      tags:
+      - Management
+      summary: Add leave for a employee
+      description: 'Example
+
+
+        ``` json
+
+        {
+
+        "Status": 1,
+
+        "Employee": 1,
+
+        "DateStart": "2022/01/01",
+
+        "DateEnd": "2022/01/02",
+
+        "ApprovalComment": "Hello this is leave",
+
+        "ActionOverlappingRosters": 0
+
+        }
+
+
+        ```'
+      operationId: Addleaveforaemployee
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/AddleaveforaemployeeRequest'
+              - example:
+                  Status: 1
+                  Employee: 1
+                  DateStart: 2022/01/01
+                  DateEnd: 2022/01/02
+                  ApprovalComment: Hello this is leave
+                  ActionOverlappingRosters: 0
+            example:
+              Status: 1
+              Employee: 1
+              DateStart: 2022/01/01
+              DateEnd: 2022/01/02
+              ApprovalComment: Hello this is leave
+              ActionOverlappingRosters: 0
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content: {}
+      deprecated: false
+  /v1/supervise/getrecommendation/{id}:
+    get:
+      tags:
+      - Management
+      summary: Get suggestions for roster by id
+      description: 'Example
+
+        ``` json
+
+        {
+
+        "strContent": "Hello, this is a memo",
+
+        "intCompany": 1,
+
+        "blnRequireConfirm": 0
+
+        }
+
+        ```'
+      operationId: Getsuggestionsforrosterbyid
+      parameters:
+      - name: id
+        in: path
+        description: The roster id
+        required: true
+        style: simple
+        schema:
+          minimum: 1
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content: {}
+      deprecated: false
+  /v1/supervise/unavail/{employeeid}:
+    get:
+      tags:
+      - Management
+      summary: Get unavailability details for a employee
+      description: 'Example
+
+        ``` json
+
+        {
+
+        "strContent": "Hello, this is a memo",
+
+        "intCompany": 1,
+
+        "blnRequireConfirm": 0
+
+        }
+
+        ```'
+      operationId: Getunavailabilitydetailsforaemployee
+      parameters:
+      - name: employeeid
+        in: path
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content: {}
+      deprecated: false
+  /v1/supervise/unavail:
+    post:
+      tags:
+      - Management
+      summary: Add unavailability details for a employee
+      description: 'Example
+
+
+        ``` json
+
+        {
+
+        "employee": 1,
+
+        "start": {
+
+        "timestamp": 1657001675
+
+        },
+
+        "end": {
+
+        "timestamp": 1657001676
+
+        },
+
+        "strComment": "Here is a note for some unavailability",
+
+        "recurrence": {
+
+        "FREQ": "WEEKLY",
+
+        "INTERVAL": 2,
+
+        "BYDAY": "MO"
+
+        }
+
+        }
+
+
+        ```'
+      operationId: Addunavailabilitydetailsforaemployee
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/AddunavailabilitydetailsforaemployeeRequest'
+              - example:
+                  employee: 1
+                  start:
+                    timestamp: 1657001675
+                  end:
+                    timestamp: 1657001676
+                  strComment: Here is a note for some unavailability
+                  recurrence:
+                    FREQ: WEEKLY
+                    INTERVAL: 2
+                    BYDAY: MO
+            example:
+              employee: 1
+              start:
+                timestamp: 1657001675
+              end:
+                timestamp: 1657001676
+              strComment: Here is a note for some unavailability
+              recurrence:
+                FREQ: WEEKLY
+                INTERVAL: 2
+                BYDAY: MO
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content: {}
+      deprecated: false
+components:
+  schemas:
+    CreateamemoRequest:
+      title: CreateamemoRequest
+      required:
+      - strContent
+      - intCompany
+      type: object
+      properties:
+        strContent:
+          type: string
+          description: Text to include in memo
+        intCompany:
+          type: integer
+          format: int32
+          description: Location ID record
+        blnRequireConfirm:
+          type: integer
+          format: int32
+          description: 0 No, 1 Yes
+        arrAssignedCompanyIds:
+          type: array
+          items:
+            type: integer
+            format: int32
+            description: Array of Location ID records
+        arrAssignedUserIds:
+          type: array
+          items:
+            type: integer
+            format: int32
+            description: Array of User IDs (Not employee ids) to get the memo
+    Recurrence:
+      title: Recurrence
+      required:
+      - FREQ
+      - INTERVAL
+      - BYDAY
+      type: object
+      properties:
+        FREQ:
+          type: string
+        INTERVAL:
+          type: integer
+          format: int32
+        BYDAY:
+          type: string
+    Start:
+      title: Start
+      required:
+      - timestamp
+      type: object
+      properties:
+        timestamp:
+          type: integer
+          format: int32
+    AddunavailabilitydetailsforaemployeeRequest:
+      title: AddunavailabilitydetailsforaemployeeRequest
+      required:
+      - employee
+      - start
+      - end
+      - strComment
+      - recurrence
+      type: object
+      properties:
+        employee:
+          type: integer
+          format: int32
+        start:
+          $ref: '#/components/schemas/Start'
+        end:
+          $ref: '#/components/schemas/End'
+        strComment:
+          type: string
+        recurrence:
+          $ref: '#/components/schemas/Recurrence'
+    End:
+      title: End
+      required:
+      - timestamp
+      type: object
+      properties:
+        timestamp:
+          type: integer
+          format: int32
+    PostajournalRequest:
+      title: PostajournalRequest
+      required:
+      - strComment
+      - intEmployeeId
+      type: object
+      properties:
+        strComment:
+          type: string
+          description: Text to include in the journal
+        intEmployeeId:
+          type: integer
+          format: int32
+          description: Which employee record should have this journal added
+    AddleaveforaemployeeRequest:
+      title: AddleaveforaemployeeRequest
+      required:
+      - Status
+      - Employee
+      - DateStart
+      - DateEnd
+      - ApprovalComment
+      - ActionOverlappingRosters
+      type: object
+      properties:
+        Status:
+          type: integer
+          format: int32
+          description: 0 - Awaiting approval, 1 - approved, 2 - Declined, 3 - Cancelled
+        Employee:
+          type: integer
+          format: int32
+          description: Employee id record
+        DateStart:
+          type: string
+          description: Start date of the leave
+        DateEnd:
+          type: string
+          description: End date of the leave
+        ApprovalComment:
+          type: string
+          description: Any comment left regarding approval of leave
+        ActionOverlappingRosters:
+          type: integer
+          format: int32
+    AddNewWorkplaceRequest:
+      title: AddNewWorkplaceRequest
+      required:
+      - strWorkplaceName
+      - strAddress
+      type: object
+      properties:
+        strWorkplaceName:
+          type: string
+        strWorkplaceTimezone:
+          type: string
+        strAddress:
+          type: string
+        strLat:
+          type: string
+        strLon:
+          type: string
+        intCountry:
+          type: integer
+          format: int32
+        arrAreaNames:
+          type: array
+          items:
+            type: string
+          description: ''
+        strWorkplaceCode:
+          type: string
+        strPayrollExportCode:
+          type: string
+        blnIsWorkplace:
+          type: integer
+          format: int32
+        blnIsPayrollEntity:
+          type: integer
+          format: int32
+  securitySchemes:
+    httpBearer:
+      type: http
+      scheme: bearer
+x-readme:
+  explorer-enabled: true
+  proxy-enabled: true
+  samples-enabled: true

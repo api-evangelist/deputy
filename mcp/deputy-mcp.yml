@@ -1,219 +1,213 @@
-generated: '2026-10-14'
-method: derived
-generator: derive-mcp-candidate.py
+generated: '2026-10-21'
+method: probed
 source:
-- openapi/deputy-deputy-openapi.yml
-- openapi/deputy-resource-api-openapi.yml
-- openapi/deputy-v1-my-api-openapi.yml
-- openapi/deputy-v1-resource-api-openapi.yml
-- openapi/deputy-v1-supervise-api-openapi.yml
-- openapi/deputy-v2-api-openapi.yml
-- openapi/deputy-v2-scoped-api-openapi.yml
-status: candidate
+- https://developer.deputy.com/mcp
+- https://developer.deputy.com/docs/getting-started-with-the-deputy-api
+name: Deputy developer docs MCP (ReadMe-hosted)
+status: gated
 deployment:
-  mode: none
+  mode: remote
+  endpoint: https://developer.deputy.com/mcp
   auth: unknown
-  verified: derived
-note: No MCP server was found. No probe result in the dossier. Candidate tools below are derived from the 1767 operation(s) in the provider's
-  own OpenAPI (40 listed); they describe what a server WOULD expose, not one that exists.
-tools:
-- name: get_agreed_hoursby_employee_id
-  operationId: GetAgreedHoursbyEmployeeID
-  method: GET
-  path: /management/v2/agreed_hour/{employeeid}
-  description: Get Agreed Hours by Employee ID
-- name: get_addresses
-  operationId: GetAddresses
-  method: GET
-  path: /Address
-  description: Get Addresses
-- name: my_colleague_get
-  operationId: my_colleague__get
-  method: GET
-  path: /my/colleague
-  description: List or get Colleague
-- name: list_address
-  operationId: listAddress
-  method: GET
-  path: /resource/Address
-  description: List Address records
-- name: supervise_company_put
-  operationId: supervise_company__put
-  method: PUT
-  path: /supervise/company
-  description: Create Company
-- name: access_management_v2_controller_get_privilege_hierarchy
-  operationId: AccessManagementV2Controller_GetPrivilegeHierarchy
-  method: GET
-  path: /access-management/v2/privilege-hierarchy
-  description: Get privilege hierarchy
-- name: hr_export_v2_controller_export_hr_data
-  operationId: HrExportV2Controller_exportHrData
-  method: GET
-  path: /hr/v2/employees/{employeeId}/onboarding/export
-  description: Export HR data
-- name: whodo_iworkwith?
-  operationId: WhodoIworkwith?
-  method: GET
-  path: /v1/my/colleague
-  description: Who do I work with?
-- name: get_address_object_info
-  operationId: GetAddressObjectInfo
-  method: GET
-  path: /Address/INFO
-  description: Get Address Object Info
-- name: my_colleague_query_post
-  operationId: my_colleague__query_post
-  method: POST
-  path: /my/colleague/QUERY
-  description: POST Colleague / QUERY
-- name: create_address
-  operationId: createAddress
-  method: POST
-  path: /resource/Address
-  description: Create a Address
-- name: supervise_company_all_settings_post
-  operationId: supervise_company__all_settings_post
-  method: POST
-  path: /supervise/company/all/settings
-  description: POST Company / settings
-- name: access_management_v2_controller_list_role
-  operationId: AccessManagementV2Controller_ListRole
-  method: GET
-  path: /access-management/v2/roles
-  description: List all available roles
-- name: hr_export_v2_controller_export_hr_pay_details_data
-  operationId: HrExportV2Controller_exportHrPayDetailsData
-  method: GET
-  path: /hr/v2/employees/{employeeId}/pay-details/export
-  description: Export HR pay details data
-- name: myaddressonfile
-  operationId: Myaddressonfile
-  method: GET
-  path: /v1/my/contactaddress
-  description: My address on file
-- name: searchforaddress
-  operationId: Searchforaddress
-  method: POST
-  path: /Address/QUERY
-  description: Search for address
-- name: my_colleague_count_get
-  operationId: my_colleague__count_get
-  method: GET
-  path: /my/colleague/count
-  description: GET Colleague / count
-- name: create_or_replace_address
-  operationId: createOrReplaceAddress
-  method: PUT
-  path: /resource/Address
-  description: Create a Address
-- name: supervise_company_bulk_settings_post
-  operationId: supervise_company__bulk_settings_post
-  method: POST
-  path: /supervise/company/bulk/settings
-  description: POST Company / settings
-- name: access_management_v2_controller_create_role
-  operationId: AccessManagementV2Controller_CreateRole
-  method: POST
-  path: /access-management/v2/roles
-  description: Create a new role
-- name: hr_export_v2_controller_export_hr_bulk_data
-  operationId: HrExportV2Controller_exportHrBulkData
-  method: GET
-  path: /hr/v2/onboarding/bulk-export
-  description: Export HR bulk data
-- name: updatemyaddress
-  operationId: Updatemyaddress
-  method: POST
-  path: /v1/my/contactaddress
-  description: Update my address
-- name: get_categories
-  operationId: GetCategories
-  method: GET
-  path: /Category
-  description: Get Categories
-- name: my_contactaddress_get
-  operationId: my_contactaddress__get
-  method: GET
-  path: /my/contactaddress
-  description: List or get Contactaddress
-- name: bulk_address
-  operationId: bulkAddress
-  method: POST
-  path: /resource/Address/BULK
-  description: Bulk create/update Address
-- name: supervise_company_bulk_settings_check_jobid_get
-  operationId: supervise_company__bulk_settings_check_jobid_get
-  method: GET
-  path: /supervise/company/bulk/settings/check/{jobId}
-  description: GET Company / :jobId
-- name: access_management_v2_controller_delete_role
-  operationId: AccessManagementV2Controller_DeleteRole
-  method: DELETE
-  path: /access-management/v2/roles/{roleId}
-  description: Delete role
-- name: user_info_v2_controller_get
-  operationId: UserInfoV2Controller_get
-  method: GET
-  path: /management/v2/auth/user-info
-  description: Retrieve user info
-- name: myaddressonfileincludingemergency
-  operationId: Myaddressonfileincludingemergency
-  method: GET
-  path: /v1/my/contactaddress/all
-  description: Myaddressonfileincludingemergency
-- name: get_category_object_info
-  operationId: GetCategoryObjectInfo
-  method: GET
-  path: /Category/INFO
-  description: Get Category Object Info
-- name: my_contactaddress_post
-  operationId: my_contactaddress__post
-  method: POST
-  path: /my/contactaddress
-  description: Create or update Contactaddress
-- name: info_address
-  operationId: infoAddress
-  method: GET
-  path: /resource/Address/INFO
-  description: Get field metadata for Address
-- name: supervise_company_simple_get
-  operationId: supervise_company__simple_get
-  method: GET
-  path: /supervise/company/simple
-  description: GET Company / simple
-- name: access_management_v2_controller_update_role
-  operationId: AccessManagementV2Controller_UpdateRole
-  method: PUT
-  path: /access-management/v2/roles/{roleId}
-  description: Update role
-- name: getmysubordinatecontactdetails
-  operationId: Getmysubordinatecontactdetails
-  method: GET
-  path: /v1/my/contactaddress/subordinate
-  description: Get my subordinate contact details
-- name: searchfor_category
-  operationId: SearchforCategory
-  method: POST
-  path: /Category/QUERY
-  description: Search for Category
-- name: my_contactaddress_all_get
-  operationId: my_contactaddress__all_get
-  method: GET
-  path: /my/contactaddress/all
-  description: GET Contactaddress / all
-- name: predict_address
-  operationId: predictAddress
-  method: POST
-  path: /resource/Address/PREDICT
-  description: Predict-match a Address record
-- name: supervise_company_timezone_get
-  operationId: supervise_company__timezone_get
-  method: GET
-  path: /supervise/company/timezone
-  description: GET Company / timezone
-- name: access_management_v2_controller_get_employee_role
-  operationId: AccessManagementV2Controller_GetEmployeeRole
-  method: GET
-  path: /access-management/v2/roles/{roleId}
-  description: Get employee role
+  verified: probed
+probe:
+  date: '2026-10-21'
+  get: '200 text/html, 48 bytes: "This URL can only be accessed with a MCP client."'
+  initialize: '401 application/json {"jsonrpc":"2.0","error":{"code":-32001,"message":"Authorization required"}}; WWW-Authenticate:
+    Bearer realm="mcp"'
+  tools_list: not reached (initialize gated)
+  server_card: /.well-known/mcp/server-card.json 404; /.well-known/mcp.json 404
+note: 'The endpoint is served by ReadMe, Deputy''s docs platform, and is advertised through the docs page AI menu (ai_options.mcp:
+  command/config/cursor/vscode enabled). The same embedded project config reports "mcp":{"state":"disabled"}, and Deputy publishes
+  no tool list (dossier mcp_tool_table l3: none). This is a documentation MCP surface, not an MCP server for the Deputy workforce
+  API; no tools were observed. No official Deputy API MCP server was found (web search 2026-10-21).'
+tools: []
+candidate_tools:
+  status: candidate
+  method: derived
+  source:
+  - openapi/deputy-employees-api-openapi.yml
+  - openapi/deputy-leave-request-api-openapi.yml
+  - openapi/deputy-roster-api-openapi.yml
+  - openapi/deputy-schedule-agent-api-openapi.yml
+  - openapi/deputy-timesheet-api-openapi.yml
+  - openapi/deputy-timesheet-approval-api-openapi.yml
+  - openapi/deputy-timesheets-api-openapi.yml
+  - openapi/deputy-webhook-api-openapi.yml
+  note: What an API MCP server WOULD expose, derived from operations in the provider OpenAPI (1718 operations across 207 files);
+    these are not tools that exist.
+  tools:
+  - name: create_roster
+    operationId: createRoster
+    method: POST
+    path: /resource/Roster
+    description: Create a Roster
+    spec: openapi/deputy-roster-api-openapi.yml
+  - name: supervise_roster_post
+    operationId: supervise_roster__post
+    method: POST
+    path: /supervise/roster
+    description: Create or update Roster
+    spec: openapi/deputy-roster-api-openapi.yml
+  - name: schedule_agent_v2controller_upsert_shifts
+    operationId: ScheduleAgentV2Controller_upsertShifts
+    method: POST
+    path: /agent/schedule/v2/shifts:upsert
+    description: Batch create or update shifts
+    spec: openapi/deputy-schedule-agent-api-openapi.yml
+  - name: supervise_roster_autobuild_post
+    operationId: supervise_roster__autobuild_post
+    method: POST
+    path: /supervise/roster/autobuild
+    description: POST Roster / autobuild
+    spec: openapi/deputy-roster-api-openapi.yml
+  - name: supervise_roster_checkautobuild_jobkey_get
+    operationId: supervise_roster__checkautobuild_jobkey_get
+    method: GET
+    path: /supervise/roster/checkautobuild/{jobKey}
+    description: GET Roster / :jobKey
+    spec: openapi/deputy-roster-api-openapi.yml
+  - name: supervise_roster_publish_post
+    operationId: supervise_roster__publish_post
+    method: POST
+    path: /supervise/roster/publish
+    description: POST Roster / publish
+    spec: openapi/deputy-roster-api-openapi.yml
+  - name: list_roster
+    operationId: listRoster
+    method: GET
+    path: /resource/Roster
+    description: List Roster records
+    spec: openapi/deputy-roster-api-openapi.yml
+  - name: startanemployeestimesheet_clock_on
+    operationId: Startanemployeestimesheet(ClockOn)
+    method: POST
+    path: /v1/supervise/timesheet/start
+    description: Start an employees timesheet(ClockOn)
+    spec: openapi/deputy-timesheets-api-openapi.yml
+  - name: pauseorunpauseemployeestimesheet_takeabreak_finishbreak
+    operationId: Pauseorunpauseemployeestimesheet(takeabreak/finishbreak)
+    method: POST
+    path: /v1/supervise/timesheet/pause
+    description: Pause or unpause employees timesheet (take a break/finish break)
+    spec: openapi/deputy-timesheets-api-openapi.yml
+  - name: stopanemployeestimesheet_clock_off
+    operationId: Stopanemployeestimesheet(ClockOff)
+    method: POST
+    path: /v1/supervise/timesheet/end
+    description: Stop an employees timesheet(ClockOff)
+    spec: openapi/deputy-timesheets-api-openapi.yml
+  - name: viewatimesheetbyid
+    operationId: Viewatimesheetbyid
+    method: GET
+    path: /v1/supervise/timesheet/{timesheetid}/details
+    description: View a timesheet by id
+    spec: openapi/deputy-timesheets-api-openapi.yml
+  - name: list_timesheet
+    operationId: listTimesheet
+    method: GET
+    path: /resource/Timesheet
+    description: List Timesheet records
+    spec: openapi/deputy-timesheet-api-openapi.yml
+  - name: get_timesheet_by_id
+    operationId: getTimesheetById
+    method: GET
+    path: /resource/Timesheet/{id}
+    description: Get a Timesheet by id
+    spec: openapi/deputy-timesheet-api-openapi.yml
+  - name: tsa_v2controller_approve_timesheet
+    operationId: TsaV2Controller_approveTimesheet
+    method: POST
+    path: /tsa/v2/timesheets/{id}:approve
+    description: Approve Timesheet (Pay and Time)
+    spec: openapi/deputy-timesheet-approval-api-openapi.yml
+  - name: tsa_v2controller_approve_time_timesheet
+    operationId: TsaV2Controller_approveTimeTimesheet
+    method: POST
+    path: /tsa/v2/timesheets/{id}:approve-time
+    description: Approve Time for Timesheet
+    spec: openapi/deputy-timesheet-approval-api-openapi.yml
+  - name: leave_request_v2controller_create
+    operationId: LeaveRequestV2Controller_create
+    method: POST
+    path: /management/v2/leave-requests
+    description: Create a new leave request
+    spec: openapi/deputy-leave-request-api-openapi.yml
+  - name: leave_request_v2controller_validate_leave_request_for_approval
+    operationId: LeaveRequestV2Controller_validateLeaveRequestForApproval
+    method: POST
+    path: /management/v2/leave-requests/approval:validate
+    description: Validate leave request for approval
+    spec: openapi/deputy-leave-request-api-openapi.yml
+  - name: leave_request_v2controller_get
+    operationId: LeaveRequestV2Controller_get
+    method: GET
+    path: /management/v2/leave-requests/{id}
+    description: Retrieve leave request by given Id
+    spec: openapi/deputy-leave-request-api-openapi.yml
+  - name: leave_request_v2controller_list
+    operationId: LeaveRequestV2Controller_list
+    method: GET
+    path: /management/v2/leave-requests
+    description: List all existing leave request
+    spec: openapi/deputy-leave-request-api-openapi.yml
+  - name: leave_request_v2controller_update
+    operationId: LeaveRequestV2Controller_update
+    method: PUT
+    path: /management/v2/leave-requests/{id}
+    description: Update an existing leave request
+    spec: openapi/deputy-leave-request-api-openapi.yml
+  - name: addanemployee
+    operationId: Addanemployee
+    method: POST
+    path: /v1/supervise/employee
+    description: Add an employee
+    spec: openapi/deputy-employees-api-openapi.yml
+  - name: addalocationagainstanemployee
+    operationId: Addalocationagainstanemployee
+    method: POST
+    path: /v1/supervise/employee/{employeeid}/assoc/{locationid}
+    description: Add a location against an employee
+    spec: openapi/deputy-employees-api-openapi.yml
+  - name: inviteemployeeto_deputy
+    operationId: InviteemployeetoDeputy
+    method: POST
+    path: /v1/supervise/employee/{employeeid}/invite
+    description: Invite employee to Deputy
+    spec: openapi/deputy-employees-api-openapi.yml
+  - name: getdetailsforaemployeebyid
+    operationId: Getdetailsforaemployeebyid
+    method: GET
+    path: /v1/supervise/employee/{employeeid}
+    description: Get details for a employee by id
+    spec: openapi/deputy-employees-api-openapi.yml
+  - name: employees_v2controller_create
+    operationId: EmployeesV2Controller_create
+    method: POST
+    path: /management/v2/employees
+    description: Create an employee setup
+    spec: openapi/deputy-employees-api-openapi.yml
+  - name: create_webhook
+    operationId: createWebhook
+    method: POST
+    path: /resource/Webhook
+    description: Create a Webhook
+    spec: openapi/deputy-webhook-api-openapi.yml
+  - name: list_webhook
+    operationId: listWebhook
+    method: GET
+    path: /resource/Webhook
+    description: List Webhook records
+    spec: openapi/deputy-webhook-api-openapi.yml
+  - name: get_webhook_by_id
+    operationId: getWebhookById
+    method: GET
+    path: /resource/Webhook/{id}
+    description: Get a Webhook by id
+    spec: openapi/deputy-webhook-api-openapi.yml
+  - name: delete_webhook
+    operationId: deleteWebhook
+    method: DELETE
+    path: /resource/Webhook/{id}
+    description: Delete a Webhook
+    spec: openapi/deputy-webhook-api-openapi.yml

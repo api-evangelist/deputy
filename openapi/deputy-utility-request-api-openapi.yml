@@ -1,0 +1,60 @@
+openapi: 3.2.0
+info:
+  title: Deputy Utility request API
+  contact: {}
+  version: '1.0'
+servers:
+- url: https://{install}.{geo}.deputy.com/api
+  variables:
+    install:
+      default: ''
+    geo:
+      default: ''
+security:
+- httpBearer: []
+tags:
+- name: Utility request
+paths:
+  /v1/time:
+    get:
+      tags:
+      - Utility request
+      summary: Retrieve Current System Time
+      operationId: RetrieveCurrentSystemTime
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content: {}
+      deprecated: false
+  /v1/time/{locationid}:
+    get:
+      tags:
+      - Utility request
+      summary: Retrieve current system time of a location
+      operationId: Retrievecurrentsystemtimeofalocation
+      parameters:
+      - name: locationid
+        in: path
+        description: The location id record
+        required: true
+        style: simple
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content: {}
+      deprecated: false
+components:
+  securitySchemes:
+    httpBearer:
+      type: http
+      scheme: bearer
+x-readme:
+  explorer-enabled: true
+  proxy-enabled: true
+  samples-enabled: true

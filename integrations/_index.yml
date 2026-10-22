@@ -61,8 +61,8 @@
   template: https://zapier.com/apps/deputy/integrations/jotform/1388446/create-new-deputy-employees-from-new-jotform-submissions
   source: template
   relationship: ipaas-bridge
-  status: pending-generation
-  arazzo: null
+  arazzo: deputy-jotform-new-employees.yml
+  status: arazzo
 - slug: deputy-create-new-deputy-announcements-for-every-new-jotform-submission
   label: Create new Deputy announcements for every new Jotform submission
   partner: jotform
@@ -75,6 +75,8 @@
   evidence: https://zapier.com/apps/deputy/integrations/jotform/1770635/create-new-deputy-announcements-for-every-new-jotform-submission
   template: https://zapier.com/apps/deputy/integrations/jotform/1770635/create-new-deputy-announcements-for-every-new-jotform-submission
   source: template
+  related_arazzo:
+  - deputy-jotform-new-employees.yml
   relationship: ipaas-bridge
   status: pending-generation
   arazzo: null
@@ -91,8 +93,8 @@
   template: https://zapier.com/apps/deputy/integrations/google-sheets/1235035/get-new-timesheets-from-deputy-and-create-spreadsheet-rows-in-google-sheets
   source: template
   relationship: ipaas-bridge
-  status: pending-generation
-  arazzo: null
+  arazzo: deputy-google-sheets-timesheet-rows.yml
+  status: arazzo
 - slug: deputy-create-deputy-unavailabilities-from-new-google-calendar-events
   label: Create Deputy unavailabilities from new Google Calendar events
   partner: google-calendar

@@ -1,6 +1,6 @@
-generated: '2026-10-14'
-method: derived
-source: openapi/deputy-v1-resource-api-openapi.yml
+generated: '2026-10-21'
+method: searched
+source: https://developer.deputy.com/docs/using-oauth-20.md
 schemes:
 - name: OAuth2
   source: openapi/deputy-v1-resource-api-openapi.yml
@@ -10,8 +10,11 @@ schemes:
     tokenUrl: https://once.deputy.com/my/oauth/access_token
 scopes:
 - scope: longlife_refresh_token
-  description: Extended session
+  description: The only documented scope. The authorize, token and refresh requests always send scope=longlife_refresh_token "to ensure that you can retrieve access tokens in the future". Deputy has no
+    per-resource OAuth scopes; access follows the authorising user's permissions in the install.
   flows:
   - authorizationCode
   sources:
   - openapi/deputy-v1-resource-api-openapi.yml
+derived_from: openapi/deputy-v1-resource-api-openapi.yml
+docs: https://developer.deputy.com/docs/using-oauth-20

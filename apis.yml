@@ -42,12 +42,69 @@ tags:
 - Scheduling
 url: https://raw.githubusercontent.com/api-evangelist/deputy/refs/heads/main/apis.yml
 created: '2026-05-11'
-modified: '2026-05-11'
+modified: '2026-10-21'
 specificationVersion: '0.23'
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
+x-coverage:
+  state: covered
+  reason: identity-verified
+  detail: Identity pass 2026-10-21. Website www.deputy.com verified (title names Deputy). Fixed dead humanURL developer.deputy.com/deputy-docs
+    (404) to developer.deputy.com; Login moved to once.deputy.com/my/login (old /login/ 500); TermsOfService /terms-of-service was an empty soft-404
+    and is now /terms; PrivacyPolicy now privacy.deputy.com (linked from the footer); GitHubOrganization corrected from deputydev (owner not shown)
+    to DeputyApp (linked from developer docs, links back to www.deputy.com). help.deputy.com and trust.deputy.com return a Cloudflare 403 challenge
+    to our crawler; those pages exist, so the pointers stay. postman.com/deputy has no public content, so it was not added.
+  evidence:
+  - url: https://www.deputy.com
+    status: 200
+  - url: https://developer.deputy.com/deputy-docs
+    status: 404
+  - url: https://developer.deputy.com
+    status: 200
+  - url: https://developer.deputy.com/reference
+    status: 200
+  - url: https://developer.deputy.com/changelog
+    status: 200
+  - url: https://once.deputy.com/login/
+    status: 500
+  - url: https://once.deputy.com/my/login
+    status: 200
+  - url: https://www.deputy.com/terms
+    status: 200
+  - url: https://privacy.deputy.com
+    status: 200
+  - url: https://github.com/DeputyApp
+    status: 200
+  - url: https://help.deputy.com/
+    status: 403
+  - url: https://trust.deputy.com/
+    status: 403
 common:
+- type: Plans
+  url: plans/deputy-plans-pricing.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: ChangeLog
+  url: changelog/deputy-changelog.yml
+- type: Conventions
+  url: conventions/deputy-conventions.yml
+- type: Sandbox
+  url: sandbox/deputy-sandbox.yml
+- type: Deprecation
+  url: lifecycle/deputy-lifecycle.yml
+- type: Lifecycle
+  url: lifecycle/deputy-lifecycle.yml
+- type: ErrorCatalog
+  url: errors/deputy-error-codes.yml
+- type: Overlay
+  url: overlays/deputy-access-management-employee-api-overlay.yaml
+- type: SDKs
+  url: packages/deputy-packages.yml
+- type: Packages
+  url: packages/deputy-packages.yml
+- type: Documentation
+  url: https://developer.deputy.com/
 - type: AgenticAccess
   url: agentic-access/deputy-agentic-access.yml
 - type: Spectral
@@ -105,7 +162,7 @@ common:
 - type: Pricing
   url: https://www.deputy.com/pricing
 - type: Login
-  url: https://once.deputy.com/login/
+  url: https://once.deputy.com/my/login
 - type: Support
   url: https://help.deputy.com/
 - type: Blog
@@ -113,51 +170,27 @@ common:
 - type: StatusPage
   url: https://status.deputy.com/
 - type: PrivacyPolicy
-  url: https://www.deputy.com/privacy-policy
+  url: https://privacy.deputy.com
 - type: TermsOfService
-  url: https://www.deputy.com/terms-of-service
+  url: https://www.deputy.com/terms
 - type: GitHubOrganization
-  url: https://github.com/deputydev
+  url: https://github.com/DeputyApp
 - type: X (Twitter)
   url: https://x.com/deputyapp
 - type: LlmsText
   url: https://developer.deputy.com/llms.txt
+- type: APIReference
+  url: https://developer.deputy.com/reference
+- type: ChangeLog
+  url: https://developer.deputy.com/changelog
+- type: LinkedIn
+  url: https://www.linkedin.com/company/deputyapp/
 apis:
-- aid: deputy:public-api
-  name: Deputy Public API
-  description: >-
-    REST API for managing employees, schedules, timesheets, locations, leave, tasks, and sales metrics
-    in the Deputy workforce management platform. Authentication is handled via OAuth 2.0 or a permanent
-    access token, with most endpoints living under /api/v1 and a few newer endpoints under /api/v2 on
-    the customer's install subdomain.
-  humanURL: https://developer.deputy.com/deputy-docs
-  baseURL: https://{install}.{geo}.deputy.com/api/v1
-  tags:
-  - Workforce Management
-  - Scheduling
-  - Timesheets
-  - Employees
-  - Leave
-  - Location
-  tags_raw:
-  - Workforce Management
-  - Scheduling
-  - Timesheets
-  - Employees
-  - Leave
-  - Locations
-  properties:
-  - type: Documentation
-    url: https://developer.deputy.com/deputy-docs
-  - type: GettingStarted
-    url: https://developer.deputy.com/docs/getting-started-with-the-deputy-api
-  - type: Authentication
-    url: https://developer.deputy.com/docs/using-oauth-20
 - aid: deputy:deputy-access-management-employee-api
   name: Deputy Access Management Employee API
   description: >-
     The Access Management Employee API from Deputy — 1 operation(s) for access management employee.
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - Access Management Employee
@@ -225,7 +258,7 @@ apis:
   description: >-
     The Access Management Employee Role API from Deputy — 1 operation(s) for access management employee
     role.
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - Access Management Employee Role
@@ -293,7 +326,7 @@ apis:
   description: >-
     The Access Management Employee Role History API from Deputy — 1 operation(s) for access management
     employee role history.
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - Access Management Employee Role History
@@ -361,7 +394,7 @@ apis:
   description: >-
     The Access Management Privilege Hierarchy API from Deputy — 1 operation(s) for access management privilege
     hierarchy.
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - Access Management Privilege Hierarchy
@@ -427,7 +460,7 @@ apis:
 - aid: deputy:deputy-access-management-role-api
   name: Deputy Access Management Role API
   description: The Access Management Role API from Deputy — 2 operation(s) for access management role.
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - Access Management Role
@@ -493,7 +526,7 @@ apis:
 - aid: deputy:deputy-account-stats-api
   name: Deputy Account Stats API
   description: The Account Stats API from Deputy — 2 operation(s) for account stats.
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - Account Stats
@@ -560,7 +593,7 @@ apis:
   name: Deputy Add Entitlement To Employees API
   description: >-
     The Add Entitlement To Employees API from Deputy — 1 operation(s) for add entitlement to employees.
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - Add Entitlement To Employees
@@ -626,7 +659,7 @@ apis:
 - aid: deputy:deputy-address-api
   name: Deputy Address API
   description: Operations on the Address resource
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - Address
@@ -692,7 +725,7 @@ apis:
 - aid: deputy:deputy-agreed-hour-api
   name: Deputy Agreed Hour API
   description: The Agreed Hour API from Deputy — 17 operation(s) for agreed hour.
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - Agreed Hour
@@ -758,7 +791,7 @@ apis:
 - aid: deputy:deputy-ai-assistant-api
   name: Deputy AI Assistant API
   description: The AI Assistant API from Deputy — 1 operation(s) for ai assistant.
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - AI Assistant
@@ -824,7 +857,7 @@ apis:
 - aid: deputy:deputy-area-management-api
   name: Deputy Area Management API
   description: The Area Management API from Deputy — 1 operation(s) for area management.
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - Area Management
@@ -890,7 +923,7 @@ apis:
 - aid: deputy:deputy-area-profile-api
   name: Deputy Area Profile API
   description: The Area Profile API from Deputy — 4 operation(s) for area profile.
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - Area Profile
@@ -956,7 +989,7 @@ apis:
 - aid: deputy:deputy-area-rate-api
   name: Deputy Area Rate API
   description: The Area Rate API from Deputy — 2 operation(s) for area rate.
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - Area Rate
@@ -1023,7 +1056,7 @@ apis:
   name: Deputy Audit Pay Recalculation API
   description: >-
     The Audit Pay Recalculation API from Deputy — 1 operation(s) for audit pay recalculation.
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - Audit Pay Recalculation
@@ -1089,7 +1122,7 @@ apis:
 - aid: deputy:deputy-availability-api
   name: Deputy Availability API
   description: The Availability API from Deputy — 2 operation(s) for availability.
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - Availability
@@ -1155,7 +1188,7 @@ apis:
 - aid: deputy:deputy-bidapprove-api
   name: Deputy Bid Approve API
   description: The BidApprove API from Deputy — 1 operation(s) for bidapprove.
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - BidApprove
@@ -1221,7 +1254,7 @@ apis:
 - aid: deputy:deputy-business-details-api
   name: Deputy Business Details API
   description: The Business Details API from Deputy — 1 operation(s) for business details.
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - Business Details
@@ -1287,7 +1320,7 @@ apis:
 - aid: deputy:deputy-category-api
   name: Deputy Category API
   description: Operations on the Category resource
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - Category
@@ -1353,7 +1386,7 @@ apis:
 - aid: deputy:deputy-colleague-api
   name: Deputy Colleague API
   description: V1 /my/colleague/* endpoints
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - Colleague
@@ -1419,7 +1452,7 @@ apis:
 - aid: deputy:deputy-comment-api
   name: Deputy Comment API
   description: Operations on the Comment resource
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - Comment
@@ -1485,7 +1518,7 @@ apis:
 - aid: deputy:deputy-communication-api
   name: Deputy Communication API
   description: The Communication API from Deputy — 1 operation(s) for communication.
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - Communications
@@ -1553,7 +1586,7 @@ apis:
 - aid: deputy:deputy-company-api
   name: Deputy Company API
   description: Operations on the Company resource
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - Company
@@ -1619,7 +1652,7 @@ apis:
 - aid: deputy:deputy-companyperiod-api
   name: Deputy Company Period API
   description: Operations on the CompanyPeriod resource
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - CompanyPeriod
@@ -1685,7 +1718,7 @@ apis:
 - aid: deputy:deputy-compliance-api
   name: Deputy Compliance API
   description: The Compliance API from Deputy — 21 operation(s) for compliance.
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - Compliance
@@ -1752,7 +1785,7 @@ apis:
   name: Deputy Concurrent Leave Cap Config API
   description: >-
     The Concurrent Leave Cap Config API from Deputy — 1 operation(s) for concurrent leave cap config.
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - Concurrent Leave Cap Config
@@ -1818,7 +1851,7 @@ apis:
 - aid: deputy:deputy-config-api
   name: Deputy Config API
   description: V1 /supervise/config/* endpoints
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - Config
@@ -1884,7 +1917,7 @@ apis:
 - aid: deputy:deputy-contact-api
   name: Deputy Contact API
   description: Operations on the Contact resource
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - Contact
@@ -1950,7 +1983,7 @@ apis:
 - aid: deputy:deputy-contactaddress-api
   name: Deputy Contactaddress API
   description: V1 /my/contactaddress/* endpoints
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - ContactAddress
@@ -2018,7 +2051,7 @@ apis:
 - aid: deputy:deputy-cost-api
   name: Deputy Cost API
   description: V1 /supervise/cost/* endpoints
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - Cost
@@ -2084,7 +2117,7 @@ apis:
 - aid: deputy:deputy-country-api
   name: Deputy Country API
   description: Operations on the Country resource
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - Country
@@ -2150,7 +2183,7 @@ apis:
 - aid: deputy:deputy-custom-fields-api
   name: Deputy Custom Fields API
   description: The Custom Fields API from Deputy — 2 operation(s) for custom fields.
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - Custom Fields
@@ -2216,7 +2249,7 @@ apis:
 - aid: deputy:deputy-customappdata-api
   name: Deputy Custom App Data API
   description: Operations on the CustomAppData resource
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - CustomAppData
@@ -2282,7 +2315,7 @@ apis:
 - aid: deputy:deputy-customfielddata-api
   name: Deputy Custom Field Data API
   description: Operations on the CustomFieldData resource
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - CustomFieldData
@@ -2348,7 +2381,7 @@ apis:
 - aid: deputy:deputy-department-api
   name: Deputy Department API
   description: V1 /my/department/* endpoints
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - Department
@@ -2414,7 +2447,7 @@ apis:
 - aid: deputy:deputy-deputy-reports-api
   name: Deputy Deputy Reports API
   description: The Deputy Reports API from Deputy — 4 operation(s) for deputy reports.
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - Deputy Reports
@@ -2480,7 +2513,7 @@ apis:
 - aid: deputy:deputy-embedded-reports-api
   name: Deputy Embedded Reports API
   description: The Embedded Reports API from Deputy — 16 operation(s) for embedded reports.
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - Embedded Reports
@@ -2546,7 +2579,7 @@ apis:
 - aid: deputy:deputy-employee-agreement-api
   name: Deputy Employee Agreement API
   description: The Employee Agreement API from Deputy — 2 operation(s) for employee agreement.
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - Employee Agreement
@@ -2612,7 +2645,7 @@ apis:
 - aid: deputy:deputy-employee-api
   name: Deputy Employee API
   description: Operations on the Employee resource
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - Employee
@@ -2678,7 +2711,7 @@ apis:
 - aid: deputy:deputy-employee-data-fix-api
   name: Deputy Employee Data Fix API
   description: The Employee Data Fix API from Deputy — 4 operation(s) for employee data fix.
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - Employee Data Fix
@@ -2744,7 +2777,7 @@ apis:
 - aid: deputy:deputy-employee-entitlements-api
   name: Deputy Employee Entitlements API
   description: The Employee Entitlements API from Deputy — 1 operation(s) for employee entitlements.
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - Employee Entitlements
@@ -2810,7 +2843,7 @@ apis:
 - aid: deputy:deputy-employee-onboarding-api
   name: Deputy Employee Onboarding API
   description: The Employee Onboarding API from Deputy — 4 operation(s) for employee onboarding.
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - Employee Onboarding
@@ -2877,7 +2910,7 @@ apis:
   name: Deputy Employee Onboarding Usage API
   description: >-
     The Employee Onboarding Usage API from Deputy — 1 operation(s) for employee onboarding usage.
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - Employee Onboarding Usage
@@ -2943,7 +2976,7 @@ apis:
 - aid: deputy:deputy-employee-preferences-api
   name: Deputy Employee Preferences API
   description: The Employee Preferences API from Deputy — 1 operation(s) for employee preferences.
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - Employee Preferences
@@ -3009,7 +3042,7 @@ apis:
 - aid: deputy:deputy-employee-profile-api
   name: Deputy Employee Profile API
   description: The Employee Profile API from Deputy — 3 operation(s) for employee profile.
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - Employee Profile
@@ -3076,7 +3109,7 @@ apis:
   name: Deputy Employee Profile History API
   description: >-
     The Employee Profile History API from Deputy — 1 operation(s) for employee profile history.
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - Employee Profile History
@@ -3142,7 +3175,7 @@ apis:
 - aid: deputy:deputy-employee-sentiment-api
   name: Deputy Employee Sentiment API
   description: The Employee Sentiment API from Deputy — 7 operation(s) for employee sentiment.
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - Employee Sentiment
@@ -3208,7 +3241,7 @@ apis:
 - aid: deputy:deputy-employee-standard-day-api
   name: Deputy Employee Standard Day API
   description: The Employee Standard Day API from Deputy — 1 operation(s) for employee standard day.
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - Employee Standard Day
@@ -3274,7 +3307,7 @@ apis:
 - aid: deputy:deputy-employeeagreement-api
   name: Deputy Employee Agreement API
   description: Operations on the EmployeeAgreement resource
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - Employee Agreement
@@ -3342,7 +3375,7 @@ apis:
 - aid: deputy:deputy-employeeagreementarearate-api
   name: Deputy Employee Agreement Area Rate API
   description: Operations on the EmployeeAgreementAreaRate resource
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - EmployeeAgreementAreaRate
@@ -3408,7 +3441,7 @@ apis:
 - aid: deputy:deputy-employeeagreementhistory-api
   name: Deputy Employee Agreement History API
   description: Operations on the EmployeeAgreementHistory resource
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - EmployeeAgreementHistory
@@ -3474,7 +3507,7 @@ apis:
 - aid: deputy:deputy-employeeappraisal-api
   name: Deputy Employee Appraisal API
   description: Operations on the EmployeeAppraisal resource
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - EmployeeAppraisal
@@ -3540,7 +3573,7 @@ apis:
 - aid: deputy:deputy-employeeavailability-api
   name: Deputy Employee Availability API
   description: Operations on the EmployeeAvailability resource
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - EmployeeAvailability
@@ -3606,7 +3639,7 @@ apis:
 - aid: deputy:deputy-employeecontractedhours-api
   name: Deputy Employee Contracted Hours API
   description: Operations on the EmployeeContractedHours resource
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - EmployeeContractedHours
@@ -3672,7 +3705,7 @@ apis:
 - aid: deputy:deputy-employeecontractedhoursshift-api
   name: Deputy Employee Contracted Hours Shift API
   description: Operations on the EmployeeContractedHoursShift resource
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - EmployeeContractedHoursShift
@@ -3738,7 +3771,7 @@ apis:
 - aid: deputy:deputy-employeehistory-api
   name: Deputy Employee History API
   description: Operations on the EmployeeHistory resource
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - EmployeeHistory
@@ -3804,7 +3837,7 @@ apis:
 - aid: deputy:deputy-employeepaycycle-api
   name: Deputy Employee Paycycle API
   description: Operations on the EmployeePaycycle resource
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - EmployeePaycycle
@@ -3870,7 +3903,7 @@ apis:
 - aid: deputy:deputy-employeepaycyclereturn-api
   name: Deputy Employee Paycycle Return API
   description: Operations on the EmployeePaycycleReturn resource
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - EmployeePaycycleReturn
@@ -3936,7 +3969,7 @@ apis:
 - aid: deputy:deputy-employeerole-api
   name: Deputy Employee Role API
   description: Operations on the EmployeeRole resource
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - Employee Role
@@ -4004,7 +4037,7 @@ apis:
 - aid: deputy:deputy-employees-api
   name: Deputy Employees API
   description: The Employees API from Deputy — 14 operation(s) for employees.
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - Employees
@@ -4070,7 +4103,7 @@ apis:
 - aid: deputy:deputy-employeesalaryopunitcosting-api
   name: Deputy Employee Salary Opunit Costing API
   description: Operations on the EmployeeSalaryOpunitCosting resource
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - EmployeeSalaryOpunitCosting
@@ -4136,7 +4169,7 @@ apis:
 - aid: deputy:deputy-employeeworkplace-api
   name: Deputy Employee Workplace API
   description: Operations on the EmployeeWorkplace resource
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - EmployeeWorkplace
@@ -4202,7 +4235,7 @@ apis:
 - aid: deputy:deputy-employment-condition-api
   name: Deputy Employment Condition API
   description: The Employment Condition API from Deputy — 2 operation(s) for employment condition.
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - Employment Condition
@@ -4269,7 +4302,7 @@ apis:
   name: Deputy Employment contract level API
   description: >-
     The Employment contract level API from Deputy — 4 operation(s) for employment contract level.
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - Employment contract level
@@ -4335,7 +4368,7 @@ apis:
 - aid: deputy:deputy-employment-contracts-api
   name: Deputy Employment Contracts API
   description: The Employment Contracts API from Deputy — 2 operation(s) for employment contracts.
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - Employment Contracts
@@ -4401,7 +4434,7 @@ apis:
 - aid: deputy:deputy-employmentcondition-api
   name: Deputy Employment Condition API
   description: Operations on the EmploymentCondition resource
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - Employment Condition
@@ -4469,7 +4502,7 @@ apis:
 - aid: deputy:deputy-employmentcontract-api
   name: Deputy Employment Contract API
   description: Operations on the EmploymentContract resource
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - EmploymentContract
@@ -4535,7 +4568,7 @@ apis:
 - aid: deputy:deputy-employmentcontractconfig-api
   name: Deputy Employment Contract Config API
   description: Operations on the EmploymentContractConfig resource
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - EmploymentContractConfig
@@ -4601,7 +4634,7 @@ apis:
 - aid: deputy:deputy-employmentcontractleaverules-api
   name: Deputy Employment Contract Leave Rules API
   description: Operations on the EmploymentContractLeaveRules resource
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - EmploymentContractLeaveRules
@@ -4667,7 +4700,7 @@ apis:
 - aid: deputy:deputy-empshiftinfo-api
   name: Deputy Empshiftinfo API
   description: V1 /supervise/empshiftinfo/* endpoints
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - Empshiftinfo
@@ -4734,7 +4767,7 @@ apis:
   name: Deputy Entitlement Remediation API
   description: >-
     The Entitlement Remediation API from Deputy — 3 operation(s) for entitlement remediation.
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - Entitlement Remediation
@@ -4800,7 +4833,7 @@ apis:
 - aid: deputy:deputy-event-api
   name: Deputy Event API
   description: Operations on the Event resource
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - Event
@@ -4866,7 +4899,7 @@ apis:
 - aid: deputy:deputy-feed-api
   name: Deputy Feed API
   description: V1 /my/feed/* endpoints
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - Feed
@@ -4932,7 +4965,7 @@ apis:
 - aid: deputy:deputy-file-api
   name: Deputy File API
   description: The File API from Deputy — 1 operation(s) for file.
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - File
@@ -4998,7 +5031,7 @@ apis:
 - aid: deputy:deputy-geo-api
   name: Deputy Geo API
   description: Operations on the Geo resource
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - Geo
@@ -5064,7 +5097,7 @@ apis:
 - aid: deputy:deputy-get-a-flag-record-api
   name: Deputy Get a Flag Record API
   description: The Get a Flag Record API from Deputy — 1 operation(s) for get a flag record.
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - Get a Flag Record
@@ -5131,7 +5164,7 @@ apis:
   name: Deputy Get all visible employee roles API
   description: >-
     The Get all visible employee roles API from Deputy — 1 operation(s) for get all visible employee roles.
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - Get all visible employee roles
@@ -5199,7 +5232,7 @@ apis:
   description: >-
     The Get all visible employee roles include advisor API from Deputy — 1 operation(s) for get all visible
     employee roles include advisor.
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags: []
   tags_raw:
@@ -5266,7 +5299,7 @@ apis:
 - aid: deputy:deputy-get-business-setting-api
   name: Deputy Get Business Setting API
   description: The Get Business Setting API from Deputy — 1 operation(s) for get business setting.
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - Get Business Setting
@@ -5333,7 +5366,7 @@ apis:
   name: Deputy Get Business Setting Template API
   description: >-
     The Get Business Setting Template API from Deputy — 1 operation(s) for get business setting template.
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - Get Business Setting Template
@@ -5401,7 +5434,7 @@ apis:
   description: >-
     The Get Employee Role Ids For Privilege Names API from Deputy — 1 operation(s) for get employee role
     ids for privilege names.
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags: []
   tags_raw:
@@ -5470,7 +5503,7 @@ apis:
   description: >-
     The Get Employee Role Ids with 2FA Enforced API from Deputy — 1 operation(s) for get employee role
     ids with 2fa enforced.
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags: []
   tags_raw:
@@ -5539,7 +5572,7 @@ apis:
   description: >-
     The Get Employees Entitled To Leave rule API from Deputy — 1 operation(s) for get employees entitled
     to leave rule.
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - Get Employees Entitled To Leave rule
@@ -5605,7 +5638,7 @@ apis:
 - aid: deputy:deputy-get-roster-timesheet-api
   name: Deputy Get Roster Timesheet API
   description: V1 /supervise/get-roster-timesheet/* endpoints
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - Get Roster Timesheet
@@ -5671,7 +5704,7 @@ apis:
 - aid: deputy:deputy-getrecommendation-api
   name: Deputy Getrecommendation API
   description: V1 /my/getrecommendation/* endpoints
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - Getrecommendation
@@ -5737,7 +5770,7 @@ apis:
 - aid: deputy:deputy-hr-api
   name: Deputy Hr API
   description: The Hr API from Deputy — 4 operation(s) for hr.
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - Human Resources
@@ -5805,7 +5838,7 @@ apis:
 - aid: deputy:deputy-internal-do-not-use-api
   name: Deputy Internal - Do not use API
   description: The Internal - Do not use API from Deputy — 2 operation(s) for internal - do not use.
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - Internal - Do not use
@@ -5871,7 +5904,7 @@ apis:
 - aid: deputy:deputy-journal-api
   name: Deputy Journal API
   description: Operations on the Journal resource
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - Journals
@@ -5939,7 +5972,7 @@ apis:
 - aid: deputy:deputy-kiosk-api
   name: Deputy Kiosk API
   description: Operations on the Kiosk resource
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - Kiosk
@@ -6005,7 +6038,7 @@ apis:
 - aid: deputy:deputy-labor-model-rule-api
   name: Deputy Labor Model Rule API
   description: The Labor Model Rule API from Deputy — 6 operation(s) for labor model rule.
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - Labor Model Rule
@@ -6071,7 +6104,7 @@ apis:
 - aid: deputy:deputy-leave-absence-api
   name: Deputy Leave Absence API
   description: The Leave Absence API from Deputy — 1 operation(s) for leave absence.
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - Leave Absence
@@ -6137,7 +6170,7 @@ apis:
 - aid: deputy:deputy-leave-accrual-api
   name: Deputy Leave Accrual API
   description: The Leave Accrual API from Deputy — 2 operation(s) for leave accrual.
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - Leave Accrual
@@ -6203,7 +6236,7 @@ apis:
 - aid: deputy:deputy-leave-api
   name: Deputy Leave API
   description: V1 /my/leave/* endpoints
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - Leave
@@ -6269,7 +6302,7 @@ apis:
 - aid: deputy:deputy-leave-audit-log-api
   name: Deputy Leave Audit Log API
   description: The Leave Audit Log API from Deputy — 1 operation(s) for leave audit log.
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - Leave Audit Log
@@ -6335,7 +6368,7 @@ apis:
 - aid: deputy:deputy-leave-balance-api
   name: Deputy Leave Balance API
   description: The Leave Balance API from Deputy — 3 operation(s) for leave balance.
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - Leave Balance
@@ -6401,7 +6434,7 @@ apis:
 - aid: deputy:deputy-leave-config-api
   name: Deputy Leave Config API
   description: The Leave Config API from Deputy — 1 operation(s) for leave config.
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - Leave Config
@@ -6467,7 +6500,7 @@ apis:
 - aid: deputy:deputy-leave-entitlements-api
   name: Deputy Leave Entitlements API
   description: The Leave Entitlements API from Deputy — 4 operation(s) for leave entitlements.
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - Leave Entitlements
@@ -6533,7 +6566,7 @@ apis:
 - aid: deputy:deputy-leave-extension-api
   name: Deputy Leave Extension API
   description: The Leave Extension API from Deputy — 1 operation(s) for leave extension.
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - Leave Extension
@@ -6599,7 +6632,7 @@ apis:
 - aid: deputy:deputy-leave-feature-set-api
   name: Deputy Leave Feature Set API
   description: The Leave Feature Set API from Deputy — 3 operation(s) for leave feature set.
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - Leave Feature Set
@@ -6666,7 +6699,7 @@ apis:
   name: Deputy Leave Location Settings API
   description: >-
     The Leave Location Settings API from Deputy — 1 operation(s) for leave location settings.
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - Leave Location Settings
@@ -6732,7 +6765,7 @@ apis:
 - aid: deputy:deputy-leave-migration-api
   name: Deputy Leave Migration API
   description: The Leave Migration API from Deputy — 6 operation(s) for leave migration.
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - Leave Migration
@@ -6798,7 +6831,7 @@ apis:
 - aid: deputy:deputy-leave-non-working-days-api
   name: Deputy Leave Non Working Days API
   description: The Leave Non Working Days API from Deputy — 1 operation(s) for leave non working days.
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - Leave Non Working Days
@@ -6864,7 +6897,7 @@ apis:
 - aid: deputy:deputy-leave-pay-rules-api
   name: Deputy Leave Pay Rules API
   description: The Leave Pay Rules API from Deputy — 1 operation(s) for leave pay rules.
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - Leave Pay Rules
@@ -6930,7 +6963,7 @@ apis:
 - aid: deputy:deputy-leave-reference-period-api
   name: Deputy Leave Reference Period API
   description: The Leave Reference Period API from Deputy — 1 operation(s) for leave reference period.
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - Leave Reference Period
@@ -6996,7 +7029,7 @@ apis:
 - aid: deputy:deputy-leave-request-api
   name: Deputy Leave Request API
   description: The Leave Request API from Deputy — 5 operation(s) for leave request.
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - Leave Request
@@ -7062,7 +7095,7 @@ apis:
 - aid: deputy:deputy-leave-rules-api
   name: Deputy Leave Rules API
   description: The Leave Rules API from Deputy — 1 operation(s) for leave rules.
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - Leave Rules
@@ -7128,7 +7161,7 @@ apis:
 - aid: deputy:deputy-leaveaccrual-api
   name: Deputy Leave Accrual API
   description: Operations on the LeaveAccrual resource
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - Leave Accrual
@@ -7196,7 +7229,7 @@ apis:
 - aid: deputy:deputy-leavepayline-api
   name: Deputy Leave Pay Line API
   description: Operations on the LeavePayLine resource
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - LeavePayLine
@@ -7262,7 +7295,7 @@ apis:
 - aid: deputy:deputy-leaverules-api
   name: Deputy Leave Rules API
   description: Operations on the LeaveRules resource
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - Leave Rules
@@ -7330,7 +7363,7 @@ apis:
 - aid: deputy:deputy-list-flag-records-api
   name: Deputy List Flag Records API
   description: The List Flag Records API from Deputy — 1 operation(s) for list flag records.
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - List Flag Records
@@ -7396,7 +7429,7 @@ apis:
 - aid: deputy:deputy-location-api
   name: Deputy Location API
   description: V1 /my/location/* endpoints
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - Location
@@ -7462,7 +7495,7 @@ apis:
 - aid: deputy:deputy-location-profile-api
   name: Deputy Location Profile API
   description: The Location Profile API from Deputy — 5 operation(s) for location profile.
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - Location Profile
@@ -7528,7 +7561,7 @@ apis:
 - aid: deputy:deputy-location-setting-api
   name: Deputy Location Setting API
   description: The Location Setting API from Deputy — 2 operation(s) for location setting.
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - Location Setting
@@ -7594,7 +7627,7 @@ apis:
 - aid: deputy:deputy-me-tab-api
   name: Deputy Me Tab API
   description: The Me Tab API from Deputy — 1 operation(s) for me tab.
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - Me Tab
@@ -7660,7 +7693,7 @@ apis:
 - aid: deputy:deputy-memo-api
   name: Deputy Memo API
   description: V1 /my/memo/* endpoints
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - Memo
@@ -7726,7 +7759,7 @@ apis:
 - aid: deputy:deputy-metric-api
   name: Deputy Metric API
   description: V1 /supervise/metric/* endpoints
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - metric
@@ -7794,7 +7827,7 @@ apis:
 - aid: deputy:deputy-metrics-api
   name: Deputy Metrics API
   description: The Metrics API from Deputy — 4 operation(s) for metrics.
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - Metrics
@@ -7861,7 +7894,7 @@ apis:
   name: Deputy NEW - Shift Suggestions API
   description: >-
     The NEW - Shift Suggestions API from Deputy — 1 operation(s) for new - shift suggestions.
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - NEW - Shift Suggestions
@@ -7927,7 +7960,7 @@ apis:
 - aid: deputy:deputy-notification-api
   name: Deputy Notification API
   description: V1 /my/notification/* endpoints
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - Notification
@@ -7993,7 +8026,7 @@ apis:
 - aid: deputy:deputy-nps-api
   name: Deputy Nps API
   description: V1 /my/nps/* endpoints
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - NPS
@@ -8061,7 +8094,7 @@ apis:
 - aid: deputy:deputy-onboarding-dashboard-api
   name: Deputy Onboarding Dashboard API
   description: The Onboarding Dashboard API from Deputy — 2 operation(s) for onboarding dashboard.
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - Onboarding Dashboard
@@ -8127,7 +8160,7 @@ apis:
 - aid: deputy:deputy-onboarding-embed-api
   name: Deputy Onboarding Embed API
   description: The Onboarding Embed API from Deputy — 2 operation(s) for onboarding embed.
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - Onboarding Embed
@@ -8194,7 +8227,7 @@ apis:
   name: Deputy Onboarding Gamification API
   description: >-
     The Onboarding Gamification API from Deputy — 2 operation(s) for onboarding gamification.
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - Onboarding Gamification
@@ -8260,7 +8293,7 @@ apis:
 - aid: deputy:deputy-onboarding-route-api
   name: Deputy Onboarding Route API
   description: The Onboarding Route API from Deputy — 1 operation(s) for onboarding route.
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - Onboarding Route
@@ -8326,7 +8359,7 @@ apis:
 - aid: deputy:deputy-operationalunit-api
   name: Deputy Operational Unit API
   description: Operations on the OperationalUnit resource
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - OperationalUnit
@@ -8392,7 +8425,7 @@ apis:
 - aid: deputy:deputy-partner-employees-api
   name: Deputy Partner Employees API
   description: The Partner Employees API from Deputy — 2 operation(s) for partner employees.
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - Partner Employees
@@ -8458,7 +8491,7 @@ apis:
 - aid: deputy:deputy-pay-calendars-api
   name: Deputy Pay Calendars API
   description: The Pay Calendars API from Deputy — 7 operation(s) for pay calendars.
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - Pay Calendars
@@ -8524,7 +8557,7 @@ apis:
 - aid: deputy:deputy-pay-comparison-api
   name: Deputy Pay Comparison API
   description: The Pay Comparison API from Deputy — 7 operation(s) for pay comparison.
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - Pay Comparison
@@ -8590,7 +8623,7 @@ apis:
 - aid: deputy:deputy-payperiod-api
   name: Deputy Pay Period API
   description: Operations on the PayPeriod resource
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - PayPeriod
@@ -8657,7 +8690,7 @@ apis:
   name: Deputy Payroll Export Template API
   description: >-
     The Payroll Export Template API from Deputy — 2 operation(s) for payroll export template.
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - Payroll Export Template
@@ -8723,7 +8756,7 @@ apis:
 - aid: deputy:deputy-payroll-mobile-api
   name: Deputy Payroll Mobile API
   description: The Payroll Mobile API from Deputy — 1 operation(s) for payroll mobile.
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - Payroll Mobile
@@ -8791,7 +8824,7 @@ apis:
   description: >-
     The Payroll User Authorization Code API from Deputy — 1 operation(s) for payroll user authorization
     code.
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - Payroll User Authorization Code
@@ -8857,7 +8890,7 @@ apis:
 - aid: deputy:deputy-payrules-api
   name: Deputy Pay Rules API
   description: Operations on the PayRules resource
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - PayRules
@@ -8923,7 +8956,7 @@ apis:
 - aid: deputy:deputy-people-api
   name: Deputy People API
   description: The People API from Deputy — 2 operation(s) for people.
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - People
@@ -8989,7 +9022,7 @@ apis:
 - aid: deputy:deputy-permission-api
   name: Deputy Permission API
   description: The Permission API from Deputy — 3 operation(s) for permission.
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - Permission
@@ -9055,7 +9088,7 @@ apis:
 - aid: deputy:deputy-photo-api
   name: Deputy Photo API
   description: V1 /my/photo/* endpoints
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - Photos
@@ -9123,7 +9156,7 @@ apis:
 - aid: deputy:deputy-plan-downgrade-job-api
   name: Deputy Plan Downgrade Job API
   description: The Plan Downgrade Job API from Deputy — 1 operation(s) for plan downgrade job.
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - Plan Downgrade Job
@@ -9189,7 +9222,7 @@ apis:
 - aid: deputy:deputy-pref-api
   name: Deputy Pref API
   description: V1 /my/pref/* endpoints
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - Pref
@@ -9255,7 +9288,7 @@ apis:
 - aid: deputy:deputy-product-subscription-api
   name: Deputy Product Subscription API
   description: The Product Subscription API from Deputy — 1 operation(s) for product subscription.
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - Product Subscription
@@ -9321,7 +9354,7 @@ apis:
 - aid: deputy:deputy-productaddons-api
   name: Deputy Product Add Ons API
   description: The ProductAddOns API from Deputy — 1 operation(s) for productaddons.
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - ProductAddOns
@@ -9387,7 +9420,7 @@ apis:
 - aid: deputy:deputy-publicholiday-api
   name: Deputy Public Holiday API
   description: Operations on the PublicHoliday resource
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - PublicHoliday
@@ -9453,7 +9486,7 @@ apis:
 - aid: deputy:deputy-publishshifts-api
   name: Deputy Publish Shifts API
   description: The PublishShifts API from Deputy — 3 operation(s) for publishshifts.
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - PublishShifts
@@ -9519,7 +9552,7 @@ apis:
 - aid: deputy:deputy-reaction-api
   name: Deputy Reaction API
   description: The Reaction API from Deputy — 2 operation(s) for reaction.
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - Reaction
@@ -9585,7 +9618,7 @@ apis:
 - aid: deputy:deputy-remediation-api
   name: Deputy Remediation API
   description: The Remediation API from Deputy — 1 operation(s) for remediation.
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - Remediation
@@ -9651,7 +9684,7 @@ apis:
 - aid: deputy:deputy-resource-api-api
   name: Deputy Resource API
   description: The Resource API API from Deputy — 56 operation(s) for resource api.
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - Resource API
@@ -9717,7 +9750,7 @@ apis:
 - aid: deputy:deputy-roster-api
   name: Deputy Roster API
   description: V1 /my/roster/* endpoints
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - Roster
@@ -9783,7 +9816,7 @@ apis:
 - aid: deputy:deputy-rosteropen-api
   name: Deputy Roster Open API
   description: Operations on the RosterOpen resource
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - RosterOpen
@@ -9849,7 +9882,7 @@ apis:
 - aid: deputy:deputy-rosterswap-api
   name: Deputy Roster Swap API
   description: Operations on the RosterSwap resource
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - RosterSwap
@@ -9915,7 +9948,7 @@ apis:
 - aid: deputy:deputy-rostertemplate-api
   name: Deputy Roster Template API
   description: Operations on the RosterTemplate resource
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - RosterTemplate
@@ -9981,7 +10014,7 @@ apis:
 - aid: deputy:deputy-salesdata-api
   name: Deputy Sales Data API
   description: Operations on the SalesData resource
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - Sales Data
@@ -10050,7 +10083,7 @@ apis:
   name: Deputy Save Business Setting Config API
   description: >-
     The Save Business Setting Config API from Deputy — 1 operation(s) for save business setting config.
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - Save Business Setting Config
@@ -10116,7 +10149,7 @@ apis:
 - aid: deputy:deputy-schedule-agent-api
   name: Deputy Schedule Agent API
   description: The Schedule Agent API from Deputy — 2 operation(s) for schedule agent.
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - Schedule Agent
@@ -10182,7 +10215,7 @@ apis:
 - aid: deputy:deputy-schedule-api
   name: Deputy Schedule API
   description: Operations on the Schedule resource
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - Schedule
@@ -10248,7 +10281,7 @@ apis:
 - aid: deputy:deputy-scheduleconsent-api
   name: Deputy Schedule Consent API
   description: The ScheduleConsent API from Deputy — 1 operation(s) for scheduleconsent.
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - ScheduleConsent
@@ -10314,7 +10347,7 @@ apis:
 - aid: deputy:deputy-schedulefilters-api
   name: Deputy Schedule Filters API
   description: The ScheduleFilters API from Deputy — 1 operation(s) for schedulefilters.
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - ScheduleFilters
@@ -10380,7 +10413,7 @@ apis:
 - aid: deputy:deputy-scheduletemplate-api
   name: Deputy Schedule Template API
   description: The ScheduleTemplate API from Deputy — 3 operation(s) for scheduletemplate.
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - ScheduleTemplate
@@ -10446,7 +10479,7 @@ apis:
 - aid: deputy:deputy-sendpushermessage-api
   name: Deputy Sendpushermessage API
   description: V1 /supervise/sendpushermessage/* endpoints
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - Sendpushermessage
@@ -10512,7 +10545,7 @@ apis:
 - aid: deputy:deputy-sendsms-api
   name: Deputy Sendsms API
   description: V1 /supervise/sendsms/* endpoints
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - Send SMS
@@ -10580,7 +10613,7 @@ apis:
 - aid: deputy:deputy-session-api
   name: Deputy Session API
   description: Operations on the Session resource
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - Sessions
@@ -10648,7 +10681,7 @@ apis:
 - aid: deputy:deputy-session-history-api
   name: Deputy Session History API
   description: The Session History API from Deputy — 1 operation(s) for session history.
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - Session History
@@ -10714,7 +10747,7 @@ apis:
 - aid: deputy:deputy-setup-api
   name: Deputy Setup API
   description: V1 /my/setup/* endpoints
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - Setup
@@ -10780,7 +10813,7 @@ apis:
 - aid: deputy:deputy-shift-offers-api
   name: Deputy Shift Offers API
   description: The Shift Offers API from Deputy — 3 operation(s) for shift offers.
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - Shift Offers
@@ -10846,7 +10879,7 @@ apis:
 - aid: deputy:deputy-shifts-api
   name: Deputy Shifts API
   description: The Shifts API from Deputy — 34 operation(s) for shifts.
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - Shifts
@@ -10912,7 +10945,7 @@ apis:
 - aid: deputy:deputy-shifts-consent-check-api
   name: Deputy Shifts consent check API
   description: The Shifts consent check API from Deputy — 1 operation(s) for shifts consent check.
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - Shifts consent check
@@ -10978,7 +11011,7 @@ apis:
 - aid: deputy:deputy-shifttemplate-api
   name: Deputy Shift Template API
   description: Operations on the ShiftTemplate resource
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - ShiftTemplate
@@ -11044,7 +11077,7 @@ apis:
 - aid: deputy:deputy-smslog-api
   name: Deputy Sms Log API
   description: Operations on the SmsLog resource
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - SmsLog
@@ -11110,7 +11143,7 @@ apis:
 - aid: deputy:deputy-state-api
   name: Deputy State API
   description: Operations on the State resource
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - States
@@ -11178,7 +11211,7 @@ apis:
 - aid: deputy:deputy-stressprofile-api
   name: Deputy Stress Profile API
   description: Operations on the StressProfile resource
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - StressProfile
@@ -11244,7 +11277,7 @@ apis:
 - aid: deputy:deputy-swaps-api
   name: Deputy Swaps API
   description: The Swaps API from Deputy — 6 operation(s) for swaps.
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - Swap
@@ -11312,7 +11345,7 @@ apis:
 - aid: deputy:deputy-systemusagebalance-api
   name: Deputy System Usage Balance API
   description: Operations on the SystemUsageBalance resource
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - SystemUsageBalance
@@ -11378,7 +11411,7 @@ apis:
 - aid: deputy:deputy-systemusagetracking-api
   name: Deputy System Usage Tracking API
   description: Operations on the SystemUsageTracking resource
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - SystemUsageTracking
@@ -11444,7 +11477,7 @@ apis:
 - aid: deputy:deputy-task-api
   name: Deputy Task API
   description: V1 /my/task/* endpoints
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - Task
@@ -11510,7 +11543,7 @@ apis:
 - aid: deputy:deputy-taskgroup-api
   name: Deputy Task Group API
   description: Operations on the TaskGroup resource
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - TaskGroup
@@ -11576,7 +11609,7 @@ apis:
 - aid: deputy:deputy-taskgroupsetup-api
   name: Deputy Task Group Setup API
   description: Operations on the TaskGroupSetup resource
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - TaskGroupSetup
@@ -11642,7 +11675,7 @@ apis:
 - aid: deputy:deputy-taskopunitconfig-api
   name: Deputy Task Opunit Config API
   description: Operations on the TaskOpunitConfig resource
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - TaskOpunitConfig
@@ -11708,7 +11741,7 @@ apis:
 - aid: deputy:deputy-tasksetup-api
   name: Deputy Task Setup API
   description: Operations on the TaskSetup resource
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - TaskSetup
@@ -11774,7 +11807,7 @@ apis:
 - aid: deputy:deputy-team-api
   name: Deputy Team API
   description: Operations on the Team resource
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - Team
@@ -11841,7 +11874,7 @@ apis:
   name: Deputy Tenant User Referral API
   description: >-
     The Tenant User Referral API API from Deputy — 1 operation(s) for tenant user referral api.
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - Tenant User Referral API
@@ -11907,7 +11940,7 @@ apis:
 - aid: deputy:deputy-timesheet-api
   name: Deputy Timesheet API
   description: V1 /my/timesheet/* endpoints
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - Timesheet
@@ -11973,7 +12006,7 @@ apis:
 - aid: deputy:deputy-timesheet-approval-api
   name: Deputy Timesheet Approval API
   description: The Timesheet Approval API from Deputy — 31 operation(s) for timesheet approval.
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - Timesheet Approval
@@ -12039,7 +12072,7 @@ apis:
 - aid: deputy:deputy-timesheet-attestation-api
   name: Deputy Timesheet Attestation API
   description: The Timesheet Attestation API from Deputy — 4 operation(s) for timesheet attestation.
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - Timesheet Attestation
@@ -12106,7 +12139,7 @@ apis:
   name: Deputy Timesheet Batch Forecast API
   description: >-
     The Timesheet Batch Forecast API from Deputy — 1 operation(s) for timesheet batch forecast.
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - Timesheet Batch Forecast
@@ -12172,7 +12205,7 @@ apis:
 - aid: deputy:deputy-timesheet-export-api
   name: Deputy Timesheet Export API
   description: The Timesheet Export API from Deputy — 4 operation(s) for timesheet export.
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - Timesheet Export
@@ -12239,7 +12272,7 @@ apis:
   name: Deputy Timesheet Export List Timesheets API
   description: >-
     The Timesheet Export List Timesheets API from Deputy — 1 operation(s) for timesheet export list timesheets.
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - Timesheet Export List Timesheets
@@ -12306,7 +12339,7 @@ apis:
   name: Deputy Timesheet Get Pay Return Rates API
   description: >-
     The Timesheet Get Pay Return Rates API from Deputy — 1 operation(s) for timesheet get pay return rates.
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - Timesheet Get Pay Return Rates
@@ -12373,7 +12406,7 @@ apis:
   name: Deputy Timesheet Get Pay Suggestion API
   description: >-
     The Timesheet Get Pay Suggestion API from Deputy — 1 operation(s) for timesheet get pay suggestion.
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - Timesheet Get Pay Suggestion
@@ -12439,7 +12472,7 @@ apis:
 - aid: deputy:deputy-timesheetexport-api
   name: Deputy Timesheet Export API
   description: Operations on the TimesheetExport resource
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - Timesheet Export
@@ -12507,7 +12540,7 @@ apis:
 - aid: deputy:deputy-timesheetpayforecast-api
   name: Deputy Timesheet Pay Forecast API
   description: Operations on the TimesheetPayForecast resource
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - TimesheetPayForecast
@@ -12573,7 +12606,7 @@ apis:
 - aid: deputy:deputy-timesheetpayreturn-api
   name: Deputy Timesheet Pay Return API
   description: Operations on the TimesheetPayReturn resource
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - TimesheetPayReturn
@@ -12639,7 +12672,7 @@ apis:
 - aid: deputy:deputy-timesheetpayreturndetail-api
   name: Deputy Timesheet Pay Return Detail API
   description: Operations on the TimesheetPayReturnDetail resource
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - TimesheetPayReturnDetail
@@ -12706,7 +12739,7 @@ apis:
   name: Deputy Timesheet Question Remediation API
   description: >-
     The TimesheetQuestionRemediation API from Deputy — 3 operation(s) for timesheetquestionremediation.
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - TimesheetQuestionRemediation
@@ -12772,7 +12805,7 @@ apis:
 - aid: deputy:deputy-timesheets-api
   name: Deputy Timesheets API
   description: The Timesheets API from Deputy — 12 operation(s) for timesheets.
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - Timesheets
@@ -12838,7 +12871,7 @@ apis:
 - aid: deputy:deputy-timesheets-export-api
   name: Deputy Timesheets Export API
   description: The Timesheets Export API from Deputy — 1 operation(s) for timesheets export.
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - Timesheets Export
@@ -12904,7 +12937,7 @@ apis:
 - aid: deputy:deputy-todo-api
   name: Deputy Todo API
   description: V1 /my/todo/* endpoints
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - To-Do
@@ -12972,7 +13005,7 @@ apis:
 - aid: deputy:deputy-token-api
   name: Deputy Token API
   description: V1 /my/token/* endpoints
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - Tokens
@@ -13040,7 +13073,7 @@ apis:
 - aid: deputy:deputy-training-api
   name: Deputy Training API
   description: V1 /my/training/* endpoints
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - Training
@@ -13106,7 +13139,7 @@ apis:
 - aid: deputy:deputy-trainingmodule-api
   name: Deputy Training Module API
   description: Operations on the TrainingModule resource
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - TrainingModule
@@ -13172,7 +13205,7 @@ apis:
 - aid: deputy:deputy-trainingrecord-api
   name: Deputy Training Record API
   description: Operations on the TrainingRecord resource
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - TrainingRecord
@@ -13238,7 +13271,7 @@ apis:
 - aid: deputy:deputy-unavail-api
   name: Deputy Unavail API
   description: V1 /my/unavail/* endpoints
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - Unavail
@@ -13304,7 +13337,7 @@ apis:
 - aid: deputy:deputy-update-a-flag-record-api
   name: Deputy Update a Flag Record API
   description: The Update a Flag Record API from Deputy — 1 operation(s) for update a flag record.
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - Update a Flag Record
@@ -13370,7 +13403,7 @@ apis:
 - aid: deputy:deputy-user-api
   name: Deputy User API
   description: The User API from Deputy — 1 operation(s) for user.
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - User
@@ -13436,7 +13469,7 @@ apis:
 - aid: deputy:deputy-user-info-api
   name: Deputy User info API
   description: The User info API from Deputy — 1 operation(s) for user info.
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - UserInfo
@@ -13504,7 +13537,7 @@ apis:
 - aid: deputy:deputy-user-sso-link-api
   name: Deputy User SSO Link API
   description: The User SSO Link API from Deputy — 1 operation(s) for user sso link.
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - User SSO Link
@@ -13570,7 +13603,7 @@ apis:
 - aid: deputy:deputy-weather-api
   name: Deputy Weather API
   description: The Weather API from Deputy — 1 operation(s) for weather.
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - Weather
@@ -13636,7 +13669,7 @@ apis:
 - aid: deputy:deputy-webhook-api
   name: Deputy Webhook API
   description: Operations on the Webhook resource
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - Webhook
@@ -13702,7 +13735,7 @@ apis:
 - aid: deputy:deputy-webhook-triggers-api
   name: Deputy Webhook Triggers API
   description: The Webhook Triggers API from Deputy — 2 operation(s) for webhook triggers.
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - Webhook Triggers
@@ -13768,7 +13801,7 @@ apis:
 - aid: deputy:deputy-widget-api
   name: Deputy Widget API
   description: V1 /my/widget/* endpoints
-  humanURL: https://developer.deputy.com/deputy-docs
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
   - Widgets
@@ -13833,16 +13866,34 @@ apis:
     url: json-schema/deputy-hr-export-export-hr-data-response-schema.json
   - type: JSONSchema
     url: json-schema/deputy-hr-export-export-hr-pay-details-data-response-schema.json
-- aid: deputy:deputy-custom-field-api
-  name: Deputy Custom Field API
-  description: Operations on the CustomField resource
-  humanURL: https://developer.deputy.com/deputy-docs
+- aid: deputy:deputy-departments-api
+  name: Deputy Departments API
+  description: The Departments API from Deputy — 5 operation(s) for departments.
+  humanURL: https://developer.deputy.com
   baseURL: https://{install}.{geo}.deputy.com/api/v1
   tags:
-  - Custom Field
+  - Departments
   properties:
   - type: OpenAPI
-    url: openapi/deputy-custom-field-api-openapi.yml
+    url: openapi/deputy-departments-api-openapi.yml
+  - type: Documentation
+    url: https://developer.deputy.com
+  - type: GettingStarted
+    url: https://developer.deputy.com/docs/getting-started-with-the-deputy-api
+  - type: Authentication
+    url: https://developer.deputy.com/docs/using-oauth-20
+  - type: JSONSchema
+    url: json-schema/deputy-custom-field-data-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-timesheet-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-employee-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-pay-rules-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-roster-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-employee-agreement-schema.json
   - type: JSONSchema
     url: json-schema/deputy-addanemployee-request-schema.json
   - type: JSONSchema
@@ -13856,6 +13907,54 @@ apis:
   - type: JSONSchema
     url: json-schema/deputy-setawardforemployee-request-schema.json
   - type: JSONSchema
+    url: json-schema/deputy-tenanttimesheetv2model-timesheet-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-pay-comparison-submit-report-request-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-v2model-leave-request-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-v2model-employment-contracts-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-copy-request-copy-request-data-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-v2model-area-profile-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-searchfor-employment-contract-leave-rules-request-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-searchforan-employee-agreement-history-request-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-searchforan-employee-availability-request-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-searchforacustomfielddataentry-request-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-searchforan-employment-condition-request-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-searchforan-employment-contract-request-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-hr-export-export-hr-bulk-data-response-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-user-info-get-response-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-hr-export-export-hr-data-response-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-hr-export-export-hr-pay-details-data-response-schema.json
+- aid: deputy:deputy-locations-api
+  name: Deputy Locations API
+  description: The Locations API from Deputy — 8 operation(s) for locations.
+  humanURL: https://developer.deputy.com
+  baseURL: https://{install}.{geo}.deputy.com/api/v1
+  tags:
+  - Locations
+  properties:
+  - type: OpenAPI
+    url: openapi/deputy-locations-api-openapi.yml
+  - type: Documentation
+    url: https://developer.deputy.com
+  - type: GettingStarted
+    url: https://developer.deputy.com/docs/getting-started-with-the-deputy-api
+  - type: Authentication
+    url: https://developer.deputy.com/docs/using-oauth-20
+  - type: JSONSchema
     url: json-schema/deputy-custom-field-data-schema.json
   - type: JSONSchema
     url: json-schema/deputy-timesheet-schema.json
@@ -13867,6 +13966,604 @@ apis:
     url: json-schema/deputy-roster-schema.json
   - type: JSONSchema
     url: json-schema/deputy-employee-agreement-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-addanemployee-request-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-createa-department-request-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-addleaveforaemployee-request-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-createamemo-request-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-add-new-workplace-request-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-setawardforemployee-request-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-tenanttimesheetv2model-timesheet-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-pay-comparison-submit-report-request-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-v2model-leave-request-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-v2model-employment-contracts-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-copy-request-copy-request-data-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-v2model-area-profile-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-searchfor-employment-contract-leave-rules-request-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-searchforan-employee-agreement-history-request-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-searchforan-employee-availability-request-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-searchforacustomfielddataentry-request-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-searchforan-employment-condition-request-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-searchforan-employment-contract-request-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-hr-export-export-hr-bulk-data-response-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-user-info-get-response-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-hr-export-export-hr-data-response-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-hr-export-export-hr-pay-details-data-response-schema.json
+- aid: deputy:deputy-logged-in-user-details-api
+  name: Deputy Logged in User Details API
+  description: >-
+    # All about "Me"
+
+
+    This set of API endpoints allow you to retrieve data about the authenticated user the API token relates
+    too. You can find information out such as locations the user is able to work, their contact details,
+    current rosters and timesheets just to name a few options.
+
+
+    In many cases you can also provide updates to this profile via the API. For example there are endpoints
+    which allow you to update a contact address or photo.
+  humanURL: https://developer.deputy.com
+  baseURL: https://{install}.{geo}.deputy.com/api/v1
+  tags:
+  - Logged in User Details
+  properties:
+  - type: OpenAPI
+    url: openapi/deputy-logged-in-user-details-api-openapi.yml
+  - type: Documentation
+    url: https://developer.deputy.com
+  - type: GettingStarted
+    url: https://developer.deputy.com/docs/getting-started-with-the-deputy-api
+  - type: Authentication
+    url: https://developer.deputy.com/docs/using-oauth-20
+  - type: JSONSchema
+    url: json-schema/deputy-custom-field-data-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-timesheet-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-employee-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-pay-rules-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-roster-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-employee-agreement-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-addanemployee-request-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-createa-department-request-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-addleaveforaemployee-request-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-createamemo-request-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-add-new-workplace-request-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-setawardforemployee-request-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-tenanttimesheetv2model-timesheet-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-pay-comparison-submit-report-request-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-v2model-leave-request-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-v2model-employment-contracts-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-copy-request-copy-request-data-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-v2model-area-profile-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-searchfor-employment-contract-leave-rules-request-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-searchforan-employee-agreement-history-request-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-searchforan-employee-availability-request-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-searchforacustomfielddataentry-request-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-searchforan-employment-condition-request-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-searchforan-employment-contract-request-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-hr-export-export-hr-bulk-data-response-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-user-info-get-response-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-hr-export-export-hr-data-response-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-hr-export-export-hr-pay-details-data-response-schema.json
+- aid: deputy:deputy-management-api
+  name: Deputy Management API
+  description: The Management API from Deputy — 10 operation(s) for management.
+  humanURL: https://developer.deputy.com
+  baseURL: https://{install}.{geo}.deputy.com/api/v1
+  tags:
+  - Management
+  properties:
+  - type: OpenAPI
+    url: openapi/deputy-management-api-openapi.yml
+  - type: Documentation
+    url: https://developer.deputy.com
+  - type: GettingStarted
+    url: https://developer.deputy.com/docs/getting-started-with-the-deputy-api
+  - type: Authentication
+    url: https://developer.deputy.com/docs/using-oauth-20
+  - type: JSONSchema
+    url: json-schema/deputy-custom-field-data-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-timesheet-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-employee-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-pay-rules-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-roster-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-employee-agreement-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-addanemployee-request-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-createa-department-request-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-addleaveforaemployee-request-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-createamemo-request-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-add-new-workplace-request-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-setawardforemployee-request-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-tenanttimesheetv2model-timesheet-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-pay-comparison-submit-report-request-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-v2model-leave-request-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-v2model-employment-contracts-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-copy-request-copy-request-data-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-v2model-area-profile-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-searchfor-employment-contract-leave-rules-request-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-searchforan-employee-agreement-history-request-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-searchforan-employee-availability-request-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-searchforacustomfielddataentry-request-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-searchforan-employment-condition-request-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-searchforan-employment-contract-request-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-hr-export-export-hr-bulk-data-response-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-user-info-get-response-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-hr-export-export-hr-data-response-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-hr-export-export-hr-pay-details-data-response-schema.json
+- aid: deputy:deputy-pay-rates-api
+  name: Deputy Pay Rates API
+  description: The Pay Rates API from Deputy — 2 operation(s) for pay rates.
+  humanURL: https://developer.deputy.com
+  baseURL: https://{install}.{geo}.deputy.com/api/v1
+  tags:
+  - Pay Rates
+  properties:
+  - type: OpenAPI
+    url: openapi/deputy-pay-rates-api-openapi.yml
+  - type: Documentation
+    url: https://developer.deputy.com
+  - type: GettingStarted
+    url: https://developer.deputy.com/docs/getting-started-with-the-deputy-api
+  - type: Authentication
+    url: https://developer.deputy.com/docs/using-oauth-20
+  - type: JSONSchema
+    url: json-schema/deputy-custom-field-data-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-timesheet-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-employee-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-pay-rules-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-roster-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-employee-agreement-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-addanemployee-request-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-createa-department-request-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-addleaveforaemployee-request-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-createamemo-request-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-add-new-workplace-request-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-setawardforemployee-request-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-tenanttimesheetv2model-timesheet-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-pay-comparison-submit-report-request-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-v2model-leave-request-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-v2model-employment-contracts-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-copy-request-copy-request-data-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-v2model-area-profile-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-searchfor-employment-contract-leave-rules-request-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-searchforan-employee-agreement-history-request-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-searchforan-employee-availability-request-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-searchforacustomfielddataentry-request-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-searchforan-employment-condition-request-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-searchforan-employment-contract-request-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-hr-export-export-hr-bulk-data-response-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-user-info-get-response-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-hr-export-export-hr-data-response-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-hr-export-export-hr-pay-details-data-response-schema.json
+- aid: deputy:deputy-rosters-api
+  name: Deputy Rosters API
+  description: The Rosters API from Deputy — 5 operation(s) for rosters.
+  humanURL: https://developer.deputy.com
+  baseURL: https://{install}.{geo}.deputy.com/api/v1
+  tags:
+  - Rosters
+  properties:
+  - type: OpenAPI
+    url: openapi/deputy-rosters-api-openapi.yml
+  - type: Documentation
+    url: https://developer.deputy.com
+  - type: GettingStarted
+    url: https://developer.deputy.com/docs/getting-started-with-the-deputy-api
+  - type: Authentication
+    url: https://developer.deputy.com/docs/using-oauth-20
+  - type: JSONSchema
+    url: json-schema/deputy-custom-field-data-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-timesheet-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-employee-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-pay-rules-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-roster-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-employee-agreement-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-addanemployee-request-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-createa-department-request-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-addleaveforaemployee-request-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-createamemo-request-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-add-new-workplace-request-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-setawardforemployee-request-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-tenanttimesheetv2model-timesheet-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-pay-comparison-submit-report-request-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-v2model-leave-request-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-v2model-employment-contracts-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-copy-request-copy-request-data-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-v2model-area-profile-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-searchfor-employment-contract-leave-rules-request-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-searchforan-employee-agreement-history-request-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-searchforan-employee-availability-request-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-searchforacustomfielddataentry-request-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-searchforan-employment-condition-request-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-searchforan-employment-contract-request-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-hr-export-export-hr-bulk-data-response-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-user-info-get-response-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-hr-export-export-hr-data-response-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-hr-export-export-hr-pay-details-data-response-schema.json
+- aid: deputy:deputy-sales-api
+  name: Deputy Sales API
+  description: The Sales API from Deputy — 2 operation(s) for sales.
+  humanURL: https://developer.deputy.com
+  baseURL: https://{install}.{geo}.deputy.com/api/v1
+  tags:
+  - Sales
+  properties:
+  - type: OpenAPI
+    url: openapi/deputy-sales-api-openapi.yml
+  - type: Documentation
+    url: https://developer.deputy.com
+  - type: GettingStarted
+    url: https://developer.deputy.com/docs/getting-started-with-the-deputy-api
+  - type: Authentication
+    url: https://developer.deputy.com/docs/using-oauth-20
+  - type: JSONSchema
+    url: json-schema/deputy-custom-field-data-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-timesheet-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-employee-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-pay-rules-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-roster-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-employee-agreement-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-addanemployee-request-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-createa-department-request-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-addleaveforaemployee-request-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-createamemo-request-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-add-new-workplace-request-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-setawardforemployee-request-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-tenanttimesheetv2model-timesheet-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-pay-comparison-submit-report-request-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-v2model-leave-request-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-v2model-employment-contracts-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-copy-request-copy-request-data-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-v2model-area-profile-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-searchfor-employment-contract-leave-rules-request-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-searchforan-employee-agreement-history-request-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-searchforan-employee-availability-request-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-searchforacustomfielddataentry-request-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-searchforan-employment-condition-request-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-searchforan-employment-contract-request-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-hr-export-export-hr-bulk-data-response-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-user-info-get-response-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-hr-export-export-hr-data-response-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-hr-export-export-hr-pay-details-data-response-schema.json
+- aid: deputy:deputy-utility-request-api
+  name: Deputy Utility request API
+  description: The Utility request API from Deputy — 2 operation(s) for utility request.
+  humanURL: https://developer.deputy.com
+  baseURL: https://{install}.{geo}.deputy.com/api/v1
+  tags:
+  - Utility request
+  properties:
+  - type: OpenAPI
+    url: openapi/deputy-utility-request-api-openapi.yml
+  - type: Documentation
+    url: https://developer.deputy.com
+  - type: GettingStarted
+    url: https://developer.deputy.com/docs/getting-started-with-the-deputy-api
+  - type: Authentication
+    url: https://developer.deputy.com/docs/using-oauth-20
+  - type: JSONSchema
+    url: json-schema/deputy-custom-field-data-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-timesheet-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-employee-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-pay-rules-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-roster-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-employee-agreement-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-addanemployee-request-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-createa-department-request-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-addleaveforaemployee-request-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-createamemo-request-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-add-new-workplace-request-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-setawardforemployee-request-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-tenanttimesheetv2model-timesheet-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-pay-comparison-submit-report-request-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-v2model-leave-request-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-v2model-employment-contracts-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-copy-request-copy-request-data-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-v2model-area-profile-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-searchfor-employment-contract-leave-rules-request-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-searchforan-employee-agreement-history-request-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-searchforan-employee-availability-request-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-searchforacustomfielddataentry-request-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-searchforan-employment-condition-request-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-searchforan-employment-contract-request-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-hr-export-export-hr-bulk-data-response-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-user-info-get-response-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-hr-export-export-hr-data-response-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-hr-export-export-hr-pay-details-data-response-schema.json
+- aid: deputy:deputy-webhooks-api
+  name: Deputy Webhooks API
+  description: The Webhooks API from Deputy — 1 operation(s) for webhooks.
+  humanURL: https://developer.deputy.com
+  baseURL: https://{install}.{geo}.deputy.com/api/v1
+  tags:
+  - Webhooks
+  properties:
+  - type: OpenAPI
+    url: openapi/deputy-webhooks-api-openapi.yml
+  - type: Documentation
+    url: https://developer.deputy.com
+  - type: GettingStarted
+    url: https://developer.deputy.com/docs/getting-started-with-the-deputy-api
+  - type: Authentication
+    url: https://developer.deputy.com/docs/using-oauth-20
+  - type: JSONSchema
+    url: json-schema/deputy-custom-field-data-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-timesheet-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-employee-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-pay-rules-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-roster-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-employee-agreement-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-addanemployee-request-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-createa-department-request-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-addleaveforaemployee-request-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-createamemo-request-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-add-new-workplace-request-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-setawardforemployee-request-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-tenanttimesheetv2model-timesheet-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-pay-comparison-submit-report-request-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-v2model-leave-request-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-v2model-employment-contracts-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-copy-request-copy-request-data-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-v2model-area-profile-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-searchfor-employment-contract-leave-rules-request-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-searchforan-employee-agreement-history-request-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-searchforan-employee-availability-request-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-searchforacustomfielddataentry-request-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-searchforan-employment-condition-request-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-searchforan-employment-contract-request-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-hr-export-export-hr-bulk-data-response-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-user-info-get-response-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-hr-export-export-hr-data-response-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-hr-export-export-hr-pay-details-data-response-schema.json
+- aid: deputy:deputy-custom-field-api
+  name: Deputy Custom Field API
+  description: Operations on the CustomField resource
+  humanURL: https://developer.deputy.com
+  baseURL: https://{install}.{geo}.deputy.com/api/v1
+  tags:
+  - Custom Field
+  properties:
+  - type: OpenAPI
+    url: openapi/deputy-custom-field-api-openapi.yml
+  - type: Documentation
+    url: https://developer.deputy.com
+  - type: GettingStarted
+    url: https://developer.deputy.com/docs/getting-started-with-the-deputy-api
+  - type: Authentication
+    url: https://developer.deputy.com/docs/using-oauth-20
+  - type: JSONSchema
+    url: json-schema/deputy-custom-field-data-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-timesheet-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-employee-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-pay-rules-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-roster-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-employee-agreement-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-addanemployee-request-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-createa-department-request-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-addleaveforaemployee-request-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-createamemo-request-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-add-new-workplace-request-schema.json
+  - type: JSONSchema
+    url: json-schema/deputy-setawardforemployee-request-schema.json
   - type: JSONSchema
     url: json-schema/deputy-tenanttimesheetv2model-timesheet-schema.json
   - type: JSONSchema
@@ -13904,3 +14601,9 @@ x-readme-harvest:
   ops: 1773
   tool: harvest-readme-openapi.py
   portal: https://developer.deputy.com
+x-enrichment:
+  date: '2026-10-21'
+  status: enriched
+  artifacts_added: 240
+  pass: modular-v1
+  engine: identity=anthropic,contract=anthropic,surfaces=anthropic,docs=anthropic,regulatory=anthropic

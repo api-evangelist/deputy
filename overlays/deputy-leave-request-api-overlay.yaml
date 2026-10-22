@@ -1,0 +1,41 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for deputy-leave-request-api-openapi.yml
+  version: 1.0.0
+extends: openapi/deputy-leave-request-api-openapi.yml
+x-generated: '2026-10-21'
+x-method: generated
+actions:
+- target: $.info
+  description: Point agents at the provider llms.txt and docs MCP surface
+  update:
+    x-llms-txt: https://developer.deputy.com/llms.txt
+    x-agent-skills-index: https://developer.deputy.com/.well-known/agent-skills/index.json
+    x-mcp-docs-server:
+      url: https://developer.deputy.com/mcp
+      status: gated (HTTP 401 Bearer realm="mcp" on initialize, 2026-10-21)
+- target: $.paths['/management/v2/leave-requests'].get
+  description: Tag LeaveRequestV2Controller_list with the agent skill(s) that use it
+  update:
+    x-agent-skills:
+    - skills/deputy-request-and-manage-leave.md
+- target: $.paths['/management/v2/leave-requests'].post
+  description: Tag LeaveRequestV2Controller_create with the agent skill(s) that use it
+  update:
+    x-agent-skills:
+    - skills/deputy-request-and-manage-leave.md
+- target: $.paths['/management/v2/leave-requests/approval:validate'].post
+  description: Tag LeaveRequestV2Controller_validateLeaveRequestForApproval with the agent skill(s) that use it
+  update:
+    x-agent-skills:
+    - skills/deputy-request-and-manage-leave.md
+- target: $.paths['/management/v2/leave-requests/{id}'].get
+  description: Tag LeaveRequestV2Controller_get with the agent skill(s) that use it
+  update:
+    x-agent-skills:
+    - skills/deputy-request-and-manage-leave.md
+- target: $.paths['/management/v2/leave-requests/{id}'].put
+  description: Tag LeaveRequestV2Controller_update with the agent skill(s) that use it
+  update:
+    x-agent-skills:
+    - skills/deputy-request-and-manage-leave.md

@@ -1,0 +1,16 @@
+generated: '2026-10-21'
+method: searched
+source:
+- https://developer.deputy.com/docs/getting-started-with-the-deputy-api.md
+- https://developer.deputy.com/docs/using-oauth-20.md
+- https://www.deputy.com/pricing
+description: There is no separate test mode or test keys. You develop against a trial Deputy install, which the docs call a sandbox. "If you're interested in using a sandbox, sign up for a Deputy account and contact apisupport@deputy.com to request an extension of your trial period for the duration of your development phase." The trial "can be used to set up a new integration as well as for ongoing platform testing. By default, the trial period lasts for seven days". The pricing page also lists a "Sandbox environment" as a Pro plan feature.
+docs: https://developer.deputy.com/docs/getting-started-with-the-deputy-api
+modes:
+- name: trial install
+  host_pattern: https://{install}.{geo}.deputy.com
+  regions: [AU, EU, UK, US]
+  default_duration: seven days (extendable via apisupport@deputy.com)
+test_credentials: none published
+test_data: none published
+time_simulation: none

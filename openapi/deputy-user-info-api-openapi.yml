@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: Deputy V2 Scoped User Info API
+  title: Deputy V2 Scoped User info API
   version: '1.0'
   description: Scoped-OAuth API. These endpoints require a specific OAuth scope (e.g. HR export) and are NOT callable with a standard Deputy access token. Request the appropriate scope during your OAuth flow.
 servers:
@@ -75,18 +75,7 @@ components:
       type: apiKey
       in: header
       name: OAuth
-x-provenance:
-  method: searched
-  source: https://developer.deputy.com/reference
-  harvested: '2026-10-14'
-  tool: harvest-readme-openapi.py
-  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
-  assembled_from:
-  - https://developer.deputy.com/reference/hrexportv2controller_exporthrbulkdata.md
-  - https://developer.deputy.com/reference/hrexportv2controller_exporthrdata.md
-  - https://developer.deputy.com/reference/hrexportv2controller_exporthrpaydetailsdata.md
-  - https://developer.deputy.com/reference/userinfov2controller_get.md
-  merge:
-    pages: 4
-    deduped: 3
-    conflicts_kept_first: 0
+    JWTInternalToken:
+      type: apiKey
+      in: header
+      name: Bearer

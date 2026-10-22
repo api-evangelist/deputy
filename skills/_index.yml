@@ -1,0 +1,69 @@
+name: Deputy agent skills
+generated: '2026-10-21'
+method: generated
+source: Six skills generated from the operationIds in openapi/ (each checked against the spec), plus one skill Deputy publishes
+  itself at /.well-known/agent-skills/index.json, saved verbatim.
+skills:
+- file: deputy-build-and-publish-a-roster.md
+  name: Build and publish a roster (schedule shifts)
+  api: openapi/deputy-roster-api-openapi.yml
+  operations:
+  - createRoster
+  - supervise_roster__post
+  - ScheduleAgentV2Controller_upsertShifts
+  - supervise_roster__autobuild_post
+  - supervise_roster__checkautobuild_jobkey_get
+  - supervise_roster__publish_post
+  - listRoster
+- file: deputy-clock-an-employee-on-and-off.md
+  name: Clock an employee on, take a break, and clock off
+  api: openapi/deputy-timesheet-api-openapi.yml
+  operations:
+  - Startanemployeestimesheet(ClockOn)
+  - Pauseorunpauseemployeestimesheet(takeabreak/finishbreak)
+  - Stopanemployeestimesheet(ClockOff)
+  - Viewatimesheetbyid
+  - listTimesheet
+- file: deputy-approve-timesheets.md
+  name: Review and approve timesheets for payroll
+  api: openapi/deputy-timesheet-api-openapi.yml
+  operations:
+  - listTimesheet
+  - getTimesheetById
+  - TsaV2Controller_approveTimesheet
+  - TsaV2Controller_approveTimeTimesheet
+- file: deputy-request-and-manage-leave.md
+  name: Request and manage employee leave
+  api: openapi/deputy-leave-request-api-openapi.yml
+  operations:
+  - LeaveRequestV2Controller_create
+  - LeaveRequestV2Controller_validateLeaveRequestForApproval
+  - LeaveRequestV2Controller_get
+  - LeaveRequestV2Controller_list
+  - LeaveRequestV2Controller_update
+- file: deputy-onboard-an-employee.md
+  name: Add and onboard an employee
+  api: openapi/deputy-employees-api-openapi.yml
+  operations:
+  - Addanemployee
+  - Addalocationagainstanemployee
+  - InviteemployeetoDeputy
+  - Getdetailsforaemployeebyid
+  - EmployeesV2Controller_create
+- file: deputy-subscribe-to-webhooks.md
+  name: Subscribe to Deputy webhooks
+  api: openapi/deputy-webhook-api-openapi.yml
+  operations:
+  - createWebhook
+  - listWebhook
+  - getWebhookById
+  - deleteWebhook
+- file: deputy-read-the-docs/SKILL.md
+  name: read-the-docs
+  provenance: provider-published
+  method: searched
+  source: https://developer.deputy.com/.well-known/agent-skills/read-the-docs/SKILL.md
+  discovery: https://developer.deputy.com/.well-known/agent-skills/index.json
+  digest: sha256:86d0a3174c80fb385f67f266d556074c87fd1fb1ec07a4771adc13ff52b8796e
+  note: Saved verbatim (HTTP 200, 397 bytes); digest matches the provider index.
+  operations: []

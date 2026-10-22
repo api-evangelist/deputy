@@ -2,7 +2,7 @@ openapi: 3.2.0
 info:
   title: Deputy Timesheet API
   version: 1.0.0
-  description: 'Operations tagged Timesheet across 2 of this provider''s published API definitions: deputy-openapi.json, deputy-timesheet-api-openapi.yml. Each path carries the servers of the definition it was published in.'
+  description: 'Operations tagged Timesheet across 3 of this provider''s published API definitions: deputy-openapi.json, deputy-v1-resource-api.json, deputy-v1-supervise-api.json. Each path carries the servers of the definition it was published in.'
 servers:
 - url: https://{subdomain}.{region}.deputy.com/api/v1
   description: Deputy tenant
@@ -427,19 +427,6 @@ paths:
           - na
           - deputy
   /resource/Timesheet:
-    servers:
-    - url: https://{subdomain}.{region}.deputy.com/api/v1
-      description: Deputy tenant
-      variables:
-        subdomain:
-          default: your-subdomain
-        region:
-          default: deputy
-          enum:
-          - au
-          - eu
-          - na
-          - deputy
     get:
       tags:
       - Timesheet
@@ -524,7 +511,6 @@ paths:
       security:
       - BearerAuth: []
       - OAuth2: []
-  /resource/Timesheet/BULK:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -538,6 +524,91 @@ paths:
           - eu
           - na
           - deputy
+  /resource/Timesheet/INFO:
+    get:
+      tags:
+      - Timesheet
+      summary: Get field metadata for Timesheet
+      description: Returns the field list, types, and associations for this resource. Useful when building integrations that need to know which fields are queryable.
+      operationId: infoTimesheet
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Authentication required or invalid token
+        '403':
+          description: Forbidden — token lacks access to this resource
+        '404':
+          description: Resource not found
+      security:
+      - BearerAuth: []
+      - OAuth2: []
+    servers:
+    - url: https://{subdomain}.{region}.deputy.com/api/v1
+      description: Deputy tenant
+      variables:
+        subdomain:
+          default: your-subdomain
+        region:
+          default: deputy
+          enum:
+          - au
+          - eu
+          - na
+          - deputy
+  /resource/Timesheet/QUERY:
+    post:
+      tags:
+      - Timesheet
+      summary: Search Timesheet
+      description: 'Flexible search endpoint. Body supports `search`, `sort`, `start`, `max`, and `join` clauses. Example: `{"search": {"s1": {"field": "Id", "data": 1, "type": "eq"}}}`.'
+      operationId: searchTimesheet
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/QueryRequest'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Timesheet'
+        '400':
+          description: Bad request
+        '401':
+          description: Authentication required or invalid token
+        '403':
+          description: Forbidden — token lacks access to this resource
+        '404':
+          description: Resource not found
+      security:
+      - BearerAuth: []
+      - OAuth2: []
+    servers:
+    - url: https://{subdomain}.{region}.deputy.com/api/v1
+      description: Deputy tenant
+      variables:
+        subdomain:
+          default: your-subdomain
+        region:
+          default: deputy
+          enum:
+          - au
+          - eu
+          - na
+          - deputy
+  /resource/Timesheet/BULK:
     post:
       tags:
       - Timesheet
@@ -572,7 +643,6 @@ paths:
       security:
       - BearerAuth: []
       - OAuth2: []
-  /resource/Timesheet/INFO:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -586,44 +656,7 @@ paths:
           - eu
           - na
           - deputy
-    get:
-      tags:
-      - Timesheet
-      summary: Get field metadata for Timesheet
-      description: Returns the field list, types, and associations for this resource. Useful when building integrations that need to know which fields are queryable.
-      operationId: infoTimesheet
-      responses:
-        '200':
-          description: Success
-          content:
-            application/json:
-              schema:
-                type: object
-        '400':
-          description: Bad request
-        '401':
-          description: Authentication required or invalid token
-        '403':
-          description: Forbidden — token lacks access to this resource
-        '404':
-          description: Resource not found
-      security:
-      - BearerAuth: []
-      - OAuth2: []
   /resource/Timesheet/PREDICT:
-    servers:
-    - url: https://{subdomain}.{region}.deputy.com/api/v1
-      description: Deputy tenant
-      variables:
-        subdomain:
-          default: your-subdomain
-        region:
-          default: deputy
-          enum:
-          - au
-          - eu
-          - na
-          - deputy
     post:
       tags:
       - Timesheet
@@ -654,7 +687,6 @@ paths:
       security:
       - BearerAuth: []
       - OAuth2: []
-  /resource/Timesheet/QUERY:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -668,52 +700,7 @@ paths:
           - eu
           - na
           - deputy
-    post:
-      tags:
-      - Timesheet
-      summary: Search Timesheet
-      description: 'Flexible search endpoint. Body supports `search`, `sort`, `start`, `max`, and `join` clauses. Example: `{"search": {"s1": {"field": "Id", "data": 1, "type": "eq"}}}`.'
-      operationId: searchTimesheet
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/QueryRequest'
-      responses:
-        '200':
-          description: Success
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Timesheet'
-        '400':
-          description: Bad request
-        '401':
-          description: Authentication required or invalid token
-        '403':
-          description: Forbidden — token lacks access to this resource
-        '404':
-          description: Resource not found
-      security:
-      - BearerAuth: []
-      - OAuth2: []
   /resource/Timesheet/{id}:
-    servers:
-    - url: https://{subdomain}.{region}.deputy.com/api/v1
-      description: Deputy tenant
-      variables:
-        subdomain:
-          default: your-subdomain
-        region:
-          default: deputy
-          enum:
-          - au
-          - eu
-          - na
-          - deputy
     get:
       tags:
       - Timesheet
@@ -849,7 +836,6 @@ paths:
       security:
       - BearerAuth: []
       - OAuth2: []
-  /resource/Timesheet/{id}/COMMENTS:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -863,6 +849,104 @@ paths:
           - eu
           - na
           - deputy
+  /resource/Timesheet/{id}/HISTORY:
+    get:
+      tags:
+      - Timesheet
+      summary: Get change history for a Timesheet
+      operationId: historyTimesheet
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: Numeric id of the resource
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Timesheet'
+        '400':
+          description: Bad request
+        '401':
+          description: Authentication required or invalid token
+        '403':
+          description: Forbidden — token lacks access to this resource
+        '404':
+          description: Resource not found
+      security:
+      - BearerAuth: []
+      - OAuth2: []
+    servers:
+    - url: https://{subdomain}.{region}.deputy.com/api/v1
+      description: Deputy tenant
+      variables:
+        subdomain:
+          default: your-subdomain
+        region:
+          default: deputy
+          enum:
+          - au
+          - eu
+          - na
+          - deputy
+  /resource/Timesheet/{id}/HISTORY/travel/{timestamp}:
+    get:
+      tags:
+      - Timesheet
+      summary: Get a Timesheet as it existed at a prior time
+      operationId: historyTimesheetTravel
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: Numeric id of the resource
+      - name: timestamp
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+        description: Unix epoch seconds
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Timesheet'
+        '400':
+          description: Bad request
+        '401':
+          description: Authentication required or invalid token
+        '403':
+          description: Forbidden — token lacks access to this resource
+        '404':
+          description: Resource not found
+      security:
+      - BearerAuth: []
+      - OAuth2: []
+    servers:
+    - url: https://{subdomain}.{region}.deputy.com/api/v1
+      description: Deputy tenant
+      variables:
+        subdomain:
+          default: your-subdomain
+        region:
+          default: deputy
+          enum:
+          - au
+          - eu
+          - na
+          - deputy
+  /resource/Timesheet/{id}/COMMENTS:
     get:
       tags:
       - Timesheet
@@ -946,7 +1030,6 @@ paths:
       security:
       - BearerAuth: []
       - OAuth2: []
-  /resource/Timesheet/{id}/COMMENTS/{commentId}:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -960,6 +1043,7 @@ paths:
           - eu
           - na
           - deputy
+  /resource/Timesheet/{id}/COMMENTS/{commentId}:
     delete:
       tags:
       - Timesheet
@@ -998,7 +1082,6 @@ paths:
       security:
       - BearerAuth: []
       - OAuth2: []
-  /resource/Timesheet/{id}/HISTORY:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -1012,103 +1095,7 @@ paths:
           - eu
           - na
           - deputy
-    get:
-      tags:
-      - Timesheet
-      summary: Get change history for a Timesheet
-      operationId: historyTimesheet
-      parameters:
-      - name: id
-        in: path
-        required: true
-        schema:
-          type: integer
-        description: Numeric id of the resource
-      responses:
-        '200':
-          description: Success
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Timesheet'
-        '400':
-          description: Bad request
-        '401':
-          description: Authentication required or invalid token
-        '403':
-          description: Forbidden — token lacks access to this resource
-        '404':
-          description: Resource not found
-      security:
-      - BearerAuth: []
-      - OAuth2: []
-  /resource/Timesheet/{id}/HISTORY/travel/{timestamp}:
-    servers:
-    - url: https://{subdomain}.{region}.deputy.com/api/v1
-      description: Deputy tenant
-      variables:
-        subdomain:
-          default: your-subdomain
-        region:
-          default: deputy
-          enum:
-          - au
-          - eu
-          - na
-          - deputy
-    get:
-      tags:
-      - Timesheet
-      summary: Get a Timesheet as it existed at a prior time
-      operationId: historyTimesheetTravel
-      parameters:
-      - name: id
-        in: path
-        required: true
-        schema:
-          type: integer
-        description: Numeric id of the resource
-      - name: timestamp
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int64
-        description: Unix epoch seconds
-      responses:
-        '200':
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Timesheet'
-        '400':
-          description: Bad request
-        '401':
-          description: Authentication required or invalid token
-        '403':
-          description: Forbidden — token lacks access to this resource
-        '404':
-          description: Resource not found
-      security:
-      - BearerAuth: []
-      - OAuth2: []
   /supervise/timesheet/bulk/check/{jobId}:
-    servers:
-    - url: https://{subdomain}.{region}.deputy.com/api/v1
-      description: Deputy tenant
-      variables:
-        subdomain:
-          default: your-subdomain
-        region:
-          default: deputy
-          enum:
-          - au
-          - eu
-          - na
-          - deputy
     get:
       tags:
       - Timesheet
@@ -1137,7 +1124,6 @@ paths:
           type: string
       security:
       - BearerAuth: []
-  /supervise/timesheet/bulk/recalculate:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -1151,6 +1137,7 @@ paths:
           - eu
           - na
           - deputy
+  /supervise/timesheet/bulk/recalculate:
     post:
       tags:
       - Timesheet
@@ -1179,7 +1166,6 @@ paths:
               type: object
       security:
       - BearerAuth: []
-  /supervise/timesheet/{employeeId}/{date}:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -1193,6 +1179,7 @@ paths:
           - eu
           - na
           - deputy
+  /supervise/timesheet/{employeeId}/{date}:
     get:
       tags:
       - Timesheet
@@ -1226,7 +1213,6 @@ paths:
           type: string
       security:
       - BearerAuth: []
-  /supervise/timesheet/{id}/details:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -1240,6 +1226,7 @@ paths:
           - eu
           - na
           - deputy
+  /supervise/timesheet/{id}/details:
     get:
       tags:
       - Timesheet
@@ -1269,7 +1256,6 @@ paths:
           pattern: \d+
       security:
       - BearerAuth: []
-  /supervise/timesheet/{id}/history:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -1283,6 +1269,7 @@ paths:
           - eu
           - na
           - deputy
+  /supervise/timesheet/{id}/history:
     get:
       tags:
       - Timesheet
@@ -1312,7 +1299,6 @@ paths:
           pattern: \d+
       security:
       - BearerAuth: []
-  /supervise/timesheet/{id}/setup:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -1326,6 +1312,7 @@ paths:
           - eu
           - na
           - deputy
+  /supervise/timesheet/{id}/setup:
     get:
       tags:
       - Timesheet
@@ -1355,7 +1342,6 @@ paths:
           pattern: \d+
       security:
       - BearerAuth: []
-  /supervise/timesheet/{startOrEnd}:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -1369,6 +1355,7 @@ paths:
           - eu
           - na
           - deputy
+  /supervise/timesheet/{startOrEnd}:
     post:
       tags:
       - Timesheet
@@ -1404,6 +1391,19 @@ paths:
               type: object
       security:
       - BearerAuth: []
+    servers:
+    - url: https://{subdomain}.{region}.deputy.com/api/v1
+      description: Deputy tenant
+      variables:
+        subdomain:
+          default: your-subdomain
+        region:
+          default: deputy
+          enum:
+          - au
+          - eu
+          - na
+          - deputy
 components:
   schemas:
     Timesheet:
@@ -1644,4 +1644,9 @@ components:
             longlife_refresh_token: Extended session
 x-refined-from:
 - deputy-openapi.json
-- deputy-timesheet-api-openapi.yml
+- deputy-v1-resource-api.json
+- deputy-v1-supervise-api.json
+x-readme:
+  explorer-enabled: true
+  proxy-enabled: true
+  samples-enabled: true

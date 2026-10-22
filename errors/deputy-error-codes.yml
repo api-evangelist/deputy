@@ -1,0 +1,93 @@
+generated: '2026-10-21'
+method: searched
+source: https://developer.deputy.com/docs/common-errors-supporting-your-customers.md
+docs: https://developer.deputy.com/docs/common-errors-supporting-your-customers
+format: custom
+envelope:
+  shape: '{"success": false, "error": {"code": <http status>, "message": "...", "details": [{"type": "BAD_REQUEST", "bad_request": {"field_violations": [{"field", "description"}]}}]}}'
+  scope: Deputy Embed signup / change-plan endpoints
+problems:
+- status: 400
+  title: Missing partner
+  type: null
+  description: A partner name has not been provided (Mandatory)
+  endpoint: Signup
+  remediation: null
+- status: 400
+  title: Missing first name
+  type: null
+  description: A first name has not been provided (Mandatory)
+  endpoint: Signup
+  remediation: null
+- status: 400
+  title: Missing last name
+  type: null
+  description: A last name has not been provided (Mandatory)
+  endpoint: Signup
+  remediation: null
+- status: 400
+  title: Missing email
+  type: null
+  description: An email has not been provided (Mandatory)
+  endpoint: Signup
+  remediation: null
+- status: 400
+  title: Missing portfolio name
+  type: null
+  description: A business/portfolio name has not been provided (Mandatory)
+  endpoint: Signup
+  remediation: null
+- status: 400
+  title: Missing external ID
+  type: null
+  description: An external name has not been provided for the business (Mandatory)
+  endpoint: Signup
+  remediation: null
+- status: 400
+  title: Duplicated external ID
+  type: null
+  description: A Deputy account is already linked to this external ID
+  endpoint: Signup
+  remediation: null
+- status: 400
+  title: Duplicated user email
+  type: null
+  description: Can't create user - this email already has a Deputy account. Please reach out to the Deputy team.
+  endpoint: Signup
+  remediation: null
+- status: 500
+  title: Internal Error
+  type: null
+  description: Something went wrong - please reach out to the Deputy team.
+  endpoint: Signup
+  remediation: null
+- status: 500
+  title: Error in provisioning partner
+  type: null
+  description: Something went wrong - please reach out to the Deputy team.
+  endpoint: Signup
+  remediation: null
+- status: 400
+  title: Attempted upgrade on a converted account
+  type: null
+  description: Only accounts in downgraded or cancelled trials may be converted.
+  endpoint: Change-plan
+  remediation: null
+- status: 400
+  title: Attempted cancellation on a free/non converted account
+  type: null
+  description: Only accounts in downgraded or cancelled trials may be converted.
+  endpoint: Change-plan
+  remediation: null
+- status: 400
+  title: Attempted conversion or cancellation on an non embedded account
+  type: null
+  description: Only accounts that are created by a specific embedded partner can be upgraded/downgraded by that embedded partner
+  endpoint: Change-plan
+  remediation: null
+- status: 400
+  title: Attempted cancellation on an invalid hostname.
+  type: null
+  description: Hostname provided must be a valid Deputy URL
+  endpoint: Change-plan
+  remediation: null

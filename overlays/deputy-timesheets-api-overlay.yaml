@@ -1,0 +1,36 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for deputy-timesheets-api-openapi.yml
+  version: 1.0.0
+extends: openapi/deputy-timesheets-api-openapi.yml
+x-generated: '2026-10-21'
+x-method: generated
+actions:
+- target: $.info
+  description: Point agents at the provider llms.txt and docs MCP surface
+  update:
+    x-llms-txt: https://developer.deputy.com/llms.txt
+    x-agent-skills-index: https://developer.deputy.com/.well-known/agent-skills/index.json
+    x-mcp-docs-server:
+      url: https://developer.deputy.com/mcp
+      status: gated (HTTP 401 Bearer realm="mcp" on initialize, 2026-10-21)
+- target: $.paths['/v1/supervise/timesheet/end'].post
+  description: Tag Stopanemployeestimesheet(ClockOff) with the agent skill(s) that use it
+  update:
+    x-agent-skills:
+    - skills/deputy-clock-an-employee-on-and-off.md
+- target: $.paths['/v1/supervise/timesheet/pause'].post
+  description: Tag Pauseorunpauseemployeestimesheet(takeabreak/finishbreak) with the agent skill(s) that use it
+  update:
+    x-agent-skills:
+    - skills/deputy-clock-an-employee-on-and-off.md
+- target: $.paths['/v1/supervise/timesheet/start'].post
+  description: Tag Startanemployeestimesheet(ClockOn) with the agent skill(s) that use it
+  update:
+    x-agent-skills:
+    - skills/deputy-clock-an-employee-on-and-off.md
+- target: $.paths['/v1/supervise/timesheet/{timesheetid}/details'].get
+  description: Tag Viewatimesheetbyid with the agent skill(s) that use it
+  update:
+    x-agent-skills:
+    - skills/deputy-clock-an-employee-on-and-off.md

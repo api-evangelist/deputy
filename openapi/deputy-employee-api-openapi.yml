@@ -2,7 +2,7 @@ openapi: 3.2.0
 info:
   title: Deputy Employee API
   version: 1.0.0
-  description: 'Operations tagged Employee across 2 of this provider''s published API definitions: deputy-v1-resource-api-openapi.yml, deputy-v1-supervise-api-openapi.yml. Each path carries the servers of the definition it was published in.'
+  description: 'Operations tagged Employee across 2 of this provider''s published API definitions: deputy-v1-resource-api.json, deputy-v1-supervise-api.json. Each path carries the servers of the definition it was published in.'
 servers:
 - url: https://{subdomain}.{region}.deputy.com/api/v1
   description: Deputy tenant
@@ -21,19 +21,6 @@ tags:
   description: Operations on the Employee resource
 paths:
   /resource/Employee:
-    servers:
-    - url: https://{subdomain}.{region}.deputy.com/api/v1
-      description: Deputy tenant
-      variables:
-        subdomain:
-          default: your-subdomain
-        region:
-          default: deputy
-          enum:
-          - au
-          - eu
-          - na
-          - deputy
     get:
       tags:
       - Employee
@@ -118,7 +105,6 @@ paths:
       security:
       - BearerAuth: []
       - OAuth2: []
-  /resource/Employee/BULK:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -132,6 +118,91 @@ paths:
           - eu
           - na
           - deputy
+  /resource/Employee/INFO:
+    get:
+      tags:
+      - Employee
+      summary: Get field metadata for Employee
+      description: Returns the field list, types, and associations for this resource. Useful when building integrations that need to know which fields are queryable.
+      operationId: infoEmployee
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Authentication required or invalid token
+        '403':
+          description: Forbidden — token lacks access to this resource
+        '404':
+          description: Resource not found
+      security:
+      - BearerAuth: []
+      - OAuth2: []
+    servers:
+    - url: https://{subdomain}.{region}.deputy.com/api/v1
+      description: Deputy tenant
+      variables:
+        subdomain:
+          default: your-subdomain
+        region:
+          default: deputy
+          enum:
+          - au
+          - eu
+          - na
+          - deputy
+  /resource/Employee/QUERY:
+    post:
+      tags:
+      - Employee
+      summary: Search Employee
+      description: 'Flexible search endpoint. Body supports `search`, `sort`, `start`, `max`, and `join` clauses. Example: `{"search": {"s1": {"field": "Id", "data": 1, "type": "eq"}}}`.'
+      operationId: searchEmployee
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/QueryRequest'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Employee'
+        '400':
+          description: Bad request
+        '401':
+          description: Authentication required or invalid token
+        '403':
+          description: Forbidden — token lacks access to this resource
+        '404':
+          description: Resource not found
+      security:
+      - BearerAuth: []
+      - OAuth2: []
+    servers:
+    - url: https://{subdomain}.{region}.deputy.com/api/v1
+      description: Deputy tenant
+      variables:
+        subdomain:
+          default: your-subdomain
+        region:
+          default: deputy
+          enum:
+          - au
+          - eu
+          - na
+          - deputy
+  /resource/Employee/BULK:
     post:
       tags:
       - Employee
@@ -166,7 +237,6 @@ paths:
       security:
       - BearerAuth: []
       - OAuth2: []
-  /resource/Employee/INFO:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -180,44 +250,7 @@ paths:
           - eu
           - na
           - deputy
-    get:
-      tags:
-      - Employee
-      summary: Get field metadata for Employee
-      description: Returns the field list, types, and associations for this resource. Useful when building integrations that need to know which fields are queryable.
-      operationId: infoEmployee
-      responses:
-        '200':
-          description: Success
-          content:
-            application/json:
-              schema:
-                type: object
-        '400':
-          description: Bad request
-        '401':
-          description: Authentication required or invalid token
-        '403':
-          description: Forbidden — token lacks access to this resource
-        '404':
-          description: Resource not found
-      security:
-      - BearerAuth: []
-      - OAuth2: []
   /resource/Employee/PREDICT:
-    servers:
-    - url: https://{subdomain}.{region}.deputy.com/api/v1
-      description: Deputy tenant
-      variables:
-        subdomain:
-          default: your-subdomain
-        region:
-          default: deputy
-          enum:
-          - au
-          - eu
-          - na
-          - deputy
     post:
       tags:
       - Employee
@@ -248,7 +281,6 @@ paths:
       security:
       - BearerAuth: []
       - OAuth2: []
-  /resource/Employee/QUERY:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -262,52 +294,7 @@ paths:
           - eu
           - na
           - deputy
-    post:
-      tags:
-      - Employee
-      summary: Search Employee
-      description: 'Flexible search endpoint. Body supports `search`, `sort`, `start`, `max`, and `join` clauses. Example: `{"search": {"s1": {"field": "Id", "data": 1, "type": "eq"}}}`.'
-      operationId: searchEmployee
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/QueryRequest'
-      responses:
-        '200':
-          description: Success
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Employee'
-        '400':
-          description: Bad request
-        '401':
-          description: Authentication required or invalid token
-        '403':
-          description: Forbidden — token lacks access to this resource
-        '404':
-          description: Resource not found
-      security:
-      - BearerAuth: []
-      - OAuth2: []
   /resource/Employee/{id}:
-    servers:
-    - url: https://{subdomain}.{region}.deputy.com/api/v1
-      description: Deputy tenant
-      variables:
-        subdomain:
-          default: your-subdomain
-        region:
-          default: deputy
-          enum:
-          - au
-          - eu
-          - na
-          - deputy
     get:
       tags:
       - Employee
@@ -443,7 +430,6 @@ paths:
       security:
       - BearerAuth: []
       - OAuth2: []
-  /resource/Employee/{id}/COMMENTS:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -457,6 +443,104 @@ paths:
           - eu
           - na
           - deputy
+  /resource/Employee/{id}/HISTORY:
+    get:
+      tags:
+      - Employee
+      summary: Get change history for a Employee
+      operationId: historyEmployee
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: Numeric id of the resource
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Employee'
+        '400':
+          description: Bad request
+        '401':
+          description: Authentication required or invalid token
+        '403':
+          description: Forbidden — token lacks access to this resource
+        '404':
+          description: Resource not found
+      security:
+      - BearerAuth: []
+      - OAuth2: []
+    servers:
+    - url: https://{subdomain}.{region}.deputy.com/api/v1
+      description: Deputy tenant
+      variables:
+        subdomain:
+          default: your-subdomain
+        region:
+          default: deputy
+          enum:
+          - au
+          - eu
+          - na
+          - deputy
+  /resource/Employee/{id}/HISTORY/travel/{timestamp}:
+    get:
+      tags:
+      - Employee
+      summary: Get a Employee as it existed at a prior time
+      operationId: historyEmployeeTravel
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: Numeric id of the resource
+      - name: timestamp
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+        description: Unix epoch seconds
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Employee'
+        '400':
+          description: Bad request
+        '401':
+          description: Authentication required or invalid token
+        '403':
+          description: Forbidden — token lacks access to this resource
+        '404':
+          description: Resource not found
+      security:
+      - BearerAuth: []
+      - OAuth2: []
+    servers:
+    - url: https://{subdomain}.{region}.deputy.com/api/v1
+      description: Deputy tenant
+      variables:
+        subdomain:
+          default: your-subdomain
+        region:
+          default: deputy
+          enum:
+          - au
+          - eu
+          - na
+          - deputy
+  /resource/Employee/{id}/COMMENTS:
     get:
       tags:
       - Employee
@@ -540,7 +624,6 @@ paths:
       security:
       - BearerAuth: []
       - OAuth2: []
-  /resource/Employee/{id}/COMMENTS/{commentId}:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -554,6 +637,7 @@ paths:
           - eu
           - na
           - deputy
+  /resource/Employee/{id}/COMMENTS/{commentId}:
     delete:
       tags:
       - Employee
@@ -592,7 +676,6 @@ paths:
       security:
       - BearerAuth: []
       - OAuth2: []
-  /resource/Employee/{id}/HISTORY:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -606,103 +689,7 @@ paths:
           - eu
           - na
           - deputy
-    get:
-      tags:
-      - Employee
-      summary: Get change history for a Employee
-      operationId: historyEmployee
-      parameters:
-      - name: id
-        in: path
-        required: true
-        schema:
-          type: integer
-        description: Numeric id of the resource
-      responses:
-        '200':
-          description: Success
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Employee'
-        '400':
-          description: Bad request
-        '401':
-          description: Authentication required or invalid token
-        '403':
-          description: Forbidden — token lacks access to this resource
-        '404':
-          description: Resource not found
-      security:
-      - BearerAuth: []
-      - OAuth2: []
-  /resource/Employee/{id}/HISTORY/travel/{timestamp}:
-    servers:
-    - url: https://{subdomain}.{region}.deputy.com/api/v1
-      description: Deputy tenant
-      variables:
-        subdomain:
-          default: your-subdomain
-        region:
-          default: deputy
-          enum:
-          - au
-          - eu
-          - na
-          - deputy
-    get:
-      tags:
-      - Employee
-      summary: Get a Employee as it existed at a prior time
-      operationId: historyEmployeeTravel
-      parameters:
-      - name: id
-        in: path
-        required: true
-        schema:
-          type: integer
-        description: Numeric id of the resource
-      - name: timestamp
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int64
-        description: Unix epoch seconds
-      responses:
-        '200':
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Employee'
-        '400':
-          description: Bad request
-        '401':
-          description: Authentication required or invalid token
-        '403':
-          description: Forbidden — token lacks access to this resource
-        '404':
-          description: Resource not found
-      security:
-      - BearerAuth: []
-      - OAuth2: []
   /supervise/employee:
-    servers:
-    - url: https://{subdomain}.{region}.deputy.com/api/v1
-      description: Deputy tenant
-      variables:
-        subdomain:
-          default: your-subdomain
-        region:
-          default: deputy
-          enum:
-          - au
-          - eu
-          - na
-          - deputy
     put:
       tags:
       - Employee
@@ -759,7 +746,6 @@ paths:
               type: object
       security:
       - BearerAuth: []
-  /supervise/employee/QUERY:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -773,6 +759,7 @@ paths:
           - eu
           - na
           - deputy
+  /supervise/employee/QUERY:
     post:
       tags:
       - Employee
@@ -801,7 +788,6 @@ paths:
               type: object
       security:
       - BearerAuth: []
-  /supervise/employee/amendABP:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -815,6 +801,7 @@ paths:
           - eu
           - na
           - deputy
+  /supervise/employee/amendABP:
     post:
       tags:
       - Employee
@@ -843,7 +830,6 @@ paths:
               type: object
       security:
       - BearerAuth: []
-  /supervise/employee/checkLicense:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -857,6 +843,7 @@ paths:
           - eu
           - na
           - deputy
+  /supervise/employee/checkLicense:
     post:
       tags:
       - Employee
@@ -885,7 +872,6 @@ paths:
               type: object
       security:
       - BearerAuth: []
-  /supervise/employee/contractedhours/template:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -899,6 +885,7 @@ paths:
           - eu
           - na
           - deputy
+  /supervise/employee/contractedhours/template:
     get:
       tags:
       - Employee
@@ -977,7 +964,6 @@ paths:
               type: object
       security:
       - BearerAuth: []
-  /supervise/employee/contractedhours/template/{templateId}:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -991,6 +977,7 @@ paths:
           - eu
           - na
           - deputy
+  /supervise/employee/contractedhours/template/{templateId}:
     post:
       tags:
       - Employee
@@ -1055,7 +1042,6 @@ paths:
           pattern: \d+
       security:
       - BearerAuth: []
-  /supervise/employee/create:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -1069,6 +1055,7 @@ paths:
           - eu
           - na
           - deputy
+  /supervise/employee/create:
     put:
       tags:
       - Employee
@@ -1125,7 +1112,6 @@ paths:
               type: object
       security:
       - BearerAuth: []
-  /supervise/employee/demo:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -1139,6 +1125,7 @@ paths:
           - eu
           - na
           - deputy
+  /supervise/employee/demo:
     get:
       tags:
       - Employee
@@ -1161,7 +1148,6 @@ paths:
           description: Not found
       security:
       - BearerAuth: []
-  /supervise/employee/invitation:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -1175,6 +1161,7 @@ paths:
           - eu
           - na
           - deputy
+  /supervise/employee/invitation:
     get:
       tags:
       - Employee
@@ -1247,7 +1234,6 @@ paths:
           description: Not found
       security:
       - BearerAuth: []
-  /supervise/employee/invitation/validate:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -1261,6 +1247,7 @@ paths:
           - eu
           - na
           - deputy
+  /supervise/employee/invitation/validate:
     post:
       tags:
       - Employee
@@ -1289,7 +1276,6 @@ paths:
               type: object
       security:
       - BearerAuth: []
-  /supervise/employee/real:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -1303,6 +1289,7 @@ paths:
           - eu
           - na
           - deputy
+  /supervise/employee/real:
     get:
       tags:
       - Employee
@@ -1325,7 +1312,6 @@ paths:
           description: Not found
       security:
       - BearerAuth: []
-  /supervise/employee/real/count:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -1339,6 +1325,7 @@ paths:
           - eu
           - na
           - deputy
+  /supervise/employee/real/count:
     get:
       tags:
       - Employee
@@ -1361,7 +1348,6 @@ paths:
           description: Not found
       security:
       - BearerAuth: []
-  /supervise/employee/reset/gender:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -1375,6 +1361,7 @@ paths:
           - eu
           - na
           - deputy
+  /supervise/employee/reset/gender:
     post:
       tags:
       - Employee
@@ -1403,7 +1390,6 @@ paths:
               type: object
       security:
       - BearerAuth: []
-  /supervise/employee/role/manage:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -1417,6 +1403,7 @@ paths:
           - eu
           - na
           - deputy
+  /supervise/employee/role/manage:
     get:
       tags:
       - Employee
@@ -1439,7 +1426,6 @@ paths:
           description: Not found
       security:
       - BearerAuth: []
-  /supervise/employee/validate:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -1453,6 +1439,7 @@ paths:
           - eu
           - na
           - deputy
+  /supervise/employee/validate:
     put:
       tags:
       - Employee
@@ -1509,7 +1496,6 @@ paths:
               type: object
       security:
       - BearerAuth: []
-  /supervise/employee/{employeeId}:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -1523,6 +1509,7 @@ paths:
           - eu
           - na
           - deputy
+  /supervise/employee/{employeeId}:
     get:
       tags:
       - Employee
@@ -1587,7 +1574,6 @@ paths:
               type: object
       security:
       - BearerAuth: []
-  /supervise/employee/{employeeId}/activate:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -1601,6 +1587,7 @@ paths:
           - eu
           - na
           - deputy
+  /supervise/employee/{employeeId}/activate:
     post:
       tags:
       - Employee
@@ -1636,7 +1623,6 @@ paths:
               type: object
       security:
       - BearerAuth: []
-  /supervise/employee/{employeeId}/assoc/{wpId}:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -1650,6 +1636,7 @@ paths:
           - eu
           - na
           - deputy
+  /supervise/employee/{employeeId}/assoc/{wpId}:
     post:
       tags:
       - Employee
@@ -1691,7 +1678,6 @@ paths:
               type: object
       security:
       - BearerAuth: []
-  /supervise/employee/{employeeId}/contractedhours:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -1705,6 +1691,7 @@ paths:
           - eu
           - na
           - deputy
+  /supervise/employee/{employeeId}/contractedhours:
     get:
       tags:
       - Employee
@@ -1804,7 +1791,6 @@ paths:
               type: object
       security:
       - BearerAuth: []
-  /supervise/employee/{employeeId}/delete:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -1818,6 +1804,7 @@ paths:
           - eu
           - na
           - deputy
+  /supervise/employee/{employeeId}/delete:
     post:
       tags:
       - Employee
@@ -1853,7 +1840,6 @@ paths:
               type: object
       security:
       - BearerAuth: []
-  /supervise/employee/{employeeId}/hr/onboarding:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -1867,6 +1853,7 @@ paths:
           - eu
           - na
           - deputy
+  /supervise/employee/{employeeId}/hr/onboarding:
     get:
       tags:
       - Employee
@@ -1931,7 +1918,6 @@ paths:
               type: object
       security:
       - BearerAuth: []
-  /supervise/employee/{employeeId}/hr/payroll/connected:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -1945,6 +1931,7 @@ paths:
           - eu
           - na
           - deputy
+  /supervise/employee/{employeeId}/hr/payroll/connected:
     get:
       tags:
       - Employee
@@ -1974,7 +1961,6 @@ paths:
           pattern: \d+
       security:
       - BearerAuth: []
-  /supervise/employee/{employeeId}/hr/payroll/sync:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -1988,6 +1974,7 @@ paths:
           - eu
           - na
           - deputy
+  /supervise/employee/{employeeId}/hr/payroll/sync:
     get:
       tags:
       - Employee
@@ -2052,7 +2039,6 @@ paths:
               type: object
       security:
       - BearerAuth: []
-  /supervise/employee/{employeeId}/invite:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -2066,6 +2052,7 @@ paths:
           - eu
           - na
           - deputy
+  /supervise/employee/{employeeId}/invite:
     post:
       tags:
       - Employee
@@ -2101,7 +2088,6 @@ paths:
               type: object
       security:
       - BearerAuth: []
-  /supervise/employee/{employeeId}/manage-login:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -2115,6 +2101,7 @@ paths:
           - eu
           - na
           - deputy
+  /supervise/employee/{employeeId}/manage-login:
     get:
       tags:
       - Employee
@@ -2144,7 +2131,6 @@ paths:
           pattern: \d+
       security:
       - BearerAuth: []
-  /supervise/employee/{employeeId}/photo:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -2158,6 +2144,7 @@ paths:
           - eu
           - na
           - deputy
+  /supervise/employee/{employeeId}/photo:
     post:
       tags:
       - Employee
@@ -2193,7 +2180,6 @@ paths:
               type: object
       security:
       - BearerAuth: []
-  /supervise/employee/{employeeId}/reset-2fa:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -2207,6 +2193,7 @@ paths:
           - eu
           - na
           - deputy
+  /supervise/employee/{employeeId}/reset-2fa:
     post:
       tags:
       - Employee
@@ -2242,7 +2229,6 @@ paths:
               type: object
       security:
       - BearerAuth: []
-  /supervise/employee/{employeeId}/send-reset-account:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -2256,6 +2242,7 @@ paths:
           - eu
           - na
           - deputy
+  /supervise/employee/{employeeId}/send-reset-account:
     post:
       tags:
       - Employee
@@ -2291,7 +2278,6 @@ paths:
               type: object
       security:
       - BearerAuth: []
-  /supervise/employee/{employeeId}/sendlogin:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -2305,6 +2291,7 @@ paths:
           - eu
           - na
           - deputy
+  /supervise/employee/{employeeId}/sendlogin:
     post:
       tags:
       - Employee
@@ -2340,7 +2327,6 @@ paths:
               type: object
       security:
       - BearerAuth: []
-  /supervise/employee/{employeeId}/setAwardFromLibrary:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -2354,6 +2340,7 @@ paths:
           - eu
           - na
           - deputy
+  /supervise/employee/{employeeId}/setAwardFromLibrary:
     post:
       tags:
       - Employee
@@ -2389,7 +2376,6 @@ paths:
               type: object
       security:
       - BearerAuth: []
-  /supervise/employee/{employeeId}/setAwardFromTemplate:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -2403,6 +2389,7 @@ paths:
           - eu
           - na
           - deputy
+  /supervise/employee/{employeeId}/setAwardFromTemplate:
     post:
       tags:
       - Employee
@@ -2438,7 +2425,6 @@ paths:
               type: object
       security:
       - BearerAuth: []
-  /supervise/employee/{employeeId}/terminate:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -2452,6 +2438,7 @@ paths:
           - eu
           - na
           - deputy
+  /supervise/employee/{employeeId}/terminate:
     post:
       tags:
       - Employee
@@ -2487,7 +2474,6 @@ paths:
               type: object
       security:
       - BearerAuth: []
-  /supervise/employee/{employeeId}/unassoc/{wpId}:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -2501,6 +2487,7 @@ paths:
           - eu
           - na
           - deputy
+  /supervise/employee/{employeeId}/unassoc/{wpId}:
     post:
       tags:
       - Employee
@@ -2542,7 +2529,6 @@ paths:
               type: object
       security:
       - BearerAuth: []
-  /supervise/employee/{employeeId}/validate:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -2556,6 +2542,7 @@ paths:
           - eu
           - na
           - deputy
+  /supervise/employee/{employeeId}/validate:
     get:
       tags:
       - Employee
@@ -2585,7 +2572,6 @@ paths:
           pattern: \d+
       security:
       - BearerAuth: []
-  /supervise/employee/{employeeId}/{action}:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -2599,6 +2585,7 @@ paths:
           - eu
           - na
           - deputy
+  /supervise/employee/{employeeId}/{action}:
     post:
       tags:
       - Employee
@@ -2675,8 +2662,87 @@ paths:
           pattern: (Memo|Roster|Timesheet|Journal|Leave|EmployeeAvailability)
       security:
       - BearerAuth: []
+    servers:
+    - url: https://{subdomain}.{region}.deputy.com/api/v1
+      description: Deputy tenant
+      variables:
+        subdomain:
+          default: your-subdomain
+        region:
+          default: deputy
+          enum:
+          - au
+          - eu
+          - na
+          - deputy
 components:
   schemas:
+    QueryRequest:
+      type: object
+      description: V1 Resource search payload. All fields optional; an empty body returns the first page of results.
+      properties:
+        search:
+          type: object
+          description: Map of search clauses keyed by an arbitrary id (e.g. `s1`, `s2`). Each clause filters one field.
+          additionalProperties:
+            type: object
+            required:
+            - field
+            - data
+            - type
+            properties:
+              field:
+                type: string
+                description: Field name to filter on (e.g. `Id`, `Employee`).
+              data:
+                description: Comparison value. Type depends on the field.
+              type:
+                type: string
+                description: Comparison operator.
+                enum:
+                - eq
+                - ne
+                - gt
+                - lt
+                - ge
+                - le
+                - is
+                - is not
+                - in
+                - not in
+                - starts
+                - contains
+        sort:
+          type: object
+          description: Map of field name → `asc` or `desc`.
+          additionalProperties:
+            type: string
+            enum:
+            - asc
+            - desc
+        start:
+          type: integer
+          minimum: 0
+          default: 0
+          description: Pagination offset (0-indexed).
+        max:
+          type: integer
+          minimum: 1
+          maximum: 500
+          default: 100
+          description: Max records per page (server caps at 500).
+        join:
+          type: array
+          items:
+            type: string
+          description: Related ORMs to expand inline (e.g. `["EmployeeObject"]`).
+      example:
+        search:
+          s1:
+            field: Id
+            data: 1
+            type: ge
+        max: 100
     Employee:
       type: object
       properties:
@@ -2804,72 +2870,6 @@ components:
       - Role
       - AllowAppraisal
       - Modified
-    QueryRequest:
-      type: object
-      description: V1 Resource search payload. All fields optional; an empty body returns the first page of results.
-      properties:
-        search:
-          type: object
-          description: Map of search clauses keyed by an arbitrary id (e.g. `s1`, `s2`). Each clause filters one field.
-          additionalProperties:
-            type: object
-            required:
-            - field
-            - data
-            - type
-            properties:
-              field:
-                type: string
-                description: Field name to filter on (e.g. `Id`, `Employee`).
-              data:
-                description: Comparison value. Type depends on the field.
-              type:
-                type: string
-                description: Comparison operator.
-                enum:
-                - eq
-                - ne
-                - gt
-                - lt
-                - ge
-                - le
-                - is
-                - is not
-                - in
-                - not in
-                - starts
-                - contains
-        sort:
-          type: object
-          description: Map of field name → `asc` or `desc`.
-          additionalProperties:
-            type: string
-            enum:
-            - asc
-            - desc
-        start:
-          type: integer
-          minimum: 0
-          default: 0
-          description: Pagination offset (0-indexed).
-        max:
-          type: integer
-          minimum: 1
-          maximum: 500
-          default: 100
-          description: Max records per page (server caps at 500).
-        join:
-          type: array
-          items:
-            type: string
-          description: Related ORMs to expand inline (e.g. `["EmployeeObject"]`).
-      example:
-        search:
-          s1:
-            field: Id
-            data: 1
-            type: ge
-        max: 100
   securitySchemes:
     BearerAuth:
       type: http
@@ -2884,85 +2884,9 @@ components:
           scopes:
             longlife_refresh_token: Extended session
 x-refined-from:
-- deputy-v1-resource-api-openapi.yml
-- deputy-v1-supervise-api-openapi.yml
-x-provenance:
-  method: searched
-  source: https://developer.deputy.com/reference
-  harvested: '2026-10-14'
-  tool: harvest-readme-openapi.py
-  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
-  assembled_from:
-  - https://developer.deputy.com/reference/addalocation.md
-  - https://developer.deputy.com/reference/addalocationagainstanemployee.md
-  - https://developer.deputy.com/reference/addanemployee.md
-  - https://developer.deputy.com/reference/addasaletosalesmetrics.md
-  - https://developer.deputy.com/reference/addawebhookurl.md
-  - https://developer.deputy.com/reference/addleaveforaemployee.md
-  - https://developer.deputy.com/reference/addnewworkplace.md
-  - https://developer.deputy.com/reference/addunavailabilitydetailsforaemployee.md
-  - https://developer.deputy.com/reference/archivealocation.md
-  - https://developer.deputy.com/reference/copyaroster.md
-  - https://developer.deputy.com/reference/create-a-memo.md
-  - https://developer.deputy.com/reference/createadepartment.md
-  - https://developer.deputy.com/reference/createmultipledepartments.md
-  - https://developer.deputy.com/reference/deletealocation.md
-  - https://developer.deputy.com/reference/deleteanemployeesaccountindeputy.md
-  - https://developer.deputy.com/reference/deleteasingleoperationalunit.md
-  - https://developer.deputy.com/reference/discardaroster.md
-  - https://developer.deputy.com/reference/doatask.md
-  - https://developer.deputy.com/reference/example-searchforemployeesfromalocation.md
-  - https://developer.deputy.com/reference/findanemployeesleave.md
-  - https://developer.deputy.com/reference/findoutanemployeesstatus.md
-  - https://developer.deputy.com/reference/getagreedhoursbyemployeeid.md
-  - https://developer.deputy.com/reference/getalistofrostersfromlast12hoursandforward36hours.md
-  - https://developer.deputy.com/reference/getalocationssettings.md
-  - https://developer.deputy.com/reference/getawardslibrarylist.md
-  - https://developer.deputy.com/reference/getdetailsforaemployeebyid.md
-  - https://developer.deputy.com/reference/getdetailsforallemployees.md
-  - https://developer.deputy.com/reference/getlocationbyid.md
-  - https://developer.deputy.com/reference/getlocations.md
-  - https://developer.deputy.com/reference/getmyindividualtimesheet.md
-  - https://developer.deputy.com/reference/getmynewsfeed.md
-  - https://developer.deputy.com/reference/getmynotifications.md
-  - https://developer.deputy.com/reference/getmysubordinatecontactdetails.md
-  - https://developer.deputy.com/reference/getmytasks.md
-  - https://developer.deputy.com/reference/getmytimesheets.md
-  - https://developer.deputy.com/reference/getmytraining.md
-  - https://developer.deputy.com/reference/getoperationalunits.md
-  - https://developer.deputy.com/reference/getrostersavailableforswap.md
-  - https://developer.deputy.com/reference/getsimplifiedlocationlist.md
-  - https://developer.deputy.com/reference/getsuggestionsforrosterbyid.md
-  - https://developer.deputy.com/reference/getunavailabilitydetailsforaemployee.md
-  - https://developer.deputy.com/reference/inviteemployeetodeputy.md
-  - https://developer.deputy.com/reference/modifysettingsinalllocations.md
-  - https://developer.deputy.com/reference/modifysettingsinasinglelocation.md
-  - https://developer.deputy.com/reference/myaddressonfile.md
-  - https://developer.deputy.com/reference/myaddressonfileincludingemergency.md
-  - https://developer.deputy.com/reference/myleaverequests.md
-  - https://developer.deputy.com/reference/pauseorunpauseemployeestimesheettakeabreakfinishbreak.md
-  - https://developer.deputy.com/reference/postajournal.md
-  - https://developer.deputy.com/reference/publisharoster.md
-  - https://developer.deputy.com/reference/re-activateaterminatedemployee.md
-  - https://developer.deputy.com/reference/removealocationfromanemployee.md
-  - https://developer.deputy.com/reference/retrievecurrentsystemtime.md
-  - https://developer.deputy.com/reference/retrievecurrentsystemtimeofalocation.md
-  - https://developer.deputy.com/reference/retrievesalesdata.md
-  - https://developer.deputy.com/reference/setawardforemployee.md
-  - https://developer.deputy.com/reference/startanemployeestimesheetclockon.md
-  - https://developer.deputy.com/reference/stopanemployeestimesheetclockoff.md
-  - https://developer.deputy.com/reference/terminateanemployee.md
-  - https://developer.deputy.com/reference/updatealocation.md
-  - https://developer.deputy.com/reference/updateanexistingemployee.md
-  - https://developer.deputy.com/reference/updateasingleoperationalunit.md
-  - https://developer.deputy.com/reference/updatemyaddress.md
-  - https://developer.deputy.com/reference/viewatimesheetbyid.md
-  - https://developer.deputy.com/reference/whatlocationscaniworkin.md
-  - https://developer.deputy.com/reference/whenaminextworking.md
-  - https://developer.deputy.com/reference/whenamiunavailable.md
-  - https://developer.deputy.com/reference/wherecaniworkwhatdoido.md
-  - https://developer.deputy.com/reference/whodoiworkwith.md
-  merge:
-    pages: 69
-    deduped: 70
-    conflicts_kept_first: 0
+- deputy-v1-resource-api.json
+- deputy-v1-supervise-api.json
+x-readme:
+  explorer-enabled: true
+  proxy-enabled: true
+  samples-enabled: true

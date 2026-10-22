@@ -2,7 +2,7 @@ openapi: 3.2.0
 info:
   title: Deputy Memo API
   version: 1.0.0
-  description: 'Operations tagged Memo across 2 of this provider''s published API definitions: deputy-openapi.json, deputy-memo-api-openapi.yml. Each path carries the servers of the definition it was published in.'
+  description: 'Operations tagged Memo across 3 of this provider''s published API definitions: deputy-openapi.json, deputy-v1-resource-api.json, deputy-v1-supervise-api.json. Each path carries the servers of the definition it was published in.'
 servers:
 - url: https://{subdomain}.{region}.deputy.com/api/v1
   description: Deputy tenant
@@ -747,19 +747,6 @@ paths:
           - na
           - deputy
   /resource/Memo:
-    servers:
-    - url: https://{subdomain}.{region}.deputy.com/api/v1
-      description: Deputy tenant
-      variables:
-        subdomain:
-          default: your-subdomain
-        region:
-          default: deputy
-          enum:
-          - au
-          - eu
-          - na
-          - deputy
     get:
       tags:
       - Memo
@@ -786,7 +773,6 @@ paths:
       security:
       - BearerAuth: []
       - OAuth2: []
-  /resource/Memo/INFO:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -800,6 +786,7 @@ paths:
           - eu
           - na
           - deputy
+  /resource/Memo/INFO:
     get:
       tags:
       - Memo
@@ -824,7 +811,6 @@ paths:
       security:
       - BearerAuth: []
       - OAuth2: []
-  /resource/Memo/PREDICT:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -838,50 +824,7 @@ paths:
           - eu
           - na
           - deputy
-    post:
-      tags:
-      - Memo
-      summary: Predict-match a Memo record
-      description: Returns the closest matching existing record for a partial payload. Used by upsert-style integrations to find an existing row before creating.
-      operationId: predictMemo
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Memo'
-      responses:
-        '200':
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Memo'
-        '400':
-          description: Bad request
-        '401':
-          description: Authentication required or invalid token
-        '403':
-          description: Forbidden — token lacks access to this resource
-        '404':
-          description: Resource not found
-      security:
-      - BearerAuth: []
-      - OAuth2: []
   /resource/Memo/QUERY:
-    servers:
-    - url: https://{subdomain}.{region}.deputy.com/api/v1
-      description: Deputy tenant
-      variables:
-        subdomain:
-          default: your-subdomain
-        region:
-          default: deputy
-          enum:
-          - au
-          - eu
-          - na
-          - deputy
     post:
       tags:
       - Memo
@@ -914,7 +857,6 @@ paths:
       security:
       - BearerAuth: []
       - OAuth2: []
-  /resource/Memo/{id}:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -928,6 +870,51 @@ paths:
           - eu
           - na
           - deputy
+  /resource/Memo/PREDICT:
+    post:
+      tags:
+      - Memo
+      summary: Predict-match a Memo record
+      description: Returns the closest matching existing record for a partial payload. Used by upsert-style integrations to find an existing row before creating.
+      operationId: predictMemo
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Memo'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Memo'
+        '400':
+          description: Bad request
+        '401':
+          description: Authentication required or invalid token
+        '403':
+          description: Forbidden — token lacks access to this resource
+        '404':
+          description: Resource not found
+      security:
+      - BearerAuth: []
+      - OAuth2: []
+    servers:
+    - url: https://{subdomain}.{region}.deputy.com/api/v1
+      description: Deputy tenant
+      variables:
+        subdomain:
+          default: your-subdomain
+        region:
+          default: deputy
+          enum:
+          - au
+          - eu
+          - na
+          - deputy
+  /resource/Memo/{id}:
     get:
       tags:
       - Memo
@@ -958,7 +945,6 @@ paths:
       security:
       - BearerAuth: []
       - OAuth2: []
-  /resource/Memo/{id}/COMMENTS:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -972,6 +958,104 @@ paths:
           - eu
           - na
           - deputy
+  /resource/Memo/{id}/HISTORY:
+    get:
+      tags:
+      - Memo
+      summary: Get change history for a Memo
+      operationId: historyMemo
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: Numeric id of the resource
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Memo'
+        '400':
+          description: Bad request
+        '401':
+          description: Authentication required or invalid token
+        '403':
+          description: Forbidden — token lacks access to this resource
+        '404':
+          description: Resource not found
+      security:
+      - BearerAuth: []
+      - OAuth2: []
+    servers:
+    - url: https://{subdomain}.{region}.deputy.com/api/v1
+      description: Deputy tenant
+      variables:
+        subdomain:
+          default: your-subdomain
+        region:
+          default: deputy
+          enum:
+          - au
+          - eu
+          - na
+          - deputy
+  /resource/Memo/{id}/HISTORY/travel/{timestamp}:
+    get:
+      tags:
+      - Memo
+      summary: Get a Memo as it existed at a prior time
+      operationId: historyMemoTravel
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: Numeric id of the resource
+      - name: timestamp
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+        description: Unix epoch seconds
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Memo'
+        '400':
+          description: Bad request
+        '401':
+          description: Authentication required or invalid token
+        '403':
+          description: Forbidden — token lacks access to this resource
+        '404':
+          description: Resource not found
+      security:
+      - BearerAuth: []
+      - OAuth2: []
+    servers:
+    - url: https://{subdomain}.{region}.deputy.com/api/v1
+      description: Deputy tenant
+      variables:
+        subdomain:
+          default: your-subdomain
+        region:
+          default: deputy
+          enum:
+          - au
+          - eu
+          - na
+          - deputy
+  /resource/Memo/{id}/COMMENTS:
     get:
       tags:
       - Memo
@@ -1055,7 +1139,6 @@ paths:
       security:
       - BearerAuth: []
       - OAuth2: []
-  /resource/Memo/{id}/COMMENTS/{commentId}:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -1069,6 +1152,7 @@ paths:
           - eu
           - na
           - deputy
+  /resource/Memo/{id}/COMMENTS/{commentId}:
     delete:
       tags:
       - Memo
@@ -1107,7 +1191,6 @@ paths:
       security:
       - BearerAuth: []
       - OAuth2: []
-  /resource/Memo/{id}/HISTORY:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -1121,103 +1204,7 @@ paths:
           - eu
           - na
           - deputy
-    get:
-      tags:
-      - Memo
-      summary: Get change history for a Memo
-      operationId: historyMemo
-      parameters:
-      - name: id
-        in: path
-        required: true
-        schema:
-          type: integer
-        description: Numeric id of the resource
-      responses:
-        '200':
-          description: Success
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Memo'
-        '400':
-          description: Bad request
-        '401':
-          description: Authentication required or invalid token
-        '403':
-          description: Forbidden — token lacks access to this resource
-        '404':
-          description: Resource not found
-      security:
-      - BearerAuth: []
-      - OAuth2: []
-  /resource/Memo/{id}/HISTORY/travel/{timestamp}:
-    servers:
-    - url: https://{subdomain}.{region}.deputy.com/api/v1
-      description: Deputy tenant
-      variables:
-        subdomain:
-          default: your-subdomain
-        region:
-          default: deputy
-          enum:
-          - au
-          - eu
-          - na
-          - deputy
-    get:
-      tags:
-      - Memo
-      summary: Get a Memo as it existed at a prior time
-      operationId: historyMemoTravel
-      parameters:
-      - name: id
-        in: path
-        required: true
-        schema:
-          type: integer
-        description: Numeric id of the resource
-      - name: timestamp
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int64
-        description: Unix epoch seconds
-      responses:
-        '200':
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Memo'
-        '400':
-          description: Bad request
-        '401':
-          description: Authentication required or invalid token
-        '403':
-          description: Forbidden — token lacks access to this resource
-        '404':
-          description: Resource not found
-      security:
-      - BearerAuth: []
-      - OAuth2: []
   /supervise/memo:
-    servers:
-    - url: https://{subdomain}.{region}.deputy.com/api/v1
-      description: Deputy tenant
-      variables:
-        subdomain:
-          default: your-subdomain
-        region:
-          default: deputy
-          enum:
-          - au
-          - eu
-          - na
-          - deputy
     get:
       tags:
       - Memo
@@ -1296,7 +1283,6 @@ paths:
               type: object
       security:
       - BearerAuth: []
-  /supervise/memo/{id}:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -1310,6 +1296,7 @@ paths:
           - eu
           - na
           - deputy
+  /supervise/memo/{id}:
     get:
       tags:
       - Memo
@@ -1438,7 +1425,6 @@ paths:
           pattern: \d+
       security:
       - BearerAuth: []
-  /supervise/memo/{id}/addRecipient:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -1452,6 +1438,7 @@ paths:
           - eu
           - na
           - deputy
+  /supervise/memo/{id}/addRecipient:
     post:
       tags:
       - Memo
@@ -1487,7 +1474,6 @@ paths:
               type: object
       security:
       - BearerAuth: []
-  /supervise/memo/{memoId}/mark/read/{memoLogId}:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -1501,6 +1487,7 @@ paths:
           - eu
           - na
           - deputy
+  /supervise/memo/{memoId}/mark/read/{memoLogId}:
     post:
       tags:
       - Memo
@@ -1542,7 +1529,6 @@ paths:
               type: object
       security:
       - BearerAuth: []
-  /supervise/memo/{memoId}/mark/unread/{memoLogId}:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -1556,6 +1542,7 @@ paths:
           - eu
           - na
           - deputy
+  /supervise/memo/{memoId}/mark/unread/{memoLogId}:
     post:
       tags:
       - Memo
@@ -1597,6 +1584,19 @@ paths:
               type: object
       security:
       - BearerAuth: []
+    servers:
+    - url: https://{subdomain}.{region}.deputy.com/api/v1
+      description: Deputy tenant
+      variables:
+        subdomain:
+          default: your-subdomain
+        region:
+          default: deputy
+          enum:
+          - au
+          - eu
+          - na
+          - deputy
 components:
   schemas:
     Memo:
@@ -1728,4 +1728,9 @@ components:
             longlife_refresh_token: Extended session
 x-refined-from:
 - deputy-openapi.json
-- deputy-memo-api-openapi.yml
+- deputy-v1-resource-api.json
+- deputy-v1-supervise-api.json
+x-readme:
+  explorer-enabled: true
+  proxy-enabled: true
+  samples-enabled: true

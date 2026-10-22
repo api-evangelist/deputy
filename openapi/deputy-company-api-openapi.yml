@@ -2,7 +2,7 @@ openapi: 3.2.0
 info:
   title: Deputy Company API
   version: 1.0.0
-  description: 'Operations tagged Company across 2 of this provider''s published API definitions: deputy-v1-resource-api-openapi.yml, deputy-v1-supervise-api-openapi.yml. Each path carries the servers of the definition it was published in.'
+  description: 'Operations tagged Company across 2 of this provider''s published API definitions: deputy-v1-resource-api.json, deputy-v1-supervise-api.json. Each path carries the servers of the definition it was published in.'
 servers:
 - url: https://{subdomain}.{region}.deputy.com/api/v1
   description: Deputy tenant
@@ -21,19 +21,6 @@ tags:
   description: Operations on the Company resource
 paths:
   /resource/Company:
-    servers:
-    - url: https://{subdomain}.{region}.deputy.com/api/v1
-      description: Deputy tenant
-      variables:
-        subdomain:
-          default: your-subdomain
-        region:
-          default: deputy
-          enum:
-          - au
-          - eu
-          - na
-          - deputy
     get:
       tags:
       - Company
@@ -60,7 +47,6 @@ paths:
       security:
       - BearerAuth: []
       - OAuth2: []
-  /resource/Company/INFO:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -74,6 +60,7 @@ paths:
           - eu
           - na
           - deputy
+  /resource/Company/INFO:
     get:
       tags:
       - Company
@@ -98,7 +85,6 @@ paths:
       security:
       - BearerAuth: []
       - OAuth2: []
-  /resource/Company/PREDICT:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -112,50 +98,7 @@ paths:
           - eu
           - na
           - deputy
-    post:
-      tags:
-      - Company
-      summary: Predict-match a Company record
-      description: Returns the closest matching existing record for a partial payload. Used by upsert-style integrations to find an existing row before creating.
-      operationId: predictCompany
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Company'
-      responses:
-        '200':
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Company'
-        '400':
-          description: Bad request
-        '401':
-          description: Authentication required or invalid token
-        '403':
-          description: Forbidden — token lacks access to this resource
-        '404':
-          description: Resource not found
-      security:
-      - BearerAuth: []
-      - OAuth2: []
   /resource/Company/QUERY:
-    servers:
-    - url: https://{subdomain}.{region}.deputy.com/api/v1
-      description: Deputy tenant
-      variables:
-        subdomain:
-          default: your-subdomain
-        region:
-          default: deputy
-          enum:
-          - au
-          - eu
-          - na
-          - deputy
     post:
       tags:
       - Company
@@ -188,7 +131,6 @@ paths:
       security:
       - BearerAuth: []
       - OAuth2: []
-  /resource/Company/{id}:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -202,6 +144,51 @@ paths:
           - eu
           - na
           - deputy
+  /resource/Company/PREDICT:
+    post:
+      tags:
+      - Company
+      summary: Predict-match a Company record
+      description: Returns the closest matching existing record for a partial payload. Used by upsert-style integrations to find an existing row before creating.
+      operationId: predictCompany
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Company'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Company'
+        '400':
+          description: Bad request
+        '401':
+          description: Authentication required or invalid token
+        '403':
+          description: Forbidden — token lacks access to this resource
+        '404':
+          description: Resource not found
+      security:
+      - BearerAuth: []
+      - OAuth2: []
+    servers:
+    - url: https://{subdomain}.{region}.deputy.com/api/v1
+      description: Deputy tenant
+      variables:
+        subdomain:
+          default: your-subdomain
+        region:
+          default: deputy
+          enum:
+          - au
+          - eu
+          - na
+          - deputy
+  /resource/Company/{id}:
     get:
       tags:
       - Company
@@ -232,7 +219,6 @@ paths:
       security:
       - BearerAuth: []
       - OAuth2: []
-  /resource/Company/{id}/COMMENTS:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -246,6 +232,104 @@ paths:
           - eu
           - na
           - deputy
+  /resource/Company/{id}/HISTORY:
+    get:
+      tags:
+      - Company
+      summary: Get change history for a Company
+      operationId: historyCompany
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: Numeric id of the resource
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Company'
+        '400':
+          description: Bad request
+        '401':
+          description: Authentication required or invalid token
+        '403':
+          description: Forbidden — token lacks access to this resource
+        '404':
+          description: Resource not found
+      security:
+      - BearerAuth: []
+      - OAuth2: []
+    servers:
+    - url: https://{subdomain}.{region}.deputy.com/api/v1
+      description: Deputy tenant
+      variables:
+        subdomain:
+          default: your-subdomain
+        region:
+          default: deputy
+          enum:
+          - au
+          - eu
+          - na
+          - deputy
+  /resource/Company/{id}/HISTORY/travel/{timestamp}:
+    get:
+      tags:
+      - Company
+      summary: Get a Company as it existed at a prior time
+      operationId: historyCompanyTravel
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: Numeric id of the resource
+      - name: timestamp
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+        description: Unix epoch seconds
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Company'
+        '400':
+          description: Bad request
+        '401':
+          description: Authentication required or invalid token
+        '403':
+          description: Forbidden — token lacks access to this resource
+        '404':
+          description: Resource not found
+      security:
+      - BearerAuth: []
+      - OAuth2: []
+    servers:
+    - url: https://{subdomain}.{region}.deputy.com/api/v1
+      description: Deputy tenant
+      variables:
+        subdomain:
+          default: your-subdomain
+        region:
+          default: deputy
+          enum:
+          - au
+          - eu
+          - na
+          - deputy
+  /resource/Company/{id}/COMMENTS:
     get:
       tags:
       - Company
@@ -329,7 +413,6 @@ paths:
       security:
       - BearerAuth: []
       - OAuth2: []
-  /resource/Company/{id}/COMMENTS/{commentId}:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -343,6 +426,7 @@ paths:
           - eu
           - na
           - deputy
+  /resource/Company/{id}/COMMENTS/{commentId}:
     delete:
       tags:
       - Company
@@ -381,7 +465,6 @@ paths:
       security:
       - BearerAuth: []
       - OAuth2: []
-  /resource/Company/{id}/HISTORY:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -395,103 +478,7 @@ paths:
           - eu
           - na
           - deputy
-    get:
-      tags:
-      - Company
-      summary: Get change history for a Company
-      operationId: historyCompany
-      parameters:
-      - name: id
-        in: path
-        required: true
-        schema:
-          type: integer
-        description: Numeric id of the resource
-      responses:
-        '200':
-          description: Success
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Company'
-        '400':
-          description: Bad request
-        '401':
-          description: Authentication required or invalid token
-        '403':
-          description: Forbidden — token lacks access to this resource
-        '404':
-          description: Resource not found
-      security:
-      - BearerAuth: []
-      - OAuth2: []
-  /resource/Company/{id}/HISTORY/travel/{timestamp}:
-    servers:
-    - url: https://{subdomain}.{region}.deputy.com/api/v1
-      description: Deputy tenant
-      variables:
-        subdomain:
-          default: your-subdomain
-        region:
-          default: deputy
-          enum:
-          - au
-          - eu
-          - na
-          - deputy
-    get:
-      tags:
-      - Company
-      summary: Get a Company as it existed at a prior time
-      operationId: historyCompanyTravel
-      parameters:
-      - name: id
-        in: path
-        required: true
-        schema:
-          type: integer
-        description: Numeric id of the resource
-      - name: timestamp
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int64
-        description: Unix epoch seconds
-      responses:
-        '200':
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Company'
-        '400':
-          description: Bad request
-        '401':
-          description: Authentication required or invalid token
-        '403':
-          description: Forbidden — token lacks access to this resource
-        '404':
-          description: Resource not found
-      security:
-      - BearerAuth: []
-      - OAuth2: []
   /supervise/company:
-    servers:
-    - url: https://{subdomain}.{region}.deputy.com/api/v1
-      description: Deputy tenant
-      variables:
-        subdomain:
-          default: your-subdomain
-        region:
-          default: deputy
-          enum:
-          - au
-          - eu
-          - na
-          - deputy
     put:
       tags:
       - Company
@@ -520,7 +507,6 @@ paths:
               type: object
       security:
       - BearerAuth: []
-  /supervise/company/all/settings:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -534,6 +520,7 @@ paths:
           - eu
           - na
           - deputy
+  /supervise/company/all/settings:
     post:
       tags:
       - Company
@@ -562,7 +549,6 @@ paths:
               type: object
       security:
       - BearerAuth: []
-  /supervise/company/bulk/settings:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -576,6 +562,7 @@ paths:
           - eu
           - na
           - deputy
+  /supervise/company/bulk/settings:
     post:
       tags:
       - Company
@@ -604,7 +591,6 @@ paths:
               type: object
       security:
       - BearerAuth: []
-  /supervise/company/bulk/settings/check/{jobId}:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -618,6 +604,7 @@ paths:
           - eu
           - na
           - deputy
+  /supervise/company/bulk/settings/check/{jobId}:
     get:
       tags:
       - Company
@@ -646,7 +633,6 @@ paths:
           type: string
       security:
       - BearerAuth: []
-  /supervise/company/simple:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -660,6 +646,7 @@ paths:
           - eu
           - na
           - deputy
+  /supervise/company/simple:
     get:
       tags:
       - Company
@@ -682,7 +669,6 @@ paths:
           description: Not found
       security:
       - BearerAuth: []
-  /supervise/company/timezone:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -696,6 +682,7 @@ paths:
           - eu
           - na
           - deputy
+  /supervise/company/timezone:
     get:
       tags:
       - Company
@@ -718,7 +705,6 @@ paths:
           description: Not found
       security:
       - BearerAuth: []
-  /supervise/company/{id}:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -732,6 +718,7 @@ paths:
           - eu
           - na
           - deputy
+  /supervise/company/{id}:
     post:
       tags:
       - Company
@@ -767,7 +754,6 @@ paths:
               type: object
       security:
       - BearerAuth: []
-  /supervise/company/{id}/archive:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -781,6 +767,7 @@ paths:
           - eu
           - na
           - deputy
+  /supervise/company/{id}/archive:
     post:
       tags:
       - Company
@@ -816,7 +803,6 @@ paths:
               type: object
       security:
       - BearerAuth: []
-  /supervise/company/{id}/cascade/settings:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -830,6 +816,7 @@ paths:
           - eu
           - na
           - deputy
+  /supervise/company/{id}/cascade/settings:
     post:
       tags:
       - Company
@@ -865,7 +852,6 @@ paths:
               type: object
       security:
       - BearerAuth: []
-  /supervise/company/{id}/delete:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -879,6 +865,7 @@ paths:
           - eu
           - na
           - deputy
+  /supervise/company/{id}/delete:
     post:
       tags:
       - Company
@@ -914,7 +901,6 @@ paths:
               type: object
       security:
       - BearerAuth: []
-  /supervise/company/{id}/googlePlaceId/{googlePlaceId}:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -928,6 +914,7 @@ paths:
           - eu
           - na
           - deputy
+  /supervise/company/{id}/googlePlaceId/{googlePlaceId}:
     post:
       tags:
       - Company
@@ -967,7 +954,6 @@ paths:
               type: object
       security:
       - BearerAuth: []
-  /supervise/company/{id}/settings:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -981,6 +967,7 @@ paths:
           - eu
           - na
           - deputy
+  /supervise/company/{id}/settings:
     get:
       tags:
       - Company
@@ -1045,6 +1032,19 @@ paths:
               type: object
       security:
       - BearerAuth: []
+    servers:
+    - url: https://{subdomain}.{region}.deputy.com/api/v1
+      description: Deputy tenant
+      variables:
+        subdomain:
+          default: your-subdomain
+        region:
+          default: deputy
+          enum:
+          - au
+          - eu
+          - na
+          - deputy
 components:
   schemas:
     Company:
@@ -1184,85 +1184,9 @@ components:
           scopes:
             longlife_refresh_token: Extended session
 x-refined-from:
-- deputy-v1-resource-api-openapi.yml
-- deputy-v1-supervise-api-openapi.yml
-x-provenance:
-  method: searched
-  source: https://developer.deputy.com/reference
-  harvested: '2026-10-14'
-  tool: harvest-readme-openapi.py
-  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
-  assembled_from:
-  - https://developer.deputy.com/reference/addalocation.md
-  - https://developer.deputy.com/reference/addalocationagainstanemployee.md
-  - https://developer.deputy.com/reference/addanemployee.md
-  - https://developer.deputy.com/reference/addasaletosalesmetrics.md
-  - https://developer.deputy.com/reference/addawebhookurl.md
-  - https://developer.deputy.com/reference/addleaveforaemployee.md
-  - https://developer.deputy.com/reference/addnewworkplace.md
-  - https://developer.deputy.com/reference/addunavailabilitydetailsforaemployee.md
-  - https://developer.deputy.com/reference/archivealocation.md
-  - https://developer.deputy.com/reference/copyaroster.md
-  - https://developer.deputy.com/reference/create-a-memo.md
-  - https://developer.deputy.com/reference/createadepartment.md
-  - https://developer.deputy.com/reference/createmultipledepartments.md
-  - https://developer.deputy.com/reference/deletealocation.md
-  - https://developer.deputy.com/reference/deleteanemployeesaccountindeputy.md
-  - https://developer.deputy.com/reference/deleteasingleoperationalunit.md
-  - https://developer.deputy.com/reference/discardaroster.md
-  - https://developer.deputy.com/reference/doatask.md
-  - https://developer.deputy.com/reference/example-searchforemployeesfromalocation.md
-  - https://developer.deputy.com/reference/findanemployeesleave.md
-  - https://developer.deputy.com/reference/findoutanemployeesstatus.md
-  - https://developer.deputy.com/reference/getagreedhoursbyemployeeid.md
-  - https://developer.deputy.com/reference/getalistofrostersfromlast12hoursandforward36hours.md
-  - https://developer.deputy.com/reference/getalocationssettings.md
-  - https://developer.deputy.com/reference/getawardslibrarylist.md
-  - https://developer.deputy.com/reference/getdetailsforaemployeebyid.md
-  - https://developer.deputy.com/reference/getdetailsforallemployees.md
-  - https://developer.deputy.com/reference/getlocationbyid.md
-  - https://developer.deputy.com/reference/getlocations.md
-  - https://developer.deputy.com/reference/getmyindividualtimesheet.md
-  - https://developer.deputy.com/reference/getmynewsfeed.md
-  - https://developer.deputy.com/reference/getmynotifications.md
-  - https://developer.deputy.com/reference/getmysubordinatecontactdetails.md
-  - https://developer.deputy.com/reference/getmytasks.md
-  - https://developer.deputy.com/reference/getmytimesheets.md
-  - https://developer.deputy.com/reference/getmytraining.md
-  - https://developer.deputy.com/reference/getoperationalunits.md
-  - https://developer.deputy.com/reference/getrostersavailableforswap.md
-  - https://developer.deputy.com/reference/getsimplifiedlocationlist.md
-  - https://developer.deputy.com/reference/getsuggestionsforrosterbyid.md
-  - https://developer.deputy.com/reference/getunavailabilitydetailsforaemployee.md
-  - https://developer.deputy.com/reference/inviteemployeetodeputy.md
-  - https://developer.deputy.com/reference/modifysettingsinalllocations.md
-  - https://developer.deputy.com/reference/modifysettingsinasinglelocation.md
-  - https://developer.deputy.com/reference/myaddressonfile.md
-  - https://developer.deputy.com/reference/myaddressonfileincludingemergency.md
-  - https://developer.deputy.com/reference/myleaverequests.md
-  - https://developer.deputy.com/reference/pauseorunpauseemployeestimesheettakeabreakfinishbreak.md
-  - https://developer.deputy.com/reference/postajournal.md
-  - https://developer.deputy.com/reference/publisharoster.md
-  - https://developer.deputy.com/reference/re-activateaterminatedemployee.md
-  - https://developer.deputy.com/reference/removealocationfromanemployee.md
-  - https://developer.deputy.com/reference/retrievecurrentsystemtime.md
-  - https://developer.deputy.com/reference/retrievecurrentsystemtimeofalocation.md
-  - https://developer.deputy.com/reference/retrievesalesdata.md
-  - https://developer.deputy.com/reference/setawardforemployee.md
-  - https://developer.deputy.com/reference/startanemployeestimesheetclockon.md
-  - https://developer.deputy.com/reference/stopanemployeestimesheetclockoff.md
-  - https://developer.deputy.com/reference/terminateanemployee.md
-  - https://developer.deputy.com/reference/updatealocation.md
-  - https://developer.deputy.com/reference/updateanexistingemployee.md
-  - https://developer.deputy.com/reference/updateasingleoperationalunit.md
-  - https://developer.deputy.com/reference/updatemyaddress.md
-  - https://developer.deputy.com/reference/viewatimesheetbyid.md
-  - https://developer.deputy.com/reference/whatlocationscaniworkin.md
-  - https://developer.deputy.com/reference/whenaminextworking.md
-  - https://developer.deputy.com/reference/whenamiunavailable.md
-  - https://developer.deputy.com/reference/wherecaniworkwhatdoido.md
-  - https://developer.deputy.com/reference/whodoiworkwith.md
-  merge:
-    pages: 69
-    deduped: 70
-    conflicts_kept_first: 0
+- deputy-v1-resource-api.json
+- deputy-v1-supervise-api.json
+x-readme:
+  explorer-enabled: true
+  proxy-enabled: true
+  samples-enabled: true

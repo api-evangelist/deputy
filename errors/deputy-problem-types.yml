@@ -1,20 +1,25 @@
-generated: '2026-10-14'
+generated: '2026-10-21'
 method: derived
 generator: derive-problem-types.py
 source:
-- openapi/deputy-deputy-openapi.yml
-- openapi/deputy-resource-api-openapi.yml
-- openapi/deputy-v1-my-api-openapi.yml
-- openapi/deputy-v1-resource-api-openapi.yml
-- openapi/deputy-v1-supervise-api-openapi.yml
-- openapi/deputy-v2-api-openapi.yml
-- openapi/deputy-v2-scoped-api-openapi.yml
+- openapi/deputy-access-management-employee-api-openapi.yml
+- openapi/deputy-access-management-employee-role-api-openapi.yml
+- openapi/deputy-access-management-employee-role-history-api-openapi.yml
+- openapi/deputy-access-management-privilege-hierarchy-api-openapi.yml
+- openapi/deputy-access-management-role-api-openapi.yml
+- openapi/deputy-account-stats-api-openapi.yml
+- openapi/deputy-add-entitlement-to-employees-api-openapi.yml
+- openapi/deputy-address-api-openapi.yml
+- openapi/deputy-agreed-hour-api-openapi.yml
+- openapi/deputy-ai-assistant-api-openapi.yml
+- openapi/deputy-area-management-api-openapi.yml
+- openapi/deputy-area-profile-api-openapi.yml
 format: custom
 envelope:
   media_type: null
   schema: null
 coverage:
-  operations: 1773
+  operations: 1718
   statuses_declared: 4
 problems:
 - status: 400

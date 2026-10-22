@@ -1,4 +1,4 @@
-generated: '2026-07-11'
+generated: '2026-10-21'
 method: searched
 probe: true
 source: https://trust.deputy.com/
@@ -10,5 +10,6 @@ evidence:
 - source: https://trust.deputy.com/
   keywords:
   - soc 2
+  - iso 27001
   - iso/iec 27001
   - trust center

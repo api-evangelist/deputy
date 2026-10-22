@@ -1,14 +1,17 @@
-generated: '2026-10-14'
+generated: '2026-10-21'
 method: derived
 source: the pre-flight dossier, apis.yml pointers, spec servers, well-known, vendors -- nothing fetched here
 generator: derive-hosts.py
 summary:
-  hosts: 9
-  own: 7
+  hosts: 15
+  own: 12
   other_domain: 0
-  platform: 2
+  platform: 3
   roles:
+  - api
   - identity
+  - legal
+  - marketing
   - other
   - portal
   - source
@@ -16,18 +19,36 @@ summary:
   - support
   - website
 hosts:
+- host: api.deputy.com
+  found_by:
+  - contract-discovery
+  types: []
+  serves: []
+  registrable_domain: deputy.com
+  role: api
+  relation: own
 - host: developer.deputy.com
   found_by:
   - pointer
   - apis[]
+  - probed
+  - site-links
+  - docs-index
+  - contract-discovery
+  - well-known
+  - vendor-detect
   types:
   - Documentation
   - DeveloperPortal
   - GettingStarted
   - Authentication
   - LlmsText
+  - APIReference
+  - ChangeLog
   serves:
   - docs
+  - documentation
+  vendor: readme
   registrable_domain: deputy.com
   role: portal
   relation: own
@@ -43,18 +64,37 @@ hosts:
 - host: help.deputy.com
   found_by:
   - pointer
+  - probed
+  - site-links
+  - docs-index
+  - well-known
   - vendor-detect
   types:
   - Support
   serves:
+  - docs
   - support
   vendor: zendesk
   registrable_domain: deputy.com
   role: support
   relation: own
+- host: news.deputy.com
+  found_by:
+  - probed
+  - site-links
+  - well-known
+  types: []
+  serves: []
+  registrable_domain: deputy.com
+  role: marketing
+  relation: own
 - host: once.deputy.com
   found_by:
   - pointer
+  - probed
+  - site-links
+  - contract-discovery
+  - well-known
   - vendor-detect
   types:
   - Login
@@ -64,9 +104,33 @@ hosts:
   registrable_domain: deputy.com
   role: identity
   relation: own
+- host: privacy.deputy.com
+  found_by:
+  - pointer
+  - probed
+  - site-links
+  - well-known
+  types:
+  - PrivacyPolicy
+  serves: []
+  registrable_domain: deputy.com
+  role: legal
+  relation: own
+- host: simonssambos.au.deputy.com
+  found_by:
+  - probed
+  - site-links
+  types: []
+  serves: []
+  registrable_domain: deputy.com
+  role: other
+  relation: own
 - host: status.deputy.com
   found_by:
   - pointer
+  - probed
+  - site-links
+  - well-known
   types:
   - StatusPage
   serves: []
@@ -76,8 +140,22 @@ hosts:
 - host: trust.deputy.com
   found_by:
   - pointer
+  - probed
+  - site-links
+  - contract-discovery
+  - well-known
   types:
   - Compliance
+  serves: []
+  platform: app.safebase.io
+  registrable_domain: deputy.com
+  role: other
+  relation: own
+- host: whatsnew.deputy.com
+  found_by:
+  - probed
+  - site-links
+  types: []
   serves: []
   registrable_domain: deputy.com
   role: other
@@ -85,6 +163,9 @@ hosts:
 - host: www.deputy.com
   found_by:
   - pointer
+  - probed
+  - contract-discovery
+  - well-known
   - vendor-detect
   types:
   - Security
@@ -93,7 +174,6 @@ hosts:
   - Website
   - Pricing
   - Blog
-  - PrivacyPolicy
   - TermsOfService
   serves:
   - cdn
@@ -101,6 +181,15 @@ hosts:
   registrable_domain: deputy.com
   role: website
   relation: own
+- host: www.linkedin.com
+  found_by:
+  - pointer
+  types:
+  - LinkedIn
+  serves: []
+  registrable_domain: linkedin.com
+  role: other
+  relation: platform
 - host: x.com
   found_by:
   - pointer

@@ -1,0 +1,336 @@
+openapi: 3.2.0
+info:
+  title: Deputy Logged in User Details API
+  contact: {}
+  version: '1.0'
+  description: '# All about "Me"
+
+
+    This set of API endpoints allow you to retrieve data about the authenticated user the API token relates too. You can find information out such as locations the user is able to work, their contact details, current rosters and timesheets just to name a few options.
+
+
+    In many cases you can also provide updates to this profile via the API. For example there are endpoints which allow you to update a contact address or photo.'
+servers:
+- url: https://{install}.{geo}.deputy.com/api
+  variables:
+    install:
+      default: ''
+    geo:
+      default: ''
+security:
+- httpBearer: []
+tags:
+- name: Logged in User Details
+  description: '# All about "Me"
+
+
+    This set of API endpoints allow you to retrieve data about the authenticated user the API token relates too. You can find information out such as locations the user is able to work, their contact details, current rosters and timesheets just to name a few options.
+
+
+    In many cases you can also provide updates to this profile via the API. For example there are endpoints which allow you to update a contact address or photo.'
+paths:
+  /v1/my/setup:
+    get:
+      tags:
+      - Logged in User Details
+      summary: Where can I work /What do I do
+      description: Where can I work/What do I do
+      operationId: WherecanIwork/WhatdoIdo
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content: {}
+      deprecated: false
+  /v1/my/location:
+    get:
+      tags:
+      - Logged in User Details
+      summary: What locations can I work in
+      description: What locations can i work in
+      operationId: Whatlocationscaniworkin
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content: {}
+      deprecated: false
+  /v1/my/contactaddress:
+    get:
+      tags:
+      - Logged in User Details
+      summary: My address on file
+      operationId: Myaddressonfile
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content: {}
+      deprecated: false
+    post:
+      tags:
+      - Logged in User Details
+      summary: Update my address
+      operationId: Updatemyaddress
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/UpdatemyaddressRequest'
+              - example:
+                  ContactName: A Person
+                  UnitNo: '2'
+                  Street1: 580 George Street
+                  City: Sydney
+                  State: '150'
+                  Postcode: '2000'
+                  Country: 13
+                  Notes: A note
+            example:
+              ContactName: A Person
+              UnitNo: '2'
+              Street1: 580 George Street
+              City: Sydney
+              State: '150'
+              Postcode: '2000'
+              Country: 13
+              Notes: A note
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content: {}
+      deprecated: false
+  /v1/my/contactaddress/all:
+    get:
+      tags:
+      - Logged in User Details
+      summary: Myaddressonfileincludingemergency
+      description: My address on file including emergency
+      operationId: Myaddressonfileincludingemergency
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content: {}
+      deprecated: false
+  /v1/my/contactaddress/subordinate:
+    get:
+      tags:
+      - Logged in User Details
+      summary: Get my subordinate contact details
+      operationId: Getmysubordinatecontactdetails
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content: {}
+      deprecated: false
+  /v1/my/colleague:
+    get:
+      tags:
+      - Logged in User Details
+      summary: Who do I work with?
+      operationId: WhodoIworkwith?
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content: {}
+      deprecated: false
+  /v1/my/roster:
+    get:
+      tags:
+      - Logged in User Details
+      summary: When Am I Next Working
+      operationId: WhenAmINextWorking
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content: {}
+      deprecated: false
+  /v1/my/leave:
+    get:
+      tags:
+      - Logged in User Details
+      summary: My Leave Requests
+      operationId: MyLeaveRequests
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content: {}
+      deprecated: false
+  /v1/my/unavail:
+    get:
+      tags:
+      - Logged in User Details
+      summary: When Am I Unavailable
+      operationId: WhenAmIUnavailable
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content: {}
+      deprecated: false
+  /v1/my/notification:
+    get:
+      tags:
+      - Logged in User Details
+      summary: Get My Notifications
+      operationId: GetMyNotifications
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content: {}
+      deprecated: false
+  /v1/my/training:
+    get:
+      tags:
+      - Logged in User Details
+      summary: Get my training
+      operationId: Getmytraining
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content: {}
+      deprecated: false
+  /v1/my/memo:
+    get:
+      tags:
+      - Logged in User Details
+      summary: Get my news feed
+      description: Get my newsfeed
+      operationId: Getmynewsfeed
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content: {}
+      deprecated: false
+  /v1/my/tasks:
+    get:
+      tags:
+      - Logged in User Details
+      summary: Get my tasks
+      operationId: Getmytasks
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content: {}
+      deprecated: false
+  /v1/my/tasks/{taskid}/do:
+    get:
+      tags:
+      - Logged in User Details
+      summary: Do a task
+      operationId: Doatask
+      parameters:
+      - name: taskid
+        in: path
+        description: The task id record
+        required: true
+        style: simple
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content: {}
+      deprecated: false
+  /v1/my/timesheets:
+    get:
+      tags:
+      - Logged in User Details
+      summary: Get my timesheets
+      operationId: Getmytimesheets
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content: {}
+      deprecated: false
+  /v1/my/timesheets/{timesheetid}/detail:
+    get:
+      tags:
+      - Logged in User Details
+      summary: Get my individual timesheet
+      operationId: Getmyindividualtimesheet
+      parameters:
+      - name: timesheetid
+        in: path
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content: {}
+      deprecated: false
+components:
+  schemas:
+    UpdatemyaddressRequest:
+      title: UpdatemyaddressRequest
+      required:
+      - ContactName
+      - UnitNo
+      - Street1
+      - City
+      - State
+      - Postcode
+      - Country
+      - Notes
+      type: object
+      properties:
+        ContactName:
+          type: string
+        UnitNo:
+          type: string
+        Street1:
+          type: string
+        City:
+          type: string
+        State:
+          type: string
+        Postcode:
+          type: string
+        Country:
+          type: integer
+          format: int32
+        Notes:
+          type: string
+  securitySchemes:
+    httpBearer:
+      type: http
+      scheme: bearer
+x-readme:
+  explorer-enabled: true
+  proxy-enabled: true
+  samples-enabled: true

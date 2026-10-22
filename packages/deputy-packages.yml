@@ -1,0 +1,26 @@
+generated: '2026-10-21'
+method: searched
+source:
+- https://github.com/DeputyApp
+- https://pypi.org/pypi/tap-deputy/json
+- https://developer.deputy.com/docs/getting-started-with-the-deputy-api.md
+note: Deputy publishes no first-party REST client SDK. The getting-started page lists a Singer tap (DeputyApp/singer-tap-deputy) as one of the ways to work with Deputy, and a Postman collection. The npm package "deputy" and PyPI package "deputy" are unrelated third-party projects and are not listed.
+packages:
+- name: tap-deputy
+  registry: pypi
+  url: https://pypi.org/project/tap-deputy/
+  language: python
+  official: true
+  version: 1.1.2
+  published: '2025-01-16'
+  source_repo: https://github.com/DeputyApp/singer-tap-deputy
+  description: Singer.io tap for extracting data from the Deputy API
+  evidence: PyPI author "Deputy", homepage https://www.deputy.com; source repo in the DeputyApp GitHub org, linked from developer.deputy.com getting-started page.
+- name: Deputy Postman collection
+  registry: postman
+  url: https://integrations-directory.prod.dpty.io/postmancollection/Deputy.postman_collection.json
+  language: postman
+  official: true
+  version: null
+  published: null
+  note: Download link on https://developer.deputy.com/docs/postman-collection; a static file with no registry metadata, so no version or date can be read.

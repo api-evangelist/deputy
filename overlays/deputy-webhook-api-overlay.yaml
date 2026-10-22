@@ -1,0 +1,36 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for deputy-webhook-api-openapi.yml
+  version: 1.0.0
+extends: openapi/deputy-webhook-api-openapi.yml
+x-generated: '2026-10-21'
+x-method: generated
+actions:
+- target: $.info
+  description: Point agents at the provider llms.txt and docs MCP surface
+  update:
+    x-llms-txt: https://developer.deputy.com/llms.txt
+    x-agent-skills-index: https://developer.deputy.com/.well-known/agent-skills/index.json
+    x-mcp-docs-server:
+      url: https://developer.deputy.com/mcp
+      status: gated (HTTP 401 Bearer realm="mcp" on initialize, 2026-10-21)
+- target: $.paths['/resource/Webhook'].get
+  description: Tag listWebhook with the agent skill(s) that use it
+  update:
+    x-agent-skills:
+    - skills/deputy-subscribe-to-webhooks.md
+- target: $.paths['/resource/Webhook'].post
+  description: Tag createWebhook with the agent skill(s) that use it
+  update:
+    x-agent-skills:
+    - skills/deputy-subscribe-to-webhooks.md
+- target: $.paths['/resource/Webhook/{id}'].get
+  description: Tag getWebhookById with the agent skill(s) that use it
+  update:
+    x-agent-skills:
+    - skills/deputy-subscribe-to-webhooks.md
+- target: $.paths['/resource/Webhook/{id}'].delete
+  description: Tag deleteWebhook with the agent skill(s) that use it
+  update:
+    x-agent-skills:
+    - skills/deputy-subscribe-to-webhooks.md

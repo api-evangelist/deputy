@@ -1,0 +1,28 @@
+generated: '2026-10-21'
+method: searched
+source: https://developer.deputy.com/changelog
+scheme: unversioned documentation announcements
+current_version: null
+note: The ReadMe changelog lists three posts. Each post page carries the same createdAt value (2022-08-01T22:17:28.647Z), which looks like an import timestamp rather than a publication date, so dates are left null rather than guessed. No API version numbers or breaking-change entries are published.
+entries:
+- version: null
+  date: null
+  breaking: false
+  title: Agreed Hours APIs
+  url: https://developer.deputy.com/changelog/agreed-hours-apis
+  highlights:
+  - Published documentation relating to Agreed Hours in Deputy.
+- version: null
+  date: null
+  breaking: false
+  title: Smart Scheduling APIs
+  url: https://developer.deputy.com/changelog/smart-scheduling-apis
+  highlights:
+  - Documentation for the Smart Scheduling APIs to retrieve, update and add Labor Models.
+- version: null
+  date: null
+  breaking: false
+  title: New Recipe - Search for employee timesheets in a date period
+  url: https://developer.deputy.com/changelog/new-recipe-search-for-employee-timesheets-in-a-date-period
+  highlights:
+  - New recipe walkthrough for searching an employee's timesheets in a defined period.

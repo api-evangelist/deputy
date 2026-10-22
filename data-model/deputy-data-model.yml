@@ -1,19 +1,24 @@
-generated: '2026-10-14'
+generated: '2026-10-21'
 method: derived
 generator: derive-data-model.py
 source:
-- openapi/deputy-deputy-openapi.yml
-- openapi/deputy-resource-api-openapi.yml
-- openapi/deputy-v1-my-api-openapi.yml
-- openapi/deputy-v1-resource-api-openapi.yml
-- openapi/deputy-v1-supervise-api-openapi.yml
-- openapi/deputy-v2-api-openapi.yml
-- openapi/deputy-v2-scoped-api-openapi.yml
+- openapi/deputy-access-management-employee-api-openapi.yml
+- openapi/deputy-access-management-employee-role-api-openapi.yml
+- openapi/deputy-access-management-employee-role-history-api-openapi.yml
+- openapi/deputy-access-management-privilege-hierarchy-api-openapi.yml
+- openapi/deputy-access-management-role-api-openapi.yml
+- openapi/deputy-account-stats-api-openapi.yml
+- openapi/deputy-add-entitlement-to-employees-api-openapi.yml
+- openapi/deputy-address-api-openapi.yml
+- openapi/deputy-agreed-hour-api-openapi.yml
+- openapi/deputy-ai-assistant-api-openapi.yml
+- openapi/deputy-area-management-api-openapi.yml
+- openapi/deputy-area-profile-api-openapi.yml
 notation: has_one = property $ref; has_many = array of $ref; belongs_to = <entity>_id field
 summary:
   entities: 400
-  entities_in_spec: 1133
-  relationships: 422
+  entities_in_spec: 1110
+  relationships: 424
 entities:
 - name: AccessManagementCreateRoleResponse
   fields: 3
@@ -35,12 +40,8 @@ entities:
   fields: 2
 - name: AccountStatsGetPayRateCoverageResponseData
   fields: 2
-- name: AddasaletosalesmetricsRequest
-  fields: 1
 - name: Address
   fields: 20
-- name: AddunavailabilitydetailsforaemployeeRequest
-  fields: 5
 - name: AgreedHourArea
   fields: 5
 - name: AgreedHourAuditResponse
@@ -111,8 +112,6 @@ entities:
   fields: 4
 - name: AreaRateSaveRequest
   fields: 3
-- name: ArrArea
-  fields: 9
 - name: AuditPayRecalculationPayRecalculationRequest
   fields: 1
 - name: AuditPayRecalculationPayRecalculationResponse
@@ -132,9 +131,15 @@ entities:
   fields: 2
 - name: AvailabilityListResponse
   fields: 2
+- name: AwardListResponse
+  fields: 2
 - name: BadRequestFieldViolation
   fields: 4
   description: A message type used to describe a single bad request field.
+- name: BulkPatchRequestPatchData
+  fields: 3
+- name: BulkUpdateFields
+  fields: 10
 - name: BusinessSettingPrivilegeNameAndRoles
   fields: 2
 - name: BusinessSettingSettingGroup
@@ -836,74 +841,58 @@ entities:
 - name: v2modelUserInfo
   fields: 6
 relationships:
-- from: Task
-  to: TaskSetup
-  type: belongs_to
-  via: TaskSetupId
-- from: Timesheet
-  to: Leave
-  type: belongs_to
-  via: LeaveId
-- from: EmployeeAgreement
-  to: Employee
-  type: belongs_to
-  via: EmployeeId
-- from: EmployeeAgreementAreaRate
-  to: EmployeeAgreement
-  type: belongs_to
-  via: EmployeeAgreementId
-- from: EmployeeAgreementAreaRate
-  to: OperationalUnit
-  type: belongs_to
-  via: OperationalUnitId
-- from: EmployeeHistory
-  to: Employee
-  type: belongs_to
-  via: EmployeeId
-- from: EmployeePaycycle
-  to: Employee
-  type: belongs_to
-  via: EmployeeId
-- from: EmployeePaycycle
-  to: EmployeeAgreement
-  type: belongs_to
-  via: EmployeeAgreementId
-- from: EmployeePaycycle
-  to: EmployeeAgreementHistory
-  type: belongs_to
-  via: EmployeeAgreementHistoryId
-- from: EmployeeContractedHours
-  to: Employee
-  type: belongs_to
-  via: EmployeeId
-- from: EmployeeContractedHoursShift
-  to: EmployeeContractedHours
-  type: belongs_to
-  via: EmployeeContractedHoursId
-- from: EmployeeContractedHoursShift
-  to: Company
-  type: belongs_to
-  via: CompanyId
-- from: EmployeeContractedHoursShift
-  to: OperationalUnit
-  type: belongs_to
-  via: OperationalUnitId
-- from: EmploymentContract
-  to: Country
-  type: belongs_to
-  via: CountryId
-- from: LeavePayLine
-  to: Leave
-  type: belongs_to
-  via: LeaveId
-- from: LeavePayLine
-  to: Timesheet
-  type: belongs_to
-  via: TimesheetId
-- from: TaskOpunitConfig
-  to: TaskSetup
-  type: belongs_to
-  via: TaskSetupId
+- from: AccessManagementListEmployeeByRoleResponse
+  to: tenantauthv2modelEmployee
+  type: has_many
+  via: employees
+- from: AccessManagementGetEmployeeRoleResponse
+  to: tenantauthv2modelEmployeeRole
+  type: has_one
+  via: role
+- from: modelEmployeeRoleHistory
+  to: tenantauthv2modelEmployee
+  type: has_one
+  via: changedBy
+- from: AccessManagementListEmployeeRoleHistoryResponse
+  to: modelEmployeeRoleHistory
+  type: has_many
+  via: changes
+- from: modelPrivilegeGroup
+  to: modelGenericPrivilege
+  type: has_many
+  via: privileges
+- from: modelPrivilegeCategory
+  to: modelPrivilegeGroup
+  type: has_many
+  via: groups
+- from: modelGenericPrivilege
+  to: modelPrivilegeCollection
+  type: has_one
+  via: collection
+- from: modelGenericPrivilege
+  to: v2modelPrivilege
+  type: has_one
+  via: privilege
+- from: v2modelPrivilege
+  to: modelPrivilegeDependency
+  type: has_many
+  via: dependencies
+- from: AccessManagementGetPrivilegeHierarchyResponse
+  to: modelPrivilegeCategory
+  type: has_many
+  via: privilegeCategories
+- from: modelPrivilegeCollection
+  to: modelGenericPrivilege
+  type: has_many
+  via: privileges
+- from: AccessManagementCreateRoleResponse
+  to: tenantauthv2modelEmployeeRole
+  type: has_one
+  via: role
+- from: AccessManagementListRoleResponse
+  to: tenantauthv2modelEmployeeRole
+  type: has_many
+  via: roles
 - from: AccountStatsGetPayCalendarCoverageResponse
   to: AccountStatsGetPayCalendarCoverageResponseData
   type: has_one
@@ -912,42 +901,6 @@ relationships:
   to: AccountStatsGetPayRateCoverageResponseData
   type: has_one
   via: data
-- from: ScheduleAgentGetLateResponse
-  to: ScheduleAgentLateEntry
-  type: has_many
-  via: data
-- from: ScheduleAgentLateEntry
-  to: Employee
-  type: belongs_to
-  via: employeeId
-- from: ScheduleAgentUpsertShiftsRequestUpsertItem
-  to: Employee
-  type: belongs_to
-  via: employeeId
-- from: ScheduleAgentUpsertShiftsRequestUpsertItem
-  to: tenantsharedv2modelCustomField
-  type: has_many
-  via: customFields
-- from: ScheduleAgentUpsertShiftsResponse
-  to: ScheduleAgentUpsertShiftsResponseMetadata
-  type: has_one
-  via: metadata
-- from: AgreedHourGetResponse
-  to: v2modelAgreedHour
-  type: has_one
-  via: agreedHour
-- from: modelAgreedHourDay
-  to: modelAgreedHourShift
-  type: has_many
-  via: shifts
-- from: modelAgreedHourDetails
-  to: modelAgreedHourWeek
-  type: has_many
-  via: weeks
-- from: modelAgreedHourWeek
-  to: modelAgreedHourDay
-  type: has_many
-  via: days
 - from: v2modelAgreedHour
   to: modelAgreedHourDetails
   type: has_one
@@ -964,6 +917,38 @@ relationships:
   to: v2modelAgreedHour
   type: has_one
   via: agreedHour
+- from: modelConsent
+  to: Employee
+  type: belongs_to
+  via: employeeId
+- from: AgreedHourGetAreasResponse
+  to: AgreedHourArea
+  type: has_many
+  via: areas
+- from: AgreedHourDiffResponse
+  to: v2modelAgreedHour
+  type: has_one
+  via: agreedHour
+- from: modelAgreedHourDetails
+  to: modelAgreedHourWeek
+  type: has_many
+  via: weeks
+- from: AuditResponseAgreedHourWithConsentRecords
+  to: v2modelAgreedHour
+  type: has_one
+  via: agreedHour
+- from: AuditResponseAgreedHourWithConsentRecords
+  to: modelConsent
+  type: has_many
+  via: consentRecords
+- from: modelAgreedHourWeek
+  to: modelAgreedHourDay
+  type: has_many
+  via: days
+- from: AgreedHourAuditResponse
+  to: AuditResponseAgreedHourWithConsentRecords
+  type: has_many
+  via: items
 - from: AgreedHourBatchUpdateRequest
   to: Employee
   type: belongs_to
@@ -971,43 +956,27 @@ relationships:
 - from: AgreedHourBatchUpdateRequest
   to: v2modelAgreedHour
   type: has_one
+  via: agreedHour
+- from: AgreedHourGetResponse
+  to: v2modelAgreedHour
+  type: has_one
+  via: agreedHour
+- from: AgreedHourConsentRecordsResponse
+  to: modelConsent
+  type: has_many
+  via: consentRecords
+- from: AgreedHourSearchResponse
+  to: v2modelAgreedHour
+  type: has_many
   via: agreedHour
 - from: AgreedHourGetAreasRequest
   to: Employee
   type: belongs_to
   via: employeeIds
-- from: AgreedHourGetAreasResponse
-  to: AgreedHourArea
+- from: modelAgreedHourDay
+  to: modelAgreedHourShift
   type: has_many
-  via: areas
-- from: AgreedHourSearchResponse
-  to: v2modelAgreedHour
-  type: has_many
-  via: agreedHour
-- from: AgreedHourAuditResponse
-  to: AuditResponseAgreedHourWithConsentRecords
-  type: has_many
-  via: items
-- from: AuditResponseAgreedHourWithConsentRecords
-  to: v2modelAgreedHour
-  type: has_one
-  via: agreedHour
-- from: AuditResponseAgreedHourWithConsentRecords
-  to: modelConsent
-  type: has_many
-  via: consentRecords
-- from: modelConsent
-  to: Employee
-  type: belongs_to
-  via: employeeId
-- from: AgreedHourConsentRecordsResponse
-  to: modelConsent
-  type: has_many
-  via: consentRecords
-- from: AgreedHourDiffResponse
-  to: v2modelAgreedHour
-  type: has_one
-  via: agreedHour
+  via: shifts
 - from: AreaManagementListByEmployeeIdResponse
   to: v2modelAreaManagement
   type: has_many
@@ -1016,9 +985,25 @@ relationships:
   to: Employee
   type: belongs_to
   via: employeeId
-- from: AreaProfileListResponse
+- from: AreaProfileCreateResponse
   to: v2modelAreaProfile
+  type: has_one
+  via: data
+- from: AreaProfileAreaInUseResponse
+  to: AreaProfileAreaInUseResponseData
   type: has_many
+  via: data
+- from: AreaProfileEmployeeTrainedRequest
+  to: Employee
+  type: belongs_to
+  via: employeeId
+- from: AreaProfileUpdateResponse
+  to: v2modelAreaProfile
+  type: has_one
+  via: data
+- from: AreaProfileGetResponse
+  to: v2modelAreaProfile
+  type: has_one
   via: data
 - from: v2modelAreaProfile
   to: Address
@@ -1032,50 +1017,18 @@ relationships:
   to: tenantlocationv2modelAddress
   type: has_one
   via: address
-- from: AreaProfileCreateResponse
-  to: v2modelAreaProfile
-  type: has_one
-  via: data
-- from: AreaProfileEmployeeTrainedRequest
-  to: Employee
-  type: belongs_to
-  via: employeeId
 - from: AreaProfileEmployeeTrainedResponse
   to: AreaProfileEmployeeTrainedResponseData
   type: has_one
   via: data
-- from: AreaProfileAreaInUseResponse
-  to: AreaProfileAreaInUseResponseData
-  type: has_many
-  via: data
-- from: AreaProfileGetResponse
+- from: AreaProfileListResponse
   to: v2modelAreaProfile
-  type: has_one
+  type: has_many
   via: data
-- from: AreaProfileUpdateResponse
-  to: v2modelAreaProfile
-  type: has_one
-  via: data
-- from: AreaRateGetResponse
-  to: v2modelAreaRate
-  type: has_many
-  via: areaRates
-- from: AreaRateGetResponse
-  to: tenantarea_ratev2modelContract
-  type: has_many
-  via: contracts
-- from: AreaRateBatchSaveRequest
-  to: AreaRateSaveRequest
-  type: has_many
-  via: requests
 - from: AreaRateBatchSaveResponse
   to: AreaRateSaveError
   type: has_many
   via: errors
-- from: AreaRateSaveError
-  to: Employee
-  type: belongs_to
-  via: employeeId
 - from: AreaRateSaveRequest
   to: Employee
   type: belongs_to
@@ -1084,14 +1037,22 @@ relationships:
   to: AreaRateAreaRateData
   type: has_one
   via: areaRate
-- from: AuditPayRecalculationPayRecalculationRequest
-  to: modelPayRecalculation
-  type: has_one
-  via: data
-- from: AuditPayRecalculationPayRecalculationResponse
-  to: modelTimesheetDetails
+- from: AreaRateBatchSaveRequest
+  to: AreaRateSaveRequest
   type: has_many
-  via: data
+  via: requests
+- from: AreaRateGetResponse
+  to: v2modelAreaRate
+  type: has_many
+  via: areaRates
+- from: AreaRateGetResponse
+  to: tenantarea_ratev2modelContract
+  type: has_many
+  via: contracts
+- from: AreaRateSaveError
+  to: Employee
+  type: belongs_to
+  via: employeeId
 - from: modelPayRecalculation
   to: Employee
   type: belongs_to
@@ -1108,63 +1069,27 @@ relationships:
   to: tenantauditv2modelPayReturn
   type: has_many
   via: calculatedPayReturns
-- from: AccessManagementGetPrivilegeHierarchyResponse
-  to: modelPrivilegeCategory
+- from: AuditPayRecalculationPayRecalculationResponse
+  to: modelTimesheetDetails
   type: has_many
-  via: privilegeCategories
-- from: modelGenericPrivilege
-  to: modelPrivilegeCollection
+  via: data
+- from: AuditPayRecalculationPayRecalculationRequest
+  to: modelPayRecalculation
   type: has_one
-  via: collection
-- from: modelGenericPrivilege
-  to: v2modelPrivilege
-  type: has_one
-  via: privilege
-- from: modelPrivilegeCategory
-  to: modelPrivilegeGroup
+  via: data
+- from: AvailabilityListResponse
+  to: modelEmployeeAvailability
   type: has_many
-  via: groups
-- from: modelPrivilegeCollection
-  to: modelGenericPrivilege
-  type: has_many
-  via: privileges
-- from: modelPrivilegeGroup
-  to: modelGenericPrivilege
-  type: has_many
-  via: privileges
-- from: v2modelPrivilege
-  to: modelPrivilegeDependency
-  type: has_many
-  via: dependencies
-- from: AccessManagementListRoleResponse
-  to: tenantauthv2modelEmployeeRole
-  type: has_many
-  via: roles
-- from: AccessManagementCreateRoleResponse
-  to: tenantauthv2modelEmployeeRole
-  type: has_one
-  via: role
-- from: AccessManagementGetEmployeeRoleResponse
-  to: tenantauthv2modelEmployeeRole
-  type: has_one
-  via: role
-- from: AccessManagementListEmployeeByRoleResponse
-  to: tenantauthv2modelEmployee
-  type: has_many
-  via: employees
-- from: AccessManagementListEmployeeRoleHistoryResponse
-  to: modelEmployeeRoleHistory
-  type: has_many
-  via: changes
-- from: modelEmployeeRoleHistory
-  to: tenantauthv2modelEmployee
-  type: has_one
-  via: changedBy
+  via: data
 - from: AvailabilityGetResponse
   to: modelEmployeeAvailability
   type: has_one
   via: data
-- from: modelDateOfMonthRecurrenceAvailability
+- from: modelWeekdayRecurrenceAvailability
+  to: modelAvailabilityDetail
+  type: has_many
+  via: availability
+- from: modelOneOffAvailability
   to: modelAvailabilityDetail
   type: has_many
   via: availability
@@ -1180,30 +1105,74 @@ relationships:
   to: modelWeekdayRecurrenceAvailability
   type: has_many
   via: weekdayRecurrences
-- from: modelOneOffAvailability
+- from: modelDateOfMonthRecurrenceAvailability
   to: modelAvailabilityDetail
   type: has_many
   via: availability
-- from: modelWeekdayRecurrenceAvailability
-  to: modelAvailabilityDetail
+- from: ShiftConsentChangesetShiftConsentChangesetData
+  to: modelBreak
   type: has_many
-  via: availability
-- from: AvailabilityListResponse
-  to: modelEmployeeAvailability
+  via: mealbreakSlots
+- from: ShiftBidBidApproveResponseData
+  to: tenantschedulev2modelShift
   type: has_many
-  via: data
-- from: BusinessSettingPrivilegeNameAndRoles
-  to: v2BusinessSettingRole
+  via: shifts
+- from: tenantschedulev2modelShift
+  to: modelBreak
   type: has_many
-  via: roles
-- from: BusinessSettingSettingGroup
-  to: modelTemplate
+  via: mealbreakSlots
+- from: tenantschedulev2modelShift
+  to: tenantsharedv2modelCustomField
   type: has_many
-  via: templates
+  via: customFields
+- from: tenantschedulev2modelShift
+  to: modelShiftConsentChangeset
+  type: has_many
+  via: consentChangesets
+- from: modelShiftConsentChangeset
+  to: ShiftConsentChangesetShiftConsentChangesetData
+  type: has_one
+  via: newData
+- from: modelShiftConsentChangeset
+  to: ShiftConsentChangesetShiftConsentChangesetData
+  type: has_one
+  via: oldData
+- from: modelShiftConsentChangeset
+  to: modelViolatedRules
+  type: has_many
+  via: violatedRules
+- from: modelShiftConsentChangeset
+  to: modelConsent
+  type: has_many
+  via: consents
 - from: modelEmployeeShiftStatus
   to: Employee
   type: belongs_to
   via: employeeId
+- from: AwardListResponse
+  to: tenantcompliancev2modelAward
+  type: has_many
+  via: data
+- from: v2modelEmployeeRate
+  to: Employee
+  type: belongs_to
+  via: employeeId
+- from: v2modelEmployeeRate
+  to: modelRateDetail
+  type: has_many
+  via: rates
+- from: tenantcompliancev2modelPayRule
+  to: OperationalUnit
+  type: belongs_to
+  via: operationalUnitIds
+- from: tenantcompliancev2modelPayRule
+  to: v2modelFilter
+  type: has_one
+  via: filter
+- from: tenantcompliancev2modelPayRule
+  to: modelPayConfig
+  type: has_one
+  via: payConfig
 - from: tenantcompliancev2modelContract
   to: tenantcompliancev2modelPayRule
   type: has_one
@@ -1224,30 +1193,102 @@ relationships:
   to: modelContractLevel
   type: has_many
   via: levels
-- from: tenantcompliancev2modelPayRule
-  to: OperationalUnit
-  type: belongs_to
-  via: operationalUnitIds
-- from: tenantcompliancev2modelPayRule
-  to: v2modelFilter
-  type: has_one
-  via: filter
-- from: tenantcompliancev2modelPayRule
-  to: modelPayConfig
-  type: has_one
-  via: payConfig
 - from: v2modelFilter
   to: modelCustomFieldAnswer
   type: has_many
   via: customFieldAnswers
-- from: v2modelEmployeeRate
+- from: v2modelConcurrentLeaveCapConfig
+  to: modelConcurrentLeaveCapRule
+  type: has_one
+  via: defaultRule
+- from: v2modelConcurrentLeaveCapConfig
+  to: modelConcurrentLeaveCapRule
+  type: has_many
+  via: overrideRules
+- from: GenericReportListResponseReport
+  to: modelFwwPayPremiumsItem
+  type: has_one
+  via: fwwPayPremium
+- from: GenericReportListResponseReport
+  to: modelFwwShiftChangeConsentItem
+  type: has_one
+  via: fwwShiftChangeConsent
+- from: modelFwwPayPremiumsItem
+  to: Employee
+  type: belongs_to
+  via: employeeIds
+- from: modelFwwShiftChangeConsentItem
+  to: Employee
+  type: belongs_to
+  via: employeeIds
+- from: modelFwwShiftChangeConsentCreateRequest
+  to: Employee
+  type: belongs_to
+  via: employeeIds
+- from: GenericReportCreateRequestData
+  to: modelFwwPayPremiumsCreateRequest
+  type: has_one
+  via: fwwPayPremiums
+- from: GenericReportCreateRequestData
+  to: modelFwwShiftChangeConsentCreateRequest
+  type: has_one
+  via: fwwShiftChangeConsent
+- from: modelFwwPayPremiumsCreateRequest
+  to: Employee
+  type: belongs_to
+  via: employeeIds
+- from: v2modelData
+  to: modelWorkspaces
+  type: has_many
+  via: workspaces
+- from: modelSharedWithMeData
+  to: modelWorkbooks
+  type: has_many
+  via: workbooks
+- from: modelProvisionTenantToSigmaResponseData
+  to: Team
+  type: belongs_to
+  via: teamId
+- from: modelWorkspaces
+  to: modelWorkbooks
+  type: has_many
+  via: workbooks
+- from: modelUpdateTenantDataOnSigmaResponseData
+  to: Team
+  type: belongs_to
+  via: teamId
+- from: modelHomeFolderData
+  to: modelWorkbooks
+  type: has_many
+  via: workbooks
+- from: v2modelEmployeeAgreement
   to: Employee
   type: belongs_to
   via: employeeId
-- from: v2modelEmployeeRate
-  to: modelRateDetail
-  type: has_many
-  via: rates
+- from: v2modelEmployeeAgreement
+  to: EmploymentContract
+  type: belongs_to
+  via: employmentContractId
+- from: v2modelEmployeeAgreement
+  to: EmployeeAgreementHistory
+  type: belongs_to
+  via: employeeAgreementHistoryId
+- from: modelEmployeeEntitlement
+  to: Employee
+  type: belongs_to
+  via: employeeId
+- from: v2modelEmployeeOnboardingExport
+  to: Employee
+  type: belongs_to
+  via: employeeId
+- from: modelOnboardingStatus
+  to: Employee
+  type: belongs_to
+  via: employeeId
+- from: ListEmployeesByDateRangeResponseOnboardingData
+  to: Employee
+  type: belongs_to
+  via: employeeId
 - from: v2modelEmployeeProfile
   to: Company
   type: belongs_to
@@ -1256,14 +1297,62 @@ relationships:
   to: Contact
   type: belongs_to
   via: contactId
-- from: AgreementContractOptions
-  to: AgreementOverridePayRules
+- from: modelEmployeeProfileBasic
+  to: Company
+  type: belongs_to
+  via: companyId
+- from: modelPulseSettings
+  to: modelQuestion
   type: has_many
-  via: overridePayRules
-- from: BadRequestFieldViolation
-  to: rpcLocalizedMessage
-  type: has_one
-  via: localizedMessage
+  via: customQuestions
+- from: EmployeeSentimentAggregateResponseData
+  to: EmployeeSentimentSentimentsByDate
+  type: has_many
+  via: sentimentsByDate
+- from: EmployeeAgreement
+  to: Employee
+  type: belongs_to
+  via: EmployeeId
+- from: EmployeeAgreementAreaRate
+  to: EmployeeAgreement
+  type: belongs_to
+  via: EmployeeAgreementId
+- from: EmployeeAgreementAreaRate
+  to: OperationalUnit
+  type: belongs_to
+  via: OperationalUnitId
+- from: EmployeeContractedHours
+  to: Employee
+  type: belongs_to
+  via: EmployeeId
+- from: EmployeeContractedHoursShift
+  to: EmployeeContractedHours
+  type: belongs_to
+  via: EmployeeContractedHoursId
+- from: EmployeeContractedHoursShift
+  to: Company
+  type: belongs_to
+  via: CompanyId
+- from: EmployeeContractedHoursShift
+  to: OperationalUnit
+  type: belongs_to
+  via: OperationalUnitId
+- from: EmployeeHistory
+  to: Employee
+  type: belongs_to
+  via: EmployeeId
+- from: EmployeePaycycle
+  to: Employee
+  type: belongs_to
+  via: EmployeeId
+- from: EmployeePaycycle
+  to: EmployeeAgreement
+  type: belongs_to
+  via: EmployeeAgreementId
+- from: EmployeePaycycle
+  to: EmployeeAgreementHistory
+  type: belongs_to
+  via: EmployeeAgreementHistoryId
 - from: EmployeesRequestOutcome
   to: tenantemployeev2modelEmployee
   type: has_one
@@ -1272,58 +1361,6 @@ relationships:
   to: errorsError
   type: has_one
   via: error
-- from: errorsError
-  to: errorsErrorDetail
-  type: has_many
-  via: details
-- from: errorsErrorDetail
-  to: rpcQuotaFailure
-  type: has_one
-  via: quotaFailure
-- from: errorsErrorDetail
-  to: rpcPreconditionFailure
-  type: has_one
-  via: preconditionFailure
-- from: errorsErrorDetail
-  to: rpcBadRequest
-  type: has_one
-  via: badRequest
-- from: errorsErrorDetail
-  to: rpcHelp
-  type: has_one
-  via: help
-- from: errorsErrorDetail
-  to: rpcLocalizedMessage
-  type: has_one
-  via: localizedMessage
-- from: modelAgreement
-  to: AgreementContractOptions
-  type: has_one
-  via: contract
-- from: modelAgreement
-  to: AgreementPayCalendarOptions
-  type: has_one
-  via: payCalendar
-- from: modelAgreement
-  to: AgreementLevelDetail
-  type: has_one
-  via: levelDetail
-- from: modelCustomFieldData
-  to: CustomFieldDataFieldData
-  type: has_one
-  via: data
-- from: modelEmployeeRole
-  to: RoleRolePrivileges
-  type: has_one
-  via: rolePrivileges
-- from: modelWorkplace
-  to: modelAgreement
-  type: has_one
-  via: agreement
-- from: rpcBadRequest
-  to: BadRequestFieldViolation
-  type: has_many
-  via: fieldViolations
 - from: tenantemployeev2modelEmployee
   to: tenantemployeev2modelAddress
   type: has_one
@@ -1348,74 +1385,78 @@ relationships:
   to: modelCustomFieldData
   type: has_many
   via: customFieldData
-- from: v2modelEmployeeAgreement
-  to: Employee
-  type: belongs_to
-  via: employeeId
-- from: v2modelEmployeeAgreement
-  to: EmploymentContract
-  type: belongs_to
-  via: employmentContractId
-- from: v2modelEmployeeAgreement
-  to: EmployeeAgreementHistory
-  type: belongs_to
-  via: employeeAgreementHistoryId
-- from: modelOnboardingStatus
-  to: Employee
-  type: belongs_to
-  via: employeeId
-- from: v2modelEmployeeOnboardingExport
-  to: Employee
-  type: belongs_to
-  via: employeeId
-- from: ListEmployeesByDateRangeResponseOnboardingData
-  to: Employee
-  type: belongs_to
-  via: employeeId
-- from: modelEmployeeProfileBasic
-  to: Company
-  type: belongs_to
-  via: companyId
-- from: modelPulseSettings
-  to: modelQuestion
+- from: errorsError
+  to: errorsErrorDetail
   type: has_many
-  via: customQuestions
-- from: EmployeeSentimentAggregateResponseData
-  to: EmployeeSentimentSentimentsByDate
-  type: has_many
-  via: sentimentsByDate
-- from: modelWorkspaces
-  to: modelWorkbooks
-  type: has_many
-  via: workbooks
-- from: v2modelData
-  to: modelWorkspaces
-  type: has_many
-  via: workspaces
-- from: modelHomeFolderData
-  to: modelWorkbooks
-  type: has_many
-  via: workbooks
-- from: modelProvisionTenantToSigmaResponseData
-  to: Team
-  type: belongs_to
-  via: teamId
-- from: modelUpdateTenantDataOnSigmaResponseData
-  to: Team
-  type: belongs_to
-  via: teamId
-- from: modelSharedWithMeData
-  to: modelWorkbooks
-  type: has_many
-  via: workbooks
-- from: modelBuffer
-  to: modelBufferDetail
+  via: details
+- from: errorsErrorDetail
+  to: rpcQuotaFailure
   type: has_one
-  via: open
-- from: modelBuffer
-  to: modelBufferDetail
+  via: quotaFailure
+- from: errorsErrorDetail
+  to: rpcPreconditionFailure
   type: has_one
-  via: close
+  via: preconditionFailure
+- from: errorsErrorDetail
+  to: rpcBadRequest
+  type: has_one
+  via: badRequest
+- from: errorsErrorDetail
+  to: rpcHelp
+  type: has_one
+  via: help
+- from: errorsErrorDetail
+  to: rpcLocalizedMessage
+  type: has_one
+  via: localizedMessage
+- from: modelWorkplace
+  to: modelAgreement
+  type: has_one
+  via: agreement
+- from: BadRequestFieldViolation
+  to: rpcLocalizedMessage
+  type: has_one
+  via: localizedMessage
+- from: modelAgreement
+  to: AgreementContractOptions
+  type: has_one
+  via: contract
+- from: modelAgreement
+  to: AgreementPayCalendarOptions
+  type: has_one
+  via: payCalendar
+- from: modelAgreement
+  to: AgreementLevelDetail
+  type: has_one
+  via: levelDetail
+- from: AgreementContractOptions
+  to: AgreementOverridePayRules
+  type: has_many
+  via: overridePayRules
+- from: rpcBadRequest
+  to: BadRequestFieldViolation
+  type: has_many
+  via: fieldViolations
+- from: modelEmployeeRole
+  to: RoleRolePrivileges
+  type: has_one
+  via: rolePrivileges
+- from: modelCustomFieldData
+  to: CustomFieldDataFieldData
+  type: has_one
+  via: data
+- from: EmploymentContract
+  to: Country
+  type: belongs_to
+  via: CountryId
+- from: BusinessSettingSettingGroup
+  to: modelTemplate
+  type: has_many
+  via: templates
+- from: BusinessSettingPrivilegeNameAndRoles
+  to: v2BusinessSettingRole
+  type: has_many
+  via: roles
 - from: modelLaborModelRuleResponse
   to: modelStep
   type: has_many
@@ -1432,6 +1473,14 @@ relationships:
   to: Task
   type: belongs_to
   via: taskId
+- from: modelBuffer
+  to: modelBufferDetail
+  type: has_one
+  via: open
+- from: modelBuffer
+  to: modelBufferDetail
+  type: has_one
+  via: close
 - from: modelLaborModelRuleRequest
   to: modelStep
   type: has_many
@@ -1444,26 +1493,14 @@ relationships:
   to: modelTaskRequest
   type: has_one
   via: task
-- from: modelTaskRequest
-  to: Task
-  type: belongs_to
-  via: taskId
 - from: modelLaborModelResult
   to: modelStaffByDay
   type: has_many
   via: staffByDay
-- from: v2modelConcurrentLeaveCapConfig
-  to: modelConcurrentLeaveCapRule
-  type: has_one
-  via: defaultRule
-- from: v2modelConcurrentLeaveCapConfig
-  to: modelConcurrentLeaveCapRule
-  type: has_many
-  via: overrideRules
-- from: LeaveAbsenceValidateLeaveAbsenceRequest
-  to: Employee
+- from: modelTaskRequest
+  to: Task
   type: belongs_to
-  via: employeeId
+  via: taskId
 - from: modelLeaveAbsenceWarnings
   to: modelBalanceLimitWarning
   type: has_many
@@ -1472,18 +1509,22 @@ relationships:
   to: modelConcurrentLeaveCapWarning
   type: has_one
   via: concurrentLeaveCaps
+- from: LeaveAbsenceValidateLeaveAbsenceRequest
+  to: Employee
+  type: belongs_to
+  via: employeeId
 - from: LeaveAccrualEmployeeRecalculationEligibility
   to: Employee
   type: belongs_to
   via: employeeId
-- from: modelAgreedHoursDetails
-  to: modelProRata
-  type: has_one
-  via: proRata
 - from: modelFixedReleaseDetails
   to: modelProRata
   type: has_one
   via: proRata
+- from: modelLeaveLogEntryTimesheet
+  to: Timesheet
+  type: belongs_to
+  via: timesheetId
 - from: modelLeaveLogEntry
   to: modelLeaveLogEntryTimesheet
   type: has_one
@@ -1496,26 +1537,14 @@ relationships:
   to: modelAgreedHoursDetails
   type: has_one
   via: agreedHoursDetails
-- from: modelLeaveLogEntryTimesheet
-  to: Timesheet
-  type: belongs_to
-  via: timesheetId
+- from: modelAgreedHoursDetails
+  to: modelProRata
+  type: has_one
+  via: proRata
 - from: modelLeaveBalanceCreate
   to: Employee
   type: belongs_to
   via: employeeId
-- from: LeaveBalanceForEmployeeAndLeaveRuleLeaveYearBalance
-  to: LeaveBalanceForEmployeeAndLeaveRuleBalanceValue
-  type: has_one
-  via: currentBalance
-- from: LeaveBalanceForEmployeeAndLeaveRuleLeaveYearBalance
-  to: LeaveBalanceForEmployeeAndLeaveRuleBalanceValue
-  type: has_one
-  via: upcomingLeave
-- from: LeaveBalanceForEmployeeAndLeaveRuleLeaveYearBalance
-  to: LeaveBalanceForEmployeeAndLeaveRuleBalanceValue
-  type: has_one
-  via: availableBalance
 - from: modelLeaveBalanceForEmployeeAndLeaveRule
   to: v2modelEmployeeStandardDay
   type: has_one
@@ -1528,22 +1557,26 @@ relationships:
   to: LeaveBalanceForEmployeeAndLeaveRuleLeaveYearBalance
   type: has_many
   via: futureYears
-- from: modelEmployeeEntitlement
-  to: Employee
-  type: belongs_to
-  via: employeeId
+- from: LeaveBalanceForEmployeeAndLeaveRuleLeaveYearBalance
+  to: LeaveBalanceForEmployeeAndLeaveRuleBalanceValue
+  type: has_one
+  via: currentBalance
+- from: LeaveBalanceForEmployeeAndLeaveRuleLeaveYearBalance
+  to: LeaveBalanceForEmployeeAndLeaveRuleBalanceValue
+  type: has_one
+  via: upcomingLeave
+- from: LeaveBalanceForEmployeeAndLeaveRuleLeaveYearBalance
+  to: LeaveBalanceForEmployeeAndLeaveRuleBalanceValue
+  type: has_one
+  via: availableBalance
 - from: modelLeaveFeatureSetStatus
   to: modelLeaveFeatureSetSuggestionStatus
   type: has_one
   via: suggestionStatus
-- from: v2modelLeaveRequest
+- from: LeaveRequestGetUpcomingLeaveForEmployeeRequest
   to: Employee
   type: belongs_to
   via: employeeId
-- from: v2modelLeaveRequest
-  to: EmployeeHistory
-  type: belongs_to
-  via: employeeHistoryId
 - from: LeaveRequestApprovalValidationLeaveRequestWarnings
   to: modelBalanceLimitWarning
   type: has_many
@@ -1552,10 +1585,22 @@ relationships:
   to: modelConcurrentLeaveCapWarning
   type: has_one
   via: concurrentLeaveCaps
-- from: LeaveRequestGetUpcomingLeaveForEmployeeRequest
+- from: v2modelLeaveRequest
   to: Employee
   type: belongs_to
   via: employeeId
+- from: v2modelLeaveRequest
+  to: EmployeeHistory
+  type: belongs_to
+  via: employeeHistoryId
+- from: LeavePayLine
+  to: Leave
+  type: belongs_to
+  via: LeaveId
+- from: LeavePayLine
+  to: Timesheet
+  type: belongs_to
+  via: TimesheetId
 - from: v2modelLocationProfile
   to: Address
   type: belongs_to
@@ -1580,46 +1625,486 @@ relationships:
   to: AlsoWorkingResponseEmployeeProfile
   type: has_many
   via: employees
-- from: ShiftConsentChangesetShiftConsentChangesetData
-  to: modelBreak
-  type: has_many
-  via: mealbreakSlots
-- from: modelShiftConsentChangeset
-  to: ShiftConsentChangesetShiftConsentChangesetData
+- from: ShiftSuggestionResponse
+  to: ShiftSuggestionResponseData
   type: has_one
-  via: newData
-- from: modelShiftConsentChangeset
-  to: ShiftConsentChangesetShiftConsentChangesetData
+  via: data
+- from: ShiftSuggestionRequestData
+  to: RequestFilters
   type: has_one
-  via: oldData
-- from: modelShiftConsentChangeset
-  to: modelViolatedRules
+  via: filters
+- from: RequestFilters
+  to: Employee
+  type: belongs_to
+  via: employeeIds
+- from: modelModule
+  to: modelTask
   type: has_many
-  via: violatedRules
-- from: modelShiftConsentChangeset
-  to: modelConsent
+  via: tasks
+- from: modelModule
+  to: modelTask
   type: has_many
-  via: consents
-- from: tenantschedulev2modelShift
-  to: modelBreak
+  via: userTasks
+- from: OnboardingDashboardGetOnboardingDashboardResponse
+  to: modelModule
   type: has_many
-  via: mealbreakSlots
-- from: tenantschedulev2modelShift
+  via: modules
+- from: PayCalendarsAssignEmployee
+  to: Employee
+  type: belongs_to
+  via: employeeId
+- from: PayCalendarsAssignEmployeesRequest
+  to: PayCalendarsAssignEmployee
+  type: has_many
+  via: data
+- from: PayComparisonSubmitReportRequest
+  to: PayComparisonReportWorkPeriodCycle
+  type: has_one
+  via: workPeriodCycle
+- from: PayComparisonSubmitReportRequest
+  to: PayComparisonEmployeeFilter
+  type: has_one
+  via: employeeFilter
+- from: PayComparisonSubmitReportRequest
+  to: PayComparisonEmployeeQuery
+  type: has_one
+  via: employeeQuery
+- from: PayComparisonReport
+  to: PayComparisonEmployeeFilter
+  type: has_one
+  via: employeeFilter
+- from: PayComparisonReport
+  to: Employee
+  type: belongs_to
+  via: employeeIds
+- from: PayComparisonReport
+  to: PayComparisonReportWorkPeriodCycle
+  type: has_one
+  via: workPeriodCycle
+- from: PayComparisonReport
+  to: PayComparisonEmployeeQuery
+  type: has_one
+  via: employeeQuery
+- from: PeopleContract
+  to: Country
+  type: belongs_to
+  via: CountryId
+- from: PublishPreviewPublishPreviewData
+  to: PublishPreviewLocationPreview
+  type: has_many
+  via: locations
+- from: modelRoster
+  to: RosterChildRoster
+  type: has_many
+  via: children
+- from: modelRoster
+  to: tenanttsav2modelArea
+  type: has_one
+  via: area
+- from: RosterChildRoster
+  to: tenanttsav2modelArea
+  type: has_one
+  via: area
+- from: ScheduleAgentUpsertShiftsRequestUpsertItem
+  to: Employee
+  type: belongs_to
+  via: employeeId
+- from: ScheduleAgentUpsertShiftsRequestUpsertItem
   to: tenantsharedv2modelCustomField
   type: has_many
   via: customFields
-- from: tenantschedulev2modelShift
-  to: modelShiftConsentChangeset
-  type: has_many
-  via: consentChangesets
-- from: ShiftSwapSwapPendingResponse
-  to: ShiftSwapSwapPendingResponseData
+- from: ScheduleAgentGetLateResponse
+  to: ScheduleAgentLateEntry
   type: has_many
   via: data
-- from: ShiftSwapSwapPendingResponse
-  to: ShiftSwapSwapPendingResponseMetadata
+- from: ScheduleAgentUpsertShiftsResponse
+  to: ScheduleAgentUpsertShiftsResponseMetadata
   type: has_one
   via: metadata
+- from: ScheduleAgentLateEntry
+  to: Employee
+  type: belongs_to
+  via: employeeId
+- from: modelSessionHistoryRecord
+  to: modelSessionInfo
+  type: has_one
+  via: sessionInfo
+- from: ShiftOffersSendOfferResponse
+  to: tenantschedulev2modelShift
+  type: has_many
+  via: data
+- from: v2GetIncommingOfferResponseData
+  to: AlsoWorkingResponseEmployeeProfile
+  type: has_one
+  via: offerCreator
+- from: modelBulkUpdateShift
+  to: modelShiftOverride
+  type: has_one
+  via: override
+- from: ShiftLogDataShiftLogGroup
+  to: ShiftLogGroupShiftLogEvent
+  type: has_many
+  via: events
+- from: ScheduleShiftGetResponse
+  to: tenantschedulev2modelShift
+  type: has_one
+  via: data
+- from: ScheduleShiftGetResponse
+  to: GetResponseShiftMetadata
+  type: has_one
+  via: metadata
+- from: modelShiftOverride
+  to: modelCompliance
+  type: has_one
+  via: compliance
+- from: GetOpenShiftsResponseOpenShift
+  to: tenantschedulev2modelShift
+  type: has_one
+  via: shift
+- from: ScheduleShiftUpdateResponseMetadata
+  to: ScheduleShiftOperation
+  type: has_one
+  via: operation
+- from: ValidateExternalShiftsResponseValidatedShift
+  to: tenantschedulev2modelShift
+  type: has_one
+  via: shift
+- from: ValidateExternalShiftsResponseValidatedShift
+  to: ScheduleShiftValidateExternalShiftsResponseValidationError
+  type: has_many
+  via: errors
+- from: ScheduleShiftBulkUpsertResponseMetadata
+  to: ScheduleShiftOperation
+  type: has_one
+  via: operation
+- from: ScheduleShiftOperation
+  to: OperationLock
+  type: has_many
+  via: locks
+- from: CreateRequestCreateData
+  to: modelShiftRequest
+  type: has_one
+  via: shift
+- from: CreateRequestCreateData
+  to: modelShiftOverride
+  type: has_one
+  via: override
+- from: ScheduleShiftBulkUpsertRequestUpsertItem
+  to: modelShiftOverride
+  type: has_one
+  via: override
+- from: ScheduleShiftBulkUpsertRequestUpsertItem
+  to: tenantschedulev2modelShift
+  type: has_one
+  via: shift
+- from: GetOpenInvitationsResponseOpenInvitationsData
+  to: ScheduleShiftGetOpenInvitationsResponseEmployee
+  type: has_one
+  via: employee
+- from: GetOpenInvitationsResponseOpenInvitationsData
+  to: ScheduleShiftGetOpenInvitationsResponseEmployee
+  type: has_one
+  via: offerCreator
+- from: ScheduleShiftOpenShiftPendingApprovalsResponseMetadata
+  to: metadataMetadataCustomField
+  type: has_many
+  via: customFields
+- from: modelShiftLogData
+  to: ShiftLogDataShiftLogGroup
+  type: has_many
+  via: groups
+- from: modelLinkShiftRequestData
+  to: modelShiftOverride
+  type: has_one
+  via: override
+- from: modelLinkShiftRequestData
+  to: modelShiftRequest
+  type: has_one
+  via: newShift
+- from: ScheduleShiftPublishResponse
+  to: ScheduleShiftPublishResponseData
+  type: has_one
+  via: data
+- from: ScheduleShiftPublishResponse
+  to: ScheduleShiftPublishResponseMetadata
+  type: has_one
+  via: metadata
+- from: UpdateRequestUpdateData
+  to: tenantschedulev2modelShift
+  type: has_one
+  via: shift
+- from: UpdateRequestUpdateData
+  to: modelShiftOverride
+  type: has_one
+  via: override
+- from: ScheduleShiftAutofillResponseMetadata
+  to: ScheduleShiftOperation
+  type: has_one
+  via: operation
+- from: modelShiftCostDetails
+  to: modelShiftCostForecast
+  type: has_many
+  via: basePay
+- from: modelShiftCostDetails
+  to: modelShiftCostForecast
+  type: has_many
+  via: allowances
+- from: ScheduleShiftBulkDefaultShiftResponseItem
+  to: modelShiftRequest
+  type: has_one
+  via: shift
+- from: GetOpenShiftsResponseOpenShifts
+  to: GetOpenShiftsResponseOpenShift
+  type: has_many
+  via: openShifts
+- from: ScheduleShiftBulkUpdateResponseMetadata
+  to: ScheduleShiftOperation
+  type: has_one
+  via: operation
+- from: ScheduleShiftAggregatedListResponse
+  to: modelAggregatedListData
+  type: has_many
+  via: data
+- from: ScheduleShiftAggregatedListResponse
+  to: ScheduleShiftAggregatedListResponseMetadata
+  type: has_one
+  via: metadata
+- from: ScheduleShiftDeleteResponseMetadata
+  to: ScheduleShiftOperation
+  type: has_one
+  via: operation
+- from: ScheduleShiftListResponseMetadata
+  to: metadataMetadataCustomField
+  type: has_many
+  via: customFields
+- from: ScheduleShiftOpenShiftPendingApprovalsResponse
+  to: OpenShiftPendingApprovalsResponseOpenShiftPendingApprovalsData
+  type: has_many
+  via: data
+- from: ScheduleShiftOpenShiftPendingApprovalsResponse
+  to: ScheduleShiftOpenShiftPendingApprovalsResponseMetadata
+  type: has_one
+  via: metadata
+- from: ScheduleShiftPublishResponseValidationError
+  to: Employee
+  type: belongs_to
+  via: employeeId
+- from: ScheduleShiftCopyResponse
+  to: ScheduleShiftCopyResponseMetadata
+  type: has_one
+  via: metadata
+- from: modelAggregatedListData
+  to: tenantschedulev2modelShift
+  type: has_many
+  via: shifts
+- from: modelAggregatedListData
+  to: modelTotals
+  type: has_one
+  via: totals
+- from: ScheduleShiftAggregatedListResponseMetadata
+  to: metadataMetadataCustomField
+  type: has_many
+  via: customFields
+- from: AutoBuildAutobuildResponseMetadata
+  to: AutoBuildOperation
+  type: has_one
+  via: operation
+- from: ScheduleShiftDeleteShiftRequestDeleteDataOverride
+  to: modelCompliance
+  type: has_one
+  via: compliance
+- from: SuggestionResponseErrorMessage
+  to: Employee
+  type: belongs_to
+  via: employeeId
+- from: modelShiftRequest
+  to: modelBreak
+  type: has_many
+  via: mealbreakSlots
+- from: modelShiftRequest
+  to: tenantsharedv2modelCustomField
+  type: has_many
+  via: customFields
+- from: ScheduleShiftPublishResponseData
+  to: PublishResponseValidationResult
+  type: has_one
+  via: validation
+- from: OpenShiftPendingApprovalsResponseOpenShiftPendingApprovalsData
+  to: tenantschedulev2modelShift
+  type: has_one
+  via: shift
+- from: ScheduleShiftCopyResponseMetadata
+  to: ScheduleShiftOperation
+  type: has_one
+  via: operation
+- from: ScheduleShiftUpdateResponse
+  to: tenantschedulev2modelShift
+  type: has_one
+  via: data
+- from: ScheduleShiftUpdateResponse
+  to: ScheduleShiftUpdateResponseMetadata
+  type: has_one
+  via: metadata
+- from: modelExternalShift
+  to: tenantsharedv2modelCustomField
+  type: has_many
+  via: customFields
+- from: ListShiftResponseListShiftData
+  to: tenantschedulev2modelShift
+  type: has_many
+  via: shifts
+- from: AutoBuildAutobuildResponse
+  to: AutoBuildAutobuildResponseMetadata
+  type: has_one
+  via: metadata
+- from: ScheduleShiftCreateResponse
+  to: tenantschedulev2modelShift
+  type: has_one
+  via: data
+- from: ScheduleShiftCreateResponse
+  to: ScheduleShiftCreateResponseMetadata
+  type: has_one
+  via: metadata
+- from: ScheduleShiftGetOpenShiftsResponse
+  to: GetOpenShiftsResponseOpenShifts
+  type: has_one
+  via: data
+- from: ScheduleShiftGetOpenShiftsResponse
+  to: ScheduleShiftGetOpenShiftsResponseMetadata
+  type: has_one
+  via: metadata
+- from: ScheduleShiftListResponse
+  to: tenantschedulev2modelShift
+  type: has_many
+  via: data
+- from: ScheduleShiftListResponse
+  to: ScheduleShiftListResponseMetadata
+  type: has_one
+  via: metadata
+- from: modelHistoryData
+  to: HistoryDataHistory
+  type: has_many
+  via: history
+- from: ScheduleShiftBulkDeleteResponseMetadata
+  to: ScheduleShiftOperation
+  type: has_one
+  via: operation
+- from: DeclineShiftResponseDeclineShiftResponseData
+  to: tenantschedulev2modelShift
+  type: has_one
+  via: shift
+- from: GetResponseShiftMetadata
+  to: metadataMetadataCustomField
+  type: has_many
+  via: customFields
+- from: ScheduleShiftLinkShiftResponse
+  to: tenantschedulev2modelShift
+  type: has_one
+  via: data
+- from: ScheduleShiftLinkShiftResponse
+  to: ScheduleShiftLinkShiftResponseMetadata
+  type: has_one
+  via: metadata
+- from: ScheduleShiftBulkUpdateRequestData
+  to: BulkUpdateFields
+  type: has_one
+  via: fields
+- from: ScheduleShiftBulkUpdateRequestData
+  to: modelBulkUpdateShift
+  type: has_many
+  via: shifts
+- from: ScheduleShiftPublishResponseMetadata
+  to: ScheduleShiftOperation
+  type: has_one
+  via: operation
+- from: ScheduleShiftCreateResponseMetadata
+  to: ScheduleShiftOperation
+  type: has_one
+  via: operation
+- from: ScheduleShiftSplitShiftResponse
+  to: tenantschedulev2modelShift
+  type: has_many
+  via: data
+- from: ScheduleShiftSplitShiftResponse
+  to: ScheduleShiftSplitShiftResponseMetadata
+  type: has_one
+  via: metadata
+- from: PublishResponseValidationResult
+  to: ScheduleShiftPublishResponseValidationError
+  type: has_many
+  via: errors
+- from: ScheduleShiftSplitShiftRequestData
+  to: modelShiftOverride
+  type: has_one
+  via: override
+- from: ScheduleShiftSplitShiftRequestData
+  to: ScheduleShiftNewShifts
+  type: has_many
+  via: newShifts
+- from: ScheduleShiftListShiftResponseMetadata
+  to: metadataMetadataCustomField
+  type: has_many
+  via: customFields
+- from: modelSuggestionResponse
+  to: SuggestionResponseErrorMessage
+  type: has_many
+  via: errorStacks
+- from: ScheduleShiftGetOpenShiftsResponseMetadata
+  to: metadataMetadataCustomField
+  type: has_many
+  via: customFields
+- from: ScheduleShiftListShiftResponse
+  to: ListShiftResponseListShiftData
+  type: has_one
+  via: data
+- from: ScheduleShiftListShiftResponse
+  to: ScheduleShiftListShiftResponseMetadata
+  type: has_one
+  via: metadata
+- from: ScheduleShiftNewShifts
+  to: modelShiftRequest
+  type: has_one
+  via: shift
+- from: ScheduleShiftSplitShiftResponseMetadata
+  to: ScheduleShiftOperation
+  type: has_one
+  via: operation
+- from: ScheduleShiftLinkShiftResponseMetadata
+  to: ScheduleShiftOperation
+  type: has_one
+  via: operation
+- from: ScheduleShiftBulkPatchResponseMetadata
+  to: ScheduleShiftOperation
+  type: has_one
+  via: operation
+- from: ScheduleShiftCheckConsentResponseShift
+  to: CheckConsentResponseViolatedRule
+  type: has_many
+  via: violatedRules
+- from: ScheduleShiftCheckConsentResponseData
+  to: ScheduleShiftCheckConsentResponseShift
+  type: has_many
+  via: shifts
+- from: ScheduleShiftCheckConsentRequestShift
+  to: modelChangeset
+  type: has_one
+  via: changeset
+- from: ChangesetShiftChangeset
+  to: modelBreak
+  type: has_many
+  via: mealbreakSlots
+- from: ScheduleShiftCheckConsentRequestData
+  to: ScheduleShiftCheckConsentRequestShift
+  type: has_many
+  via: shifts
+- from: modelChangeset
+  to: ChangesetShiftChangeset
+  type: has_one
+  via: newData
+- from: ShiftSwapSwapRecommendationResponseData
+  to: tenantschedulev2modelShift
+  type: has_many
+  via: shifts
 - from: ShiftSwapSwapPendingResponseData
   to: tenantschedulev2modelShift
   type: has_one
@@ -1644,554 +2129,238 @@ relationships:
   to: ShiftSwapSwapRecommendationResponseMetadata
   type: has_one
   via: metadata
-- from: ShiftSwapSwapRecommendationResponseData
-  to: tenantschedulev2modelShift
-  type: has_many
-  via: shifts
-- from: v2GetIncommingOfferResponseData
-  to: AlsoWorkingResponseEmployeeProfile
-  type: has_one
-  via: offerCreator
-- from: ShiftOffersSendOfferResponse
-  to: tenantschedulev2modelShift
+- from: ShiftSwapSwapPendingResponse
+  to: ShiftSwapSwapPendingResponseData
   type: has_many
   via: data
-- from: OnboardingDashboardGetOnboardingDashboardResponse
-  to: modelModule
-  type: has_many
-  via: modules
-- from: modelModule
-  to: modelTask
-  type: has_many
-  via: tasks
-- from: modelModule
-  to: modelTask
-  type: has_many
-  via: userTasks
-- from: PayComparisonReport
-  to: PayComparisonEmployeeFilter
-  type: has_one
-  via: employeeFilter
-- from: PayComparisonReport
-  to: Employee
-  type: belongs_to
-  via: employeeIds
-- from: PayComparisonReport
-  to: PayComparisonReportWorkPeriodCycle
-  type: has_one
-  via: workPeriodCycle
-- from: PayComparisonReport
-  to: PayComparisonEmployeeQuery
-  type: has_one
-  via: employeeQuery
-- from: PayComparisonSubmitReportRequest
-  to: PayComparisonReportWorkPeriodCycle
-  type: has_one
-  via: workPeriodCycle
-- from: PayComparisonSubmitReportRequest
-  to: PayComparisonEmployeeFilter
-  type: has_one
-  via: employeeFilter
-- from: PayComparisonSubmitReportRequest
-  to: PayComparisonEmployeeQuery
-  type: has_one
-  via: employeeQuery
-- from: PayCalendarsAssignEmployee
-  to: Employee
-  type: belongs_to
-  via: employeeId
-- from: PayCalendarsAssignEmployeesRequest
-  to: PayCalendarsAssignEmployee
-  type: has_many
-  via: data
-- from: PeopleContract
-  to: Country
-  type: belongs_to
-  via: CountryId
-- from: GenericReportCreateRequestData
-  to: modelFwwPayPremiumsCreateRequest
-  type: has_one
-  via: fwwPayPremiums
-- from: GenericReportCreateRequestData
-  to: modelFwwShiftChangeConsentCreateRequest
-  type: has_one
-  via: fwwShiftChangeConsent
-- from: modelFwwPayPremiumsCreateRequest
-  to: Employee
-  type: belongs_to
-  via: employeeIds
-- from: modelFwwShiftChangeConsentCreateRequest
-  to: Employee
-  type: belongs_to
-  via: employeeIds
-- from: GenericReportListResponseReport
-  to: modelFwwPayPremiumsItem
-  type: has_one
-  via: fwwPayPremium
-- from: GenericReportListResponseReport
-  to: modelFwwShiftChangeConsentItem
-  type: has_one
-  via: fwwShiftChangeConsent
-- from: modelFwwPayPremiumsItem
-  to: Employee
-  type: belongs_to
-  via: employeeIds
-- from: modelFwwShiftChangeConsentItem
-  to: Employee
-  type: belongs_to
-  via: employeeIds
-- from: AutoBuildAutobuildResponse
-  to: AutoBuildAutobuildResponseMetadata
+- from: ShiftSwapSwapPendingResponse
+  to: ShiftSwapSwapPendingResponseMetadata
   type: has_one
   via: metadata
-- from: AutoBuildAutobuildResponseMetadata
-  to: AutoBuildOperation
+- from: Task
+  to: TaskSetup
+  type: belongs_to
+  via: TaskSetupId
+- from: TaskOpunitConfig
+  to: TaskSetup
+  type: belongs_to
+  via: TaskSetupId
+- from: Timesheet
+  to: Leave
+  type: belongs_to
+  via: LeaveId
+- from: TsaRosterPayApproveRequestBody
+  to: TsaTimesheetPayReturnOverrideRequest
   type: has_one
-  via: operation
-- from: ScheduleShiftListResponse
-  to: tenantschedulev2modelShift
-  type: has_many
-  via: data
-- from: ScheduleShiftListResponse
-  to: ScheduleShiftListResponseMetadata
+  via: setPayReturns
+- from: TsaRosterPayApproveRequestBody
+  to: TsaTimesheetPropertyRequest
   type: has_one
-  via: metadata
-- from: ScheduleShiftListResponseMetadata
-  to: metadataMetadataCustomField
-  type: has_many
-  via: customFields
-- from: CreateRequestCreateData
-  to: modelShiftRequest
+  via: setProperties
+- from: TsaRosterPayApproveRequestBody
+  to: TsaTimesheetQuestionSubmitAnswersRequest
   type: has_one
-  via: shift
-- from: CreateRequestCreateData
-  to: modelShiftOverride
+  via: setAnswers
+- from: TsaRosterPayApproveRequestBody
+  to: TsaTimesheetChildrenRequest
   type: has_one
-  via: override
-- from: ScheduleShiftCreateResponse
-  to: tenantschedulev2modelShift
+  via: setChildTimesheets
+- from: TsaChildTimesheetRequest
+  to: OperationalUnit
+  type: belongs_to
+  via: operationalUnitId
+- from: TsaChildTimesheetResponse
+  to: OperationalUnit
+  type: belongs_to
+  via: operationalUnitId
+- from: TsaTimesheetPropertyRequest
+  to: OperationalUnit
+  type: belongs_to
+  via: operationalUnitId
+- from: TsaTimesheetPropertyRequest
+  to: TsaTimesheetBreaksRequest
   type: has_one
-  via: data
-- from: ScheduleShiftCreateResponse
-  to: ScheduleShiftCreateResponseMetadata
-  type: has_one
-  via: metadata
-- from: ScheduleShiftCreateResponseMetadata
-  to: ScheduleShiftOperation
-  type: has_one
-  via: operation
-- from: ScheduleShiftOperation
-  to: OperationLock
-  type: has_many
-  via: locks
-- from: modelShiftOverride
-  to: modelCompliance
-  type: has_one
-  via: compliance
-- from: modelShiftRequest
-  to: modelBreak
-  type: has_many
-  via: mealbreakSlots
-- from: modelShiftRequest
-  to: tenantsharedv2modelCustomField
-  type: has_many
-  via: customFields
-- from: DeclineShiftResponseDeclineShiftResponseData
-  to: tenantschedulev2modelShift
-  type: has_one
-  via: shift
-- from: OpenShiftPendingApprovalsResponseOpenShiftPendingApprovalsData
-  to: tenantschedulev2modelShift
-  type: has_one
-  via: shift
-- from: ScheduleShiftOpenShiftPendingApprovalsResponse
-  to: OpenShiftPendingApprovalsResponseOpenShiftPendingApprovalsData
-  type: has_many
-  via: data
-- from: ScheduleShiftOpenShiftPendingApprovalsResponse
-  to: ScheduleShiftOpenShiftPendingApprovalsResponseMetadata
-  type: has_one
-  via: metadata
-- from: ScheduleShiftOpenShiftPendingApprovalsResponseMetadata
-  to: metadataMetadataCustomField
-  type: has_many
-  via: customFields
-- from: GetResponseShiftMetadata
-  to: metadataMetadataCustomField
-  type: has_many
-  via: customFields
-- from: ScheduleShiftGetResponse
-  to: tenantschedulev2modelShift
-  type: has_one
-  via: data
-- from: ScheduleShiftGetResponse
-  to: GetResponseShiftMetadata
-  type: has_one
-  via: metadata
-- from: ScheduleShiftDeleteResponseMetadata
-  to: ScheduleShiftOperation
-  type: has_one
-  via: operation
-- from: ScheduleShiftUpdateResponse
-  to: tenantschedulev2modelShift
-  type: has_one
-  via: data
-- from: ScheduleShiftUpdateResponse
-  to: ScheduleShiftUpdateResponseMetadata
-  type: has_one
-  via: metadata
-- from: ScheduleShiftUpdateResponseMetadata
-  to: ScheduleShiftOperation
-  type: has_one
-  via: operation
-- from: UpdateRequestUpdateData
-  to: tenantschedulev2modelShift
-  type: has_one
-  via: shift
-- from: UpdateRequestUpdateData
-  to: modelShiftOverride
-  type: has_one
-  via: override
-- from: modelHistoryData
-  to: HistoryDataHistory
-  type: has_many
-  via: history
-- from: ShiftLogDataShiftLogGroup
-  to: ShiftLogGroupShiftLogEvent
-  type: has_many
-  via: events
-- from: modelShiftLogData
-  to: ShiftLogDataShiftLogGroup
-  type: has_many
-  via: groups
-- from: GetOpenInvitationsResponseOpenInvitationsData
-  to: ScheduleShiftGetOpenInvitationsResponseEmployee
-  type: has_one
-  via: employee
-- from: GetOpenInvitationsResponseOpenInvitationsData
-  to: ScheduleShiftGetOpenInvitationsResponseEmployee
-  type: has_one
-  via: offerCreator
-- from: SuggestionResponseErrorMessage
+  via: setBreaks
+- from: TsaTimesheetPropertyRequest
   to: Employee
   type: belongs_to
   via: employeeId
-- from: modelSuggestionResponse
-  to: SuggestionResponseErrorMessage
-  type: has_many
-  via: errorStacks
-- from: modelShiftCostDetails
-  to: modelShiftCostForecast
-  type: has_many
-  via: basePay
-- from: modelShiftCostDetails
-  to: modelShiftCostForecast
-  type: has_many
-  via: allowances
-- from: ScheduleShiftAggregatedListResponse
-  to: modelAggregatedListData
-  type: has_many
-  via: data
-- from: ScheduleShiftAggregatedListResponse
-  to: ScheduleShiftAggregatedListResponseMetadata
+- from: TimesheetUpdateRequestTimesheetUpdateRequestBody
+  to: TsaTimesheetPropertyRequest
   type: has_one
-  via: metadata
-- from: ScheduleShiftAggregatedListResponseMetadata
-  to: metadataMetadataCustomField
-  type: has_many
-  via: customFields
-- from: modelAggregatedListData
-  to: tenantschedulev2modelShift
-  type: has_many
-  via: shifts
-- from: modelAggregatedListData
-  to: modelTotals
+  via: setProperties
+- from: TimesheetUpdateRequestTimesheetUpdateRequestBody
+  to: TsaTimesheetQuestionSubmitAnswersRequest
   type: has_one
-  via: totals
-- from: ScheduleShiftAutofillResponseMetadata
-  to: ScheduleShiftOperation
+  via: setAnswers
+- from: TimesheetUpdateRequestTimesheetUpdateRequestBody
+  to: TsaTimesheetChildrenRequest
   type: has_one
-  via: operation
-- from: ScheduleShiftBulkUpsertRequestUpsertItem
-  to: modelShiftOverride
-  type: has_one
-  via: override
-- from: ScheduleShiftBulkUpsertRequestUpsertItem
-  to: tenantschedulev2modelShift
-  type: has_one
-  via: shift
-- from: ScheduleShiftBulkUpsertResponseMetadata
-  to: ScheduleShiftOperation
-  type: has_one
-  via: operation
-- from: ScheduleShiftBulkDefaultShiftResponseItem
-  to: modelShiftRequest
-  type: has_one
-  via: shift
-- from: ScheduleShiftBulkDeleteResponseMetadata
-  to: ScheduleShiftOperation
-  type: has_one
-  via: operation
-- from: ScheduleShiftBulkPatchResponseMetadata
-  to: ScheduleShiftOperation
-  type: has_one
-  via: operation
-- from: ScheduleShiftBulkUpdateRequestData
-  to: modelBulkUpdateShift
-  type: has_many
-  via: shifts
-- from: ScheduleShiftBulkUpdateResponseMetadata
-  to: ScheduleShiftOperation
-  type: has_one
-  via: operation
-- from: modelBulkUpdateShift
-  to: modelShiftOverride
-  type: has_one
-  via: override
-- from: ScheduleShiftCopyResponse
-  to: ScheduleShiftCopyResponseMetadata
-  type: has_one
-  via: metadata
-- from: ScheduleShiftCopyResponseMetadata
-  to: ScheduleShiftOperation
-  type: has_one
-  via: operation
-- from: ScheduleShiftDeleteShiftRequestDeleteDataOverride
-  to: modelCompliance
-  type: has_one
-  via: compliance
-- from: ListShiftResponseListShiftData
-  to: tenantschedulev2modelShift
-  type: has_many
-  via: shifts
-- from: ScheduleShiftListShiftResponse
-  to: ListShiftResponseListShiftData
-  type: has_one
-  via: data
-- from: ScheduleShiftListShiftResponse
-  to: ScheduleShiftListShiftResponseMetadata
-  type: has_one
-  via: metadata
-- from: ScheduleShiftListShiftResponseMetadata
-  to: metadataMetadataCustomField
-  type: has_many
-  via: customFields
-- from: ScheduleShiftLinkShiftResponse
-  to: tenantschedulev2modelShift
-  type: has_one
-  via: data
-- from: ScheduleShiftLinkShiftResponse
-  to: ScheduleShiftLinkShiftResponseMetadata
-  type: has_one
-  via: metadata
-- from: ScheduleShiftLinkShiftResponseMetadata
-  to: ScheduleShiftOperation
-  type: has_one
-  via: operation
-- from: modelLinkShiftRequestData
-  to: modelShiftOverride
-  type: has_one
-  via: override
-- from: modelLinkShiftRequestData
-  to: modelShiftRequest
-  type: has_one
-  via: newShift
-- from: GetOpenShiftsResponseOpenShift
-  to: tenantschedulev2modelShift
-  type: has_one
-  via: shift
-- from: GetOpenShiftsResponseOpenShifts
-  to: GetOpenShiftsResponseOpenShift
-  type: has_many
-  via: openShifts
-- from: ScheduleShiftGetOpenShiftsResponse
-  to: GetOpenShiftsResponseOpenShifts
-  type: has_one
-  via: data
-- from: ScheduleShiftGetOpenShiftsResponse
-  to: ScheduleShiftGetOpenShiftsResponseMetadata
-  type: has_one
-  via: metadata
-- from: ScheduleShiftGetOpenShiftsResponseMetadata
-  to: metadataMetadataCustomField
-  type: has_many
-  via: customFields
-- from: PublishResponseValidationResult
-  to: ScheduleShiftPublishResponseValidationError
-  type: has_many
-  via: errors
-- from: ScheduleShiftPublishResponse
-  to: ScheduleShiftPublishResponseData
-  type: has_one
-  via: data
-- from: ScheduleShiftPublishResponse
-  to: ScheduleShiftPublishResponseMetadata
-  type: has_one
-  via: metadata
-- from: ScheduleShiftPublishResponseData
-  to: PublishResponseValidationResult
-  type: has_one
-  via: validation
-- from: ScheduleShiftPublishResponseMetadata
-  to: ScheduleShiftOperation
-  type: has_one
-  via: operation
-- from: ScheduleShiftPublishResponseValidationError
+  via: setChildTimesheets
+- from: tenanttsav2modelTimesheet
   to: Employee
   type: belongs_to
   via: employeeId
-- from: ScheduleShiftNewShifts
-  to: modelShiftRequest
+- from: tenanttsav2modelTimesheet
+  to: OperationalUnit
+  type: belongs_to
+  via: operationalUnitId
+- from: tenanttsav2modelTimesheet
+  to: modelTimesheetBreak
+  type: has_many
+  via: breaks
+- from: tenanttsav2modelTimesheet
+  to: Roster
+  type: belongs_to
+  via: rosterId
+- from: tenanttsav2modelTimesheet
+  to: tenanttsav2modelPayReturn
+  type: has_many
+  via: payReturns
+- from: GetTimesheetQuestionsResponseTimesheetQuestionsResponseBody
+  to: GetTimesheetQuestionsResponseTimesheetQuestionWithAnswer
+  type: has_many
+  via: questions
+- from: TsaSynchronousResponse
+  to: tenanttsav2modelTimesheet
   type: has_one
-  via: shift
-- from: ScheduleShiftSplitShiftRequestData
-  to: modelShiftOverride
+  via: processedTimesheet
+- from: TsaSynchronousResponse
+  to: tenanttsav2modelTimesheet
+  type: has_many
+  via: otherAffectedTimesheets
+- from: SuggestTimesheetRoundingRequestSuggestTimesheetRoundingRequestBody
+  to: OperationalUnit
+  type: belongs_to
+  via: operationalUnitId
+- from: SuggestTimesheetRoundingRequestSuggestTimesheetRoundingRequestBody
+  to: TsaChildTimesheetRequest
+  type: has_many
+  via: childTimesheets
+- from: TsaSuggestTimesheetRoundingResponse
+  to: OperationalUnit
+  type: belongs_to
+  via: operationalUnitId
+- from: TsaSuggestTimesheetRoundingResponse
+  to: TsaChildTimesheetResponse
+  type: has_many
+  via: childTimesheets
+- from: TsaApplicableRangeSummaryResponse
+  to: ApplicableRangeSummaryResponseApplicableRangeTimesheet
+  type: has_many
+  via: timesheets
+- from: TsaApplicableRangeSummaryResponse
+  to: ApplicableRangeSummaryResponseApplicableRange
   type: has_one
-  via: override
-- from: ScheduleShiftSplitShiftRequestData
-  to: ScheduleShiftNewShifts
-  type: has_many
-  via: newShifts
-- from: ScheduleShiftSplitShiftResponse
-  to: tenantschedulev2modelShift
-  type: has_many
-  via: data
-- from: ScheduleShiftSplitShiftResponse
-  to: ScheduleShiftSplitShiftResponseMetadata
+  via: applicableRange
+- from: ApplicableRangeSummaryResponseApplicableRangeTimesheet
+  to: Employee
+  type: belongs_to
+  via: employeeId
+- from: TsaRosterTimeApproveRequestBody
+  to: TsaTimesheetPropertyRequest
   type: has_one
-  via: metadata
-- from: ScheduleShiftSplitShiftResponseMetadata
-  to: ScheduleShiftOperation
+  via: setProperties
+- from: TsaRosterTimeApproveRequestBody
+  to: TsaTimesheetQuestionSubmitAnswersRequest
   type: has_one
-  via: operation
-- from: ValidateExternalShiftsResponseValidatedShift
-  to: tenantschedulev2modelShift
+  via: setAnswers
+- from: TsaRosterTimeApproveRequestBody
+  to: TsaTimesheetChildrenRequest
   type: has_one
-  via: shift
-- from: ValidateExternalShiftsResponseValidatedShift
-  to: ScheduleShiftValidateExternalShiftsResponseValidationError
-  type: has_many
-  via: errors
-- from: modelExternalShift
-  to: tenantsharedv2modelCustomField
-  type: has_many
-  via: customFields
-- from: PublishPreviewPublishPreviewData
-  to: PublishPreviewLocationPreview
-  type: has_many
-  via: locations
-- from: ChangesetShiftChangeset
-  to: modelBreak
-  type: has_many
-  via: mealbreakSlots
-- from: ScheduleShiftCheckConsentRequestData
-  to: ScheduleShiftCheckConsentRequestShift
-  type: has_many
-  via: shifts
-- from: ScheduleShiftCheckConsentRequestShift
-  to: modelChangeset
+  via: setChildTimesheets
+- from: TsaConfigAndPermission
+  to: TsaConfigAndPermissionUserPermissions
   type: has_one
-  via: changeset
-- from: ScheduleShiftCheckConsentResponseData
-  to: ScheduleShiftCheckConsentResponseShift
-  type: has_many
-  via: shifts
-- from: ScheduleShiftCheckConsentResponseShift
-  to: CheckConsentResponseViolatedRule
-  type: has_many
-  via: violatedRules
-- from: modelChangeset
-  to: ChangesetShiftChangeset
+  via: permissions
+- from: TsaTimesheetTimeApproveRequestBody
+  to: TsaTimesheetPropertyRequest
   type: has_one
-  via: newData
-- from: ShiftBidBidApproveResponseData
-  to: tenantschedulev2modelShift
-  type: has_many
-  via: shifts
-- from: RequestFilters
+  via: setProperties
+- from: TsaTimesheetTimeApproveRequestBody
+  to: TsaTimesheetQuestionSubmitAnswersRequest
+  type: has_one
+  via: setAnswers
+- from: TsaTimesheetTimeApproveRequestBody
+  to: TsaTimesheetChildrenRequest
+  type: has_one
+  via: setChildTimesheets
+- from: TimesheetBatchRequestQuery
+  to: OperationalUnit
+  type: belongs_to
+  via: operationalUnitIds
+- from: TimesheetBatchRequestQuery
   to: Employee
   type: belongs_to
   via: employeeIds
-- from: ShiftSuggestionRequestData
-  to: RequestFilters
-  type: has_one
-  via: filters
-- from: ShiftSuggestionResponse
-  to: ShiftSuggestionResponseData
-  type: has_one
-  via: data
-- from: modelSessionHistoryRecord
-  to: modelSessionInfo
-  type: has_one
-  via: sessionInfo
-- from: TimesheetExportRefreshEmployeeFilterOptionsResponse
-  to: Employee
-  type: belongs_to
-  via: employeeIds
-- from: TimesheetExportRefreshFilterOptionsRequest
-  to: modelCompanyPeriods
-  type: has_one
-  via: companyPeriods
-- from: TimesheetExportRefreshFilterOptionsRequest
-  to: modelPayCalendarOption
-  type: has_one
-  via: payCalendar
-- from: TimesheetExportRefreshFilterOptionsRequest
-  to: modelDateRange
-  type: has_one
-  via: dateRange
-- from: modelCompanyPeriods
-  to: CompanyPeriod
-  type: belongs_to
-  via: companyPeriodIds
-- from: modelPayCycleFilterOption
-  to: CompanyPeriod
-  type: belongs_to
-  via: companyPeriodIds
-- from: modelPayPeriodFilterOption
-  to: modelPayCycleFilterOption
-  type: has_many
-  via: payCycles
-- from: TimesheetExportSummaryRequest
-  to: modelSummaryFilters
-  type: has_one
-  via: filters
-- from: TimesheetExportSummaryRequest
-  to: modelSummaryBulkSelection
-  type: has_one
-  via: bulkSelection
-- from: modelSummaryBulkSelection
+- from: TimesheetBatchRequestQuery
   to: Timesheet
   type: belongs_to
   via: timesheetIds
-- from: modelSummaryFilters
-  to: modelCompanyPeriods
-  type: has_one
-  via: companyPeriods
-- from: modelSummaryFilters
-  to: modelPayCalendarOption
-  type: has_one
-  via: payCalendar
-- from: modelSummaryFilters
-  to: modelDateRange
-  type: has_one
-  via: dateRange
-- from: modelSummaryFilters
+- from: TimesheetBatchRequestQuery
+  to: Roster
+  type: belongs_to
+  via: rosterIds
+- from: GetEmployeesForStatusGroupingResponseGetEmployeesForStatusGroupingResponseBody
   to: Employee
   type: belongs_to
   via: employeeIds
-- from: TimesheetExportSummaryResponse
-  to: modelSummarizedTimesheet
+- from: TsaTimesheetChildrenRequest
+  to: TsaChildTimesheetRequest
   type: has_many
-  via: summarizedTimesheets
-- from: TimesheetExportSummaryResponse
-  to: modelSummarizedTimesheet
-  type: has_many
-  via: summarizedPayCycles
-- from: modelSummarizedTimesheet
-  to: Employee
+  via: childTimesheets
+- from: TimesheetCreateRequestTimesheetCreateRequestBody
+  to: TsaTimesheetPropertyRequest
+  type: has_one
+  via: setProperties
+- from: TimesheetCreateRequestTimesheetCreateRequestBody
+  to: TsaTimesheetQuestionSubmitAnswersRequest
+  type: has_one
+  via: setAnswers
+- from: TimesheetCreateRequestTimesheetCreateRequestBody
+  to: Roster
   type: belongs_to
-  via: employeeId
+  via: rosterId
+- from: TimesheetCreateRequestTimesheetCreateRequestBody
+  to: TsaTimesheetChildrenRequest
+  type: has_one
+  via: setChildTimesheets
+- from: TsaTimesheetBreaksRequest
+  to: modelTimesheetBreak
+  type: has_many
+  via: breaks
+- from: TsaTimesheetPayApproveRequestBody
+  to: TsaTimesheetPayReturnOverrideRequest
+  type: has_one
+  via: setPayReturns
+- from: TsaTimesheetPayApproveRequestBody
+  to: TsaTimesheetPropertyRequest
+  type: has_one
+  via: setProperties
+- from: TsaTimesheetPayApproveRequestBody
+  to: TsaTimesheetQuestionSubmitAnswersRequest
+  type: has_one
+  via: setAnswers
+- from: TsaTimesheetPayApproveRequestBody
+  to: TsaTimesheetChildrenRequest
+  type: has_one
+  via: setChildTimesheets
+- from: ReapproveRequestReapproveRequestBody
+  to: TsaTimesheetPayReturnOverrideRequest
+  type: has_one
+  via: setPayReturns
+- from: ReapproveRequestReapproveRequestBody
+  to: TsaTimesheetPropertyRequest
+  type: has_one
+  via: setProperties
+- from: ReapproveRequestReapproveRequestBody
+  to: TsaTimesheetQuestionSubmitAnswersRequest
+  type: has_one
+  via: setAnswers
+- from: ReapproveRequestReapproveRequestBody
+  to: TsaTimesheetChildrenRequest
+  type: has_one
+  via: setChildTimesheets
 - from: tenanttimesheetv2modelTimesheet
   to: Employee
   type: belongs_to
@@ -2216,6 +2385,62 @@ relationships:
   to: modelChildTimesheet
   type: has_many
   via: children
+- from: TimesheetsListExportedTimesheetsResponse
+  to: tenanttimesheetv2modelTimesheet
+  type: has_many
+  via: data
+- from: TimesheetsListExportedTimesheetsResponse
+  to: tenantcompliancev2modelPayRule
+  type: has_many
+  via: payRules
+- from: GetPayReturnRatesRequestPayReturnRatesRequestBody
+  to: TsaTimesheetPropertyRequest
+  type: has_one
+  via: setProperties
+- from: GetPayReturnRatesRequestPayReturnRatesRequestBody
+  to: TsaTimesheetPayReturnOverrideRequest
+  type: has_one
+  via: setPayReturns
+- from: GetPaySuggestionResponsePaySuggestionResponseBody
+  to: tenanttsav2modelPayReturn
+  type: has_many
+  via: payReturns
+- from: GetPaySuggestionRequestPaySuggestionRequestBody
+  to: TsaTimesheetPropertyRequest
+  type: has_one
+  via: setProperties
+- from: GetPaySuggestionRequestPaySuggestionRequestBody
+  to: TsaTimesheetChildrenRequest
+  type: has_one
+  via: setChildTimesheets
+- from: modelPayPeriodFilterOption
+  to: modelPayCycleFilterOption
+  type: has_many
+  via: payCycles
+- from: modelPayCycleFilterOption
+  to: CompanyPeriod
+  type: belongs_to
+  via: companyPeriodIds
+- from: TimesheetExportRefreshEmployeeFilterOptionsResponse
+  to: Employee
+  type: belongs_to
+  via: employeeIds
+- from: modelCompanyPeriods
+  to: CompanyPeriod
+  type: belongs_to
+  via: companyPeriodIds
+- from: TimesheetExportRefreshFilterOptionsRequest
+  to: modelCompanyPeriods
+  type: has_one
+  via: companyPeriods
+- from: TimesheetExportRefreshFilterOptionsRequest
+  to: modelPayCalendarOption
+  type: has_one
+  via: payCalendar
+- from: TimesheetExportRefreshFilterOptionsRequest
+  to: modelDateRange
+  type: has_one
+  via: dateRange
 - from: modelMealBreakSlotsWrapper
   to: modelMealBreak
   type: has_many
@@ -2232,6 +2457,10 @@ relationships:
   to: modelChildTimesheet
   type: has_many
   via: children
+- from: modelSummarizedTimesheet
+  to: Employee
+  type: belongs_to
+  via: employeeId
 - from: modelUpdateTimesheetRequest
   to: tenantsharedv2modelCustomField
   type: has_many
@@ -2240,6 +2469,34 @@ relationships:
   to: modelMealBreakSlotsWrapper
   type: has_one
   via: mealBreakSlots
+- from: TimesheetExportSummaryRequest
+  to: modelSummaryFilters
+  type: has_one
+  via: filters
+- from: TimesheetExportSummaryRequest
+  to: modelSummaryBulkSelection
+  type: has_one
+  via: bulkSelection
+- from: modelStartTimesheetRequest
+  to: tenantsharedv2modelCustomField
+  type: has_many
+  via: customFields
+- from: modelStartTimesheetRequest
+  to: Employee
+  type: belongs_to
+  via: employeeId
+- from: modelStartTimesheetRequest
+  to: modelGeoLocation
+  type: has_one
+  via: geoLocation
+- from: TimesheetExportSummaryResponse
+  to: modelSummarizedTimesheet
+  type: has_many
+  via: summarizedTimesheets
+- from: TimesheetExportSummaryResponse
+  to: modelSummarizedTimesheet
+  type: has_many
+  via: summarizedPayCycles
 - from: modelEndTimesheetRequest
   to: modelChildTimesheet
   type: has_many
@@ -2256,270 +2513,26 @@ relationships:
   to: modelGeoLocation
   type: has_one
   via: geoLocation
-- from: modelStartTimesheetRequest
-  to: tenantsharedv2modelCustomField
-  type: has_many
-  via: customFields
-- from: modelStartTimesheetRequest
-  to: Employee
-  type: belongs_to
-  via: employeeId
-- from: modelStartTimesheetRequest
-  to: modelGeoLocation
+- from: modelSummaryFilters
+  to: modelCompanyPeriods
   type: has_one
-  via: geoLocation
-- from: TimesheetsListExportedTimesheetsResponse
-  to: tenanttimesheetv2modelTimesheet
-  type: has_many
-  via: data
-- from: TimesheetsListExportedTimesheetsResponse
-  to: tenantcompliancev2modelPayRule
-  type: has_many
-  via: payRules
-- from: TsaConfigAndPermission
-  to: TsaConfigAndPermissionUserPermissions
+  via: companyPeriods
+- from: modelSummaryFilters
+  to: modelPayCalendarOption
   type: has_one
-  via: permissions
-- from: GetEmployeesForStatusGroupingResponseGetEmployeesForStatusGroupingResponseBody
+  via: payCalendar
+- from: modelSummaryFilters
+  to: modelDateRange
+  type: has_one
+  via: dateRange
+- from: modelSummaryFilters
   to: Employee
   type: belongs_to
   via: employeeIds
-- from: TimesheetCreateRequestTimesheetCreateRequestBody
-  to: TsaTimesheetPropertyRequest
-  type: has_one
-  via: setProperties
-- from: TimesheetCreateRequestTimesheetCreateRequestBody
-  to: TsaTimesheetQuestionSubmitAnswersRequest
-  type: has_one
-  via: setAnswers
-- from: TimesheetCreateRequestTimesheetCreateRequestBody
-  to: Roster
-  type: belongs_to
-  via: rosterId
-- from: TimesheetCreateRequestTimesheetCreateRequestBody
-  to: TsaTimesheetChildrenRequest
-  type: has_one
-  via: setChildTimesheets
-- from: TsaChildTimesheetRequest
-  to: OperationalUnit
-  type: belongs_to
-  via: operationalUnitId
-- from: TsaTimesheetBreaksRequest
-  to: modelTimesheetBreak
-  type: has_many
-  via: breaks
-- from: TsaTimesheetChildrenRequest
-  to: TsaChildTimesheetRequest
-  type: has_many
-  via: childTimesheets
-- from: TsaTimesheetPropertyRequest
-  to: OperationalUnit
-  type: belongs_to
-  via: operationalUnitId
-- from: TsaTimesheetPropertyRequest
-  to: TsaTimesheetBreaksRequest
-  type: has_one
-  via: setBreaks
-- from: TsaTimesheetPropertyRequest
-  to: Employee
-  type: belongs_to
-  via: employeeId
-- from: ApplicableRangeSummaryResponseApplicableRangeTimesheet
-  to: Employee
-  type: belongs_to
-  via: employeeId
-- from: TsaApplicableRangeSummaryResponse
-  to: ApplicableRangeSummaryResponseApplicableRangeTimesheet
-  type: has_many
-  via: timesheets
-- from: TsaApplicableRangeSummaryResponse
-  to: ApplicableRangeSummaryResponseApplicableRange
-  type: has_one
-  via: applicableRange
-- from: TsaTimesheetPayApproveRequestBody
-  to: TsaTimesheetPayReturnOverrideRequest
-  type: has_one
-  via: setPayReturns
-- from: TsaTimesheetPayApproveRequestBody
-  to: TsaTimesheetPropertyRequest
-  type: has_one
-  via: setProperties
-- from: TsaTimesheetPayApproveRequestBody
-  to: TsaTimesheetQuestionSubmitAnswersRequest
-  type: has_one
-  via: setAnswers
-- from: TsaTimesheetPayApproveRequestBody
-  to: TsaTimesheetChildrenRequest
-  type: has_one
-  via: setChildTimesheets
-- from: TsaRosterPayApproveRequestBody
-  to: TsaTimesheetPayReturnOverrideRequest
-  type: has_one
-  via: setPayReturns
-- from: TsaRosterPayApproveRequestBody
-  to: TsaTimesheetPropertyRequest
-  type: has_one
-  via: setProperties
-- from: TsaRosterPayApproveRequestBody
-  to: TsaTimesheetQuestionSubmitAnswersRequest
-  type: has_one
-  via: setAnswers
-- from: TsaRosterPayApproveRequestBody
-  to: TsaTimesheetChildrenRequest
-  type: has_one
-  via: setChildTimesheets
-- from: TsaSynchronousResponse
-  to: tenanttsav2modelTimesheet
-  type: has_one
-  via: processedTimesheet
-- from: TsaSynchronousResponse
-  to: tenanttsav2modelTimesheet
-  type: has_many
-  via: otherAffectedTimesheets
-- from: tenanttsav2modelTimesheet
-  to: Employee
-  type: belongs_to
-  via: employeeId
-- from: tenanttsav2modelTimesheet
-  to: OperationalUnit
-  type: belongs_to
-  via: operationalUnitId
-- from: tenanttsav2modelTimesheet
-  to: modelTimesheetBreak
-  type: has_many
-  via: breaks
-- from: tenanttsav2modelTimesheet
-  to: Roster
-  type: belongs_to
-  via: rosterId
-- from: tenanttsav2modelTimesheet
-  to: tenanttsav2modelPayReturn
-  type: has_many
-  via: payReturns
-- from: TsaTimesheetTimeApproveRequestBody
-  to: TsaTimesheetPropertyRequest
-  type: has_one
-  via: setProperties
-- from: TsaTimesheetTimeApproveRequestBody
-  to: TsaTimesheetQuestionSubmitAnswersRequest
-  type: has_one
-  via: setAnswers
-- from: TsaTimesheetTimeApproveRequestBody
-  to: TsaTimesheetChildrenRequest
-  type: has_one
-  via: setChildTimesheets
-- from: TsaRosterTimeApproveRequestBody
-  to: TsaTimesheetPropertyRequest
-  type: has_one
-  via: setProperties
-- from: TsaRosterTimeApproveRequestBody
-  to: TsaTimesheetQuestionSubmitAnswersRequest
-  type: has_one
-  via: setAnswers
-- from: TsaRosterTimeApproveRequestBody
-  to: TsaTimesheetChildrenRequest
-  type: has_one
-  via: setChildTimesheets
-- from: ReapproveRequestReapproveRequestBody
-  to: TsaTimesheetPayReturnOverrideRequest
-  type: has_one
-  via: setPayReturns
-- from: ReapproveRequestReapproveRequestBody
-  to: TsaTimesheetPropertyRequest
-  type: has_one
-  via: setProperties
-- from: ReapproveRequestReapproveRequestBody
-  to: TsaTimesheetQuestionSubmitAnswersRequest
-  type: has_one
-  via: setAnswers
-- from: ReapproveRequestReapproveRequestBody
-  to: TsaTimesheetChildrenRequest
-  type: has_one
-  via: setChildTimesheets
-- from: SuggestTimesheetRoundingRequestSuggestTimesheetRoundingRequestBody
-  to: OperationalUnit
-  type: belongs_to
-  via: operationalUnitId
-- from: SuggestTimesheetRoundingRequestSuggestTimesheetRoundingRequestBody
-  to: TsaChildTimesheetRequest
-  type: has_many
-  via: childTimesheets
-- from: TsaChildTimesheetResponse
-  to: OperationalUnit
-  type: belongs_to
-  via: operationalUnitId
-- from: TsaSuggestTimesheetRoundingResponse
-  to: OperationalUnit
-  type: belongs_to
-  via: operationalUnitId
-- from: TsaSuggestTimesheetRoundingResponse
-  to: TsaChildTimesheetResponse
-  type: has_many
-  via: childTimesheets
-- from: TimesheetUpdateRequestTimesheetUpdateRequestBody
-  to: TsaTimesheetPropertyRequest
-  type: has_one
-  via: setProperties
-- from: TimesheetUpdateRequestTimesheetUpdateRequestBody
-  to: TsaTimesheetQuestionSubmitAnswersRequest
-  type: has_one
-  via: setAnswers
-- from: TimesheetUpdateRequestTimesheetUpdateRequestBody
-  to: TsaTimesheetChildrenRequest
-  type: has_one
-  via: setChildTimesheets
-- from: GetTimesheetQuestionsResponseTimesheetQuestionsResponseBody
-  to: GetTimesheetQuestionsResponseTimesheetQuestionWithAnswer
-  type: has_many
-  via: questions
-- from: TimesheetBatchRequestQuery
-  to: OperationalUnit
-  type: belongs_to
-  via: operationalUnitIds
-- from: TimesheetBatchRequestQuery
-  to: Employee
-  type: belongs_to
-  via: employeeIds
-- from: TimesheetBatchRequestQuery
+- from: modelSummaryBulkSelection
   to: Timesheet
   type: belongs_to
   via: timesheetIds
-- from: TimesheetBatchRequestQuery
-  to: Roster
-  type: belongs_to
-  via: rosterIds
-- from: RosterChildRoster
-  to: tenanttsav2modelArea
-  type: has_one
-  via: area
-- from: modelRoster
-  to: RosterChildRoster
-  type: has_many
-  via: children
-- from: modelRoster
-  to: tenanttsav2modelArea
-  type: has_one
-  via: area
-- from: GetPayReturnRatesRequestPayReturnRatesRequestBody
-  to: TsaTimesheetPropertyRequest
-  type: has_one
-  via: setProperties
-- from: GetPayReturnRatesRequestPayReturnRatesRequestBody
-  to: TsaTimesheetPayReturnOverrideRequest
-  type: has_one
-  via: setPayReturns
-- from: GetPaySuggestionRequestPaySuggestionRequestBody
-  to: TsaTimesheetPropertyRequest
-  type: has_one
-  via: setProperties
-- from: GetPaySuggestionRequestPaySuggestionRequestBody
-  to: TsaTimesheetChildrenRequest
-  type: has_one
-  via: setChildTimesheets
-- from: GetPaySuggestionResponsePaySuggestionResponseBody
-  to: tenanttsav2modelPayReturn
-  type: has_many
-  via: payReturns
 - from: v2modelUserInfo
   to: Employee
   type: belongs_to

@@ -2,7 +2,7 @@ openapi: 3.2.0
 info:
   title: Deputy Timesheet Export API
   version: '1.0'
-  description: 'Operations tagged TimesheetExport across 2 of this provider''s published API definitions: deputy-v1-resource-api-openapi.yml, deputy-v2-api-openapi.yml. Each path carries the servers of the definition it was published in.'
+  description: 'Operations tagged TimesheetExport across 2 of this provider''s published API definitions: deputy-v1-resource-api.json, deputy-v2-api.json. Each path carries the servers of the definition it was published in.'
 servers:
 - url: https://{subdomain}.{region}.deputy.com/api/v1
   description: Deputy tenant
@@ -35,19 +35,6 @@ tags:
   description: Operations on the TimesheetExport resource
 paths:
   /resource/TimesheetExport:
-    servers:
-    - url: https://{subdomain}.{region}.deputy.com/api/v1
-      description: Deputy tenant
-      variables:
-        subdomain:
-          default: your-subdomain
-        region:
-          default: deputy
-          enum:
-          - au
-          - eu
-          - na
-          - deputy
     get:
       tags:
       - TimesheetExport
@@ -74,7 +61,6 @@ paths:
       security:
       - BearerAuth: []
       - OAuth2: []
-  /resource/TimesheetExport/INFO:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -88,6 +74,7 @@ paths:
           - eu
           - na
           - deputy
+  /resource/TimesheetExport/INFO:
     get:
       tags:
       - TimesheetExport
@@ -112,7 +99,6 @@ paths:
       security:
       - BearerAuth: []
       - OAuth2: []
-  /resource/TimesheetExport/PREDICT:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -126,50 +112,7 @@ paths:
           - eu
           - na
           - deputy
-    post:
-      tags:
-      - TimesheetExport
-      summary: Predict-match a TimesheetExport record
-      description: Returns the closest matching existing record for a partial payload. Used by upsert-style integrations to find an existing row before creating.
-      operationId: predictTimesheetExport
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/TimesheetExport'
-      responses:
-        '200':
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/TimesheetExport'
-        '400':
-          description: Bad request
-        '401':
-          description: Authentication required or invalid token
-        '403':
-          description: Forbidden — token lacks access to this resource
-        '404':
-          description: Resource not found
-      security:
-      - BearerAuth: []
-      - OAuth2: []
   /resource/TimesheetExport/QUERY:
-    servers:
-    - url: https://{subdomain}.{region}.deputy.com/api/v1
-      description: Deputy tenant
-      variables:
-        subdomain:
-          default: your-subdomain
-        region:
-          default: deputy
-          enum:
-          - au
-          - eu
-          - na
-          - deputy
     post:
       tags:
       - TimesheetExport
@@ -202,7 +145,6 @@ paths:
       security:
       - BearerAuth: []
       - OAuth2: []
-  /resource/TimesheetExport/{id}:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -216,6 +158,51 @@ paths:
           - eu
           - na
           - deputy
+  /resource/TimesheetExport/PREDICT:
+    post:
+      tags:
+      - TimesheetExport
+      summary: Predict-match a TimesheetExport record
+      description: Returns the closest matching existing record for a partial payload. Used by upsert-style integrations to find an existing row before creating.
+      operationId: predictTimesheetExport
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TimesheetExport'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TimesheetExport'
+        '400':
+          description: Bad request
+        '401':
+          description: Authentication required or invalid token
+        '403':
+          description: Forbidden — token lacks access to this resource
+        '404':
+          description: Resource not found
+      security:
+      - BearerAuth: []
+      - OAuth2: []
+    servers:
+    - url: https://{subdomain}.{region}.deputy.com/api/v1
+      description: Deputy tenant
+      variables:
+        subdomain:
+          default: your-subdomain
+        region:
+          default: deputy
+          enum:
+          - au
+          - eu
+          - na
+          - deputy
+  /resource/TimesheetExport/{id}:
     get:
       tags:
       - TimesheetExport
@@ -246,7 +233,6 @@ paths:
       security:
       - BearerAuth: []
       - OAuth2: []
-  /resource/TimesheetExport/{id}/COMMENTS:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -260,6 +246,104 @@ paths:
           - eu
           - na
           - deputy
+  /resource/TimesheetExport/{id}/HISTORY:
+    get:
+      tags:
+      - TimesheetExport
+      summary: Get change history for a TimesheetExport
+      operationId: historyTimesheetExport
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: Numeric id of the resource
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TimesheetExport'
+        '400':
+          description: Bad request
+        '401':
+          description: Authentication required or invalid token
+        '403':
+          description: Forbidden — token lacks access to this resource
+        '404':
+          description: Resource not found
+      security:
+      - BearerAuth: []
+      - OAuth2: []
+    servers:
+    - url: https://{subdomain}.{region}.deputy.com/api/v1
+      description: Deputy tenant
+      variables:
+        subdomain:
+          default: your-subdomain
+        region:
+          default: deputy
+          enum:
+          - au
+          - eu
+          - na
+          - deputy
+  /resource/TimesheetExport/{id}/HISTORY/travel/{timestamp}:
+    get:
+      tags:
+      - TimesheetExport
+      summary: Get a TimesheetExport as it existed at a prior time
+      operationId: historyTimesheetExportTravel
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: Numeric id of the resource
+      - name: timestamp
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+        description: Unix epoch seconds
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TimesheetExport'
+        '400':
+          description: Bad request
+        '401':
+          description: Authentication required or invalid token
+        '403':
+          description: Forbidden — token lacks access to this resource
+        '404':
+          description: Resource not found
+      security:
+      - BearerAuth: []
+      - OAuth2: []
+    servers:
+    - url: https://{subdomain}.{region}.deputy.com/api/v1
+      description: Deputy tenant
+      variables:
+        subdomain:
+          default: your-subdomain
+        region:
+          default: deputy
+          enum:
+          - au
+          - eu
+          - na
+          - deputy
+  /resource/TimesheetExport/{id}/COMMENTS:
     get:
       tags:
       - TimesheetExport
@@ -343,7 +427,6 @@ paths:
       security:
       - BearerAuth: []
       - OAuth2: []
-  /resource/TimesheetExport/{id}/COMMENTS/{commentId}:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -357,6 +440,7 @@ paths:
           - eu
           - na
           - deputy
+  /resource/TimesheetExport/{id}/COMMENTS/{commentId}:
     delete:
       tags:
       - TimesheetExport
@@ -395,7 +479,6 @@ paths:
       security:
       - BearerAuth: []
       - OAuth2: []
-  /resource/TimesheetExport/{id}/HISTORY:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -409,105 +492,7 @@ paths:
           - eu
           - na
           - deputy
-    get:
-      tags:
-      - TimesheetExport
-      summary: Get change history for a TimesheetExport
-      operationId: historyTimesheetExport
-      parameters:
-      - name: id
-        in: path
-        required: true
-        schema:
-          type: integer
-        description: Numeric id of the resource
-      responses:
-        '200':
-          description: Success
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/TimesheetExport'
-        '400':
-          description: Bad request
-        '401':
-          description: Authentication required or invalid token
-        '403':
-          description: Forbidden — token lacks access to this resource
-        '404':
-          description: Resource not found
-      security:
-      - BearerAuth: []
-      - OAuth2: []
-  /resource/TimesheetExport/{id}/HISTORY/travel/{timestamp}:
-    servers:
-    - url: https://{subdomain}.{region}.deputy.com/api/v1
-      description: Deputy tenant
-      variables:
-        subdomain:
-          default: your-subdomain
-        region:
-          default: deputy
-          enum:
-          - au
-          - eu
-          - na
-          - deputy
-    get:
-      tags:
-      - TimesheetExport
-      summary: Get a TimesheetExport as it existed at a prior time
-      operationId: historyTimesheetExportTravel
-      parameters:
-      - name: id
-        in: path
-        required: true
-        schema:
-          type: integer
-        description: Numeric id of the resource
-      - name: timestamp
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int64
-        description: Unix epoch seconds
-      responses:
-        '200':
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/TimesheetExport'
-        '400':
-          description: Bad request
-        '401':
-          description: Authentication required or invalid token
-        '403':
-          description: Forbidden — token lacks access to this resource
-        '404':
-          description: Resource not found
-      security:
-      - BearerAuth: []
-      - OAuth2: []
   /timesheet-export/v2/config:
-    servers:
-    - url: https://{subdomain}.{region}.deputy.com/api
-      description: Deputy tenant
-      variables:
-        subdomain:
-          default: your-subdomain
-          description: Your Deputy tenant subdomain
-        region:
-          default: deputy
-          enum:
-          - au
-          - eu
-          - na
-          - deputy
-          description: 'Deputy region: au, eu, na, or deputy (AU default)'
     get:
       operationId: TimesheetExportV2Controller_getConfig
       responses:
@@ -523,7 +508,6 @@ paths:
       description: Get config.
       security:
       - ApiToken: []
-  /timesheet-export/v2/feature-status:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api
       description: Deputy tenant
@@ -539,6 +523,7 @@ paths:
           - na
           - deputy
           description: 'Deputy region: au, eu, na, or deputy (AU default)'
+  /timesheet-export/v2/feature-status:
     get:
       summary: Get status of the timesheet export feature (enabled/disabled)
       operationId: TimesheetExportV2Controller_getFeatureStatus
@@ -554,7 +539,6 @@ paths:
       description: Get status of the timesheet export feature (enabled/disabled).
       security:
       - ApiToken: []
-  /timesheet-export/v2/filters/employee:refresh:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api
       description: Deputy tenant
@@ -570,6 +554,7 @@ paths:
           - na
           - deputy
           description: 'Deputy region: au, eu, na, or deputy (AU default)'
+  /timesheet-export/v2/filters/employee:refresh:
     post:
       summary: Refresh the employee filter options
       operationId: TimesheetExportV2Controller_refreshEmployeeFilterOptions
@@ -585,7 +570,6 @@ paths:
       description: Refresh the employee filter options.
       security:
       - ApiToken: []
-  /timesheet-export/v2/filters/location:refresh:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api
       description: Deputy tenant
@@ -601,6 +585,7 @@ paths:
           - na
           - deputy
           description: 'Deputy region: au, eu, na, or deputy (AU default)'
+  /timesheet-export/v2/filters/location:refresh:
     post:
       summary: Refresh the location filter options
       operationId: TimesheetExportV2Controller_refreshLocationFilterOptions
@@ -616,7 +601,6 @@ paths:
       description: Refresh the location filter options.
       security:
       - ApiToken: []
-  /timesheet-export/v2/filters/pay-center:refresh:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api
       description: Deputy tenant
@@ -632,6 +616,7 @@ paths:
           - na
           - deputy
           description: 'Deputy region: au, eu, na, or deputy (AU default)'
+  /timesheet-export/v2/filters/pay-center:refresh:
     post:
       summary: Refresh the pay center filter options
       operationId: TimesheetExportV2Controller_refreshPayCenterFilter
@@ -653,7 +638,6 @@ paths:
               $ref: '#/components/schemas/TimesheetExportRefreshFilterOptionsRequest'
       security:
       - ApiToken: []
-  /timesheet-export/v2/filters/pay-period:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api
       description: Deputy tenant
@@ -669,6 +653,7 @@ paths:
           - na
           - deputy
           description: 'Deputy region: au, eu, na, or deputy (AU default)'
+  /timesheet-export/v2/filters/pay-period:
     get:
       summary: Get options to populate the pay period filters
       operationId: TimesheetExportV2Controller_getPayPeriodFilterOptions
@@ -684,46 +669,23 @@ paths:
       description: Get options to populate the pay period filters.
       security:
       - ApiToken: []
+    servers:
+    - url: https://{subdomain}.{region}.deputy.com/api
+      description: Deputy tenant
+      variables:
+        subdomain:
+          default: your-subdomain
+          description: Your Deputy tenant subdomain
+        region:
+          default: deputy
+          enum:
+          - au
+          - eu
+          - na
+          - deputy
+          description: 'Deputy region: au, eu, na, or deputy (AU default)'
 components:
   schemas:
-    TimesheetExportConfigFilters:
-      type: object
-      properties:
-        locationType:
-          $ref: '#/components/schemas/modelLocationTypeFilterOption'
-        dateRangeType:
-          $ref: '#/components/schemas/modelDateRangeTypeFilterOption'
-    modelLocationTypeFilterOption:
-      type: string
-      enum:
-      - LOCATION_TYPE_FILTER_OPTION_UNKNOWN
-      - NONE
-      - PAY_CENTER
-      - LOCATION
-      default: LOCATION_TYPE_FILTER_OPTION_UNKNOWN
-      title: Location Type Filter Option
-    TimesheetExportGetConfigResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        filters:
-          $ref: '#/components/schemas/TimesheetExportConfigFilters'
-    modelPayPeriodFilterOption:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int32
-          title: Pay Period ID
-        name:
-          type: string
-          title: Pay Period Name
-        payCycles:
-          type: array
-          items:
-            $ref: '#/components/schemas/modelPayCycleFilterOption'
-          title: Pay Cycles
     TimesheetExport:
       type: object
       properties:
@@ -754,102 +716,6 @@ components:
       - Label
       - Company
       - Modified
-    tenanttimesheetv2modelEmployee:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int32
-        firstName:
-          type: string
-        lastName:
-          type: string
-        displayName:
-          type: string
-    modelPayCycleFilterOption:
-      type: object
-      properties:
-        startDate:
-          type: string
-          title: Pay Cycle Start Date as YYYY-MM-DD
-        endDate:
-          type: string
-          title: Pay Cycle End Date as YYYY-MM-DD
-        companyPeriodIds:
-          type: array
-          items:
-            type: integer
-            format: int32
-          title: Company Period IDs
-    modelDateRangeTypeFilterOption:
-      type: string
-      enum:
-      - DATE_RANGE_TYPE_FILTER_OPTION_UNKNOWN
-      - CUSTOM
-      - PAY_PERIOD_AND_CUSTOM
-      - PAY_CALENDAR_AND_CUSTOM
-      - PAY_CALENDAR
-      default: DATE_RANGE_TYPE_FILTER_OPTION_UNKNOWN
-      title: Date Range Filter Option
-    TimesheetExportRefreshEmployeeFilterOptionsResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        employeeIds:
-          type: array
-          items:
-            type: integer
-            format: int32
-        employees:
-          type: array
-          items:
-            $ref: '#/components/schemas/tenanttimesheetv2modelEmployee'
-        pagination:
-          $ref: '#/components/schemas/modelPaginationInfo'
-    TimesheetExportGetFeatureStatusResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        enabled:
-          type: boolean
-    modelDateRange:
-      type: object
-      properties:
-        startDate:
-          type: string
-          title: Start Date - YYYY-MM-DD
-        endDate:
-          type: string
-          title: End Date - YYYY-MM-DD
-    TimesheetExportRefreshFilterOptionsResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        locationIds:
-          type: array
-          items:
-            type: integer
-            format: int32
-    modelPaginationInfo:
-      type: object
-      properties:
-        nextCursor:
-          type: string
-        totalCount:
-          type: integer
-          format: int32
-    modelCompanyPeriods:
-      type: object
-      properties:
-        companyPeriodIds:
-          type: array
-          items:
-            type: integer
-            format: int32
-          title: Company Period IDs
     QueryRequest:
       type: object
       description: V1 Resource search payload. All fields optional; an empty body returns the first page of results.
@@ -916,6 +782,66 @@ components:
             data: 1
             type: ge
         max: 100
+    TimesheetExportConfigFilters:
+      type: object
+      properties:
+        locationType:
+          $ref: '#/components/schemas/modelLocationTypeFilterOption'
+        dateRangeType:
+          $ref: '#/components/schemas/modelDateRangeTypeFilterOption'
+    modelPayPeriodFilterOption:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+          title: Pay Period ID
+        name:
+          type: string
+          title: Pay Period Name
+        payCycles:
+          type: array
+          items:
+            $ref: '#/components/schemas/modelPayCycleFilterOption'
+          title: Pay Cycles
+    TimesheetExportGetFeatureStatusResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        enabled:
+          type: boolean
+    tenanttimesheetv2modelEmployee:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        firstName:
+          type: string
+        lastName:
+          type: string
+        displayName:
+          type: string
+    TimesheetExportRefreshFilterOptionsResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        locationIds:
+          type: array
+          items:
+            type: integer
+            format: int32
+    modelCompanyPeriods:
+      type: object
+      properties:
+        companyPeriodIds:
+          type: array
+          items:
+            type: integer
+            format: int32
+          title: Company Period IDs
     TimesheetExportGetPayPeriodFilterOptionsResponse:
       type: object
       properties:
@@ -925,18 +851,16 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/modelPayPeriodFilterOption'
-    TimesheetExportRefreshFilterOptionsRequest:
-      type: object
-      properties:
-        companyPeriods:
-          $ref: '#/components/schemas/modelCompanyPeriods'
-          title: Company Periods
-        payCalendar:
-          $ref: '#/components/schemas/modelPayCalendarOption'
-          title: Pay calendar
-        dateRange:
-          $ref: '#/components/schemas/modelDateRange'
-          title: Start & End Date
+    modelDateRangeTypeFilterOption:
+      type: string
+      enum:
+      - DATE_RANGE_TYPE_FILTER_OPTION_UNKNOWN
+      - CUSTOM
+      - PAY_PERIOD_AND_CUSTOM
+      - PAY_CALENDAR_AND_CUSTOM
+      - PAY_CALENDAR
+      default: DATE_RANGE_TYPE_FILTER_OPTION_UNKNOWN
+      title: Date Range Filter Option
     TimesheetExportRefreshPayCenterFilterResponse:
       type: object
       properties:
@@ -947,6 +871,70 @@ components:
           items:
             type: integer
             format: int32
+    modelPayCycleFilterOption:
+      type: object
+      properties:
+        startDate:
+          type: string
+          title: Pay Cycle Start Date as YYYY-MM-DD
+        endDate:
+          type: string
+          title: Pay Cycle End Date as YYYY-MM-DD
+        companyPeriodIds:
+          type: array
+          items:
+            type: integer
+            format: int32
+          title: Company Period IDs
+    modelDateRange:
+      type: object
+      properties:
+        startDate:
+          type: string
+          title: Start Date - YYYY-MM-DD
+        endDate:
+          type: string
+          title: End Date - YYYY-MM-DD
+    modelLocationTypeFilterOption:
+      type: string
+      enum:
+      - LOCATION_TYPE_FILTER_OPTION_UNKNOWN
+      - NONE
+      - PAY_CENTER
+      - LOCATION
+      default: LOCATION_TYPE_FILTER_OPTION_UNKNOWN
+      title: Location Type Filter Option
+    TimesheetExportRefreshEmployeeFilterOptionsResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        employeeIds:
+          type: array
+          items:
+            type: integer
+            format: int32
+        employees:
+          type: array
+          items:
+            $ref: '#/components/schemas/tenanttimesheetv2modelEmployee'
+        pagination:
+          $ref: '#/components/schemas/modelPaginationInfo'
+    TimesheetExportGetConfigResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        filters:
+          $ref: '#/components/schemas/TimesheetExportConfigFilters'
+    modelPaginationInfo:
+      type: object
+      properties:
+        nextCursor:
+          type: string
+        totalCount:
+          type: integer
+          format: int32
     modelPayCalendarOption:
       type: object
       properties:
@@ -960,6 +948,18 @@ components:
         endDate:
           type: string
           title: End Date - YYYY-MM-DD
+    TimesheetExportRefreshFilterOptionsRequest:
+      type: object
+      properties:
+        companyPeriods:
+          $ref: '#/components/schemas/modelCompanyPeriods'
+          title: Company Periods
+        payCalendar:
+          $ref: '#/components/schemas/modelPayCalendarOption'
+          title: Pay calendar
+        dateRange:
+          $ref: '#/components/schemas/modelDateRange'
+          title: Start & End Date
   securitySchemes:
     BearerAuth:
       type: http
@@ -977,86 +977,14 @@ components:
       type: apiKey
       in: header
       name: OAuth
+    JWTInternalToken:
+      type: apiKey
+      in: header
+      name: Bearer
 x-refined-from:
-- deputy-v1-resource-api-openapi.yml
-- deputy-v2-api-openapi.yml
-x-provenance:
-  method: searched
-  source: https://developer.deputy.com/reference
-  harvested: '2026-10-14'
-  tool: harvest-readme-openapi.py
-  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
-  assembled_from:
-  - https://developer.deputy.com/reference/addalocation.md
-  - https://developer.deputy.com/reference/addalocationagainstanemployee.md
-  - https://developer.deputy.com/reference/addanemployee.md
-  - https://developer.deputy.com/reference/addasaletosalesmetrics.md
-  - https://developer.deputy.com/reference/addawebhookurl.md
-  - https://developer.deputy.com/reference/addleaveforaemployee.md
-  - https://developer.deputy.com/reference/addnewworkplace.md
-  - https://developer.deputy.com/reference/addunavailabilitydetailsforaemployee.md
-  - https://developer.deputy.com/reference/archivealocation.md
-  - https://developer.deputy.com/reference/copyaroster.md
-  - https://developer.deputy.com/reference/create-a-memo.md
-  - https://developer.deputy.com/reference/createadepartment.md
-  - https://developer.deputy.com/reference/createmultipledepartments.md
-  - https://developer.deputy.com/reference/deletealocation.md
-  - https://developer.deputy.com/reference/deleteanemployeesaccountindeputy.md
-  - https://developer.deputy.com/reference/deleteasingleoperationalunit.md
-  - https://developer.deputy.com/reference/discardaroster.md
-  - https://developer.deputy.com/reference/doatask.md
-  - https://developer.deputy.com/reference/example-searchforemployeesfromalocation.md
-  - https://developer.deputy.com/reference/findanemployeesleave.md
-  - https://developer.deputy.com/reference/findoutanemployeesstatus.md
-  - https://developer.deputy.com/reference/getagreedhoursbyemployeeid.md
-  - https://developer.deputy.com/reference/getalistofrostersfromlast12hoursandforward36hours.md
-  - https://developer.deputy.com/reference/getalocationssettings.md
-  - https://developer.deputy.com/reference/getawardslibrarylist.md
-  - https://developer.deputy.com/reference/getdetailsforaemployeebyid.md
-  - https://developer.deputy.com/reference/getdetailsforallemployees.md
-  - https://developer.deputy.com/reference/getlocationbyid.md
-  - https://developer.deputy.com/reference/getlocations.md
-  - https://developer.deputy.com/reference/getmyindividualtimesheet.md
-  - https://developer.deputy.com/reference/getmynewsfeed.md
-  - https://developer.deputy.com/reference/getmynotifications.md
-  - https://developer.deputy.com/reference/getmysubordinatecontactdetails.md
-  - https://developer.deputy.com/reference/getmytasks.md
-  - https://developer.deputy.com/reference/getmytimesheets.md
-  - https://developer.deputy.com/reference/getmytraining.md
-  - https://developer.deputy.com/reference/getoperationalunits.md
-  - https://developer.deputy.com/reference/getrostersavailableforswap.md
-  - https://developer.deputy.com/reference/getsimplifiedlocationlist.md
-  - https://developer.deputy.com/reference/getsuggestionsforrosterbyid.md
-  - https://developer.deputy.com/reference/getunavailabilitydetailsforaemployee.md
-  - https://developer.deputy.com/reference/inviteemployeetodeputy.md
-  - https://developer.deputy.com/reference/modifysettingsinalllocations.md
-  - https://developer.deputy.com/reference/modifysettingsinasinglelocation.md
-  - https://developer.deputy.com/reference/myaddressonfile.md
-  - https://developer.deputy.com/reference/myaddressonfileincludingemergency.md
-  - https://developer.deputy.com/reference/myleaverequests.md
-  - https://developer.deputy.com/reference/pauseorunpauseemployeestimesheettakeabreakfinishbreak.md
-  - https://developer.deputy.com/reference/postajournal.md
-  - https://developer.deputy.com/reference/publisharoster.md
-  - https://developer.deputy.com/reference/re-activateaterminatedemployee.md
-  - https://developer.deputy.com/reference/removealocationfromanemployee.md
-  - https://developer.deputy.com/reference/retrievecurrentsystemtime.md
-  - https://developer.deputy.com/reference/retrievecurrentsystemtimeofalocation.md
-  - https://developer.deputy.com/reference/retrievesalesdata.md
-  - https://developer.deputy.com/reference/setawardforemployee.md
-  - https://developer.deputy.com/reference/startanemployeestimesheetclockon.md
-  - https://developer.deputy.com/reference/stopanemployeestimesheetclockoff.md
-  - https://developer.deputy.com/reference/terminateanemployee.md
-  - https://developer.deputy.com/reference/updatealocation.md
-  - https://developer.deputy.com/reference/updateanexistingemployee.md
-  - https://developer.deputy.com/reference/updateasingleoperationalunit.md
-  - https://developer.deputy.com/reference/updatemyaddress.md
-  - https://developer.deputy.com/reference/viewatimesheetbyid.md
-  - https://developer.deputy.com/reference/whatlocationscaniworkin.md
-  - https://developer.deputy.com/reference/whenaminextworking.md
-  - https://developer.deputy.com/reference/whenamiunavailable.md
-  - https://developer.deputy.com/reference/wherecaniworkwhatdoido.md
-  - https://developer.deputy.com/reference/whodoiworkwith.md
-  merge:
-    pages: 69
-    deduped: 70
-    conflicts_kept_first: 0
+- deputy-v1-resource-api.json
+- deputy-v2-api.json
+x-readme:
+  explorer-enabled: true
+  proxy-enabled: true
+  samples-enabled: true

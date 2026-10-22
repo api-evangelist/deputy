@@ -1,0 +1,126 @@
+generated: '2026-10-21'
+method: searched
+source:
+- https://privacy.deputy.com/policies
+- https://privacy.deputy.com/policies?name=data-processing-addendum
+- https://privacy.deputy.com/policies?name=sub-processors
+- https://www.deputy.com/security
+- https://www.deputy.com/terms
+notes: >-
+  Deputy's legal hub (www.deputy.com/terms; /privacy-policy redirects there) points to a Transcend-hosted
+  Privacy Centre at privacy.deputy.com, which carries the Privacy Policy, Data Processing Addendum,
+  Sub-Processors list, CCPA disclosures, Biometric Data Privacy Policy and Deputy AI FAQs. Privacy Centre
+  pages are JavaScript-rendered and were read with a headless browser (all 200 on 2026-10-21). The Deputy AI
+  FAQs page (?name=deputy-ai-faqs) rendered only its table of contents, so its answers are not quoted here.
+signals:
+  data_subject_request:
+    url: https://privacy.deputy.com/policies
+    section: Privacy Policy
+    rights_named: [access, know, opt out of targeted content, erasure, objection, restriction, portability, withdraw consent, appeal (some US states), complaint to data protection authority]
+    evidence:
+    - source: https://privacy.deputy.com/policies
+      http_status: 200
+      fetched: '2026-10-21'
+      quote: "The right of data portability\u00a0for transfer of your personal information to another party."
+    - source: https://privacy.deputy.com/policies
+      http_status: 200
+      fetched: '2026-10-21'
+      quote: "The right to erasure/deletion (‘right to be forgotten’)\u00a0of your personal information."
+    - source: https://privacy.deputy.com/policies?name=data-processing-addendum
+      http_status: 200
+      fetched: '2026-10-21'
+      quote: "In the event that any request, correspondence, enquiry or complaint is made directly to Deputy, Deputy shall notify Customer and provide it with a copy of the request, unless legally prohibited from doing so."
+    note: >-
+      The Privacy Policy lists data-subject rights exercisable by contacting Deputy (no response SLA stated);
+      the DPA routes requests about customer data back to the customer as controller.
+  global_privacy_control:
+    url: https://privacy.deputy.com/policies
+    section: Privacy Policy
+    evidence:
+    - source: https://privacy.deputy.com/policies
+      http_status: 200
+      fetched: '2026-10-21'
+      quote: "You may also use an Opt-Out Preference Signal, such as the Global Privacy Control (GPC), to opt out."
+    note: GPC is honoured as an opt-out of targeted/marketing use of personal information.
+  subprocessors:
+    url: https://privacy.deputy.com/policies?name=sub-processors
+    section: Third-party sub-processors / Deputy affiliate sub-processors
+    change_notice: 20 days before a new sub-processor is added, with a right to object
+    evidence:
+    - source: https://privacy.deputy.com/policies?name=data-processing-addendum
+      http_status: 200
+      fetched: '2026-10-21'
+      quote: "The Sub-processors currently engaged by Deputy and authorised by Customer are listed at\u00a0https://privacy.deputy.com/policies?name=sub-processors."
+    - source: https://privacy.deputy.com/policies?name=data-processing-addendum
+      http_status: 200
+      fetched: '2026-10-21'
+      quote: "Deputy shall notify Customer if it adds any new Sub-processors at least 20 days before the proposed addition, in order to allow Customer to raise any reasonable objections on grounds of data protection."
+    note: >-
+      A public list (sub-processor, purpose, location, e.g. Amazon Web Services for application
+      infrastructure in the United States, Australia and United Kingdom) plus a contractual 20-day advance notice.
+  data_residency:
+    url: https://www.deputy.com/security
+    regions: [Australia, United Kingdom, United States]
+    evidence:
+    - source: https://www.deputy.com/security
+      http_status: 200
+      fetched: '2026-10-21'
+      quote: "Our infrastructure is built for scalability and ready to support our customer’s data sovereignty needs in 3 strategic regions - Australia, United Kingdom and United States."
+    - source: https://privacy.deputy.com/policies?name=sub-processors
+      http_status: 200
+      fetched: '2026-10-21'
+      quote: "*Customer data submitted to or generated through certain AI Features will be processed in the United States, regardless of your selected hosting region."
+    note: Selectable hosting region on AWS, with a stated exception that certain AI Features process data in the US.
+  ai_transparency:
+    url: https://privacy.deputy.com/policies
+    section: Privacy Policy
+    evidence:
+    - source: https://privacy.deputy.com/policies
+      http_status: 200
+      fetched: '2026-10-21'
+      quote: "Our Services include optional artificial intelligence-powered features and functionality (“AI Features”) that operate across the Deputy platform."
+    - source: https://privacy.deputy.com/policies
+      http_status: 200
+      fetched: '2026-10-21'
+      quote: "For the avoidance of doubt, Deputy does not use personal information submitted to or generated by AI Features to train the large language models that power them."
+    - source: https://privacy.deputy.com/policies?name=data-processing-addendum
+      http_status: 200
+      fetched: '2026-10-21'
+      quote: "(iv) Deputy shall not use Customer Personal Data processed through AI Features to train third-party large language models."
+    note: Discloses AI Features and commits, in policy and contract, not to use their data for LLM training.
+  incident_notification:
+    url: https://privacy.deputy.com/policies?name=data-processing-addendum
+    section: 2.5 (Personal Data Breach)
+    stated_sla: none beyond "as required by Applicable Data Protection Laws"
+    evidence:
+    - source: https://privacy.deputy.com/policies?name=data-processing-addendum
+      http_status: 200
+      fetched: '2026-10-21'
+      quote: "Upon becoming aware of a Personal Data Breach, Deputy shall notify Customer\u00a0 as required by Applicable Data Protection Laws."
+    - source: https://www.deputy.com/security
+      http_status: 200
+      fetched: '2026-10-21'
+      quote: "The team is also responsible for the delivery of security incident response and follows the SANS incident handling methodology to prepare, detect and respond to events."
+    note: Breach notification is tied to legal requirements; no fixed hour window is published.
+  data_retention:
+    url: https://privacy.deputy.com/policies
+    section: Retention
+    evidence:
+    - source: https://privacy.deputy.com/policies
+      http_status: 200
+      fetched: '2026-10-21'
+      quote: "Your personal information will be retained for the period that is necessary to fulfil the purpose it was originally collected for, or to fulfil the purpose outlined in this Privacy Policy, or to meet legislative or regulatory obligations, such as financial reporting requirements."
+    - source: https://privacy.deputy.com/policies
+      http_status: 200
+      fetched: '2026-10-21'
+      quote: "After it is determined that your personal information reaches the end of its retention period, we will either delete or anonymize your information or, if this is not possible then we will store your information and isolate it from any further use until deletion is possible."
+    note: Purpose-based retention, no fixed periods published in the Privacy Policy (the Biometric policy has its own schedule, not read here).
+  exit_assistance:
+    url: https://privacy.deputy.com/policies?name=data-processing-addendum
+    section: 2.7 Deletion or return of Customer Personal Data
+    evidence:
+    - source: https://privacy.deputy.com/policies?name=data-processing-addendum
+      http_status: 200
+      fetched: '2026-10-21'
+      quote: "Upon written request from Customer, Deputy shall anonymise, delete or return to Customer all Customer Personal Data in its possession as a data processor subject to any requirement on Deputy to retain some or all of the Customer Personal Data to comply with applicable laws, in which event Deputy shall isolate and protect the Customer Personal Data from further processing except to the extent required by such law until deletion is possible."
+    note: Contractual return-or-delete on request; no export format or timeline stated.

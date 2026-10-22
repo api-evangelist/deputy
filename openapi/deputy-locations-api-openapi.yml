@@ -1,0 +1,309 @@
+openapi: 3.2.0
+info:
+  title: Deputy Locations API
+  contact: {}
+  version: '1.0'
+servers:
+- url: https://{install}.{geo}.deputy.com/api
+  variables:
+    install:
+      default: ''
+    geo:
+      default: ''
+security:
+- httpBearer: []
+tags:
+- name: Locations
+paths:
+  /v1/resource/Company:
+    get:
+      tags:
+      - Locations
+      summary: Get Locations
+      operationId: GetLocations
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content: {}
+      deprecated: false
+  /v1/supervise/company/simple:
+    get:
+      tags:
+      - Locations
+      summary: Get simplified location list
+      operationId: Getsimplifiedlocationlist
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content: {}
+      deprecated: false
+  /v1/supervise/company/{id}/settings:
+    get:
+      tags:
+      - Locations
+      summary: Get a locations settings
+      operationId: Getalocationssettings
+      parameters:
+      - name: id
+        in: path
+        description: The company id
+        required: true
+        style: simple
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content: {}
+      deprecated: false
+    post:
+      tags:
+      - Locations
+      summary: Modify settings in a single location
+      operationId: Modifysettingsinasinglelocation
+      parameters:
+      - name: id
+        in: path
+        description: The company id
+        required: true
+        style: simple
+        schema:
+          minimum: 1
+          type: integer
+          format: int32
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/ModifysettingsinalllocationsRequest'
+              - example:
+                  WEEK_START: 2
+            example:
+              WEEK_START: 2
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content: {}
+      deprecated: false
+  /v1/supervise/company/all/settings:
+    post:
+      tags:
+      - Locations
+      summary: Modify settings in all locations
+      operationId: Modifysettingsinalllocations
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/ModifysettingsinalllocationsRequest'
+              - example:
+                  WEEK_START: 2
+            example:
+              WEEK_START: 2
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content: {}
+      deprecated: false
+  /v1/supervise/company/{id}/archive:
+    post:
+      tags:
+      - Locations
+      summary: Archive a location
+      operationId: Archivealocation
+      parameters:
+      - name: id
+        in: path
+        description: The company id
+        required: true
+        style: simple
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content: {}
+      deprecated: false
+  /v1/supervise/company/{id}/delete:
+    post:
+      tags:
+      - Locations
+      summary: Delete a location
+      operationId: Deletealocation
+      parameters:
+      - name: id
+        in: path
+        description: The company id
+        required: true
+        style: simple
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content: {}
+      deprecated: false
+  /v1/supervise/company:
+    put:
+      tags:
+      - Locations
+      summary: Add a location
+      operationId: Addalocation
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/AddalocationRequest'
+              - example:
+                  strWorkplaceName: Asims' Avocado's2
+                  strWorkplaceCode: ASI
+                  strAddress: Ultimo, Sydney
+                  strAddressNotes: This is an address note
+                  intParentCompany: 0
+                  intIsWorkplace: 1
+                  intIsPayrollEntity: 1
+                  strTimezone: Australia/Sydney
+                  strPayrollExportCode: XYZ123
+            example:
+              strWorkplaceName: Asims' Avocado's2
+              strWorkplaceCode: ASI
+              strAddress: Ultimo, Sydney
+              strAddressNotes: This is an address note
+              intParentCompany: 0
+              intIsWorkplace: 1
+              intIsPayrollEntity: 1
+              strTimezone: Australia/Sydney
+              strPayrollExportCode: XYZ123
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content: {}
+      deprecated: false
+  /v1/supervise/company/{id}:
+    post:
+      tags:
+      - Locations
+      summary: Update a location
+      operationId: Updatealocation
+      parameters:
+      - name: id
+        in: path
+        description: The company id
+        required: true
+        style: simple
+        schema:
+          minimum: 1
+          type: integer
+          format: int32
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/UpdatealocationRequest'
+              - example:
+                  strWorkplaceCode: ABC
+            example:
+              strWorkplaceCode: ABC
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content: {}
+      deprecated: false
+components:
+  schemas:
+    AddalocationRequest:
+      title: AddalocationRequest
+      required:
+      - strWorkplaceName
+      - strAddress
+      type: object
+      properties:
+        strWorkplaceName:
+          type: string
+        strWorkplaceCode:
+          type: string
+        strAddress:
+          type: string
+        strAddressNotes:
+          type: string
+        intParentCompany:
+          type: integer
+          format: int32
+        intIsWorkplace:
+          type: integer
+          format: int32
+        intIsPayrollEntity:
+          type: integer
+          format: int32
+        strTimezone:
+          type: string
+        strPayrollExportCode:
+          type: string
+    ModifysettingsinalllocationsRequest:
+      title: ModifysettingsinalllocationsRequest
+      type: object
+      properties:
+        WEEK_START:
+          type: integer
+          format: int32
+    UpdatealocationRequest:
+      title: UpdatealocationRequest
+      type: object
+      properties:
+        strWorkplaceName:
+          type: string
+        strWorkplaceCode:
+          type: string
+        strAddress:
+          type: string
+        strAddressNotes:
+          type: string
+        intParentCompany:
+          type: integer
+          format: int32
+        intIsWorkplace:
+          type: integer
+          format: int32
+        intIsPayrollEntity:
+          type: integer
+          format: int32
+        strTimezone:
+          type: string
+        strPayrollExportCode:
+          type: string
+  securitySchemes:
+    httpBearer:
+      type: http
+      scheme: bearer
+x-readme:
+  explorer-enabled: true
+  proxy-enabled: true
+  samples-enabled: true

@@ -1,0 +1,60 @@
+openapi: 3.2.0
+info:
+  title: Deputy Pay Rates API
+  contact: {}
+  version: '1.0'
+servers:
+- url: https://{install}.{geo}.deputy.com/api
+  variables:
+    install:
+      default: ''
+    geo:
+      default: ''
+security:
+- httpBearer: []
+tags:
+- name: Pay Rates
+paths:
+  /v1/payroll/listAwardsLibrary:
+    get:
+      tags:
+      - Pay Rates
+      summary: Get awards library list
+      operationId: Getawardslibrarylist
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content: {}
+      deprecated: false
+  /management/v2/agreed_hour/{employeeid}:
+    get:
+      tags:
+      - Pay Rates
+      summary: Get Agreed Hours by Employee ID
+      operationId: GetAgreedHoursbyEmployeeID
+      parameters:
+      - name: employeeid
+        in: path
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content: {}
+      deprecated: false
+components:
+  securitySchemes:
+    httpBearer:
+      type: http
+      scheme: bearer
+x-readme:
+  explorer-enabled: true
+  proxy-enabled: true
+  samples-enabled: true

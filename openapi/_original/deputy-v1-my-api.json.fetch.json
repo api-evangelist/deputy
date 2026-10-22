@@ -1,0 +1,10 @@
+{
+ "url": "https://developer.deputy.com/openapi/deputy-v1-my-api.json",
+ "status": 200,
+ "content_type": "application/json; charset=utf-8",
+ "bytes": 64297,
+ "sha256": "4414687b8b3cf4ddfd5afbbb6d33c79a4bfc7553d60adfda54e94343c23b3d68",
+ "fetched_at": "2026-10-21",
+ "method": "GET",
+ "ownership": "Served by Deputy's own ReadMe developer portal (developer.deputy.com); info.title names Deputy and servers[] are Deputy tenant hosts ({install|subdomain}.{geo|region}.deputy.com)."
+}

@@ -1,0 +1,41 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for deputy-employees-api-openapi.yml
+  version: 1.0.0
+extends: openapi/deputy-employees-api-openapi.yml
+x-generated: '2026-10-21'
+x-method: generated
+actions:
+- target: $.info
+  description: Point agents at the provider llms.txt and docs MCP surface
+  update:
+    x-llms-txt: https://developer.deputy.com/llms.txt
+    x-agent-skills-index: https://developer.deputy.com/.well-known/agent-skills/index.json
+    x-mcp-docs-server:
+      url: https://developer.deputy.com/mcp
+      status: gated (HTTP 401 Bearer realm="mcp" on initialize, 2026-10-21)
+- target: $.paths['/v1/supervise/employee'].post
+  description: Tag Addanemployee with the agent skill(s) that use it
+  update:
+    x-agent-skills:
+    - skills/deputy-onboard-an-employee.md
+- target: $.paths['/v1/supervise/employee/{employeeid}'].get
+  description: Tag Getdetailsforaemployeebyid with the agent skill(s) that use it
+  update:
+    x-agent-skills:
+    - skills/deputy-onboard-an-employee.md
+- target: $.paths['/v1/supervise/employee/{employeeid}/assoc/{locationid}'].post
+  description: Tag Addalocationagainstanemployee with the agent skill(s) that use it
+  update:
+    x-agent-skills:
+    - skills/deputy-onboard-an-employee.md
+- target: $.paths['/v1/supervise/employee/{employeeid}/invite'].post
+  description: Tag InviteemployeetoDeputy with the agent skill(s) that use it
+  update:
+    x-agent-skills:
+    - skills/deputy-onboard-an-employee.md
+- target: $.paths['/management/v2/employees'].post
+  description: Tag EmployeesV2Controller_create with the agent skill(s) that use it
+  update:
+    x-agent-skills:
+    - skills/deputy-onboard-an-employee.md

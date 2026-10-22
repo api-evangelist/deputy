@@ -2,7 +2,7 @@ openapi: 3.2.0
 info:
   title: Deputy Getrecommendation API
   version: 1.0.0
-  description: 'Operations tagged Getrecommendation across 2 of this provider''s published API definitions: deputy-openapi.json, deputy-getrecommendation-api-openapi.yml. Each path carries the servers of the definition it was published in.'
+  description: 'Operations tagged Getrecommendation across 2 of this provider''s published API definitions: deputy-openapi.json, deputy-v1-supervise-api.json. Each path carries the servers of the definition it was published in.'
 servers:
 - url: https://{subdomain}.{region}.deputy.com/api/v1
   description: Deputy tenant
@@ -64,19 +64,6 @@ paths:
           - na
           - deputy
   /supervise/getrecommendation/{intRosterId}:
-    servers:
-    - url: https://{subdomain}.{region}.deputy.com/api/v1
-      description: Deputy tenant
-      variables:
-        subdomain:
-          default: your-subdomain
-        region:
-          default: deputy
-          enum:
-          - au
-          - eu
-          - na
-          - deputy
     get:
       tags:
       - Getrecommendation
@@ -137,7 +124,6 @@ paths:
           application/json:
             schema:
               type: object
-  /supervise/getrecommendation/{intRosterId}/notify:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -151,6 +137,7 @@ paths:
           - eu
           - na
           - deputy
+  /supervise/getrecommendation/{intRosterId}/notify:
     post:
       tags:
       - Getrecommendation
@@ -184,7 +171,6 @@ paths:
           application/json:
             schema:
               type: object
-  /supervise/getrecommendation/{intRosterId}/notifyallrecommended:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -198,6 +184,7 @@ paths:
           - eu
           - na
           - deputy
+  /supervise/getrecommendation/{intRosterId}/notifyallrecommended:
     post:
       tags:
       - Getrecommendation
@@ -231,7 +218,6 @@ paths:
           application/json:
             schema:
               type: object
-  /supervise/getrecommendation/{intRosterId}/reset:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -245,6 +231,7 @@ paths:
           - eu
           - na
           - deputy
+  /supervise/getrecommendation/{intRosterId}/reset:
     post:
       tags:
       - Getrecommendation
@@ -278,7 +265,6 @@ paths:
           application/json:
             schema:
               type: object
-  /supervise/getrecommendation/{intRosterId}/status:
     servers:
     - url: https://{subdomain}.{region}.deputy.com/api/v1
       description: Deputy tenant
@@ -292,6 +278,7 @@ paths:
           - eu
           - na
           - deputy
+  /supervise/getrecommendation/{intRosterId}/status:
     get:
       tags:
       - Getrecommendation
@@ -319,6 +306,19 @@ paths:
         schema:
           type: integer
           pattern: \d+
+    servers:
+    - url: https://{subdomain}.{region}.deputy.com/api/v1
+      description: Deputy tenant
+      variables:
+        subdomain:
+          default: your-subdomain
+        region:
+          default: deputy
+          enum:
+          - au
+          - eu
+          - na
+          - deputy
 components:
   securitySchemes:
     BearerAuth:
@@ -327,4 +327,8 @@ components:
       description: OAuth 2.0 access token or Deputy Permanent Token.
 x-refined-from:
 - deputy-openapi.json
-- deputy-getrecommendation-api-openapi.yml
+- deputy-v1-supervise-api.json
+x-readme:
+  explorer-enabled: true
+  proxy-enabled: true
+  samples-enabled: true

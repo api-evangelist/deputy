@@ -1,0 +1,90 @@
+arazzo: 1.0.1
+info:
+  title: Append New Deputy Timesheets to Google Sheets
+  summary: Query recent Deputy timesheets and append each as a row in a Google Sheets spreadsheet.
+  description: Recreates the Zapier template "Get new timesheets from Deputy and create spreadsheet rows in Google Sheets". Searches Deputy timesheets created after a given date through the Resource QUERY endpoint, then appends the first timesheet's fields as a row via the Sheets values append method. Looping over every timesheet is left to the runner.
+  version: 1.0.0
+sourceDescriptions:
+- name: deputyTimesheetApi
+  url: https://raw.githubusercontent.com/api-evangelist/deputy/refs/heads/main/openapi/deputy-timesheet-api-openapi.yml
+  type: openapi
+- name: googleSheetsValuesApi
+  url: https://raw.githubusercontent.com/api-evangelist/google-sheets/refs/heads/main/openapi/google-sheets-values-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: deputy-google-sheets-timesheet-rows
+  summary: Append new Deputy timesheets to a Google Sheet.
+  description: Search Deputy timesheets created after a date and append them to a spreadsheet range.
+  inputs:
+    type: object
+    properties:
+      createdAfter:
+        type: string
+        description: Date prefix to search from, e.g. 2026-10-01%.
+      spreadsheetId:
+        type: string
+      range:
+        type: string
+        description: A1 range to append into, e.g. Sheet1!A1.
+    required: [createdAfter, spreadsheetId, range]
+  steps:
+  - stepId: search-deputy-timesheets
+    description: Search Deputy timesheets created after the given date (up to 500 per response).
+    operationId: $sourceDescriptions.deputyTimesheetApi.searchTimesheet
+    requestBody:
+      contentType: application/json
+      payload:
+        search:
+          s1:
+            field: Created
+            data: $inputs.createdAfter
+            type: gt
+        max: 500
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      timesheetId: $response.body#/0/Id
+      employeeId: $response.body#/0/Employee
+      startTime: $response.body#/0/StartTime
+      endTime: $response.body#/0/EndTime
+      totalTime: $response.body#/0/TotalTime
+  - stepId: append-sheet-row
+    description: Append the timesheet as a spreadsheet row.
+    operationId: $sourceDescriptions.googleSheetsValuesApi.appendValues
+    parameters:
+    - name: spreadsheetId
+      in: path
+      value: $inputs.spreadsheetId
+    - name: range
+      in: path
+      value: $inputs.range
+    - name: valueInputOption
+      in: query
+      value: USER_ENTERED
+    requestBody:
+      contentType: application/json
+      payload:
+        values:
+        - - $steps.search-deputy-timesheets.outputs.timesheetId
+          - $steps.search-deputy-timesheets.outputs.employeeId
+          - $steps.search-deputy-timesheets.outputs.startTime
+          - $steps.search-deputy-timesheets.outputs.endTime
+          - $steps.search-deputy-timesheets.outputs.totalTime
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      updatedRange: $response.body#/updates/updatedRange
+  outputs:
+    updatedRange: $steps.append-sheet-row.outputs.updatedRange
+x-integration:
+  partner: google-sheets
+  template: https://zapier.com/apps/deputy/integrations/google-sheets/1235035/get-new-timesheets-from-deputy-and-create-spreadsheet-rows-in-google-sheets
+  edge_evidence: https://zapier.com/apps/deputy/integrations/google-sheets/1235035/get-new-timesheets-from-deputy-and-create-spreadsheet-rows-in-google-sheets
+  edge_type: marketplace
+  method: generated
+  generated: '2026-10-21'
+  generator: claude-opus-5-5 docs module
+  guessed_steps:
+  - step: search-deputy-timesheets
+    cause: provider-contract
+    why: The searchTimesheet request body schema is not declared in this spec file; the search/max body shape is taken from the docs page retrieving-timesheets-from-deputy and the searchCompany reference.

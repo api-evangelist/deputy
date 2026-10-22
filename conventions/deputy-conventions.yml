@@ -1,0 +1,69 @@
+generated: '2026-10-21'
+method: searched
+source:
+- https://developer.deputy.com/docs/getting-started-with-the-deputy-api.md
+- https://developer.deputy.com/docs/using-oauth-20.md
+- https://developer.deputy.com/docs/retrieving-timesheets-from-deputy.md
+- https://developer.deputy.com/reference/searchcompany-1.md
+- https://developer.deputy.com/docs/webhook-overview.md
+- https://developer.deputy.com/docs/common-errors-supporting-your-customers.md
+- https://developer.deputy.com/docs/public-api-facts-and-overview.md
+base_url: https://{install}.{geo}.deputy.com/api/ (every customer install has its own subdomain; geo is au, eu, uk or us)
+auth:
+  style: "Authorization: Bearer {Access Token}"
+  modes: [OAuth 2.0 authorization code, permanent token]
+  access_token_lifetime: "Deputy access tokens currently last for twenty four hours."
+  see: authentication/deputy-authentication.yml
+idempotency:
+  coverage: none
+  description: No idempotency key or replay-protection mechanism is documented, and no operation in openapi/ declares an idempotency header.
+pagination:
+  style: offset
+  params: [start, max]
+  description: Resource QUERY endpoints (POST /api/v1/resource/{Object}/QUERY) take a body with search, sort, start, max and join clauses. "The maximum amount of records included in a single response is 500"; the spec gives max a maximum of 500.
+  response_fields: none (results are returned as a JSON array)
+filtering:
+  style: search body clauses
+  example: '{"search": {"s1": {"field": "Created", "data": "2022-06-01%", "type": "gt"}}}'
+expansion:
+  param: join
+  description: QUERY bodies accept a join clause to include related objects.
+metadata:
+  field: _DPMetaData
+  description: Resource records carry a _DPMetaData object (System, display name and similar).
+request_id: none documented
+versioning:
+  style: path (/api/v1, /api/v2)
+  see: lifecycle/deputy-lifecycle.yml
+errors:
+  envelope: '{"success": false, "error": {"code": 400, "message": "...", "details": [{"type": "BAD_REQUEST", "bad_request": {"field_violations": [{"field": "...", "description": "..."}]}}]}}'
+  note: Envelope documented for the Embed provisioning endpoints; see errors/deputy-error-codes.yml and errors/deputy-problem-types.yml.
+rate_limit_signaling: none documented (see rate-limits/deputy-rate-limits.yml)
+webhooks:
+  signature_header: X-Deputy-Secret
+  signature: sha256 hmac of the body, salted with a secret key (Enterprise installs)
+  other_headers: [X-Deputy-Webhook-Callback, X-Deputy-Generation-Time]
+  payload: object with topic and data properties
+reversibility:
+  status: documented
+  note: Reversal operations exist in the contract, but the docs state no time window for any of them, so none is graded verified.
+  surfaces:
+  - write: archive a location
+    reversal: LocationProfileV2Controller_unarchive
+    window: null
+  - write: terminate an employee (Terminateanemployee / supervise_employee__employeeid_terminate_post)
+    reversal: Re-activateaterminatedemployee / supervise_employee__employeeid_activate_post
+    window: null
+  - write: task completion
+    reversal: supervise_task__id_undo_post / my_task__id_undo_post
+    window: null
+  - write: shift offer
+    reversal: ShiftOffersV2Controller_cancel / my_roster__id_offer_cancel_post
+    window: null
+  - write: roster auto-fill / draft roster changes
+    reversal: supervise_roster__cancelautofill_post / supervise_roster__discard_post
+    window: null
+  - write: timesheet
+    reversal: TsaV2Controller_discardTimesheet / TsaV2Controller_batchDiscardTimesheet
+    window: null
+dry_run_mode: none documented
