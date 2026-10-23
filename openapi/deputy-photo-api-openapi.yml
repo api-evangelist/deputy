@@ -88,3 +88,9 @@ components:
       type: http
       scheme: bearer
       description: OAuth 2.0 access token or Deputy Permanent Token.
+x-provenance:
+  method: harvested
+  publisher: Deputy
+  source: https://developer.deputy.com/openapi/deputy-v1-my-api.json
+  note: split by refine-openapis from the provider's own published document, verified by fetch (openapi/_original/*.fetch.json);
+    stamped by stamp-openapi-provenance.py (roadmap#793)
